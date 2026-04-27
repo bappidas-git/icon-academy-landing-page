@@ -1,7 +1,7 @@
 {
-  "name": "landing-page-boilerplate",
+  "name": "icon-commerce-college-landing",
   "version": "1.0.0",
-  "description": "High-converting landing page boilerplate with lead management, GTM integration, and conversion tracking. Built with React 18, MUI v5, and Framer Motion.",
+  "description": "Conversion-optimized admissions landing page for Icon Commerce College, Guwahati",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.3",
@@ -50,18 +50,19 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "/",
-  "author": "Your Agency Name",
+  "homepage": ".",
+  "author": "Icon Commerce College",
   "license": "UNLICENSED",
   "keywords": [
+    "icon-commerce-college",
+    "guwahati",
+    "admissions",
+    "gauhati-university",
+    "b-com",
+    "bba",
+    "bca",
+    "ba",
     "landing-page",
-    "lead-generation",
-    "boilerplate",
-    "react-landing-page",
-    "gtm-integration",
-    "conversion-tracking",
-    "meta-capi",
-    "google-ads",
-    "seo-optimized"
+    "react"
   ]
 }
