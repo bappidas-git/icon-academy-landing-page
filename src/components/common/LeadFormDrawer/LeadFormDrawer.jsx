@@ -15,8 +15,8 @@ import styles from './LeadFormDrawer.module.css';
 const LeadFormDrawer = ({
   isOpen,
   onClose,
-  title = 'Book Your Consultation',
-  subtitle = 'Fill in your details and our specialist will contact you',
+  title = '__TBD_ICON_CONTENT__',
+  subtitle = '__TBD_ICON_CONTENT__',
   source = 'general',
   solution = null,
   calculatorSnapshot = null,
@@ -132,7 +132,7 @@ const LeadFormDrawer = ({
                 animate="visible"
               >
                 <div className={styles.headerIcon}>
-                  <Icon icon="mdi:solar-power-variant" />
+                  <Icon icon="mdi:school-outline" />
                 </div>
                 <Typography variant="h4" id="drawer-title" className={styles.title}>
                   {title}

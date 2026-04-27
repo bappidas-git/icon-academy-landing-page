@@ -22,74 +22,26 @@ export const MODAL_TYPES = {
   CUSTOM: 'CUSTOM',
 };
 
-// Drawer title mapping based on source/context
-// Each CTA source maps to a drawer title + subtitle so the same unified
-// lead form can be reused with the appropriate context.
+// Drawer title mapping based on source/context.
+// Keys preserved for the open/close mechanics; copy strings will be authored
+// in a later prompt.
 export const DRAWER_TITLES = {
-  'header_cta': {
-    title: 'Get Your Free Quote',
-    subtitle: 'A 60-second form to unlock your rooftop solar savings plan.',
-  },
-  'hero_primary': {
-    title: 'Get Your Free Savings Plan',
-    subtitle: 'Share a few quick details — your personalised plan is 60 seconds away.',
-  },
-  'hero_mobile': {
-    title: 'Get Your Free Savings Plan',
-    subtitle: 'Share a few quick details — your personalised plan is 60 seconds away.',
-  },
-  'apply-now': {
-    title: 'Get Started With Anvil',
-    subtitle: 'Fill in your details and an Anvil Saathi will assist you.',
-  },
-  'get-details': {
-    title: 'Get Full Details',
-    subtitle: 'Complete information on your rooftop solar options.',
-  },
-  'get-course-details': {
-    title: 'Get Full Details',
-    subtitle: 'Complete information on your rooftop solar options.',
-  },
-  'book-meeting': {
-    title: 'Book a Meeting',
-    subtitle: 'Meet our rooftop solar specialists for a detailed discussion.',
-  },
-  'book-consultation': {
-    title: 'Book a Free Consultation',
-    subtitle: 'Talk to an Anvil Saathi about the right solar plan for your home.',
-  },
-  'download-brochure': {
-    title: 'Download Brochure',
-    subtitle: 'Get the complete brochure delivered to your inbox.',
-  },
-  'request-callback': {
-    title: 'Request a Callback',
-    subtitle: 'An Anvil Saathi will call you back within 24 hours.',
-  },
-  'investment-plans': {
-    title: 'View Subsidy & EMI Plans',
-    subtitle: 'Explore PM Surya Ghar subsidies and zero-down EMI options.',
-  },
-  'contact': {
-    title: 'Contact Anvil',
-    subtitle: 'Share your details and our team will respond within 24 hours.',
-  },
-  'location-section-site-survey': {
-    title: 'Book Your Free Site Survey',
-    subtitle: 'A specialist will visit to assess your roof and subsidy eligibility.',
-  },
-  'calculator': {
-    title: 'Lock In Your Savings Plan',
-    subtitle: 'We\'ll prepare a personalised quote based on your calculator inputs.',
-  },
-  'subsidy_card': {
-    title: 'See Your Exact Subsidy',
-    subtitle: 'Share a few quick details and we\'ll calculate your PM Surya Ghar + state subsidy.',
-  },
-  'default': {
-    title: 'Get Your Free Solar Quote',
-    subtitle: 'Fill the form and an Anvil Saathi will assist you.',
-  },
+  'header_cta': { title: '', subtitle: '' },
+  'hero_primary': { title: '', subtitle: '' },
+  'hero_mobile': { title: '', subtitle: '' },
+  'apply-now': { title: '', subtitle: '' },
+  'get-details': { title: '', subtitle: '' },
+  'get-course-details': { title: '', subtitle: '' },
+  'book-meeting': { title: '', subtitle: '' },
+  'book-consultation': { title: '', subtitle: '' },
+  'download-brochure': { title: '', subtitle: '' },
+  'request-callback': { title: '', subtitle: '' },
+  'investment-plans': { title: '', subtitle: '' },
+  'contact': { title: '', subtitle: '' },
+  'location-section-site-survey': { title: '', subtitle: '' },
+  'calculator': { title: '', subtitle: '' },
+  'card_cta': { title: '', subtitle: '' },
+  'default': { title: '', subtitle: '' },
 };
 
 // Provider component

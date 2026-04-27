@@ -10,7 +10,7 @@
   --primary-dark-light: #1E4A85;
   --primary-dark-lighter: #3B6FB5;
 
-  /* ========== Accent Colors - Solar Gold (was "gold/teal") ========== */
+  /* ========== Accent Colors - Gold ========== */
   --accent-gold: #FFB800;
   --accent-gold-light: #FFC939;
   --accent-gold-dark: #E6A500;
@@ -19,7 +19,7 @@
   --accent-gold-gradient-reverse: linear-gradient(135deg, #FFC939 0%, #FFB800 100%);
   --accent-gold-gradient-horizontal: linear-gradient(90deg, #FFB800 0%, #FFC939 50%, #FFB800 100%);
 
-  /* ========== Conversion Tokens (Anvil Rebuild) ========== */
+  /* ========== Conversion Tokens ========== */
   --savings-green: #10B981;
   --savings-green-dark: #047857;
   --savings-green-bg: #ECFDF5;
@@ -277,7 +277,7 @@
   --blur-xl: 24px;
 }
 
-/* ========== Semantic Aliases (used by newer Anvil components) ========== */
+/* ========== Semantic Aliases ========== */
 :root {
   --ink: var(--primary-dark);
   --ink-muted: var(--text-gray);
@@ -288,7 +288,7 @@
   --savings: var(--savings-green);
 }
 
-/* ========== Admin Panel Colors (Anvil) ========== */
+/* ========== Admin Panel Colors ========== */
 :root {
   --admin-primary: #0A1F3D;
   --admin-primary-light: #1E4A85;

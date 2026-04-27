@@ -1,4 +1,4 @@
-/* Public design tokens for the Anvil rebuild. Import in any new component. */
+/* Public design tokens. Import in any new component. */
 @import './variables.css';
 
 /* Semantic aliases — always prefer these in new code */

@@ -37,7 +37,7 @@ const MetaAdsGuide = ({ styles }) => {
           <li className={styles.guideStepItem}>
             Click "Connect Data Sources" → "Web" → "Facebook Pixel"
             <ul>
-              <li>Name your pixel (e.g., "Anvil Landing Page Pixel")</li>
+              <li>Name your pixel (e.g., "Landing Page Pixel")</li>
               <li>Click "Create Pixel"</li>
               <li>You'll see a Pixel ID (15-digit number) — copy it</li>
             </ul>
@@ -115,7 +115,7 @@ const MetaAdsGuide = ({ styles }) => {
           <li className={styles.guideStepItem}>Click "+ Create" for a new campaign</li>
           <li className={styles.guideStepItem}>Objective: Select "Leads"</li>
           <li className={styles.guideStepItem}>
-            Campaign name: <code className={styles.guideInlineCode}>Anvil - Solar Leads - [Month] [Year]</code>
+            Campaign name: <code className={styles.guideInlineCode}>__TBD_ICON_CONTENT__ - Leads - [Month] [Year]</code>
           </li>
           <li className={styles.guideStepItem}>
             Budget: Start with ₹500-800/day. Choose "Daily Budget"
@@ -150,7 +150,7 @@ const MetaAdsGuide = ({ styles }) => {
           </li>
         </ol>
         <pre className={styles.guideCode}>
-{`https://solar.anvil.energy/?utm_source=facebook&utm_medium=paid&utm_campaign=solar_leads`}
+{`https://example.com/?utm_source=facebook&utm_medium=paid&utm_campaign=leads`}
         </pre>
       </div>
 

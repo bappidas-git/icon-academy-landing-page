@@ -1,27 +1,18 @@
 /* ============================================
    Step1BillRegion
-   Step 1 of the multi-step lead form. Asks for the
-   monthly electricity bill range and install state
-   via visual chip/pill selections.
+   Step 1 of the multi-step lead form. Asks for
+   the first two qualifying questions via visual
+   chip/pill selections. Field copy is placeholder
+   pending the rebrand content prompts.
    ============================================ */
 
 import React from "react";
 import { Icon } from "@iconify/react";
 import styles from "./Step1BillRegion.module.css";
 
-const BILL_OPTIONS = [
-  { value: "<2000", label: "Under ₹2,000", icon: "mdi:flash-outline" },
-  { value: "2000-5000", label: "₹2,000 – ₹5,000", icon: "mdi:flash" },
-  { value: "5000-10000", label: "₹5,000 – ₹10,000", icon: "mdi:flash-triangle" },
-  { value: "10000+", label: "Over ₹10,000", icon: "mdi:flash-alert" },
-];
+const BILL_OPTIONS = [];
 
-const STATE_OPTIONS = [
-  { value: "Assam", label: "Assam", accent: "var(--region-assam)" },
-  { value: "Nagaland", label: "Nagaland", accent: "var(--region-nagaland)" },
-  { value: "Odisha", label: "Bhubaneswar / Odisha", accent: "var(--region-odisha)" },
-  { value: "Other", label: "Other (all India)", accent: "var(--text-gray)" },
-];
+const STATE_OPTIONS = [];
 
 const Step1BillRegion = ({ data, errors, onChange }) => {
   const handleBillSelect = (value) => onChange("monthlyBill", value);
@@ -42,9 +33,9 @@ const Step1BillRegion = ({ data, errors, onChange }) => {
         aria-labelledby="step1-bill-label"
         aria-describedby="step1-bill-hint"
       >
-        <h4 id="step1-bill-label">Your current monthly electricity bill</h4>
+        <h4 id="step1-bill-label">__TBD_ICON_CONTENT__</h4>
         <p id="step1-bill-hint" className={styles.hint}>
-          An honest number helps us size your system right. No judgement.
+          __TBD_ICON_CONTENT__
         </p>
         <div className={styles.grid}>
           {BILL_OPTIONS.map((option) => {
@@ -76,7 +67,7 @@ const Step1BillRegion = ({ data, errors, onChange }) => {
         </div>
         {errors?.monthlyBill && (
           <p className={styles.errorText} role="alert">
-            Please select an option
+            __TBD_ICON_CONTENT__
           </p>
         )}
       </section>
@@ -87,9 +78,9 @@ const Step1BillRegion = ({ data, errors, onChange }) => {
         aria-labelledby="step1-state-label"
         aria-describedby="step1-state-hint"
       >
-        <h4 id="step1-state-label">Where will we install?</h4>
+        <h4 id="step1-state-label">__TBD_ICON_CONTENT__</h4>
         <p id="step1-state-hint" className={styles.hint}>
-          We're serving homeowners across Northeast India and Bhubaneswar right now.
+          __TBD_ICON_CONTENT__
         </p>
         <div className={styles.pillRow}>
           {STATE_OPTIONS.map((option) => {
@@ -124,7 +115,7 @@ const Step1BillRegion = ({ data, errors, onChange }) => {
         </div>
         {errors?.state && (
           <p className={styles.errorText} role="alert">
-            Please select an option
+            __TBD_ICON_CONTENT__
           </p>
         )}
       </section>

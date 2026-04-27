@@ -1,9 +1,7 @@
 /* ============================================
    SuccessState
    Rendered in place of the step wizard once the
-   lead has been submitted successfully. Gives the
-   user a visceral sense of completion and the two
-   most useful next actions (WhatsApp / call).
+   lead has been submitted successfully.
    ============================================ */
 
 import React from "react";
@@ -11,18 +9,10 @@ import { motion } from "framer-motion";
 import { Icon } from "@iconify/react";
 import styles from "./SuccessState.module.css";
 
-const WHATSAPP_HREF =
-  "https://wa.me/911800202001?text=Hi%20Anvil%2C%20I%20just%20submitted%20my%20rooftop%20solar%20enquiry";
-const CALL_HREF = "tel:+911800202001";
+const WHATSAPP_HREF = "";
+const CALL_HREF = "";
 
-const NEXT_STEPS = [
-  { icon: "mdi:phone-in-talk", label: "Anvil Saathi call within 24 hrs" },
-  { icon: "mdi:file-pdf-box", label: "Personalised savings plan & quote" },
-  {
-    icon: "mdi:home-search-outline",
-    label: "Free site visit scheduled at your convenience",
-  },
-];
+const NEXT_STEPS = [];
 
 const SuccessState = ({ name }) => {
   const firstName = (name || "").trim().split(/\s+/)[0] || "there";
@@ -40,11 +30,7 @@ const SuccessState = ({ name }) => {
       </motion.span>
 
       <h3 className={styles.title}>Thank you, {firstName}! 🎉</h3>
-      <p className={styles.body}>
-        Your free savings plan is on the way. An Anvil Saathi will call you
-        within 24 hours — they'll also send a WhatsApp summary and, once
-        ready, your full PDF quote including subsidy & EMI options.
-      </p>
+      <p className={styles.body}>__TBD_ICON_CONTENT__</p>
 
       <ul className={styles.steps}>
         {NEXT_STEPS.map((item) => (
@@ -63,14 +49,14 @@ const SuccessState = ({ name }) => {
           rel="noopener noreferrer"
         >
           <Icon icon="mdi:whatsapp" aria-hidden="true" />
-          <span>Chat on WhatsApp</span>
+          <span>__TBD_ICON_CONTENT__</span>
         </a>
         <a
           className={`${styles.cta} ${styles.ctaSecondary}`}
           href={CALL_HREF}
         >
           <Icon icon="mdi:phone-outline" aria-hidden="true" />
-          <span>Call 1800 2020 001</span>
+          <span>__TBD_ICON_CONTENT__</span>
         </a>
       </div>
     </div>

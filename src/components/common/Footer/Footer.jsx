@@ -7,22 +7,11 @@
 import React from "react";
 import styles from "./Footer.module.css";
 
-const LOGO_URL = "https://solar.anvil.energy/svgs/logo.svg";
-const WHATSAPP_URL = "https://wa.me/911800202001";
+const LOGO_URL = "https://placehold.co/400x400?text=TBD+Logo";
+const WHATSAPP_URL = "";
 
-const solutionLinks = [
-  { label: "Residential Rooftop", href: "#solutions" },
-  { label: "Villa & Large Home", href: "#solutions" },
-  { label: "Housing Society", href: "#solutions" },
-  { label: "Solar + Battery", href: "#solutions" },
-];
-
-const companyLinks = [
-  { label: "How It Works", href: "#how-it-works" },
-  { label: "Calculator", href: "#calculator" },
-  { label: "Subsidies & EMI", href: "#subsidies" },
-  { label: "FAQs", href: "#faq" },
-];
+const solutionLinks = [];
+const companyLinks = [];
 
 const socialLinks = [
   { label: "LinkedIn", letter: "L" },
@@ -31,13 +20,7 @@ const socialLinks = [
   { label: "Facebook", letter: "F" },
 ];
 
-const certBadges = [
-  { src: "https://placehold.co/120x48?text=MNRE", alt: "MNRE — Ministry of New and Renewable Energy" },
-  { src: "https://placehold.co/120x48?text=BIS+Certified", alt: "BIS Certified" },
-  { src: "https://placehold.co/120x48?text=PM+Surya+Ghar+Partner", alt: "PM Surya Ghar Partner" },
-  { src: "https://placehold.co/120x48?text=Startup+India", alt: "Startup India" },
-  { src: "https://placehold.co/120x48?text=ISO+9001", alt: "ISO 9001" },
-];
+const certBadges = [];
 
 const Footer = () => {
   return (
@@ -45,16 +28,14 @@ const Footer = () => {
       {/* Strip 1 — Top CTA band */}
       <div className={styles.topBand}>
         <div className={styles.topBandInner}>
-          <p className={styles.topBandText}>
-            Not ready to commit? Start with a 2-minute chat.
-          </p>
+          <p className={styles.topBandText}>__TBD_ICON_CONTENT__</p>
           <a
             href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
             className={styles.topBandCta}
           >
-            Chat on WhatsApp →
+            __TBD_ICON_CONTENT__
           </a>
         </div>
       </div>
@@ -64,10 +45,8 @@ const Footer = () => {
         <div className={styles.mainInner}>
           {/* Col 1 — Brand */}
           <div className={styles.col}>
-            <img src={LOGO_URL} alt="Anvil Solar" className={styles.logo} />
-            <p className={styles.tagline}>
-              India&apos;s hassle-free rooftop solar partner.
-            </p>
+            <img src={LOGO_URL} alt="" className={styles.logo} />
+            <p className={styles.tagline}>__TBD_ICON_CONTENT__</p>
             <div className={styles.social}>
               {socialLinks.map((s) => (
                 <a
@@ -91,9 +70,9 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Col 2 — Solutions */}
+          {/* Col 2 — Programs */}
           <div className={styles.col}>
-            <h4>Solutions</h4>
+            <h4>__TBD_ICON_CONTENT__</h4>
             <ul>
               {solutionLinks.map((link) => (
                 <li key={link.label}>
@@ -105,7 +84,7 @@ const Footer = () => {
 
           {/* Col 3 — Company */}
           <div className={styles.col}>
-            <h4>Company</h4>
+            <h4>__TBD_ICON_CONTENT__</h4>
             <ul>
               {companyLinks.map((link) => (
                 <li key={link.label}>
@@ -117,26 +96,9 @@ const Footer = () => {
 
           {/* Col 4 — Talk to us */}
           <div className={styles.col}>
-            <h4>Talk to us</h4>
+            <h4>__TBD_ICON_CONTENT__</h4>
             <ul>
-              <li>
-                <a href="tel:+911800202001">1800 2020 001</a>
-              </li>
-              <li>
-                <a
-                  href={WHATSAPP_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  wa.me/911800202001
-                </a>
-              </li>
-              <li>
-                <a href="mailto:hello@anvil.energy">hello@anvil.energy</a>
-              </li>
-              <li className={styles.regions}>
-                Assam · Nagaland · Bhubaneswar · PAN-India
-              </li>
+              <li className={styles.regions}>__TBD_ICON_CONTENT__</li>
             </ul>
           </div>
         </div>
@@ -163,33 +125,21 @@ const Footer = () => {
       {/* Strip 4 — Bottom bar */}
       <div className={styles.bottom}>
         <div className={styles.bottomInner}>
-          <span>&copy; 2026 Anvil Energy. All rights reserved.</span>
+          <span>&copy; 2026 __TBD_ICON_CONTENT__. All rights reserved.</span>
           <div className={styles.bottomLinks}>
-            <a
-              href="https://solar.anvil.energy/privacy"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href="#" target="_blank" rel="noopener noreferrer">
               Privacy Policy
             </a>
             <span aria-hidden="true">·</span>
-            <a
-              href="https://solar.anvil.energy/terms"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href="#" target="_blank" rel="noopener noreferrer">
               Terms of Service
             </a>
             <span aria-hidden="true">·</span>
-            <a
-              href="https://solar.anvil.energy/refund"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href="#" target="_blank" rel="noopener noreferrer">
               Refund Policy
             </a>
           </div>
-          <span className={styles.tagRight}>Designed &amp; Developed by Assam Digital</span>
+          <span className={styles.tagRight}>__TBD_ICON_CONTENT__</span>
         </div>
       </div>
     </footer>

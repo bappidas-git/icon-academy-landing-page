@@ -2,9 +2,7 @@
    MultiStepLeadForm (shell)
    Three-step lead capture wizard. Wires the state
    machine, step indicator, step shell, and the
-   success state. Step UIs (bill/state selectors,
-   property questions, contact fields) each live in
-   `./steps/`.
+   success state. Step UIs each live in `./steps/`.
    ============================================ */
 
 import React, { useEffect } from "react";
@@ -19,7 +17,7 @@ import Step3Contact from "./steps/Step3Contact";
 import useLeadFormMachine from "./useLeadFormMachine";
 import styles from "./MultiStepLeadForm.module.css";
 
-const STEP_LABELS = ["Your home", "Rooftop", "Contact"];
+const STEP_LABELS = ["__TBD_ICON_CONTENT__", "__TBD_ICON_CONTENT__", "__TBD_ICON_CONTENT__"];
 
 const variantClass = (variant) => {
   switch (variant) {
@@ -37,7 +35,7 @@ const MultiStepLeadForm = ({
   solution = null,
   calculatorSnapshot = null,
   variant = "default",
-  submitButtonText = "Get My Free Savings Plan",
+  submitButtonText = "__TBD_ICON_CONTENT__",
   onClose,
   onSuccess,
 }) => {
@@ -73,9 +71,9 @@ const MultiStepLeadForm = ({
       return (
         <StepShell
           stepKey="step-1"
-          title="Quick question 1 of 3"
-          subtitle="Tell us about your bill and location."
-          legend="Step 1 of 3: Your bill and location"
+          title="__TBD_ICON_CONTENT__"
+          subtitle="__TBD_ICON_CONTENT__"
+          legend="__TBD_ICON_CONTENT__"
           onPrimary={handlePrimary}
           showBack={false}
           primaryLabel="Continue"
@@ -95,9 +93,9 @@ const MultiStepLeadForm = ({
       return (
         <StepShell
           stepKey="step-2"
-          title="Quick question 2 of 3"
-          subtitle="A little about your property so we get the design right."
-          legend="Step 2 of 3: Your property details"
+          title="__TBD_ICON_CONTENT__"
+          subtitle="__TBD_ICON_CONTENT__"
+          legend="__TBD_ICON_CONTENT__"
           onBack={canBack ? actions.back : undefined}
           showBack={canBack}
           onPrimary={handlePrimary}
@@ -117,9 +115,9 @@ const MultiStepLeadForm = ({
       return (
         <StepShell
           stepKey="step-3"
-          title="Where should Anvil Saathi call you?"
-          subtitle="Your details stay private — we'll only use them to send your plan."
-          legend="Step 3 of 3: Your contact details"
+          title="__TBD_ICON_CONTENT__"
+          subtitle="__TBD_ICON_CONTENT__"
+          legend="__TBD_ICON_CONTENT__"
           onBack={actions.back}
           onPrimary={handlePrimary}
           primaryLabel={submitButtonText}
@@ -148,7 +146,7 @@ const MultiStepLeadForm = ({
             aria-hidden="true"
             className={styles.prefillPillIcon}
           />
-          <span>Your answers from the calculator are saved.</span>
+          <span>__TBD_ICON_CONTENT__</span>
         </div>
       )}
 
@@ -163,9 +161,7 @@ const MultiStepLeadForm = ({
       </div>
 
       <div className={styles.footerTrust}>
-        <span>✓ 60-second form</span>
-        <span>✓ Free, no obligation</span>
-        <span>✓ WhatsApp friendly</span>
+        <span>__TBD_ICON_CONTENT__</span>
       </div>
     </div>
   );

@@ -1,8 +1,8 @@
-# Anvil — Rooftop Solar Landing Page
+# Landing Page Boilerplate
 
-High-converting, mobile-first landing page for Anvil Solar with integrated lead capture, admin panel, and paid-ads analytics.
+High-converting, mobile-first landing page boilerplate with integrated lead capture, admin panel, and paid-ads analytics.
 
-Production-ready React 18 + Material UI + Framer Motion landing page optimised for Google Ads + Meta Ads traffic. Built for Anvil — India's hassle-free rooftop solar partner.
+Production-ready React 18 + Material UI + Framer Motion landing page optimised for Google Ads + Meta Ads traffic. Ready to be reskinned for any brand or vertical.
 
 ## Features
 
@@ -69,7 +69,7 @@ npm start
 npm run build
 ```
 
-Admin credentials: `anvil` / `anvil@2026vip` (configured in `.env`).
+Admin credentials are configured in `.env` via `REACT_APP_ADMIN_USERNAME` and `REACT_APP_ADMIN_PASSWORD`.
 
 ## Folder Structure
 
@@ -118,7 +118,7 @@ See **[CUSTOMIZATION_GUIDE.md](CUSTOMIZATION_GUIDE.md)** for a complete step-by-
 4. **Images** — Replace `placehold.co` URLs with your actual images
 5. **SEO** — Update meta tags and schemas in `public/index.html` and `src/config/seo.js`
 6. **Webhook** — Configure Pabbly URL in `src/utils/webhookSubmit.js` (see [PABBLY_GUIDE.md](PABBLY_GUIDE.md))
-7. **Lead Management** — Copy `public/api/config.example.php` → `config.php`, set `ADMIN_API_KEY`, and set the matching `REACT_APP_LEADS_ADMIN_KEY` in `.env` (see [PABBLY_GUIDE.md](PABBLY_GUIDE.md) Part B)
+7. **Lead Management** — Copy `public/api/config.example.php` to `config.php`, set `ADMIN_API_KEY`, and set the matching `REACT_APP_LEADS_ADMIN_KEY` in `.env` (see [PABBLY_GUIDE.md](PABBLY_GUIDE.md) Part B)
 8. **Analytics** — Set up GTM container (see [GTM_GUIDE.md](GTM_GUIDE.md))
 9. **Deploy** — Run `npm run build` and deploy the `build/` folder
 

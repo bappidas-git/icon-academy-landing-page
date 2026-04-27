@@ -95,10 +95,10 @@ const Dashboard = () => {
   }, []);
 
   const statCards = [
-    { label: 'Total Solar Leads', value: stats?.totalLeads ?? 0, icon: 'mdi:account-multiple', colorClass: 'statIconBlue' },
+    { label: 'Total Leads', value: stats?.totalLeads ?? 0, icon: 'mdi:account-multiple', colorClass: 'statIconBlue' },
     { label: 'Pending Follow-ups', value: stats?.newLeads24h ?? 0, icon: 'mdi:phone-in-talk', colorClass: 'statIconGreen' },
-    { label: 'Saathi Calls Booked', value: stats?.weekLeads ?? 0, icon: 'mdi:calendar-check', colorClass: 'statIconPink' },
-    { label: 'Site Surveys Scheduled', value: `${stats?.conversionRate ?? 0}%`, icon: 'mdi:solar-panel', colorClass: 'statIconTeal' },
+    { label: 'Calls Booked', value: stats?.weekLeads ?? 0, icon: 'mdi:calendar-check', colorClass: 'statIconPink' },
+    { label: 'Conversion Rate', value: `${stats?.conversionRate ?? 0}%`, icon: 'mdi:chart-line', colorClass: 'statIconTeal' },
   ];
 
   const recentLeads = stats?.recentLeads || [];
@@ -139,9 +139,9 @@ const Dashboard = () => {
       {/* Page Header */}
       <div className={styles.pageHeader}>
         <div>
-          <h1 className={styles.pageTitle}>Welcome back to Anvil Admin</h1>
+          <h1 className={styles.pageTitle}>Welcome back to Admin</h1>
           <p className={styles.pageSubtitle}>
-            Here&rsquo;s your solar lead pipeline.
+            Here&rsquo;s your lead pipeline.
           </p>
         </div>
         <div className={styles.headerRight}>
@@ -211,7 +211,7 @@ const Dashboard = () => {
       {/* Recent Leads Section */}
       <div className={styles.recentSection}>
         <div className={styles.recentHeader}>
-          <h2 className={styles.sectionTitle}>Recent Solar Leads</h2>
+          <h2 className={styles.sectionTitle}>Recent Leads</h2>
           <Link to="/admin/lms" className={styles.viewAllLink}>
             View All <Icon icon="mdi:arrow-right" width={16} height={16} style={{ verticalAlign: 'middle' }} />
           </Link>
@@ -222,9 +222,9 @@ const Dashboard = () => {
             <div className={styles.emptyIcon}>
               <Icon icon="mdi:inbox-outline" width={56} height={56} />
             </div>
-            <p className={styles.emptyText}>No solar leads yet</p>
+            <p className={styles.emptyText}>No leads yet</p>
             <p className={styles.emptySubtext}>
-              New solar leads will appear here as they come in from your landing page forms.
+              New leads will appear here as they come in from your landing page forms.
             </p>
           </div>
         ) : (
@@ -351,7 +351,7 @@ const Dashboard = () => {
 
       {/* Footer Badge */}
       <p className={styles.footerBadge}>
-        Anvil Admin | Lead Management System v1.0
+        Admin | Lead Management System v1.0
       </p>
 
       <Snackbar

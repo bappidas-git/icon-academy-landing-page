@@ -263,25 +263,23 @@ export function generateLocalBusinessSchema(config) {
 }
 
 /**
- * Generate a top-level Service schema for Anvil's core offering
- * (rooftop solar installation with PM Surya Ghar subsidy).
+ * Generate a top-level Service schema for the core offering.
  * @returns {Object} JSON-LD Service schema
  */
-export function generateRooftopSolarServiceSchema() {
+export function generateServiceSchemaTopLevel() {
   const org = seoConfig.organization;
   return {
     '@context': 'https://schema.org',
     '@type': 'Service',
-    serviceType: 'Rooftop Solar Installation',
+    serviceType: '',
     provider: {
       '@type': 'Organization',
       name: org.name,
     },
-    areaServed: org.areaServed || ['Assam', 'Nagaland', 'Odisha', 'India'],
+    areaServed: org.areaServed || [],
     offers: {
       '@type': 'Offer',
-      description:
-        'Residential rooftop solar with PM Surya Ghar subsidy up to ₹78,000 and 0% down EMI from 7% p.a.',
+      description: '',
     },
   };
 }
@@ -417,7 +415,7 @@ export function generateProductSchema(products) {
 export function injectDefaultSchemas() {
   injectSchema('schema-organization', generateOrganizationSchema());
   injectSchema('schema-localbusiness', generateLocalBusinessSchema());
-  injectSchema('schema-service', generateRooftopSolarServiceSchema());
+  injectSchema('schema-service', generateServiceSchemaTopLevel());
   injectSchema('schema-faq', generateFAQSchema());
   injectSchema(
     'schema-breadcrumb',

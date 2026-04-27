@@ -55,9 +55,9 @@ const FAQSection = () => {
   return (
     <Section id="faq" variant="default" size="lg">
       <SectionHeading
-        eyebrow="Common questions"
-        title="Answered, honestly — no jargon."
-        subtitle="Still unsure? Ask on WhatsApp: 1800 2020 001 — we reply within 10 minutes on weekdays."
+        eyebrow="__TBD_ICON_CONTENT__"
+        title="__TBD_ICON_CONTENT__"
+        subtitle="__TBD_ICON_CONTENT__"
       />
 
       <div className={styles.wrap}>
@@ -73,13 +73,13 @@ const FAQSection = () => {
       </div>
 
       <div className={styles.bottomHelp}>
-        <span className={styles.text}>Still have questions?</span>
+        <span className={styles.text}>__TBD_ICON_CONTENT__</span>
         <button
           type="button"
           className={styles.btn}
           onClick={handleTalkToSaathi}
         >
-          Talk to an Anvil Saathi
+          __TBD_ICON_CONTENT__
         </button>
       </div>
     </Section>

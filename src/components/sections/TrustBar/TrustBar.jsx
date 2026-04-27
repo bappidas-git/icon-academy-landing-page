@@ -1,29 +1,18 @@
 /* ============================================
    TrustBar Component
-   Slim trust strip below the hero with install
-   counts, certifications, finance partners, and
-   a Google rating.
+   Slim trust strip below the hero.
    ============================================ */
 
 import React from 'react';
 import { Icon } from '@iconify/react';
 import styles from './TrustBar.module.css';
 
-const trustItems = [
-  { icon: 'mdi:home-lightning-bolt', value: '2,400+', label: 'Homes powered' },
-  { icon: 'mdi:star-circle', value: '4.9', label: 'Google rating' },
-  { icon: 'mdi:shield-check', value: '25 yr', label: 'Panel warranty' },
-  { icon: 'mdi:bank', value: 'PM Surya Ghar', label: 'Subsidy partner' },
-  { icon: 'mdi:handshake', value: '7% EMI', label: 'From SBI, HDFC & more' },
-  { icon: 'mdi:whatsapp', value: '7-day', label: 'WhatsApp support' },
-];
+const trustItems = [];
 
 const TrustBar = () => {
   return (
     <section className={styles.bar} aria-label="Trust indicators">
-      <p className={styles.tagline}>
-        Trusted across Assam, Nagaland &amp; Bhubaneswar — and 10,000+ rooftops PAN-India.
-      </p>
+      <p className={styles.tagline}>__TBD_ICON_CONTENT__</p>
       <div className={styles.row}>
         {trustItems.map((item, index) => (
           <React.Fragment key={item.label}>

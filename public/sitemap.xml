@@ -2,15 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Homepage — highest priority -->
   <url>
-    <loc>https://phpstack-780646-6370629.cloudwaysapps.com/</loc>
-    <lastmod>2026-04-24</lastmod>
+    <loc></loc>
+    <lastmod>2026-04-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <!-- Thank You page — low priority, noindex in-app but listed for completeness -->
   <url>
-    <loc>https://phpstack-780646-6370629.cloudwaysapps.com/thank-you</loc>
-    <lastmod>2026-04-24</lastmod>
+    <loc></loc>
+    <lastmod>2026-04-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
