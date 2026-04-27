@@ -284,7 +284,7 @@ Every form submission sends these fields:
 | `name` | `Rahul Sharma` | Visitor's full name |
 | `mobile` | `9876543210` | 10-digit mobile |
 | `email` | `rahul@example.com` | Email (optional) |
-| `service_interest` | `Rooftop Solar Installation` | Selected service |
+| `service_interest` | `general` | Selected service |
 | `message` | `Interested in FUE` | Optional message |
 | `source` | `hero-form` | Which form was used (see below) |
 | `lead_id` | `a1b2-c3d4-...` | Auto-generated unique ID |

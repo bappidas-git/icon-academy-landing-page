@@ -151,35 +151,25 @@ const ThankYou = () => {
         >
           <motion.div variants={itemVariants} className={styles.successCard}>
             <div className={styles.checkmark}>✓</div>
-            <h1>Your request is in. Your Anvil Saathi will call you shortly.</h1>
-            <p className={styles.subline}>
-              Thanks for choosing Anvil. A personal Saathi will call from <strong>1800 2020 001</strong> within the next 30 minutes (Mon–Sat, 9 AM – 7 PM IST) to go over your free solar savings plan.
-            </p>
+            <h1>__TBD_ICON_CONTENT__</h1>
+            <p className={styles.subline}>__TBD_ICON_CONTENT__</p>
           </motion.div>
 
           <motion.section variants={itemVariants} className={styles.nextSteps}>
-            <h2>What happens next</h2>
+            <h2>__TBD_ICON_CONTENT__</h2>
             <ol>
-              <li><strong>Quick call (5–10 min)</strong> — confirm your roof type, monthly bill, and power-cut history.</li>
-              <li><strong>Custom savings plan</strong> — we email a personalised system design + expected savings + EMI options.</li>
-              <li><strong>Site survey</strong> — if you're interested, we book a free on-site survey at your convenience.</li>
-              <li><strong>Installation & subsidy</strong> — we handle the PM Surya Ghar paperwork and install in 3–6 weeks.</li>
+              <li>__TBD_ICON_CONTENT__</li>
             </ol>
           </motion.section>
 
           <motion.div variants={itemVariants} className={styles.quickActions}>
-            <a href="https://wa.me/918002020001" className={styles.primaryAction}>
-              💬 Ping us on WhatsApp
-            </a>
             <a href="/" className={styles.secondaryAction}>
               🏠 Back to home
             </a>
           </motion.div>
 
           <motion.div variants={itemVariants} className={styles.trustRow}>
-            <span>✓ 10,000+ rooftops powered</span>
-            <span>✓ 25-year panel warranty</span>
-            <span>✓ Zero-obligation consultation</span>
+            <span>__TBD_ICON_CONTENT__</span>
           </motion.div>
         </motion.div>
       </Container>

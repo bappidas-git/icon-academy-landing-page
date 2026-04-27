@@ -14,8 +14,8 @@ const PabblySetupGuide = ({ styles }) => {
         </p>
         <p className={styles.guideParagraph}>
           Think of Pabbly as a bridge between your landing page form and your Google
-          Sheet/Email/CRM. When someone fills out the solar lead form on{' '}
-          <code className={styles.guideInlineCode}>solar.anvil.energy</code>, Pabbly
+          Sheet/Email/CRM. When someone fills out the lead form on{' '}
+          <code className={styles.guideInlineCode}>example.com</code>, Pabbly
           automatically sends that data wherever you want.
         </p>
         <div className={styles.guideNote}>
@@ -106,7 +106,7 @@ const PabblySetupGuide = ({ styles }) => {
         <ol className={styles.guideStepList}>
           <li className={styles.guideStepItem}>After login, click "Create Workflow"</li>
           <li className={styles.guideStepItem}>
-            Name it something like "Anvil - Solar Lead Capture"
+            Name it something like "__TBD_ICON_CONTENT__ - Lead Capture"
           </li>
           <li className={styles.guideStepItem}>
             For the Trigger app, search and select "Webhook / API"
@@ -158,7 +158,7 @@ const PabblySetupGuide = ({ styles }) => {
           <li className={styles.guideStepItem}>
             Start your landing page: <code className={styles.guideInlineCode}>npm start</code>
           </li>
-          <li className={styles.guideStepItem}>Go to the landing page and fill in the solar lead form</li>
+          <li className={styles.guideStepItem}>Go to the landing page and fill in the lead form</li>
           <li className={styles.guideStepItem}>Submit the form</li>
           <li className={styles.guideStepItem}>
             Go back to Pabbly → your workflow → click "History"
@@ -212,11 +212,11 @@ const PabblySetupGuide = ({ styles }) => {
           <li className={styles.guideStepItem}>
             If using Gmail: connect your Google account
           </li>
-          <li className={styles.guideStepItem}>Set recipient: hello@anvil.energy or your sales team email</li>
+          <li className={styles.guideStepItem}>Set recipient: hello@example.com or your sales team email</li>
           <li className={styles.guideStepItem}>
             Subject:{' '}
             <code className={styles.guideInlineCode}>
-              {'New Solar Lead: {{name}} - {{service_interest}}'}
+              {'New Lead: {{name}} - {{service_interest}}'}
             </code>
           </li>
           <li className={styles.guideStepItem}>
@@ -258,12 +258,12 @@ const PabblySetupGuide = ({ styles }) => {
             </tr>
             <tr>
               <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>service_interest</code></td>
-              <td className={styles.guideTableCell}>On-Grid Solar</td>
-              <td className={styles.guideTableCell}>Selected service (On-Grid Solar, Hybrid Solar, Commercial Solar, Subsidy Assistance, Financing, Site Survey, Not Sure)</td>
+              <td className={styles.guideTableCell}>__TBD_ICON_CONTENT__</td>
+              <td className={styles.guideTableCell}>Selected service (__TBD_ICON_CONTENT__)</td>
             </tr>
             <tr>
               <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>message</code></td>
-              <td className={styles.guideTableCell}>Interested in rooftop solar with subsidy</td>
+              <td className={styles.guideTableCell}>__TBD_ICON_CONTENT__</td>
               <td className={styles.guideTableCell}>Additional message from the lead (optional)</td>
             </tr>
             <tr>
@@ -288,7 +288,7 @@ const PabblySetupGuide = ({ styles }) => {
             </tr>
             <tr>
               <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>page_url</code></td>
-              <td className={styles.guideTableCell}>https://solar.anvil.energy/?utm_source=google</td>
+              <td className={styles.guideTableCell}>https://example.com/?utm_source=google</td>
               <td className={styles.guideTableCell}>Full page URL</td>
             </tr>
             <tr>
@@ -303,12 +303,12 @@ const PabblySetupGuide = ({ styles }) => {
             </tr>
             <tr>
               <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>utm_campaign</code></td>
-              <td className={styles.guideTableCell}>rooftop_solar_guwahati</td>
+              <td className={styles.guideTableCell}>__TBD_ICON_CONTENT__</td>
               <td className={styles.guideTableCell}>Campaign name</td>
             </tr>
             <tr>
               <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>utm_term</code></td>
-              <td className={styles.guideTableCell}>rooftop+solar+guwahati</td>
+              <td className={styles.guideTableCell}>__TBD_ICON_CONTENT__</td>
               <td className={styles.guideTableCell}>Search keyword</td>
             </tr>
             <tr>
@@ -335,7 +335,7 @@ const PabblySetupGuide = ({ styles }) => {
       <div className={styles.guideSection}>
         <p className={styles.guideParagraph}>
           The <code className={styles.guideInlineCode}>source</code> field tells you which form on{' '}
-          <code className={styles.guideInlineCode}>solar.anvil.energy</code> the lead came from.
+          <code className={styles.guideInlineCode}>example.com</code> the lead came from.
           All forms use the UnifiedLeadForm component:
         </p>
         <table className={styles.guideTable}>
@@ -348,7 +348,7 @@ const PabblySetupGuide = ({ styles }) => {
           <tbody>
             <tr>
               <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>hero-form</code></td>
-              <td className={styles.guideTableCell}>Main solar lead form in the Hero section</td>
+              <td className={styles.guideTableCell}>Main lead form in the Hero section</td>
             </tr>
             <tr>
               <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>contact-form</code></td>
@@ -493,7 +493,7 @@ const PabblySetupGuide = ({ styles }) => {
           Use this template for the email body in your Pabbly email notification action:
         </p>
         <pre className={styles.guideCode}>
-{`New solar lead from {{source}}
+{`New lead from {{source}}
 
 Name: {{name}}
 Mobile: {{mobile}}
@@ -713,7 +713,7 @@ REACT_APP_LEADS_ADMIN_KEY="Zk8pQ3mX9yL2wN7bV5rT1jH6cD4fG0aE"`}
       <h2 className={styles.guideTitle}>Testing Checklist</h2>
       <div className={styles.guideSection}>
         <ol className={styles.guideStepList}>
-          <li className={styles.guideStepItem}>Submit a test solar lead form on the landing page</li>
+          <li className={styles.guideStepItem}>Submit a test lead form on the landing page</li>
           <li className={styles.guideStepItem}>
             Check Pabbly workflow history — data should appear within 30 seconds
           </li>
@@ -725,7 +725,7 @@ REACT_APP_LEADS_ADMIN_KEY="Zk8pQ3mX9yL2wN7bV5rT1jH6cD4fG0aE"`}
           </li>
           <li className={styles.guideStepItem}>
             Check the admin panel at{' '}
-            <code className={styles.guideInlineCode}>solar.anvil.energy/admin/lms</code> — lead should appear
+            <code className={styles.guideInlineCode}>example.com/admin/lms</code> — lead should appear
           </li>
           <li className={styles.guideStepItem}>
             Try submitting the same phone number again — should show "Already Registered"
@@ -779,7 +779,7 @@ REACT_APP_LEADS_ADMIN_KEY="Zk8pQ3mX9yL2wN7bV5rT1jH6cD4fG0aE"`}
               <td className={styles.guideTableCell}>
                 UTM parameters must be in the landing page URL (e.g.,{' '}
                 <code className={styles.guideInlineCode}>
-                  solar.anvil.energy/?utm_source=google&utm_medium=cpc
+                  example.com/?utm_source=google&utm_medium=cpc
                 </code>).
               </td>
             </tr>

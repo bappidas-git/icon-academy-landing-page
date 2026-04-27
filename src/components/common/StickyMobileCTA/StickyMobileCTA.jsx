@@ -23,7 +23,7 @@ import { trackCTAClick } from '../../../utils/gtm';
 import { trackCtaClickEvent, trackFunnelStep } from '../../../utils/leadEvents';
 import styles from './StickyMobileCTA.module.css';
 
-const SALES_PHONE_TEL = (process.env.REACT_APP_SALES_PHONE || '+911800202001').replace(/\s+/g, '');
+const SALES_PHONE_TEL = (process.env.REACT_APP_SALES_PHONE || '').replace(/\s+/g, '');
 const WHATSAPP_NUMBER = SALES_PHONE_TEL.replace(/[^0-9]/g, '');
 
 const StickyMobileCTA = () => {
@@ -67,7 +67,7 @@ const StickyMobileCTA = () => {
             href={`tel:${SALES_PHONE_TEL}`}
             className={styles.cell}
             onClick={handleCallClick}
-            aria-label="Call Anvil"
+            aria-label="Call"
           >
             <Icon icon="mdi:phone" aria-hidden="true" />
             <span>Call</span>
@@ -79,7 +79,7 @@ const StickyMobileCTA = () => {
             rel="noopener noreferrer"
             className={`${styles.cell} ${styles.whatsapp}`}
             onClick={handleWhatsAppClick}
-            aria-label="WhatsApp Anvil"
+            aria-label="WhatsApp"
           >
             <Icon icon="mdi:whatsapp" aria-hidden="true" />
             <span>WhatsApp</span>

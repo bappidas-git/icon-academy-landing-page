@@ -7,9 +7,9 @@ const TestimonialCard = ({ testimonial }) => {
     name,
     city,
     avatar,
-    rooftopPhoto,
-    systemKw,
-    monthlySavings,
+    photo,
+    metricLabel,
+    metricValue,
     quote,
     rating = 5,
   } = testimonial;
@@ -17,8 +17,8 @@ const TestimonialCard = ({ testimonial }) => {
   return (
     <article className={styles.card}>
       <img
-        src={rooftopPhoto}
-        alt={`Rooftop solar installation in ${city}`}
+        src={photo}
+        alt={`Photo for testimonial from ${city}`}
         className={styles.photo}
         loading="lazy"
         decoding="async"
@@ -40,9 +40,9 @@ const TestimonialCard = ({ testimonial }) => {
         <p className={styles.quote}>&ldquo;{quote}&rdquo;</p>
 
         <div className={styles.metrics}>
-          <span className={styles.metric}>System: {systemKw}</span>
+          <span className={styles.metric}>{metricLabel}</span>
           <span className={`${styles.metric} ${styles.savings}`}>
-            Saves {monthlySavings}/mo
+            {metricValue}
           </span>
         </div>
 

@@ -3,9 +3,7 @@
    Final step of the multi-step lead form. Collects
    name, mobile, optional email, and consent. Shows
    a summary chip of previous answers and a trust
-   strip beneath the consent checkbox. A lightweight
-   privacy modal lives inline so Step3 does not need
-   to touch UnifiedLeadForm.
+   strip beneath the consent checkbox.
    ============================================ */
 
 import React, { useState } from "react";
@@ -53,23 +51,7 @@ const PrivacyModal = ({ open, onClose }) => {
               </IconButton>
             </div>
             <div className={styles.privacyBody}>
-              <p>
-                Anvil Energy respects your privacy. We collect your name,
-                mobile number, and (optional) email address only to prepare
-                your rooftop solar savings plan and to schedule a free site
-                visit.
-              </p>
-              <p>
-                Your information is never sold. It is shared only with the
-                Anvil Saathi assigned to your enquiry and with our secure
-                tools that store rooftop designs, subsidy forms, and quotes.
-              </p>
-              <p>
-                You can ask us to delete your data at any time by writing to{" "}
-                <strong>privacy@anvilenergy.in</strong>. By ticking the
-                consent box you agree to be contacted by Anvil on WhatsApp,
-                phone, or email regarding this enquiry only.
-              </p>
+              <p>__TBD_ICON_CONTENT__</p>
             </div>
           </motion.div>
         </motion.div>
@@ -79,47 +61,19 @@ const PrivacyModal = ({ open, onClose }) => {
   );
 };
 
-const formatBillLabel = (bill) => {
-  switch (bill) {
-    case "<2000":
-      return "Under ₹2,000";
-    case "2000-5000":
-      return "₹2,000–5,000";
-    case "5000-10000":
-      return "₹5,000–10,000";
-    case "10000+":
-      return "Over ₹10,000";
-    default:
-      return bill;
-  }
-};
-
 const Step3Contact = ({ data, errors, context, onChange }) => {
   const [privacyOpen, setPrivacyOpen] = useState(false);
 
-  const snapshot = context?.calculatorSnapshot;
-
-  const snapshotParts = snapshot
-    ? [
-        snapshot.state,
-        snapshot.systemKw != null && `${snapshot.systemKw} kW`,
-        snapshot.monthlySavings != null &&
-          `save ₹${Number(snapshot.monthlySavings).toLocaleString("en-IN")}/mo`,
-      ].filter(Boolean)
-    : [];
-
   const dataParts = [
-    data.monthlyBill && `${formatBillLabel(data.monthlyBill)} bill`,
+    data.monthlyBill,
     data.state,
     data.propertyType,
     data.systemPreference,
   ].filter(Boolean);
 
-  const contextParts = snapshotParts.length > 0 ? snapshotParts : dataParts;
-
   return (
     <div>
-      {contextParts.length > 0 && (
+      {dataParts.length > 0 && (
         <div className={styles.contextChip} aria-label="Your plan summary">
           <Icon
             icon="mdi:sparkles"
@@ -127,7 +81,7 @@ const Step3Contact = ({ data, errors, context, onChange }) => {
             className={styles.contextIcon}
           />
           <span>
-            <strong>Your plan:</strong> {contextParts.join(" · ")}
+            <strong>__TBD_ICON_CONTENT__</strong> {dataParts.join(" · ")}
           </span>
         </div>
       )}
@@ -139,7 +93,7 @@ const Step3Contact = ({ data, errors, context, onChange }) => {
         <TextField
           fullWidth
           id="lead-full-name"
-          placeholder="e.g. Ankit Deka"
+          placeholder=""
           value={data.name}
           onChange={(event) => onChange("name", event.target.value)}
           error={Boolean(errors?.name)}
@@ -185,7 +139,7 @@ const Step3Contact = ({ data, errors, context, onChange }) => {
 
       <div className={styles.field}>
         <label className={styles.fieldLabel} htmlFor="lead-email">
-          Email <span className={styles.optional}>(optional — we'll send your savings plan)</span>
+          Email <span className={styles.optional}>(optional)</span>
         </label>
         <TextField
           fullWidth
@@ -214,9 +168,9 @@ const Step3Contact = ({ data, errors, context, onChange }) => {
           inputProps={{ "aria-describedby": "lead-consent-help" }}
         />
         <span id="lead-consent-help">
-          I agree to be contacted by Anvil on WhatsApp / call / email about my
-          rooftop solar enquiry. See{" "}
+          __TBD_ICON_CONTENT__{" "}
           <a
+            href="#"
             role="button"
             tabIndex={0}
             onClick={(event) => {
@@ -242,11 +196,7 @@ const Step3Contact = ({ data, errors, context, onChange }) => {
       )}
 
       <div className={styles.trustRow} aria-hidden="true">
-        <span>🔒 100% confidential</span>
-        <span>·</span>
-        <span>⭐ 4.9 Google rating</span>
-        <span>·</span>
-        <span>⚡ Reply within 24 hrs</span>
+        <span>__TBD_ICON_CONTENT__</span>
       </div>
 
       <PrivacyModal

@@ -88,8 +88,8 @@ const Guideline = () => {
       <div className={styles.modalOverlay}>
         <div className={styles.modalCard}>
           <img
-            src="https://solar.anvil.energy/svgs/logo.svg"
-            alt="Anvil"
+            src="/svgs/logo.svg"
+            alt="Logo"
             className={styles.modalLogo}
           />
           <h2 className={styles.modalTitle}>Restricted Access</h2>

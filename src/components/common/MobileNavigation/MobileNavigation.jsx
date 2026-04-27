@@ -10,7 +10,7 @@ import { Icon } from "@iconify/react";
 import { trackPhoneClick, trackNavigation, trackCTAClick } from "../../../utils/gtm";
 import styles from "./MobileNavigation.module.css";
 
-const SALES_PHONE_TEL = (process.env.REACT_APP_SALES_PHONE || "+918002020001").replace(/\s+/g, "");
+const SALES_PHONE_TEL = (process.env.REACT_APP_SALES_PHONE || "").replace(/\s+/g, "");
 
 // Navigation items configuration
 const navItems = [
@@ -21,22 +21,6 @@ const navItems = [
     color: "var(--primary-dark)",
     action: "scroll",
     href: "#home",
-  },
-  {
-    id: "calculator",
-    label: "Calculator",
-    icon: "mdi:calculator",
-    color: "var(--primary-dark)",
-    action: "scroll",
-    href: "#calculator",
-  },
-  {
-    id: "services",
-    label: "Solutions",
-    icon: "mdi:solar-panel",
-    color: "var(--primary-dark)",
-    action: "scroll",
-    href: "#services",
   },
   {
     id: "call",

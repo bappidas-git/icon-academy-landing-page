@@ -29,7 +29,7 @@ const GTMSetupGuide = ({ styles }) => {
           </li>
           <li className={styles.guideStepItem}>Click "Create Account"</li>
           <li className={styles.guideStepItem}>
-            Account name: Anvil. Container name: solar.anvil.energy. Platform: "Web"
+            Account name: __TBD_ICON_CONTENT__. Container name: example.com. Platform: "Web"
           </li>
           <li className={styles.guideStepItem}>
             Accept the terms of service — you'll get a container ID like{' '}

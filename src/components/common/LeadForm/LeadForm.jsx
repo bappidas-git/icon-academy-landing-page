@@ -31,16 +31,8 @@ import {
 } from '../../../utils/validators';
 import styles from './LeadForm.module.css';
 
-// Service interest options for solar enquiries
-const SERVICE_OPTIONS = [
-  { value: 'On-Grid Solar', label: 'On-Grid Rooftop Solar (residential)' },
-  { value: 'Hybrid Solar', label: 'Hybrid Solar with Battery Backup' },
-  { value: 'Commercial Solar', label: 'Commercial / Industrial Solar' },
-  { value: 'Subsidy Assistance', label: 'PM Surya Ghar Subsidy Help' },
-  { value: 'Financing', label: 'Solar Loan / EMI' },
-  { value: 'Site Survey', label: 'Free Site Survey' },
-  { value: 'Not Sure', label: "I'm not sure yet — advise me" },
-];
+// Service interest options
+const SERVICE_OPTIONS = [];
 
 // Initial form state
 const initialFormState = {
@@ -62,9 +54,9 @@ const initialErrorState = {
 
 const LeadForm = ({
   variant = 'default', // 'default', 'compact', 'dark', 'card'
-  title = 'Get your free solar savings plan',
-  subtitle = 'Share a few details — your Anvil Saathi will call you within 30 minutes.',
-  submitButtonText = 'Book My Free Call',
+  title = '__TBD_ICON_CONTENT__',
+  subtitle = '__TBD_ICON_CONTENT__',
+  submitButtonText = '__TBD_ICON_CONTENT__',
   showTitle = true,
   showCourseFields = true,
   onSubmitSuccess,
@@ -244,8 +236,8 @@ const LeadForm = ({
       // Handle duplicate lead (409 Conflict)
       if (response.status === 409 || data.data?.duplicate) {
         await showInfo(
-          'Already Registered!',
-          'You have already submitted an enquiry with this email or mobile number. Our team will contact you soon.'
+          '__TBD_ICON_CONTENT__',
+          '__TBD_ICON_CONTENT__'
         );
         return;
       }
@@ -269,8 +261,8 @@ const LeadForm = ({
       // Show success message with SweetAlert2
       await showAlert({
         icon: 'success',
-        title: 'Request received',
-        text: 'Your Anvil Saathi will call within 30 minutes!',
+        title: '__TBD_ICON_CONTENT__',
+        text: '__TBD_ICON_CONTENT__',
         confirmButtonColor: '#0A1F3D',
         confirmButtonText: 'Great!',
         timer: 3000,
@@ -374,7 +366,7 @@ const LeadForm = ({
             inputRef={nameRef}
             fullWidth
             label="Full Name"
-            placeholder="e.g., Priya Sharma"
+            placeholder=""
             variant="outlined"
             value={formData.name}
             onChange={handleChange('name')}
@@ -422,7 +414,7 @@ const LeadForm = ({
             helperText={
               touched.mobile && errors.mobile
                 ? errors.mobile
-                : "We'll only call to schedule your site survey"
+                : "__TBD_ICON_CONTENT__"
             }
             disabled={isSubmitting}
             className={styles.textField}
@@ -469,7 +461,7 @@ const LeadForm = ({
                 startAdornment={
                   <InputAdornment position="start">
                     <Icon
-                      icon="mdi:solar-power-variant"
+                      icon="mdi:school-outline"
                       className={styles.inputIcon}
                       style={variant === 'dark' ? { color: '#FFFFFF99' } : undefined}
                     />
@@ -479,7 +471,7 @@ const LeadForm = ({
                   if (!selected) {
                     return (
                       <span style={{ color: variant === 'dark' ? '#FFFFFF80' : undefined, opacity: variant === 'dark' ? 1 : 0.5 }}>
-                        Select a solar solution
+                        __TBD_ICON_CONTENT__
                       </span>
                     );
                   }
@@ -556,7 +548,7 @@ const LeadForm = ({
             inputRef={messageRef}
             fullWidth
             label="Anything specific? (optional)"
-            placeholder="e.g., my monthly bill is ₹4,000 and I'm in Gurugram"
+            placeholder=""
             variant="outlined"
             value={formData.message}
             onChange={handleChange('message')}
@@ -615,7 +607,7 @@ const LeadForm = ({
             className={styles.privacyNote}
             sx={variant === 'dark' ? { color: '#FFFFFFB3 !important' } : undefined}
           >
-            By submitting, you agree to be contacted by Anvil about your solar enquiry. We never share your details.
+            __TBD_ICON_CONTENT__
           </Typography>
         </motion.div>
 
@@ -634,7 +626,7 @@ const LeadForm = ({
                   onClose={() => setSubmitStatus(null)}
                 >
                   {submitStatus === 'success'
-                    ? 'Thanks! Your Anvil Saathi will call you within 30 minutes.'
+                    ? '__TBD_ICON_CONTENT__'
                     : 'Failed to submit. Please try again.'}
                 </Alert>
               </Collapse>

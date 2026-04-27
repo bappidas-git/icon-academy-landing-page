@@ -23,16 +23,12 @@ import styles from "./MobileDrawer.module.css";
 
 // Navigation menu items
 const menuItems = [
-  { id: "calculator", label: "See My Savings", icon: "mdi:calculator-variant-outline", href: "#calculator" },
-  { id: "solutions", label: "Solutions", icon: "mdi:view-grid-outline", href: "#solutions" },
-  { id: "how-it-works", label: "How It Works", icon: "mdi:timeline-check-outline", href: "#how-it-works" },
-  { id: "subsidies", label: "Subsidies & EMI", icon: "mdi:bank-outline", href: "#subsidies" },
   { id: "faq", label: "FAQs", icon: "mdi:help-circle-outline", href: "#faq" },
 ];
 
-const SALES_PHONE_DISPLAY = process.env.REACT_APP_SALES_PHONE || "+91 1800 2020 001";
-const SALES_PHONE_TEL = (process.env.REACT_APP_SALES_PHONE || "+918002020001").replace(/\s+/g, "");
-const WHATSAPP_NUMBER = (process.env.REACT_APP_WHATSAPP_NUMBER || "+918002020001").replace(/[^\d]/g, "");
+const SALES_PHONE_DISPLAY = process.env.REACT_APP_SALES_PHONE || "";
+const SALES_PHONE_TEL = (process.env.REACT_APP_SALES_PHONE || "").replace(/\s+/g, "");
+const WHATSAPP_NUMBER = (process.env.REACT_APP_WHATSAPP_NUMBER || "").replace(/[^\d]/g, "");
 
 const SOCIAL_LINKS = [
   { id: "facebook", icon: "mdi:facebook", label: "Facebook", href: process.env.REACT_APP_FACEBOOK_URL },
@@ -167,13 +163,11 @@ const MobileDrawer = ({ open, onClose, onOpen, onBookConsultation, activeSection
       <Box className={styles.drawerHeader}>
         <Box className={styles.logoSection}>
           <img
-            src="https://solar.anvil.energy/svgs/logo.svg"
-            alt="Anvil Solar"
+            src="https://placehold.co/400x400?text=TBD+Logo"
+            alt=""
             style={{ height: "32px", width: "auto" }}
           />
-          <p className={styles.brandTagline}>
-            Your Anvil Saathi for rooftop solar
-          </p>
+          <p className={styles.brandTagline}>__TBD_ICON_CONTENT__</p>
         </Box>
         <IconButton
           onClick={onClose}
@@ -322,7 +316,7 @@ const MobileDrawer = ({ open, onClose, onOpen, onBookConsultation, activeSection
             }}
           >
             <Icon icon="mdi:calendar-check" style={{ fontSize: 20 }} />
-            <span>Book Your Free Call</span>
+            <span>__TBD_ICON_CONTENT__</span>
           </motion.button>
         </Box>
       </Box>

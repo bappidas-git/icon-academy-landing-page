@@ -6,7 +6,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
-  Box,
   Container,
   Typography,
   Grid,
@@ -25,10 +24,10 @@ import styles from "./HeroSection.module.css";
 // Hero images with fallbacks
 const HERO_IMAGES = {
   desktop: [
-    "https://placehold.co/1600x900?text=Assam+Home+With+Rooftop+Solar+Panels+Sunrise",
+    "https://placehold.co/1600x900?text=TBD",
   ],
   mobile: [
-    "https://placehold.co/800x1000?text=Rooftop+Solar+Installation+Northeast+India",
+    "https://placehold.co/800x1000?text=TBD",
   ],
 };
 
@@ -81,12 +80,7 @@ const buttonVariants = {
 };
 
 // Trust indicators data
-const trustIndicators = [
-  { icon: "mdi:sun-wireless", text: "Free design + savings plan" },
-  { icon: "mdi:bank", text: "PM Surya Ghar subsidy ₹78,000" },
-  { icon: "mdi:shield-sun", text: "25-yr panel warranty" },
-  { icon: "mdi:whatsapp", text: "WhatsApp support 7 days" },
-];
+const trustIndicators = [];
 
 const HeroSection = () => {
   const theme = useTheme();
@@ -143,7 +137,7 @@ const HeroSection = () => {
           className={styles.heroBgImage}
           style={{ backgroundImage: `url('${heroImageUrl}')` }}
           role="img"
-          aria-label="Modern home with rooftop solar panels installed by Anvil"
+          aria-label=""
         />
       )}
 
@@ -168,7 +162,7 @@ const HeroSection = () => {
               <motion.div variants={badgeVariants}>
                 <Chip
                   icon={<span className={styles.pulseDot} />}
-                  label="Serving Assam • Nagaland • Bhubaneswar"
+                  label="__TBD_ICON_CONTENT__"
                   className={styles.launchBadge}
                   sx={{
                     backgroundColor: "#FFB800",
@@ -204,8 +198,7 @@ const HeroSection = () => {
                     marginTop: "1.5rem",
                   }}
                 >
-                  Slash your power bill.{" "}
-                  <span className={styles.accent}>Own your sun.</span>
+                  __TBD_ICON_CONTENT__
                 </Typography>
               </motion.div>
 
@@ -223,21 +216,7 @@ const HeroSection = () => {
                     lineHeight: 1.55,
                   }}
                 >
-                  Save up to{" "}
-                  <Box
-                    component="span"
-                    sx={{ color: "#FFB800", fontWeight: 700 }}
-                  >
-                    90% on electricity
-                  </Box>{" "}
-                  with rooftop solar — plus a{" "}
-                  <Box
-                    component="span"
-                    sx={{ color: "#FFB800", fontWeight: 700 }}
-                  >
-                    ₹78,000 PM Surya Ghar subsidy
-                  </Box>{" "}
-                  and zero-down-payment EMIs from 7%. Free site survey.
+                  __TBD_ICON_CONTENT__
                 </Typography>
               </motion.div>
 
@@ -254,7 +233,7 @@ const HeroSection = () => {
                     trackCTAClick(
                       "hero_primary_cta",
                       "hero",
-                      "Get My Free Savings Plan",
+                      "__TBD_ICON_CONTENT__",
                     );
                     openLeadDrawer({
                       source: isMobile ? "hero_mobile" : "hero_primary",
@@ -278,19 +257,19 @@ const HeroSection = () => {
                     transition: "all 0.3s ease",
                   }}
                 >
-                  Get My Free Savings Plan →
+                  __TBD_ICON_CONTENT__
                 </Button>
                 <Button
                   variant="outlined"
                   size="large"
                   className={styles.secondaryCta}
                   component="a"
-                  href="#calculator"
+                  href="#"
                   onClick={() => {
                     trackCTAClick(
                       "hero_secondary_cta",
                       "hero",
-                      "See My Savings",
+                      "__TBD_ICON_CONTENT__",
                     );
                   }}
                   sx={{
@@ -311,7 +290,7 @@ const HeroSection = () => {
                     transition: "all 0.3s ease",
                   }}
                 >
-                  See My Savings
+                  __TBD_ICON_CONTENT__
                 </Button>
               </motion.div>
 

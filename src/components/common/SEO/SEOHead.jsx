@@ -14,7 +14,7 @@ import {
   removeSchema,
   generateOrganizationSchema,
   generateLocalBusinessSchema,
-  generateRooftopSolarServiceSchema,
+  generateServiceSchemaTopLevel,
   generateFAQSchema,
   generateBreadcrumbSchema,
   generateWebPageSchema,
@@ -49,7 +49,7 @@ const SEOHead = () => {
       // Home-only structured data: LocalBusiness, Service, FAQPage
       // + supporting Organization, Breadcrumb, WebPage
       injectSchema('schema-localbusiness', generateLocalBusinessSchema());
-      injectSchema('schema-service', generateRooftopSolarServiceSchema());
+      injectSchema('schema-service', generateServiceSchemaTopLevel());
       injectSchema('schema-faq', generateFAQSchema());
       injectSchema('schema-organization', generateOrganizationSchema());
       injectSchema(

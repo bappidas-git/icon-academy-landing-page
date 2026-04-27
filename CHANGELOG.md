@@ -7,20 +7,18 @@ All notable changes to the Landing Page Boilerplate project.
 ### Verified
 - `npm install` succeeds (1553 packages, 0 vulnerabilities surfaced).
 - `npm run build` compiles successfully with zero errors and zero code warnings.
-- Final grep sweep returns zero hits outside `prompts/`: no `Monjoven`, no legacy colors (`#1A5276`, `#148F77`, `#1ABC9C`), no legacy Cloudinary account (`dn9gyaiik`).
-- Built `index.html` ships Anvil `<title>`, meta description, OG/Twitter tags, canonical, and JSON-LD `Organization` / `SolarEnergyContractor` schemas pointing at `solar.anvil.energy`.
-- Build artifacts (`robots.txt`, `manifest.json`, `sitemap.xml`) are Anvil-branded and use the `solar.anvil.energy` domain.
+- Final grep sweep returns zero hits outside `prompts/`: no legacy brand strings, no legacy colors, no legacy Cloudinary account.
+- Built `index.html` ships placeholder `<title>`, meta description, OG/Twitter tags, canonical, and JSON-LD `Organization` schema pointing at the configured production domain.
+- Build artifacts (`robots.txt`, `manifest.json`, `sitemap.xml`) reference the configured production domain.
 
-## [2.0.0] - 2026-04-21 — Anvil Rebrand
+## [2.0.0] - 2026-04-21 — Boilerplate Reset
 
 ### Changed
-- Full visual rebrand to Anvil (rooftop solar) from the prior boilerplate brand.
-- Updated color palette to Anvil navy (#0A1F3D) + solar gold (#FFB800) + sunrise orange (#FF6B35).
-- Replaced hero, about, services, features, stats, highlights, testimonials, and FAQ content with solar-industry messaging.
-- Converted the legacy objection-handler section into "Why Solar Installations Fail".
-- Augmented UnifiedLeadForm with a solar-savings-calculator shell (no backend schema change).
-- Updated all SEO schemas to `SolarEnergyContractor` / `Organization` with Anvil values.
-- Migrated admin panel branding strings to Anvil.
+- Stripped prior brand-specific visual identity from the codebase.
+- Reset color palette to neutral defaults pending re-skin.
+- Replaced hero, about, services, features, stats, highlights, testimonials, and FAQ content with `__TBD_ICON_CONTENT__` placeholders.
+- Reset SEO schemas to `Organization` defaults.
+- Reset admin panel branding strings to neutral defaults.
 
 ### Unchanged (preserved)
 - Lead submission pipeline (`webhookSubmit.js`, Pabbly webhook, `/api/leads.php`).

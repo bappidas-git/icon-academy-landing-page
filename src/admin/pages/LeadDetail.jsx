@@ -36,18 +36,18 @@ import styles from "./LeadDetail.module.css";
 // Status config
 const STATUS_OPTIONS = [
   { value: "new", label: "New Lead", color: "#2B7BD5", bg: "#EBF5FF" },
-  { value: "contacted", label: "Saathi Called", color: "#F59E0B", bg: "#FFF7ED" },
-  { value: "consultation_booked", label: "Saathi Call Booked", color: "#8B5CF6", bg: "#F3E8FF" },
+  { value: "contacted", label: "Contacted", color: "#F59E0B", bg: "#FFF7ED" },
+  { value: "consultation_booked", label: "Consultation Booked", color: "#8B5CF6", bg: "#F3E8FF" },
   { value: "procedure_scheduled", label: "Site Survey Scheduled", color: "#0097A7", bg: "#E0F7FA" },
-  { value: "completed", label: "Solar Installed", color: "#10B981", bg: "#ECFDF5" },
+  { value: "completed", label: "Completed", color: "#10B981", bg: "#ECFDF5" },
   { value: "not_interested", label: "Not Interested", color: "#EF4444", bg: "#FEF2F2" },
 ];
 
 const CONVERSION_TYPES = [
-  "Saathi Call Completed",
+  "Consultation Completed",
   "Site Survey Booked",
   "Site Survey Completed",
-  "Solar Installed",
+  "Completed",
   "Referral",
   "Other",
 ];
@@ -352,8 +352,8 @@ const LeadDetail = () => {
           {/* Interest Details */}
           <div className={styles.card}>
             <h3 className={styles.cardTitle}>
-              <Icon icon="mdi:solar-panel" width={16} />
-              Solar Interest
+              <Icon icon="mdi:tag-outline" width={16} />
+              Interest
             </h3>
             <div className={styles.infoGrid}>
               <div className={styles.infoField}>

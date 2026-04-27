@@ -1,7 +1,7 @@
 {
-  "short_name": "Anvil",
-  "name": "Anvil — Rooftop Solar for Homes & Businesses",
-  "description": "End-to-end rooftop solar installation across India — design, PM Surya Ghar subsidy, financing, installation, and lifetime support from your Anvil Saathi.",
+  "short_name": "",
+  "name": "",
+  "description": "",
   "icons": [
     {
       "src": "favicon.ico",
@@ -26,7 +26,7 @@
   "orientation": "portrait-primary",
   "theme_color": "#0A1F3D",
   "background_color": "#FFFFFF",
-  "categories": ["business", "energy", "utilities"],
+  "categories": ["education"],
   "lang": "en",
   "dir": "ltr",
   "scope": "/",

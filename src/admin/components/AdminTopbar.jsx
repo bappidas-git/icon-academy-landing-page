@@ -58,8 +58,8 @@ const AdminTopbar = () => {
     <header className={styles.topbar}>
       <div className={styles.topbarLeft}>
         <img
-          src="https://solar.anvil.energy/svgs/logo.svg"
-          alt="Anvil"
+          src="/svgs/logo.svg"
+          alt="Logo"
           className={styles.logo}
         />
         <span className={styles.divider} />
@@ -111,8 +111,8 @@ const AdminTopbar = () => {
             {/* Logo at top */}
             <div className={styles.mobileMenuHeader}>
               <img
-                src="https://solar.anvil.energy/svgs/logo.svg"
-                alt="Anvil"
+                src="/svgs/logo.svg"
+                alt="Logo"
                 className={styles.mobileMenuLogo}
               />
             </div>
@@ -151,7 +151,7 @@ const AdminTopbar = () => {
             </div>
 
             {/* Footer */}
-            <p className={styles.mobileMenuFooter}>Anvil Admin</p>
+            <p className={styles.mobileMenuFooter}>Admin</p>
           </div>
         </div>
       )}

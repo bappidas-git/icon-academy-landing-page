@@ -12,21 +12,17 @@ import { trackCtaClickEvent } from "../../../utils/leadEvents";
 import { useModal } from "../../../context/ModalContext";
 import styles from "./Header.module.css";
 
-const LOGO_URL = "https://solar.anvil.energy/svgs/logo.svg";
-const LOGO_WHITE_URL = "https://solar.anvil.energy/svgs/logo.svg";
-const BRAND_NAME = process.env.REACT_APP_NAME || "Anvil";
+const LOGO_URL = "https://placehold.co/400x400?text=TBD+Logo";
+const LOGO_WHITE_URL = "https://placehold.co/400x400?text=TBD+Logo";
+const BRAND_NAME = process.env.REACT_APP_NAME || "";
 
-const SALES_PHONE_DISPLAY = process.env.REACT_APP_SALES_PHONE || "+91 1800 2020 001";
+const SALES_PHONE_DISPLAY = process.env.REACT_APP_SALES_PHONE || "";
 const SALES_PHONE_TEL =
   process.env.REACT_APP_WHATSAPP_NUMBER ||
-  (process.env.REACT_APP_SALES_PHONE || "+918002020001").replace(/\s+/g, "");
+  (process.env.REACT_APP_SALES_PHONE || "").replace(/\s+/g, "");
 
 // Navigation items
 const navItems = [
-  { label: "See My Savings", href: "#calculator", icon: "mdi:calculator-variant-outline" },
-  { label: "Solutions", href: "#solutions", icon: "mdi:view-grid-outline" },
-  { label: "How It Works", href: "#how-it-works", icon: "mdi:timeline-check-outline" },
-  { label: "Subsidies & EMI", href: "#subsidies", icon: "mdi:bank-outline" },
   { label: "FAQs", href: "#faq", icon: "mdi:help-circle-outline" },
 ];
 
@@ -171,7 +167,7 @@ const Header = ({ forceCloseMenu = false }) => {
             <div className={styles.logoWrapper}>
               <img
                 src={isScrolled ? LOGO_URL : LOGO_WHITE_URL}
-                alt={`${BRAND_NAME} — rooftop solar for homes and businesses`}
+                alt={BRAND_NAME}
                 className={styles.mainLogo}
                 style={{
                   height: "40px",
@@ -224,13 +220,13 @@ const Header = ({ forceCloseMenu = false }) => {
                 className={styles.callButton}
                 onClick={(e) => {
                   e.preventDefault();
-                  trackCtaClickEvent("header_cta", "header", "Get Free Quote");
+                  trackCtaClickEvent("header_cta", "header", "__TBD_ICON_CONTENT__");
                   openLeadDrawer("header_cta");
                   setIsMobileMenuOpen(false);
                 }}
               >
                 <Icon icon="mdi:phone" className={styles.callButtonIcon} />
-                Get Free Quote
+                __TBD_ICON_CONTENT__
               </a>
             </motion.div>
           )}
@@ -312,10 +308,6 @@ const Header = ({ forceCloseMenu = false }) => {
 // Helper function to get navigation icons
 const getNavIcon = (label) => {
   const icons = {
-    "See My Savings": "mdi:calculator-variant-outline",
-    Solutions: "mdi:view-grid-outline",
-    "How It Works": "mdi:timeline-check-outline",
-    "Subsidies & EMI": "mdi:bank-outline",
     FAQs: "mdi:help-circle-outline",
   };
   return icons[label] || "mdi:circle-outline";

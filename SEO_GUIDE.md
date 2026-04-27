@@ -12,12 +12,12 @@ All meta tags are in `public/index.html` under the `<!-- SEO Meta Tags -->` sect
 
 | Tag | Location in `index.html` | What to Change | Example |
 |-----|--------------------------|----------------|---------|
-| `<title>` | Line ~171 | Business name + primary keyword, max 60 chars | `<title>Anvil \| Rooftop Solar Installation Across India</title>` |
-| `meta description` | Line ~51 | Summarize offer + CTA, max 160 chars | `content="Anvil delivers hassle-free rooftop solar installation, subsidy paperwork, and 25-year performance warranty. Book a free solar savings estimate today."` |
-| `meta keywords` | Line ~55 | Comma-separated target keywords | `content="rooftop solar india, residential solar installation, solar subsidy, on-grid solar, solar savings calculator"` |
-| `meta author` | Line ~58 | Legal entity name | `content="Anvil Energy Pvt. Ltd."` |
+| `<title>` | Line ~171 | Business name + primary keyword, max 60 chars | `<title>__TBD_ICON_CONTENT__</title>` |
+| `meta description` | Line ~51 | Summarize offer + CTA, max 160 chars | `content="__TBD_ICON_CONTENT__"` |
+| `meta keywords` | Line ~55 | Comma-separated target keywords | `content="__TBD_ICON_CONTENT__"` |
+| `meta author` | Line ~58 | Legal entity name | `content="__TBD_ICON_CONTENT__"` |
 | `meta robots` | Line ~59 | `index, follow` for landing page | `content="index, follow"` |
-| `canonical` | Line ~105 | Production URL of this page | `href="https://landing.anvilsolar.com/"` |
+| `canonical` | Line ~105 | Production URL of this page | `href="https://landing.yourbusiness.com/"` |
 
 **Title format:** `{Page Title} | {Business Name}` — keep under 60 characters.
 
@@ -45,14 +45,14 @@ Located in `public/index.html` under `<!-- Open Graph / Facebook -->` (lines ~65
 | Tag | Example Value |
 |-----|---------------|
 | `og:type` | `website` |
-| `og:url` | `https://landing.anvilsolar.com/` |
-| `og:title` | `Anvil \| Rooftop Solar Installation Across India` |
-| `og:description` | `Hassle-free rooftop solar — end-to-end installation, subsidy paperwork, and 25-year performance warranty. Book a free solar savings estimate today.` |
-| `og:image` | `https://landing.anvilsolar.com/og-image.jpg` |
+| `og:url` | `https://landing.yourbusiness.com/` |
+| `og:title` | `__TBD_ICON_CONTENT__` |
+| `og:description` | `__TBD_ICON_CONTENT__` |
+| `og:image` | `https://landing.yourbusiness.com/og-image.jpg` |
 | `og:image:width` | `1200` |
 | `og:image:height` | `630` |
-| `og:image:alt` | `Anvil rooftop solar installation` |
-| `og:site_name` | `Anvil` |
+| `og:image:alt` | `__TBD_ICON_CONTENT__` |
+| `og:site_name` | `__TBD_ICON_CONTENT__` |
 | `og:locale` | `en_US` |
 
 **OG image requirements:**
@@ -73,10 +73,10 @@ Located in `public/index.html` under `<!-- Twitter Card -->` (lines ~89-100).
 | Tag | Example Value |
 |-----|---------------|
 | `twitter:card` | `summary_large_image` |
-| `twitter:url` | `https://landing.anvilsolar.com/` |
-| `twitter:title` | `Anvil \| Rooftop Solar Installation Across India` |
-| `twitter:description` | `Hassle-free rooftop solar — end-to-end installation, subsidy paperwork, and 25-year performance warranty. Book a free solar savings estimate today.` |
-| `twitter:image` | `https://landing.anvilsolar.com/og-image.jpg` |
+| `twitter:url` | `https://landing.yourbusiness.com/` |
+| `twitter:title` | `__TBD_ICON_CONTENT__` |
+| `twitter:description` | `__TBD_ICON_CONTENT__` |
+| `twitter:image` | `https://landing.yourbusiness.com/og-image.jpg` |
 
 Keep the `twitter:title` and `twitter:description` consistent with OG tags. Use the same image file.
 
@@ -96,15 +96,15 @@ Fields to update:
 
 | Field | Where in `seo.js` | Example |
 |-------|-------------------|---------|
-| `name` | `organization.name` | `"Anvil Energy Pvt. Ltd."` |
-| `url` | `organization.url` | `"https://landing.anvilsolar.com"` |
-| `logo` | `organization.logo` | `"https://landing.anvilsolar.com/logo.png"` |
+| `name` | `organization.name` | `"__TBD_ICON_CONTENT__"` |
+| `url` | `organization.url` | `"https://landing.yourbusiness.com"` |
+| `logo` | `organization.logo` | `"https://landing.yourbusiness.com/logo.png"` |
 | `phone` | `organization.phone` | `"+91-80-0000-0000"` |
-| `email` | `organization.email` | `"hello@anvilsolar.com"` |
-| `address` | `organization.address` | `{ addressLocality: "Bengaluru", addressRegion: "Karnataka", addressCountry: "IN" }` |
+| `email` | `organization.email` | `"hello@yourbusiness.com"` |
+| `address` | `organization.address` | `{ addressLocality: "City", addressRegion: "State", addressCountry: "IN" }` |
 | `founder` | `organization.founder` | `{ name: "Founder Name", jobTitle: "Founder & CEO" }` |
 | `foundingDate` | `organization.foundingDate` | `"2020-01-01"` |
-| `sameAs` | `organization.sameAs` | `["https://www.facebook.com/anvilsolar/", "https://www.instagram.com/anvilsolar"]` |
+| `sameAs` | `organization.sameAs` | `["https://www.facebook.com/yourbusiness/", "https://www.instagram.com/yourbusiness"]` |
 
 ### LocalBusiness Schema
 
@@ -114,7 +114,7 @@ Fields to update:
 
 | Field | Where in `seo.js` | Example |
 |-------|-------------------|---------|
-| `type` | `localBusiness.type` | `"SolarEnergyContractor"` (or `"Organization"`) |
+| `type` | `localBusiness.type` | `"Organization"` (or another schema.org business subtype) |
 | `priceRange` | `localBusiness.priceRange` | `"$$"` |
 | `openingHours` | `localBusiness.openingHours` | `{ days: ["Monday"..."Saturday"], opens: "09:00", closes: "19:00" }` |
 | `geo` | `localBusiness.geo` | `{ latitude: "12.9716", longitude: "77.5946" }` |
@@ -132,8 +132,8 @@ Write 5-8 real FAQs about your business. Each entry uses this format:
 ```js
 // src/config/seo.js → faqs array
 {
-  question: 'What solar system sizes does Anvil install?',
-  answer: 'Anvil designs and installs on-grid rooftop solar systems from 3 kW to 100 kW for homes, housing societies, and commercial buildings across India.'
+  question: '__TBD_ICON_CONTENT__',
+  answer: '__TBD_ICON_CONTENT__'
 }
 ```
 
@@ -142,10 +142,10 @@ The generator outputs this JSON-LD structure:
 ```json
 {
   "@type": "Question",
-  "name": "What solar system sizes does Anvil install?",
+  "name": "__TBD_ICON_CONTENT__",
   "acceptedAnswer": {
     "@type": "Answer",
-    "text": "Anvil designs and installs on-grid rooftop solar systems from 3 kW to 100 kW for homes, housing societies, and commercial buildings across India."
+    "text": "__TBD_ICON_CONTENT__"
   }
 }
 ```
@@ -168,7 +168,7 @@ For a single-page landing page, only one breadcrumb is needed:
       "@type": "ListItem",
       "position": 1,
       "name": "Home",
-      "item": "https://landing.anvilsolar.com/"
+      "item": "https://landing.yourbusiness.com/"
     }
   ]
 }
@@ -186,9 +186,9 @@ The service schema is auto-generated from `servicesData.js`. Each service entry 
 ```js
 // src/data/servicesData.js
 {
-  id: 'emergency-repair',
-  name: 'Emergency Pipe Repair',
-  description: '24/7 emergency pipe repair for burst pipes, leaks, and water damage.',
+  id: 'example-service',
+  name: 'Example Service',
+  description: '__TBD_ICON_CONTENT__',
   duration: 'Starting at $150',  // populates offers.description
 }
 ```
@@ -212,7 +212,7 @@ Update the domain and `lastmod` date:
 
 ```xml
 <url>
-  <loc>https://landing.anvilsolar.com/</loc>
+  <loc>https://landing.yourbusiness.com/</loc>
   <lastmod>2026-04-01</lastmod>
   <changefreq>weekly</changefreq>
   <priority>1.0</priority>
@@ -233,7 +233,7 @@ Disallow: /admin/
 Disallow: /admin/login
 Disallow: /thank-you
 
-Sitemap: https://landing.anvilsolar.com/sitemap.xml
+Sitemap: https://landing.yourbusiness.com/sitemap.xml
 ```
 
 ---

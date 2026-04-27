@@ -59,10 +59,10 @@ import styles from "./LeadManagement.module.css";
 // Status config
 const STATUS_OPTIONS = [
   { value: "new", label: "New Lead", color: "#2B7BD5", bg: "#EBF5FF" },
-  { value: "contacted", label: "Saathi Called", color: "#F59E0B", bg: "#FFF7ED" },
+  { value: "contacted", label: "Contacted", color: "#F59E0B", bg: "#FFF7ED" },
   {
     value: "consultation_booked",
-    label: "Saathi Call Booked",
+    label: "Consultation Booked",
     color: "#8B5CF6",
     bg: "#F3E8FF",
   },
@@ -72,7 +72,7 @@ const STATUS_OPTIONS = [
     color: "#0097A7",
     bg: "#E0F7FA",
   },
-  { value: "completed", label: "Solar Installed", color: "#10B981", bg: "#ECFDF5" },
+  { value: "completed", label: "Completed", color: "#10B981", bg: "#ECFDF5" },
   {
     value: "not_interested",
     label: "Not Interested",
@@ -439,9 +439,9 @@ const LeadManagement = () => {
       {/* Page Header */}
       <div className={styles.pageHeader}>
         <div>
-          <h1 className={styles.pageTitle}>Solar Leads</h1>
+          <h1 className={styles.pageTitle}>Leads</h1>
           <p className={styles.pageSubtitle}>
-            View and manage all solar leads in one place.
+            View and manage all leads in one place.
           </p>
         </div>
         <div className={styles.headerActions}>
@@ -897,11 +897,11 @@ const LeadManagement = () => {
             <div className={styles.emptyIcon}>
               <Icon icon="mdi:account-group-outline" width={64} height={64} />
             </div>
-            <p className={styles.emptyText}>No solar leads found</p>
+            <p className={styles.emptyText}>No leads found</p>
             <p className={styles.emptySubtext}>
               {hasActiveFilters
                 ? "No results match your current filters. Try adjusting your search or filters."
-                : "New solar leads will appear here as they come in from your landing page forms."}
+                : "New leads will appear here as they come in from your landing page forms."}
             </p>
             {hasActiveFilters && (
               <Button

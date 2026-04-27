@@ -1,8 +1,8 @@
 /* ============================================
    useLeadFormMachine
-   State machine for the 3-step Anvil lead form.
-   Owns per-step validation, context (injected from
-   the calling section), and the webhook/analytics
+   State machine for the 3-step lead form. Owns
+   per-step validation, context (injected from the
+   calling section), and the webhook/analytics
    submission pipeline. Consumed by MultiStepLeadForm.
    ============================================ */
 
@@ -41,51 +41,19 @@ const INITIAL_DATA = {
 const INITIAL_CONTEXT = {
   source: "hero",
   solution: null,
-  calculatorSnapshot: null,
-};
-
-// Keep in sync with Step1BillRegion STATE_OPTIONS.
-const STEP1_STATE_VALUES = ["Assam", "Nagaland", "Odisha", "Other"];
-
-function bucketBill(n) {
-  const num = Number(n);
-  if (!Number.isFinite(num) || num <= 0) return "";
-  if (num < 2000) return "<2000";
-  if (num < 5000) return "2000-5000";
-  if (num < 10000) return "5000-10000";
-  return "10000+";
-}
-
-const mapSnapshotState = (rawState) => {
-  if (!rawState) return "";
-  return STEP1_STATE_VALUES.includes(rawState) ? rawState : "Other";
 };
 
 const buildInitialState = (initialContext = {}) => {
   const context = { ...INITIAL_CONTEXT, ...initialContext };
   const data = { ...INITIAL_DATA };
-  let step = 1;
-  let initialStepSkipped = false;
-
-  const snap = context.calculatorSnapshot;
-  if (snap) {
-    const bill = bucketBill(snap.monthlyBill);
-    const state = mapSnapshotState(snap.state);
-    if (bill) data.monthlyBill = bill;
-    if (state) data.state = state;
-    if (bill && state) {
-      step = 2;
-      initialStepSkipped = true;
-    }
-  }
 
   return {
-    step,
+    step: 1,
     data,
     errors: {},
     isSubmitting: false,
     context,
-    initialStepSkipped,
+    initialStepSkipped: false,
   };
 };
 
@@ -109,8 +77,7 @@ const reducer = (state, action) => {
       return { ...state, step: state.step === 3 ? 3 : state.step + 1, errors: {} };
     case "GO_BACK": {
       if (state.step === 1 || state.step === "success") return state;
-      const minStep = state.initialStepSkipped ? 2 : 1;
-      if (state.step <= minStep) return state;
+      if (state.step <= 1) return state;
       return { ...state, step: state.step - 1, errors: {} };
     }
     case "SET_SUBMITTING":
@@ -126,17 +93,17 @@ const reducer = (state, action) => {
 
 const validateStep1 = (data) => {
   const errors = {};
-  if (!data.monthlyBill) errors.monthlyBill = "Select your average bill range";
-  if (!data.state) errors.state = "Select your state";
+  if (!data.monthlyBill) errors.monthlyBill = "__TBD_ICON_CONTENT__";
+  if (!data.state) errors.state = "__TBD_ICON_CONTENT__";
   return errors;
 };
 
 const validateStep2 = (data) => {
   const errors = {};
-  if (!data.propertyType) errors.propertyType = "Select your property type";
-  if (!data.roofType) errors.roofType = "Select your roof type";
+  if (!data.propertyType) errors.propertyType = "__TBD_ICON_CONTENT__";
+  if (!data.roofType) errors.roofType = "__TBD_ICON_CONTENT__";
   if (!data.systemPreference)
-    errors.systemPreference = "Select a system preference";
+    errors.systemPreference = "__TBD_ICON_CONTENT__";
   return errors;
 };
 
@@ -154,7 +121,7 @@ const validateStep3 = (data) => {
   }
 
   if (!data.consent) {
-    errors.consent = "Please accept the terms to continue";
+    errors.consent = "__TBD_ICON_CONTENT__";
   }
   return errors;
 };
@@ -171,22 +138,8 @@ const validateStep = (step, data) => {
 const buildEnrichedMessage = (data, context) => {
   const parts = [];
 
-  const snap = context?.calculatorSnapshot;
-  if (snap) {
-    const calcBits = [
-      snap.systemKw != null && `${snap.systemKw}kW`,
-      snap.monthlySavings != null &&
-        `save ₹${Number(snap.monthlySavings).toLocaleString("en-IN")}/mo`,
-      snap.paybackYears != null && `payback ${snap.paybackYears}yr`,
-      snap.state && `${snap.state}`,
-      snap.monthlyBill != null && `bill ₹${snap.monthlyBill}`,
-    ].filter(Boolean);
-    if (calcBits.length) parts.push(`Calc: ${calcBits.join(", ")}`);
-  } else {
-    if (data.monthlyBill) parts.push(`Bill: ₹${data.monthlyBill}`);
-    if (data.state) parts.push(`State: ${data.state}`);
-  }
-
+  if (data.monthlyBill) parts.push(`Bill: ${data.monthlyBill}`);
+  if (data.state) parts.push(`State: ${data.state}`);
   if (data.propertyType) parts.push(`Property: ${data.propertyType}`);
   if (data.roofType) parts.push(`Roof: ${data.roofType}`);
   if (data.systemPreference) parts.push(`Pref: ${data.systemPreference}`);
@@ -249,12 +202,11 @@ const useLeadFormMachine = (initialContext = {}) => {
   const back = useCallback(() => {
     const currentStep = state.step;
     if (currentStep === 1 || currentStep === "success") return;
-    const minStep = state.initialStepSkipped ? 2 : 1;
-    if (typeof currentStep === "number" && currentStep > minStep) {
+    if (typeof currentStep === "number" && currentStep > 1) {
       trackFunnelStep("form_step_viewed", { step: currentStep - 1 });
     }
     dispatch({ type: "GO_BACK" });
-  }, [state.step, state.initialStepSkipped]);
+  }, [state.step]);
 
   const submit = useCallback(
     async ({ onSuccess, onClose } = {}) => {
@@ -270,10 +222,7 @@ const useLeadFormMachine = (initialContext = {}) => {
       const { data, context } = state;
 
       if (isDuplicateLead(data.mobile, data.email)) {
-        await showInfo(
-          "Already Registered!",
-          "An enquiry with this mobile number or email has already been submitted. Our team will contact you soon."
-        );
+        await showInfo("__TBD_ICON_CONTENT__", "__TBD_ICON_CONTENT__");
         return { success: false, duplicate: true };
       }
 
@@ -295,7 +244,7 @@ const useLeadFormMachine = (initialContext = {}) => {
         const result = await submitLeadToWebhook(leadData);
 
         if (!result.success) {
-          await showError("Oops!", result.message);
+          await showError("__TBD_ICON_CONTENT__", result.message);
           dispatch({ type: "SET_SUBMITTING", value: false });
           return { success: false };
         }
@@ -303,7 +252,6 @@ const useLeadFormMachine = (initialContext = {}) => {
         trackFunnelStep("form_submitted", {
           source,
           solution: context.solution,
-          hasSnapshot: !!context.calculatorSnapshot,
         });
 
         trackFormSubmission(source, {
@@ -346,10 +294,7 @@ const useLeadFormMachine = (initialContext = {}) => {
         return { success: true };
       } catch (error) {
         console.error("Lead submission error:", error);
-        await showError(
-          "Something went wrong",
-          "Please try again or call us directly at 1800 2020 001."
-        );
+        await showError("__TBD_ICON_CONTENT__", "__TBD_ICON_CONTENT__");
         dispatch({ type: "SET_SUBMITTING", value: false });
         return { success: false };
       }

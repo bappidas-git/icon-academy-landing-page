@@ -41,12 +41,12 @@ const AdminLogin = () => {
         <div className={styles.loginHeader}>
           <div className={styles.loginLogo}>
             <img
-              src="https://solar.anvil.energy/svgs/logo.svg"
-              alt="Anvil"
+              src="/svgs/logo.svg"
+              alt="Logo"
             />
           </div>
-          <h1 className={styles.loginTitle}>Anvil Admin</h1>
-          <p className={styles.loginSubtitle}>Sign in to manage solar leads.</p>
+          <h1 className={styles.loginTitle}>Admin</h1>
+          <p className={styles.loginSubtitle}>Sign in to manage leads.</p>
         </div>
 
         <form onSubmit={handleSubmit} className={styles.form}>

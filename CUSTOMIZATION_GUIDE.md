@@ -28,8 +28,8 @@ Key variables to update:
 | `REACT_APP_WHATSAPP_NUMBER` | WhatsApp number (no dashes) |
 | `REACT_APP_SALES_EMAIL` | Sales email address |
 | `REACT_APP_OFFICE_ADDRESS` | Full office address |
-| `REACT_APP_ADMIN_USERNAME` | Admin panel username (default: `anvil`) |
-| `REACT_APP_ADMIN_PASSWORD` | Admin panel password (default: `anvil@2026vip`) |
+| `REACT_APP_ADMIN_USERNAME` | Admin panel username |
+| `REACT_APP_ADMIN_PASSWORD` | Admin panel password |
 | `REACT_APP_LEADS_API_URL` | Path to `leads.php` (default: `/api/leads.php`). Required for Admin Panel. |
 | `REACT_APP_LEADS_ADMIN_KEY` | Secret shared with `ADMIN_API_KEY` in `public/api/config.php`. Required for Admin Panel. |
 | `REACT_APP_ADMIN_PABBLY_WEBHOOK_URL` | Optional — only for mirroring admin actions to a second Pabbly workflow. Leave blank otherwise. |

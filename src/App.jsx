@@ -46,13 +46,6 @@ const ThankYouPage = lazy(() => import('./pages/ThankYou/ThankYou'));
 const AdminLayout = lazy(() => import('./admin/components/AdminLayout'));
 
 // Lazy loaded sections for performance (Below the fold)
-const SolutionsSection = lazy(() => import('./components/sections/SolutionsSection/SolutionsSection'));
-const CalculatorSection = lazy(() => import('./components/sections/CalculatorSection/CalculatorSection'));
-const HowItWorksSection = lazy(() => import('./components/sections/HowItWorksSection/HowItWorksSection'));
-const SubsidiesSection = lazy(() => import('./components/sections/SubsidiesSection/SubsidiesSection'));
-const FinancingSection = lazy(() => import('./components/sections/FinancingSection/FinancingSection'));
-const TestimonialsSection = lazy(() => import('./components/sections/TestimonialsSection/TestimonialsSection'));
-const InstallGallery = lazy(() => import('./components/sections/InstallGallery/InstallGallery'));
 const FAQSection = lazy(() => import('./components/sections/FAQSection/FAQSection'));
 const FinalCTASection = lazy(() => import('./components/sections/FinalCTASection/FinalCTASection'));
 
@@ -322,15 +315,8 @@ const useIdlePreload = () => {
     // Preload sections during idle time
     if ('requestIdleCallback' in window) {
       const sections = [
-        () => import('./components/sections/FinalCTASection/FinalCTASection'),
-        () => import('./components/sections/SolutionsSection/SolutionsSection'),
-        () => import('./components/sections/CalculatorSection/CalculatorSection'),
-        () => import('./components/sections/HowItWorksSection/HowItWorksSection'),
-        () => import('./components/sections/SubsidiesSection/SubsidiesSection'),
-        () => import('./components/sections/FinancingSection/FinancingSection'),
-        () => import('./components/sections/TestimonialsSection/TestimonialsSection'),
-        () => import('./components/sections/InstallGallery/InstallGallery'),
         () => import('./components/sections/FAQSection/FAQSection'),
+        () => import('./components/sections/FinalCTASection/FinalCTASection'),
       ];
 
       let currentIndex = 0;
@@ -445,48 +431,6 @@ const HomePageContent = () => {
         <TrustBar />
 
         {/* Lazy loaded sections with error boundaries */}
-        <ErrorBoundary>
-          <Suspense fallback={<SectionLoader height={500} variant="skeleton" />}>
-            <SolutionsSection />
-          </Suspense>
-        </ErrorBoundary>
-
-        <ErrorBoundary>
-          <Suspense fallback={<SectionLoader height={500} variant="skeleton" />}>
-            <CalculatorSection />
-          </Suspense>
-        </ErrorBoundary>
-
-        <ErrorBoundary>
-          <Suspense fallback={<SectionLoader height={500} variant="skeleton" />}>
-            <HowItWorksSection />
-          </Suspense>
-        </ErrorBoundary>
-
-        <ErrorBoundary>
-          <Suspense fallback={<SectionLoader height={500} variant="skeleton" />}>
-            <SubsidiesSection />
-          </Suspense>
-        </ErrorBoundary>
-
-        <ErrorBoundary>
-          <Suspense fallback={<SectionLoader height={500} variant="skeleton" />}>
-            <FinancingSection />
-          </Suspense>
-        </ErrorBoundary>
-
-        <ErrorBoundary>
-          <Suspense fallback={<SectionLoader height={500} variant="skeleton" />}>
-            <TestimonialsSection />
-          </Suspense>
-        </ErrorBoundary>
-
-        <ErrorBoundary>
-          <Suspense fallback={<SectionLoader height={500} variant="skeleton" />}>
-            <InstallGallery />
-          </Suspense>
-        </ErrorBoundary>
-
         <ErrorBoundary>
           <Suspense fallback={<SectionLoader height={500} variant="skeleton" />}>
             <FAQSection />

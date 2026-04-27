@@ -1,8 +1,7 @@
 /* ============================================
    TestimonialsSection
-   Regional social proof from Assam, Nagaland, and
-   Odisha homeowners. Swiper slider: 3-up on
-   desktop, 1.1-per-view on mobile with autoplay.
+   Social proof slider. Swiper: 3-up on desktop,
+   1.1-per-view on mobile with autoplay.
    ============================================ */
 
 import React from 'react';
@@ -23,9 +22,9 @@ const TestimonialsSection = () => {
   return (
     <Section id="testimonials" variant="default" size="lg">
       <SectionHeading
-        eyebrow="Real homes. Real savings."
-        title="Homeowners across the Northeast & Bhubaneswar have already switched."
-        subtitle="Every review is verified. Every savings number comes from a live meter."
+        eyebrow="__TBD_ICON_CONTENT__"
+        title="__TBD_ICON_CONTENT__"
+        subtitle="__TBD_ICON_CONTENT__"
       />
 
       <Reveal variant="fade" className={styles.sliderWrap}>
@@ -56,9 +55,7 @@ const TestimonialsSection = () => {
         </Swiper>
       </Reveal>
 
-      <p className={styles.summary}>
-        <span className={styles.summaryStrong}>⭐ 4.9 / 5</span> from 200+ verified reviews · Google rated
-      </p>
+      <p className={styles.summary}>__TBD_ICON_CONTENT__</p>
     </Section>
   );
 };
