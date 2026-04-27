@@ -1,6 +1,24 @@
 # Changelog
 
-All notable changes to the Landing Page Boilerplate project.
+All notable changes to the Icon Commerce College admissions landing page (originally derived from a generic landing-page boilerplate).
+
+## [2.0.0] — 2026-04-27 — Icon Commerce College Rebrand
+
+### Changed
+- Repurposed Anvil rooftop solar landing page boilerplate for Icon Commerce College admissions.
+- Replaced all brand strings, color palette, typography, copy, and section composition.
+- New programs section (B.Com, B.A., BBA, BCA) with Gauhati University affiliation messaging.
+- New 3-step admission lead form (program/stream → background → contact).
+
+### Added
+- Faculty showcase, Campus Life (ICON Shield, College Week), Admission Process (Samarth Portal walkthrough), Fee Structure (per-program), Scholarships sections.
+
+### Removed
+- Solar-domain sections (Calculator, Subsidies, Financing, Solutions, How It Works, Install Gallery) and their data files.
+- Solar lexicon from copy, schemas, and SEO config.
+
+### Preserved
+- Lead Management System, Admin Panel, webhook integration, GTM/Meta CAPI/Google Ads tracking, ModalContext drawer mechanics.
 
 ## [2.0.1] - 2026-04-22 — Production Readiness Verification
 

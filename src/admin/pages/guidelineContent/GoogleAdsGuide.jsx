@@ -7,16 +7,17 @@ const GoogleAdsGuide = ({ styles }) => {
       <h2 className={styles.guideTitle}>What is Google Ads?</h2>
       <div className={styles.guideSection}>
         <p className={styles.guideParagraph}>
-          Google Ads is Google's online advertising platform that lets you show ads to people who are
-          actively searching for your products or services. When someone searches for your service on
-          Google, your ad appears at the top of the results. You only pay when someone clicks on your
-          ad and visits your landing page.
+          Google Ads is Google's online advertising platform that lets you show ads to prospective
+          students who are actively searching for an admission. When someone searches "B.Com
+          admissions Guwahati" or "BBA college Assam", your Icon Commerce College ad appears at the
+          top of the results. You only pay when someone clicks the ad and lands on the admissions
+          page.
         </p>
         <p className={styles.guideParagraph}>
           There are several types of Google Ads campaigns (Search, Display, Video, Shopping, etc.),
-          but Search campaigns are the most relevant for lead generation landing pages. With Search
-          campaigns, your ads appear when people type specific keywords into Google — meaning they
-          already have intent and are actively looking for what you offer.
+          but Search campaigns are the most relevant for admission lead generation. With Search
+          campaigns, your ads appear when prospective students type specific keywords — meaning
+          they already have admission intent and are actively shortlisting colleges.
         </p>
       </div>
 
@@ -58,7 +59,7 @@ const GoogleAdsGuide = ({ styles }) => {
           <li className={styles.guideStepItem}>Select campaign type: "Search"</li>
           <li className={styles.guideStepItem}>
             Campaign name: something descriptive like{' '}
-            <code className={styles.guideInlineCode}>__TBD_ICON_CONTENT__</code>
+            <code className={styles.guideInlineCode}>Icon Commerce College — B.Com Admissions 2026 — Guwahati</code>
           </li>
           <li className={styles.guideStepItem}>
             Networks: Uncheck "Display Network" and "Search Partners" (focus budget on Google
@@ -92,16 +93,34 @@ const GoogleAdsGuide = ({ styles }) => {
         <p className={styles.guideParagraph}>
           Use Google Keyword Planner (free with your Google Ads account) to find relevant keywords.
           To access it: go to your Google Ads dashboard → click "Tools" in the top menu → select
-          "Keyword Planner" under Planning. Enter a few words related to your service and it will
-          suggest keywords along with their monthly search volume and competition level.
+          "Keyword Planner" under Planning. Enter a few words related to admissions ("B.Com Guwahati",
+          "BBA college Assam", "Gauhati University admissions") and it will suggest keywords along
+          with their monthly search volume and competition level.
         </p>
 
         <h3 className={styles.guideSubtitle}>Example Keywords</h3>
         <p className={styles.guideParagraph}>
-          Your keywords might look like:
+          For Icon Commerce College, group your keywords by program and intent. A starter list:
         </p>
         <pre className={styles.guideCode}>
-{`__TBD_ICON_CONTENT__`}
+{`# Program + city
+"b.com admissions guwahati"
+"bba college guwahati"
+"bca admission assam"
+"b.a. honours college guwahati"
+
+# Affiliation
+"gauhati university affiliated commerce college"
+"nep 2020 college guwahati"
+
+# Brand
+"icon commerce college"
+"icon commerce college admissions 2026"
+
+# Long-tail intent
+"best b.com college in chandmari guwahati"
+"commerce college near rajgarh road"
+"admission process gauhati university 2026"`}
         </pre>
 
         <h3 className={styles.guideSubtitle}>Match Types</h3>
@@ -121,20 +140,20 @@ const GoogleAdsGuide = ({ styles }) => {
           <tbody>
             <tr>
               <td className={styles.guideTableCell}>Broad Match</td>
-              <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>plumber delhi</code></td>
-              <td className={styles.guideTableCell}>plumber delhi</td>
+              <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>bcom college guwahati</code></td>
+              <td className={styles.guideTableCell}>bcom college guwahati</td>
               <td className={styles.guideTableCell}>Related searches, synonyms, misspellings — widest reach but least control</td>
             </tr>
             <tr>
               <td className={styles.guideTableCell}>Phrase Match</td>
-              <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>"plumber delhi"</code></td>
-              <td className={styles.guideTableCell}>"plumber delhi"</td>
+              <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>"bcom college guwahati"</code></td>
+              <td className={styles.guideTableCell}>"bcom college guwahati"</td>
               <td className={styles.guideTableCell}>Searches that include the meaning of your keyword — good balance</td>
             </tr>
             <tr>
               <td className={styles.guideTableCell}>Exact Match</td>
-              <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>[plumber delhi]</code></td>
-              <td className={styles.guideTableCell}>[plumber delhi]</td>
+              <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>[bcom college guwahati]</code></td>
+              <td className={styles.guideTableCell}>[bcom college guwahati]</td>
               <td className={styles.guideTableCell}>Searches that match the exact meaning — most control but lowest reach</td>
             </tr>
           </tbody>
@@ -146,21 +165,27 @@ const GoogleAdsGuide = ({ styles }) => {
 
         <h3 className={styles.guideSubtitle}>Negative Keywords</h3>
         <p className={styles.guideParagraph}>
-          Negative keywords prevent your ad from showing for irrelevant searches. For example, if you
-          offer paid services, you don't want your ad showing when someone searches "free plumber."
-          Common negative keywords to add:
+          Negative keywords prevent your ad from showing for irrelevant searches. For an
+          admissions-focused campaign, you don't want clicks from job seekers, MBA aspirants
+          (different program), or distance-learning queries. Common negative keywords to add:
         </p>
         <pre className={styles.guideCode}>
-{`free
-jobs
-salary
+{`jobs
+vacancy
 recruitment
-hiring
-course
-training
-how to
-DIY
-Wikipedia`}
+salary
+faculty job
+teacher job
+distance learning
+correspondence
+mba
+post graduate
+result 2024
+question paper
+syllabus pdf
+notes free
+wikipedia
+youtube`}
         </pre>
       </div>
 
@@ -173,22 +198,34 @@ Wikipedia`}
           to 15 headlines (30 characters each) and up to 4 descriptions (90 characters each).
         </p>
 
-        <h3 className={styles.guideSubtitle}>Example Headlines</h3>
+        <h3 className={styles.guideSubtitle}>Example Headlines (≤ 30 chars)</h3>
         <pre className={styles.guideCode}>
-{`__TBD_ICON_CONTENT__`}
+{`Admissions Open 2026 — Guwahati
+B.Com / BBA / BCA / B.A. — Apply
+Gauhati University Affiliated
+NEP 2020 — Industry-Aligned
+Icon Commerce College, Chandmari
+Talk to Counsellor — Free Call
+Scholarships for Toppers
+Samarth Portal Code 842
+Established 2004 — 20+ Years
+Apply Online — Get Prospectus`}
         </pre>
 
-        <h3 className={styles.guideSubtitle}>Example Descriptions</h3>
+        <h3 className={styles.guideSubtitle}>Example Descriptions (≤ 90 chars)</h3>
         <pre className={styles.guideCode}>
-{`__TBD_ICON_CONTENT__`}
+{`Where Knowledge Meets Character. Admissions open for B.Com, BBA, BCA, B.A. — Apply now.
+Gauhati University affiliated. NEP 2020 aligned 3/4-year programs in Chandmari, Guwahati.
+Talk to a counsellor today. Limited seats. Scholarships for merit & need-based applicants.
+Apply through Samarth Portal (Code 842). Industry-aligned curriculum. Trusted since 2004.`}
         </pre>
 
         <h3 className={styles.guideSubtitle}>Tips for Better Ads</h3>
         <ol className={styles.guideStepList}>
-          <li className={styles.guideStepItem}>Include your unique selling points</li>
-          <li className={styles.guideStepItem}>Use numbers and statistics ("1000+ customers served", "10+ years in business")</li>
-          <li className={styles.guideStepItem}>Include a clear call-to-action ("Book Now", "Call Today", "Get Quote")</li>
-          <li className={styles.guideStepItem}>Include your target keyword in at least 2-3 headlines</li>
+          <li className={styles.guideStepItem}>Lead with your unique selling points — Gauhati University affiliation, 20+ years legacy, NEP 2020 alignment</li>
+          <li className={styles.guideStepItem}>Use specific numbers ("Established 2004", "Samarth Code 842", "Top 100 commerce colleges")</li>
+          <li className={styles.guideStepItem}>Include a clear call-to-action ("Apply Now", "Talk to Counsellor", "Download Prospectus")</li>
+          <li className={styles.guideStepItem}>Include your target keyword in at least 2–3 headlines (e.g., "B.Com Admissions Guwahati")</li>
           <li className={styles.guideStepItem}>Write at least 10 headlines and 4 descriptions for best results</li>
         </ol>
 
@@ -206,15 +243,15 @@ Wikipedia`}
           <tbody>
             <tr>
               <td className={styles.guideTableCell}>Sitelinks</td>
-              <td className={styles.guideTableCell}>Additional links below your ad (e.g., "About Us", "Services", "Contact Us")</td>
+              <td className={styles.guideTableCell}>Additional links below your ad (e.g., "Programs", "Fee Structure", "Scholarships", "Talk to Counsellor")</td>
             </tr>
             <tr>
               <td className={styles.guideTableCell}>Callouts</td>
-              <td className={styles.guideTableCell}>Short highlight phrases (e.g., "Free Consultation", "Expert Support", "Easy Financing")</td>
+              <td className={styles.guideTableCell}>Short highlight phrases (e.g., "Free Counselling", "GU Affiliated", "NEP 2020 Aligned", "Scholarships Available")</td>
             </tr>
             <tr>
               <td className={styles.guideTableCell}>Structured Snippets</td>
-              <td className={styles.guideTableCell}>List of services under a category header (e.g., "Services: __TBD_ICON_CONTENT__")</td>
+              <td className={styles.guideTableCell}>List of programs under a category header (e.g., "Courses: B.Com, BBA, BCA, B.A.")</td>
             </tr>
           </tbody>
         </table>
@@ -224,9 +261,10 @@ Wikipedia`}
       <h2 className={styles.guideTitle}>Set Up Conversion Tracking</h2>
       <div className={styles.guideSection}>
         <p className={styles.guideParagraph}>
-          Conversion tracking tells Google Ads when someone submits a form on your landing page after
-          clicking your ad. This is essential for measuring ROI and letting Google optimize your
-          campaigns.
+          Conversion tracking tells Google Ads when a prospective student submits an admission
+          enquiry after clicking your ad. This is essential for measuring ROI and letting Google
+          optimize your campaigns toward the keywords / creatives that produce real admission
+          enquiries.
         </p>
         <ol className={styles.guideStepList}>
           <li className={styles.guideStepItem}>
@@ -236,11 +274,13 @@ Wikipedia`}
           <li className={styles.guideStepItem}>Select "Website"</li>
           <li className={styles.guideStepItem}>Category: "Submit lead form"</li>
           <li className={styles.guideStepItem}>
-            Conversion name: <code className={styles.guideInlineCode}>Lead Form Submission</code>
+            Conversion name: <code className={styles.guideInlineCode}>Icon Commerce College — Admission Enquiry</code>
           </li>
           <li className={styles.guideStepItem}>
-            Value: "Don't use a value" (or set a fixed value like ₹500 if you know your average lead
-            value)
+            Value: Set a fixed value of <strong>₹500</strong> (typical admission enquiry value at
+            the form-fill stage in the Indian undergraduate market — confirm with stakeholders
+            before going live). If you have historical data — e.g., 1 in 20 enquiries enrols at
+            ₹25,000 first-year fees — use <code className={styles.guideInlineCode}>25000 / 20 = 1250</code>.
           </li>
           <li className={styles.guideStepItem}>Count: "One" (count one conversion per click)</li>
           <li className={styles.guideStepItem}>Click-through window: 30 days</li>
@@ -264,8 +304,8 @@ REACT_APP_ENABLE_ANALYTICS=true`}
         </pre>
         <div className={styles.guideNote}>
           <strong>Note:</strong> The landing page code already has built-in conversion tracking. Once
-          you set these values in <code className={styles.guideInlineCode}>.env</code>, conversions
-          will be tracked automatically when someone submits a form.
+          you set these values in <code className={styles.guideInlineCode}>.env</code>, an admission
+          enquiry conversion will be tracked automatically every time the form is submitted.
         </div>
       </div>
 
@@ -295,16 +335,18 @@ REACT_APP_ENABLE_ANALYTICS=true`}
       <h2 className={styles.guideTitle}>Offline Conversion Import</h2>
       <div className={styles.guideSection}>
         <p className={styles.guideParagraph}>
-          When a lead actually becomes a customer, you can tell Google Ads about it so it can find
-          more customers like them. This is called "offline conversion import" and it significantly
-          improves Google's ability to optimize your campaigns for quality leads.
+          When an admission enquiry actually becomes an enrolled student (i.e., the applicant pays
+          the fees and joins a program), you can tell Google Ads about it. This is called "offline
+          conversion import" — it lets Smart Bidding optimise toward the keywords / creatives that
+          produce real enrolments, not just form fills.
         </p>
 
         <h3 className={styles.guideSubtitle}>How It Works</h3>
         <p className={styles.guideParagraph}>
-          A GCLID (Google Click ID) is automatically captured when someone clicks your ad. This unique
-          ID links each lead back to the specific ad click that generated it. When you mark a lead as
-          "converted" in the admin panel, the GCLID is included in the export file.
+          A GCLID (Google Click ID) is automatically captured when a prospective student clicks
+          your ad. This unique ID links each enquiry back to the specific ad click that generated
+          it. When a counsellor marks an enquiry as "Admitted" in the LMS, the GCLID is included in
+          the export file.
         </p>
 
         <h3 className={styles.guideSubtitle}>Steps to Export</h3>
@@ -312,8 +354,8 @@ REACT_APP_ENABLE_ANALYTICS=true`}
           <li className={styles.guideStepItem}>
             Go to Admin Panel → Lead Management
           </li>
-          <li className={styles.guideStepItem}>Mark the lead as "Converted"</li>
-          <li className={styles.guideStepItem}>Click "Export for Google Ads" to download the CSV file</li>
+          <li className={styles.guideStepItem}>Mark the enquiry as "Admitted" (i.e., the applicant has paid first-year fees)</li>
+          <li className={styles.guideStepItem}>Click "Export for Google Ads" to download the CSV file (Conversion Value = first-year fees paid)</li>
         </ol>
 
         <h3 className={styles.guideSubtitle}>Steps to Upload</h3>
@@ -322,8 +364,9 @@ REACT_APP_ENABLE_ANALYTICS=true`}
           <li className={styles.guideStepItem}>Upload the CSV file</li>
         </ol>
         <div className={styles.guideNote}>
-          <strong>Note:</strong> Only leads that have a GCLID (i.e., leads that came from a Google Ads
-          click) can be uploaded. Leads from organic traffic or other sources won't have a GCLID.
+          <strong>Note:</strong> Only enquiries that have a GCLID (i.e., came from a Google Ads
+          click) can be uploaded. Enquiries from organic traffic or other sources won't have a
+          GCLID.
         </div>
       </div>
 
@@ -342,7 +385,7 @@ REACT_APP_ENABLE_ANALYTICS=true`}
             Click your ad (or add{' '}
             <code className={styles.guideInlineCode}>?gclid=test123</code> to the URL for testing)
           </li>
-          <li className={styles.guideStepItem}>Fill and submit a form</li>
+          <li className={styles.guideStepItem}>Fill and submit the admission enquiry form</li>
           <li className={styles.guideStepItem}>
             Check Google Ads → Conversions → should show "Recording" status within 24 hours
           </li>
@@ -375,10 +418,13 @@ REACT_APP_ENABLE_ANALYTICS=true`}
             Check search terms report weekly — add irrelevant terms as negative keywords
           </li>
           <li className={styles.guideStepItem}>
-            Set up ad scheduling if your sales team only works certain hours
+            Set up ad scheduling to peak during 4pm–10pm (when prospective students and parents are
+            actively researching colleges) and dial back overnight
           </li>
           <li className={styles.guideStepItem}>
-            Use location targeting to focus on your service area
+            Use location targeting to focus on Assam + Meghalaya + Arunachal Pradesh + Nagaland
+            (the campus's natural catchment); exclude regions where you don't have hostel/transport
+            support
           </li>
           <li className={styles.guideStepItem}>
             Don't change too many things at once — make one change, wait a week, evaluate
@@ -420,10 +466,11 @@ REACT_APP_ENABLE_ANALYTICS=true`}
               </td>
             </tr>
             <tr>
-              <td className={styles.guideTableCell}>High cost per lead</td>
+              <td className={styles.guideTableCell}>High cost per admission enquiry</td>
               <td className={styles.guideTableCell}>
-                Add negative keywords. Narrow location targeting. Improve ad relevance with better
-                keywords.
+                Add negative keywords (jobs / distance learning / mba). Narrow location targeting.
+                Improve ad relevance by clustering each program (B.Com / BBA / BCA / B.A.) into
+                its own ad group with program-specific headlines.
               </td>
             </tr>
             <tr>
