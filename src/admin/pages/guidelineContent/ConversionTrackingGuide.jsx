@@ -7,25 +7,26 @@ const ConversionTrackingGuide = ({ styles }) => {
       <h2 className={styles.guideTitle}>The Big Picture</h2>
       <div className={styles.guideSection}>
         <p className={styles.guideParagraph}>
-          Here's how the complete conversion tracking flow works, from ad click to customer:
+          Here's how the complete conversion tracking flow works, from ad click to enrolled student:
         </p>
         <ol className={styles.guideStepList}>
           <li className={styles.guideStepItem}>
-            A person sees your ad on Google or Facebook
+            A prospective student or parent sees your Icon Commerce College ad on Google or Facebook
           </li>
           <li className={styles.guideStepItem}>
-            They click the ad and arrive on your landing page — the URL contains tracking IDs like{' '}
-            <code className={styles.guideInlineCode}>gclid</code>,{' '}
+            They click the ad and arrive on the admissions page — the URL contains tracking IDs
+            like <code className={styles.guideInlineCode}>gclid</code>,{' '}
             <code className={styles.guideInlineCode}>utm_source</code>, etc.
           </li>
           <li className={styles.guideStepItem}>
-            They browse the page — the code tracks scroll depth, time on page, and sections viewed
+            They browse the page — the code tracks scroll depth, time on page, and which sections
+            (Programs / Faculty / Fee Structure) they view
           </li>
           <li className={styles.guideStepItem}>
-            They fill out a form and submit it
+            They fill out the admission enquiry form and submit it
           </li>
           <li className={styles.guideStepItem}>
-            Lead data goes to Pabbly (Google Sheets + Email notification)
+            Enquiry data goes to Pabbly (Google Sheets + Email notification to the counselling team)
           </li>
           <li className={styles.guideStepItem}>
             Conversion events fire: Google Ads conversion, GA4{' '}
@@ -34,16 +35,18 @@ const ConversionTrackingGuide = ({ styles }) => {
             <code className={styles.guideInlineCode}>Lead</code>
           </li>
           <li className={styles.guideStepItem}>
-            You manage the lead in the admin panel
+            The counsellor manages the enquiry in the admin LMS
           </li>
           <li className={styles.guideStepItem}>
-            When the lead becomes a customer, you mark it as "Converted" in the admin panel
+            When the applicant pays first-year fees and enrols, the counsellor marks the enquiry as
+            "Admitted" in the admin panel
           </li>
           <li className={styles.guideStepItem}>
-            Google Ads offline conversion export — upload to Google Ads for Smart Bidding optimization
+            Google Ads offline conversion export — upload to Google Ads so Smart Bidding optimises
+            for keywords that produce real enrolments
           </li>
           <li className={styles.guideStepItem}>
-            Meta CAPI conversion event — sent to Meta for campaign optimization
+            Meta CAPI conversion event — sent to Meta for lookalike-audience optimisation
           </li>
         </ol>
         <div className={styles.guideNote}>
@@ -56,24 +59,25 @@ const ConversionTrackingGuide = ({ styles }) => {
       <h2 className={styles.guideTitle}>What is a Conversion?</h2>
       <div className={styles.guideSection}>
         <p className={styles.guideParagraph}>
-          A conversion is when a website visitor takes a desired action — in our case, submitting a
-          lead form. There are two types of conversions in this system:
+          A conversion is when a website visitor takes a desired action — in our case, submitting
+          an admission enquiry. There are two types of conversions in this system:
         </p>
         <ol className={styles.guideStepList}>
           <li className={styles.guideStepItem}>
-            <strong>Primary conversion:</strong> Form submission — tracked automatically when a
-            visitor fills out and submits a lead form on your landing page
+            <strong>Primary conversion:</strong> Admission enquiry submission — tracked
+            automatically when a prospective student fills out and submits the enquiry form
           </li>
           <li className={styles.guideStepItem}>
-            <strong>Secondary conversion:</strong> Lead becomes a paying customer — tracked manually
-            when you mark a lead as "Converted" in the admin panel
+            <strong>Secondary conversion:</strong> Enquiry becomes an enrolled student (first-year
+            fees paid) — tracked manually when the counsellor marks the enquiry as "Admitted" in
+            the admin panel
           </li>
         </ol>
         <p className={styles.guideParagraph}>
           <strong>Why tracking conversions matters:</strong> It tells Google and Meta which ads are
-          bringing real customers, so they can show your ads to more people like them. Without
-          conversion tracking, these platforms have no way to optimize your ad spend — they're
-          essentially guessing who to show your ads to.
+          bringing real enrolled students, so they show your ads to more lookalike prospects.
+          Without conversion tracking, these platforms have no way to optimize your ad spend —
+          they're essentially guessing who to show your ads to.
         </p>
       </div>
 
@@ -132,8 +136,9 @@ REACT_APP_ENABLE_ANALYTICS=true`}
             <code className={styles.guideInlineCode}>event_id</code>, so Meta counts it only once
           </li>
           <li className={styles.guideStepItem}>
-            <strong>Admin Conversion:</strong> When you mark a lead as "Converted" in the admin panel,
-            a <code className={styles.guideInlineCode}>Purchase</code> event is sent to Meta CAPI
+            <strong>Admin Conversion:</strong> When the counsellor marks an enquiry as "Admitted" in
+            the admin panel, a <code className={styles.guideInlineCode}>Purchase</code> event
+            (with the first-year fee as value) is sent to Meta CAPI
           </li>
         </ol>
 
@@ -151,27 +156,29 @@ META_ACCESS_TOKEN = from Events Manager`}
         </pre>
       </div>
 
-      {/* Section 5: How to Mark a Lead as Converted */}
-      <h2 className={styles.guideTitle}>How to Mark a Lead as Converted</h2>
+      {/* Section 5: How to Mark an Enquiry as Admitted */}
+      <h2 className={styles.guideTitle}>How to Mark an Enquiry as Admitted</h2>
       <div className={styles.guideSection}>
         <p className={styles.guideParagraph}>
-          Follow these steps in the admin panel to mark a lead as converted:
+          Follow these steps in the admin panel to mark an enquiry as admitted (i.e., the applicant
+          has paid first-year fees and joined a program):
         </p>
         <ol className={styles.guideStepList}>
           <li className={styles.guideStepItem}>
             Go to Admin Panel → Lead Management
           </li>
           <li className={styles.guideStepItem}>
-            Find the lead you want to mark as converted
+            Find the enquiry you want to mark as admitted
           </li>
           <li className={styles.guideStepItem}>
-            Click the "View" button to open the lead detail page
+            Click the "View" button to open the enquiry detail page
           </li>
           <li className={styles.guideStepItem}>
-            Click "Mark as Converted" button at the bottom
+            Click "Mark as Admitted" button at the bottom
           </li>
           <li className={styles.guideStepItem}>
-            Enter the conversion value (e.g., ₹50,000) and select the conversion type
+            Enter the conversion value (the first-year fee paid — e.g., ₹25,000 for B.Com) and
+            select the program (B.Com / B.A. / BBA / BCA)
           </li>
           <li className={styles.guideStepItem}>
             Click "Send Conversion"
@@ -179,9 +186,9 @@ META_ACCESS_TOKEN = from Events Manager`}
           <li className={styles.guideStepItem}>
             This does 3 things:
             <ul style={{ marginTop: '8px', paddingLeft: '20px' }}>
-              <li style={{ marginBottom: '4px' }}>Changes lead status to "Converted"</li>
-              <li style={{ marginBottom: '4px' }}>Sends a conversion event to Meta CAPI</li>
-              <li>Records the conversion for Google Ads export</li>
+              <li style={{ marginBottom: '4px' }}>Changes the enquiry status to "Admitted"</li>
+              <li style={{ marginBottom: '4px' }}>Sends a Purchase conversion event to Meta CAPI</li>
+              <li>Records the conversion for Google Ads offline upload</li>
             </ul>
           </li>
         </ol>
@@ -208,8 +215,8 @@ META_ACCESS_TOKEN = from Events Manager`}
           </li>
         </ol>
         <div className={styles.guideNote}>
-          <strong>Note:</strong> Only leads that came from Google Ads clicks (have a GCLID) can be
-          uploaded. Leads from Meta Ads or direct traffic won't have a GCLID.
+          <strong>Note:</strong> Only enquiries that came from Google Ads clicks (have a GCLID)
+          can be uploaded. Enquiries from Meta Ads or direct traffic won't have a GCLID.
         </div>
       </div>
 
@@ -221,7 +228,7 @@ META_ACCESS_TOKEN = from Events Manager`}
         </p>
         <ol className={styles.guideStepList}>
           <li className={styles.guideStepItem}>
-            Submit a test form on the landing page
+            Submit a test admission enquiry on the landing page
           </li>
           <li className={styles.guideStepItem}>
             <strong>Check Google Ads:</strong> Go to Tools → Conversions — should show "Recording"
@@ -239,17 +246,17 @@ META_ACCESS_TOKEN = from Events Manager`}
             <strong>Check Meta Test Events:</strong> If test code is set, events appear immediately
           </li>
           <li className={styles.guideStepItem}>
-            <strong>Check Admin Panel:</strong> Lead should appear in Lead Management
+            <strong>Check Admin Panel:</strong> The enquiry should appear in Lead Management
           </li>
           <li className={styles.guideStepItem}>
             <strong>Check localStorage:</strong>{' '}
             <code className={styles.guideInlineCode}>
               JSON.parse(localStorage.getItem('lp_test_leads'))
             </code>{' '}
-            should have the lead
+            should have the enquiry
           </li>
           <li className={styles.guideStepItem}>
-            Mark the lead as Converted in admin → check Meta Events Manager for{' '}
+            Mark the enquiry as Admitted in admin → check Meta Events Manager for{' '}
             <code className={styles.guideInlineCode}>Purchase</code> event
           </li>
           <li className={styles.guideStepItem}>

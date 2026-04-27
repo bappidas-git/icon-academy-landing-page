@@ -1,8 +1,10 @@
-# SEO Guide
+# SEO Guide — Icon Commerce College Admissions Landing Page
 
 ## 1. Overview
 
-All SEO configuration lives in two places: `public/index.html` (static meta tags, JSON-LD schemas) and `src/config/seo.js` (centralized config consumed by the runtime SEO utilities in `src/utils/seo.js`). When you build a new landing page from this boilerplate, update both files with your real business data. The `src/utils/seo.js` module dynamically injects and updates schemas at runtime, so the static blocks in `index.html` act as fallbacks for crawlers that don't execute JavaScript. This guide tells you exactly what to change and where.
+All SEO configuration for the **Icon Commerce College** admissions landing page lives in two places: `public/index.html` (static meta tags + JSON-LD schemas, served to crawlers that don't execute JavaScript) and `src/config/seo.js` (centralized config consumed by the runtime SEO utilities in `src/utils/seo.js`). When you build a landing page from this template — for Icon Commerce College or for another educational institution — update both files with your real institutional data. The `src/utils/seo.js` module dynamically injects and updates schemas at runtime, so the static blocks in `index.html` act as fallbacks for crawlers that don't execute JavaScript. This guide tells you exactly what to change and where.
+
+The headline schema choice for an admissions landing page is `EducationalOrganization` (or its more specific subtype `CollegeOrUniversity`), **not** the generic `LocalBusiness` — see §5 for the field map.
 
 ---
 
@@ -12,14 +14,14 @@ All meta tags are in `public/index.html` under the `<!-- SEO Meta Tags -->` sect
 
 | Tag | Location in `index.html` | What to Change | Example |
 |-----|--------------------------|----------------|---------|
-| `<title>` | Line ~171 | Business name + primary keyword, max 60 chars | `<title>__TBD_ICON_CONTENT__</title>` |
-| `meta description` | Line ~51 | Summarize offer + CTA, max 160 chars | `content="__TBD_ICON_CONTENT__"` |
-| `meta keywords` | Line ~55 | Comma-separated target keywords | `content="__TBD_ICON_CONTENT__"` |
-| `meta author` | Line ~58 | Legal entity name | `content="__TBD_ICON_CONTENT__"` |
+| `<title>` | Line ~171 | Institution name + primary keyword, max 60 chars | `<title>Icon Commerce College — B.Com / BBA / BCA / B.A. Admissions 2026 | Guwahati</title>` |
+| `meta description` | Line ~51 | Summarize offer + CTA, max 160 chars | `content="Admissions open at Icon Commerce College, Guwahati. Gauhati University affiliated B.Com, BBA, BCA, B.A. programs. Apply online — talk to a counsellor today."` |
+| `meta keywords` | Line ~55 | Comma-separated target keywords | `content="b.com admissions guwahati, bba college guwahati, bca admission assam, gauhati university affiliated college, icon commerce college"` |
+| `meta author` | Line ~58 | Legal entity name | `content="Icon Commerce College"` |
 | `meta robots` | Line ~59 | `index, follow` for landing page | `content="index, follow"` |
-| `canonical` | Line ~105 | Production URL of this page | `href="https://landing.yourbusiness.com/"` |
+| `canonical` | Line ~105 | Production URL of this page | `href="https://landing.iconcommerce.edu/"` |
 
-**Title format:** `{Page Title} | {Business Name}` — keep under 60 characters.
+**Title format:** `{Page Title} | {Institution Name}` — keep under 60 characters.
 
 **Robots for restricted pages:** Set `noindex, nofollow` for `/admin` and `/thank-you`. This is handled at runtime via `src/config/seo.js`:
 
@@ -29,11 +31,13 @@ thankYou: { robots: 'noindex, nofollow' },
 admin:    { robots: 'noindex, nofollow' },
 ```
 
-**Geo tags:** Add these below the author meta tag in `index.html` if targeting a specific location:
+**Geo tags:** Icon Commerce College is targeting Assam and the wider North-East. Add these below the author meta tag in `index.html`:
 
 ```html
-<meta name="geo.region" content="IN" />
-<meta name="geo.placename" content="India" />
+<meta name="geo.region" content="IN-AS" />
+<meta name="geo.placename" content="Guwahati, Assam" />
+<meta name="geo.position" content="26.1768;91.7567" />
+<meta name="ICBM" content="26.1768, 91.7567" />
 ```
 
 ---
@@ -45,21 +49,21 @@ Located in `public/index.html` under `<!-- Open Graph / Facebook -->` (lines ~65
 | Tag | Example Value |
 |-----|---------------|
 | `og:type` | `website` |
-| `og:url` | `https://landing.yourbusiness.com/` |
-| `og:title` | `__TBD_ICON_CONTENT__` |
-| `og:description` | `__TBD_ICON_CONTENT__` |
-| `og:image` | `https://landing.yourbusiness.com/og-image.jpg` |
+| `og:url` | `https://landing.iconcommerce.edu/` |
+| `og:title` | `Admissions Open 2026 — Icon Commerce College, Guwahati` |
+| `og:description` | `Gauhati University affiliated B.Com, BBA, BCA, B.A. programs. NEP 2020 aligned. Apply online today.` |
+| `og:image` | `https://landing.iconcommerce.edu/og-image.jpg` |
 | `og:image:width` | `1200` |
 | `og:image:height` | `630` |
-| `og:image:alt` | `__TBD_ICON_CONTENT__` |
-| `og:site_name` | `__TBD_ICON_CONTENT__` |
-| `og:locale` | `en_US` |
+| `og:image:alt` | `Icon Commerce College, Chandmari Guwahati — Admissions Open 2026` |
+| `og:site_name` | `Icon Commerce College` |
+| `og:locale` | `en_IN` |
 
 **OG image requirements:**
 - Dimensions: **1200x630px**
 - File size: **< 1MB**
 - Format: JPG or PNG
-- This image appears in Google Discover, Facebook shares, LinkedIn posts, and Slack previews
+- Recommended composition: campus shot + Icon Commerce College logo + tagline "Where Knowledge Meets Character — Admissions Open 2026"
 - Place the file in `public/` and reference it with the full production URL
 
 Also update `defaultImage` in `src/config/seo.js` (line ~21) so the runtime utility uses the same image.
@@ -73,12 +77,12 @@ Located in `public/index.html` under `<!-- Twitter Card -->` (lines ~89-100).
 | Tag | Example Value |
 |-----|---------------|
 | `twitter:card` | `summary_large_image` |
-| `twitter:url` | `https://landing.yourbusiness.com/` |
-| `twitter:title` | `__TBD_ICON_CONTENT__` |
-| `twitter:description` | `__TBD_ICON_CONTENT__` |
-| `twitter:image` | `https://landing.yourbusiness.com/og-image.jpg` |
+| `twitter:url` | `https://landing.iconcommerce.edu/` |
+| `twitter:title` | `Admissions Open 2026 — Icon Commerce College, Guwahati` |
+| `twitter:description` | `Gauhati University affiliated B.Com, BBA, BCA, B.A. programs. NEP 2020 aligned. Apply online today.` |
+| `twitter:image` | `https://landing.iconcommerce.edu/og-image.jpg` |
 
-Keep the `twitter:title` and `twitter:description` consistent with OG tags. Use the same image file.
+Keep `twitter:title` and `twitter:description` consistent with OG tags. Use the same image file.
 
 ---
 
@@ -96,30 +100,103 @@ Fields to update:
 
 | Field | Where in `seo.js` | Example |
 |-------|-------------------|---------|
-| `name` | `organization.name` | `"__TBD_ICON_CONTENT__"` |
-| `url` | `organization.url` | `"https://landing.yourbusiness.com"` |
-| `logo` | `organization.logo` | `"https://landing.yourbusiness.com/logo.png"` |
-| `phone` | `organization.phone` | `"+91-80-0000-0000"` |
-| `email` | `organization.email` | `"hello@yourbusiness.com"` |
-| `address` | `organization.address` | `{ addressLocality: "City", addressRegion: "State", addressCountry: "IN" }` |
-| `founder` | `organization.founder` | `{ name: "Founder Name", jobTitle: "Founder & CEO" }` |
-| `foundingDate` | `organization.foundingDate` | `"2020-01-01"` |
-| `sameAs` | `organization.sameAs` | `["https://www.facebook.com/yourbusiness/", "https://www.instagram.com/yourbusiness"]` |
+| `name` | `organization.name` | `"Icon Commerce College"` |
+| `url` | `organization.url` | `"https://landing.iconcommerce.edu"` |
+| `logo` | `organization.logo` | `"https://landing.iconcommerce.edu/logo.png"` |
+| `phone` | `organization.phone` | `"+91-XXXXXXXXXX"` |
+| `email` | `organization.email` | `"admissions@iconcommerce.edu"` |
+| `address` | `organization.address` | `{ streetAddress: "Rajgarh Road, Chandmari", addressLocality: "Guwahati", addressRegion: "Assam", postalCode: "781003", addressCountry: "IN" }` |
+| `founder` | `organization.founder` | `{ name: "Founder Name", jobTitle: "Founder & Principal" }` |
+| `foundingDate` | `organization.foundingDate` | `"2004-01-01"` |
+| `sameAs` | `organization.sameAs` | `["https://www.facebook.com/iconcommercecollege", "https://www.instagram.com/iconcommercecollege"]` |
 
-### LocalBusiness Schema
+### EducationalOrganization / CollegeOrUniversity Schema
 
-**Config:** `src/config/seo.js` → `localBusiness` object (line ~115)
-**Static fallback:** `public/index.html` → `#schema-localbusiness` (line ~256)
-**Generator:** `src/utils/seo.js` → `generateLocalBusinessSchema()` (line ~192)
+This is the headline schema for an admissions landing page — it tells Google "this is a college, here are the courses, this is the affiliation." It replaces the generic `LocalBusiness` schema used in vertical-agnostic templates.
+
+**Config:** `src/config/seo.js` → `educationalOrganization` object (line ~115)
+**Static fallback:** `public/index.html` → `#schema-educational-organization` (line ~256)
+**Generator:** `src/utils/seo.js` → `generateEducationalOrganizationSchema()` (line ~192)
+
+Generated JSON-LD shape:
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "CollegeOrUniversity",
+  "name": "Icon Commerce College",
+  "alternateName": "ICC Guwahati",
+  "url": "https://landing.iconcommerce.edu",
+  "logo": "https://landing.iconcommerce.edu/logo.png",
+  "image": "https://landing.iconcommerce.edu/og-image.jpg",
+  "telephone": "+91-XXXXXXXXXX",
+  "email": "admissions@iconcommerce.edu",
+  "foundingDate": "2004",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Rajgarh Road, Chandmari",
+    "addressLocality": "Guwahati",
+    "addressRegion": "Assam",
+    "postalCode": "781003",
+    "addressCountry": "IN"
+  },
+  "geo": { "@type": "GeoCoordinates", "latitude": "26.1768", "longitude": "91.7567" },
+  "parentOrganization": {
+    "@type": "EducationalOrganization",
+    "name": "Gauhati University",
+    "url": "https://gauhati.ac.in"
+  },
+  "identifier": [
+    { "@type": "PropertyValue", "propertyID": "Samarth College Code", "value": "842" }
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Undergraduate Programs",
+    "itemListElement": [
+      { "@type": "Course", "name": "B.Com (Hons.)", "description": "3/4-year (6/8 sem) NEP 2020 aligned commerce program", "provider": { "@type": "CollegeOrUniversity", "name": "Icon Commerce College" } },
+      { "@type": "Course", "name": "BBA", "description": "3/4-year (6/8 sem) NEP 2020 aligned business administration program" },
+      { "@type": "Course", "name": "BCA", "description": "3/4-year (6/8 sem) NEP 2020 aligned computer applications program" },
+      { "@type": "Course", "name": "B.A. (Hons.)", "description": "3/4-year (6/8 sem) NEP 2020 aligned arts program" }
+    ]
+  },
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "09:00", "closes": "17:00" }
+  ]
+}
+```
 
 | Field | Where in `seo.js` | Example |
 |-------|-------------------|---------|
-| `type` | `localBusiness.type` | `"Organization"` (or another schema.org business subtype) |
-| `priceRange` | `localBusiness.priceRange` | `"$$"` |
-| `openingHours` | `localBusiness.openingHours` | `{ days: ["Monday"..."Saturday"], opens: "09:00", closes: "19:00" }` |
-| `geo` | `localBusiness.geo` | `{ latitude: "12.9716", longitude: "77.5946" }` |
+| `type` | `educationalOrganization.type` | `"CollegeOrUniversity"` |
+| `parentOrganization` | `educationalOrganization.parentOrganization` | Gauhati University block |
+| `identifier` | `educationalOrganization.identifier` | Samarth College Code 842 |
+| `hasOfferCatalog` | `educationalOrganization.hasOfferCatalog` | The four programs (B.Com / BBA / BCA / B.A.) |
+| `openingHoursSpecification` | `educationalOrganization.openingHours` | Admission office hours |
 
-The schema also pulls `name`, `telephone`, `email`, and `address` from the `organization` object automatically.
+### Course Schema (per program)
+
+Each of the four programs gets its own `Course` schema, generated from `src/data/programsData.js` via `generateCourseSchema()` in `src/utils/seo.js`. Each entry needs:
+
+```js
+// src/data/programsData.js
+{
+  id: 'bcom',
+  name: 'B.Com (Hons.)',
+  description: 'Industry-aligned commerce curriculum with finance, accounting, and analytics electives. NEP 2020 aligned.',
+  duration: '3 / 4 years (6 / 8 semesters)',
+  feePerYear: 25000,
+  affiliation: 'Gauhati University',
+}
+```
+
+The generator outputs:
+- `name` — from `program.name`
+- `description` — from `program.description`
+- `provider` — Icon Commerce College
+- `educationalCredentialAwarded` — `"Bachelor's Degree"`
+- `timeRequired` — from `program.duration` (ISO 8601: `P3Y` or `P4Y`)
+- `offers.price` — from `program.feePerYear`
+- `offers.priceCurrency` — `"INR"` (set in `seo.js` line ~309)
 
 ### FAQPage Schema
 
@@ -127,37 +204,50 @@ The schema also pulls `name`, `telephone`, `email`, and `address` from the `orga
 **Static fallback:** `public/index.html` → `#schema-faq` (line ~205)
 **Generator:** `src/utils/seo.js` → `generateFAQSchema()` (line ~171)
 
-Write 5-8 real FAQs about your business. Each entry uses this format:
+Write 5–8 real FAQs about admissions. Examples that ship with the Icon Commerce College build:
 
 ```js
 // src/config/seo.js → faqs array
-{
-  question: '__TBD_ICON_CONTENT__',
-  answer: '__TBD_ICON_CONTENT__'
-}
+[
+  {
+    question: 'What programs does Icon Commerce College offer?',
+    answer: 'Icon Commerce College offers four undergraduate programs — B.Com (Hons.), B.A. (Hons.), BBA, and BCA. All are 3/4-year (6/8 semester) NEP 2020 aligned programs affiliated to Gauhati University.',
+  },
+  {
+    question: 'How do I apply for admission?',
+    answer: 'Applications are processed through the Samarth College Portal (Code 842). Click "Apply Now" on this page, fill the admission enquiry form, and our counselling team will guide you through the Samarth Portal step-by-step.',
+  },
+  {
+    question: 'What is the eligibility for B.Com / BBA / BCA / B.A.?',
+    answer: 'A pass in Class 12 (any stream from a recognised board) with the minimum aggregate set by Gauhati University. Specific stream requirements vary by program — talk to a counsellor for your case.',
+  },
+  {
+    question: 'Is Icon Commerce College affiliated to Gauhati University?',
+    answer: 'Yes. Icon Commerce College has been affiliated to Gauhati University since 2004 and follows the GU academic calendar, exam pattern, and degree certification.',
+  },
+  {
+    question: 'Do you offer scholarships?',
+    answer: 'Yes. Icon Commerce College offers merit scholarships, need-based financial aid, and recognises state-government scholarships. See the Scholarships section on this page for the full list.',
+  },
+  {
+    question: 'What is the fee structure?',
+    answer: 'Fees vary by program. See the Fee Structure section on this page or download the prospectus. Fees are payable per year, with first-year fees due at admission.',
+  },
+  {
+    question: 'Where is Icon Commerce College located?',
+    answer: 'Icon Commerce College is at Rajgarh Road, Chandmari, Guwahati - 781003, easily reachable from anywhere in Guwahati and the North-East.',
+  },
+]
 ```
 
-The generator outputs this JSON-LD structure:
-
-```json
-{
-  "@type": "Question",
-  "name": "__TBD_ICON_CONTENT__",
-  "acceptedAnswer": {
-    "@type": "Answer",
-    "text": "__TBD_ICON_CONTENT__"
-  }
-}
-```
-
-**Note:** FAQPage schema can trigger rich results (expandable Q&A) in Google Search.
+The generator outputs each entry as a `Question` / `acceptedAnswer` pair — Google can surface these as rich-result accordions in Search.
 
 ### BreadcrumbList Schema
 
 **Static fallback:** `public/index.html` → `#schema-breadcrumb` (line ~291)
 **Generator:** `src/utils/seo.js` → `generateBreadcrumbSchema()` (line ~240)
 
-For a single-page landing page, only one breadcrumb is needed:
+For a single-page admissions landing page, only one breadcrumb is needed:
 
 ```json
 {
@@ -168,7 +258,7 @@ For a single-page landing page, only one breadcrumb is needed:
       "@type": "ListItem",
       "position": 1,
       "name": "Home",
-      "item": "https://landing.yourbusiness.com/"
+      "item": "https://landing.iconcommerce.edu/"
     }
   ]
 }
@@ -176,35 +266,22 @@ For a single-page landing page, only one breadcrumb is needed:
 
 Update the URL in `public/index.html` line ~300 and in the `injectDefaultSchemas()` call in `src/utils/seo.js` line ~370.
 
-### Service / Product Schema
+---
 
-**Generator:** `src/utils/seo.js` → `generateServiceSchema()` (line ~289) and `generateProductSchema()` (line ~327)
-**Data source:** `src/data/servicesData.js`
+## 6. Target Keyword Groups
 
-The service schema is auto-generated from `servicesData.js`. Each service entry needs:
+The Icon Commerce College SEO strategy clusters around four keyword groups. Use these as the source of truth for `meta keywords`, headlines, and ad-copy alignment.
 
-```js
-// src/data/servicesData.js
-{
-  id: 'example-service',
-  name: 'Example Service',
-  description: '__TBD_ICON_CONTENT__',
-  duration: 'Starting at $150',  // populates offers.description
-}
-```
-
-Generated schema fields per service:
-- `name` — from `service.name`
-- `description` — from `service.description`
-- `offers.price` — defaults to `"0"` (use `generateProductSchema()` for explicit pricing)
-- `offers.priceCurrency` — defaults to `"INR"` (change in `seo.js` line ~309)
-- `offers.availability` — `InStock`
-
-For plans with explicit pricing, use `generateProductSchema()` instead, passing objects with `price` and `currency` fields.
+| Group | Examples |
+|-------|----------|
+| **Program + city** | `b.com admissions guwahati`, `bba college guwahati`, `bca admission assam`, `b.a. honours guwahati` |
+| **Affiliation** | `gauhati university affiliated college`, `gu affiliated commerce college`, `nep 2020 college assam` |
+| **Brand** | `icon commerce college`, `icon commerce college guwahati`, `icc guwahati admissions` |
+| **Long-tail intent** | `best b.com college in chandmari`, `commerce college near rajgarh road guwahati`, `admission process gauhati university 2026` |
 
 ---
 
-## 6. Sitemap & Robots.txt
+## 7. Sitemap & Robots.txt
 
 ### Sitemap — `public/sitemap.xml`
 
@@ -212,8 +289,8 @@ Update the domain and `lastmod` date:
 
 ```xml
 <url>
-  <loc>https://landing.yourbusiness.com/</loc>
-  <lastmod>2026-04-01</lastmod>
+  <loc>https://landing.iconcommerce.edu/</loc>
+  <lastmod>2026-04-27</lastmod>
   <changefreq>weekly</changefreq>
   <priority>1.0</priority>
 </url>
@@ -233,37 +310,42 @@ Disallow: /admin/
 Disallow: /admin/login
 Disallow: /thank-you
 
-Sitemap: https://landing.yourbusiness.com/sitemap.xml
+Sitemap: https://landing.iconcommerce.edu/sitemap.xml
 ```
 
 ---
 
-## 7. Performance SEO (Already Handled)
+## 8. Performance SEO (Already Handled)
 
 These optimizations are built into the boilerplate — no changes needed:
 
-- **Lazy loading sections** — Code splitting via `React.lazy()` for below-the-fold sections
+- **Lazy loading sections** — Code splitting via `React.lazy()` for below-the-fold sections (Programs, Faculty, Campus Life, Fee Structure, Scholarships, FAQs)
 - **Font preloading** — Google Fonts loaded via `rel="preload"` with async swap (`public/index.html` line ~151)
-- **Image lazy loading** — Images use `loading="lazy"` attribute
+- **Image lazy loading** — Faculty photos, campus gallery use `loading="lazy"`
 - **Core Web Vitals monitoring** — `src/reportWebVitals.js` tracks CLS, FID, FCP, LCP, TTFB
 - **Skeleton loaders** — Prevent Cumulative Layout Shift (CLS) while content loads
-- **Preconnect hints** — DNS prefetch for Google Fonts, placeholder services (`public/index.html` lines ~140-146)
+- **Preconnect hints** — DNS prefetch for Google Fonts, image CDNs (`public/index.html` lines ~140-146)
 
 ---
 
-## 8. Pre-Deployment Checklist
+## 9. Pre-Deployment Checklist
 
 ```
 - [ ] Title tag updated (< 60 chars) — public/index.html line ~171
 - [ ] Meta description updated (< 160 chars) — public/index.html line ~51
 - [ ] OG image created and uploaded (1200x630, < 1MB) — public/index.html line ~76
-- [ ] All Schema JSON-LD updated with real business data — src/config/seo.js
-- [ ] Canonical URL set to production domain — public/index.html line ~105
+- [ ] All Schema JSON-LD updated with Icon Commerce College data — src/config/seo.js
+- [ ] EducationalOrganization / CollegeOrUniversity schema includes Gauhati University parentOrganization
+- [ ] EducationalOrganization schema includes Samarth College Code 842 identifier
+- [ ] Each program (B.Com / B.A. / BBA / BCA) has a Course schema entry
+- [ ] FAQ schema has 5–8 real admission FAQs
+- [ ] Canonical URL set to landing.iconcommerce.edu — public/index.html line ~105
 - [ ] robots.txt has correct sitemap URL — public/robots.txt line ~11
 - [ ] sitemap.xml has correct domain and dates — public/sitemap.xml
 - [ ] /admin routes have noindex meta — src/config/seo.js pages.admin
 - [ ] /thank-you has noindex meta — src/config/seo.js pages.thankYou
-- [ ] Tested with Google Rich Results Test
-- [ ] Tested with Lighthouse (aim for 90+ SEO score)
+- [ ] Geo tags target IN-AS / Guwahati
+- [ ] Tested with Google Rich Results Test (FAQPage, EducationalOrganization, Course schemas)
+- [ ] Tested with Lighthouse (aim for 90+ SEO score on mobile)
 - [ ] Submitted sitemap to Google Search Console
 ```

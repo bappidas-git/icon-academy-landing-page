@@ -13,14 +13,15 @@ const PabblySetupGuide = ({ styles }) => {
           that happen automatically after the trigger).
         </p>
         <p className={styles.guideParagraph}>
-          Think of Pabbly as a bridge between your landing page form and your Google
-          Sheet/Email/CRM. When someone fills out the lead form on{' '}
-          <code className={styles.guideInlineCode}>example.com</code>, Pabbly
-          automatically sends that data wherever you want.
+          Think of Pabbly as a bridge between the Icon Commerce College admission enquiry form
+          and your Google Sheet / Email / counselling CRM. When a prospective student submits
+          an enquiry on{' '}
+          <code className={styles.guideInlineCode}>landing.iconcommerce.edu</code>, Pabbly
+          automatically sends that data wherever the admissions team needs it.
         </p>
         <div className={styles.guideNote}>
           <strong>How it works:</strong> UnifiedLeadForm Submit → webhookSubmit.js → Pabbly Webhook →
-          Google Sheets / Email / CRM
+          Google Sheets / Email / Counselling CRM
         </div>
       </div>
 
@@ -28,7 +29,7 @@ const PabblySetupGuide = ({ styles }) => {
       <h2 className={styles.guideTitle}>The Big Picture (Lead Capture + Lead Management)</h2>
       <div className={styles.guideSection}>
         <p className={styles.guideParagraph}>
-          When a visitor fills a form on your landing page, their details travel to{' '}
+          When a prospective student submits an admission enquiry, their details travel to{' '}
           <strong>three places at the same time</strong>. Here's what each one does:
         </p>
         <table className={styles.guideTable}>
@@ -45,9 +46,9 @@ const PabblySetupGuide = ({ styles }) => {
                 <strong>Pabbly Connect</strong> (the main webhook)
               </td>
               <td className={styles.guideTableCell}>
-                Forwards the lead to Google Sheets, Email, WhatsApp, or CRM.
+                Forwards the enquiry to Google Sheets, Email, WhatsApp, or counselling CRM.
               </td>
-              <td className={styles.guideTableCell}>Your sales team</td>
+              <td className={styles.guideTableCell}>Your admissions counselling team</td>
             </tr>
             <tr>
               <td className={styles.guideTableCell}>
@@ -55,10 +56,10 @@ const PabblySetupGuide = ({ styles }) => {
                 (<code className={styles.guideInlineCode}>/api/leads.php</code>)
               </td>
               <td className={styles.guideTableCell}>
-                Stores every lead in one shared JSON file so every admin — on any device — can see
-                the same list.
+                Stores every enquiry in one shared JSON file so every admin — on any device — can
+                see the same list.
               </td>
-              <td className={styles.guideTableCell}>The Admin Panel</td>
+              <td className={styles.guideTableCell}>The Admin LMS</td>
             </tr>
             <tr>
               <td className={styles.guideTableCell}>
@@ -106,7 +107,7 @@ const PabblySetupGuide = ({ styles }) => {
         <ol className={styles.guideStepList}>
           <li className={styles.guideStepItem}>After login, click "Create Workflow"</li>
           <li className={styles.guideStepItem}>
-            Name it something like "__TBD_ICON_CONTENT__ - Lead Capture"
+            Name it something like "Icon Commerce College — Admission Enquiry Capture"
           </li>
           <li className={styles.guideStepItem}>
             For the Trigger app, search and select "Webhook / API"
@@ -158,7 +159,7 @@ const PabblySetupGuide = ({ styles }) => {
           <li className={styles.guideStepItem}>
             Start your landing page: <code className={styles.guideInlineCode}>npm start</code>
           </li>
-          <li className={styles.guideStepItem}>Go to the landing page and fill in the lead form</li>
+          <li className={styles.guideStepItem}>Go to the landing page and fill in the admission enquiry form</li>
           <li className={styles.guideStepItem}>Submit the form</li>
           <li className={styles.guideStepItem}>
             Go back to Pabbly → your workflow → click "History"
@@ -212,11 +213,11 @@ const PabblySetupGuide = ({ styles }) => {
           <li className={styles.guideStepItem}>
             If using Gmail: connect your Google account
           </li>
-          <li className={styles.guideStepItem}>Set recipient: hello@example.com or your sales team email</li>
+          <li className={styles.guideStepItem}>Set recipient: admissions@iconcommerce.edu (or your counselling team email)</li>
           <li className={styles.guideStepItem}>
             Subject:{' '}
             <code className={styles.guideInlineCode}>
-              {'New Lead: {{name}} - {{service_interest}}'}
+              {'New Admission Enquiry: {{name}} - {{service_interest}}'}
             </code>
           </li>
           <li className={styles.guideStepItem}>
@@ -244,7 +245,7 @@ const PabblySetupGuide = ({ styles }) => {
             <tr>
               <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>name</code></td>
               <td className={styles.guideTableCell}>Rahul Sharma</td>
-              <td className={styles.guideTableCell}>Lead's full name</td>
+              <td className={styles.guideTableCell}>Applicant's full name</td>
             </tr>
             <tr>
               <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>mobile</code></td>
@@ -258,13 +259,13 @@ const PabblySetupGuide = ({ styles }) => {
             </tr>
             <tr>
               <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>service_interest</code></td>
-              <td className={styles.guideTableCell}>__TBD_ICON_CONTENT__</td>
-              <td className={styles.guideTableCell}>Selected service (__TBD_ICON_CONTENT__)</td>
+              <td className={styles.guideTableCell}>bcom</td>
+              <td className={styles.guideTableCell}>Selected program (bcom / ba / bba / bca)</td>
             </tr>
             <tr>
               <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>message</code></td>
-              <td className={styles.guideTableCell}>__TBD_ICON_CONTENT__</td>
-              <td className={styles.guideTableCell}>Additional message from the lead (optional)</td>
+              <td className={styles.guideTableCell}>Stream: Commerce / State: Assam / Year: 2026</td>
+              <td className={styles.guideTableCell}>Enriched: stream + state + passing year + city + free-text from the applicant</td>
             </tr>
             <tr>
               <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>source</code></td>
@@ -288,7 +289,7 @@ const PabblySetupGuide = ({ styles }) => {
             </tr>
             <tr>
               <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>page_url</code></td>
-              <td className={styles.guideTableCell}>https://example.com/?utm_source=google</td>
+              <td className={styles.guideTableCell}>https://landing.iconcommerce.edu/?utm_source=google&amp;utm_campaign=bcom_admissions_2026</td>
               <td className={styles.guideTableCell}>Full page URL</td>
             </tr>
             <tr>
@@ -303,12 +304,12 @@ const PabblySetupGuide = ({ styles }) => {
             </tr>
             <tr>
               <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>utm_campaign</code></td>
-              <td className={styles.guideTableCell}>__TBD_ICON_CONTENT__</td>
+              <td className={styles.guideTableCell}>bcom_admissions_2026</td>
               <td className={styles.guideTableCell}>Campaign name</td>
             </tr>
             <tr>
               <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>utm_term</code></td>
-              <td className={styles.guideTableCell}>__TBD_ICON_CONTENT__</td>
+              <td className={styles.guideTableCell}>bcom admissions guwahati</td>
               <td className={styles.guideTableCell}>Search keyword</td>
             </tr>
             <tr>
@@ -335,7 +336,7 @@ const PabblySetupGuide = ({ styles }) => {
       <div className={styles.guideSection}>
         <p className={styles.guideParagraph}>
           The <code className={styles.guideInlineCode}>source</code> field tells you which form on{' '}
-          <code className={styles.guideInlineCode}>example.com</code> the lead came from.
+          <code className={styles.guideInlineCode}>landing.iconcommerce.edu</code> the enquiry came from.
           All forms use the UnifiedLeadForm component:
         </p>
         <table className={styles.guideTable}>
@@ -348,11 +349,11 @@ const PabblySetupGuide = ({ styles }) => {
           <tbody>
             <tr>
               <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>hero-form</code></td>
-              <td className={styles.guideTableCell}>Main lead form in the Hero section</td>
+              <td className={styles.guideTableCell}>Main 3-step admission enquiry form in the Hero section</td>
             </tr>
             <tr>
               <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>contact-form</code></td>
-              <td className={styles.guideTableCell}>Enquiry form in the Contact section</td>
+              <td className={styles.guideTableCell}>Enquiry form in the "Talk to a Counsellor" Contact section</td>
             </tr>
             <tr>
               <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>unified-lead-form</code></td>
@@ -360,19 +361,19 @@ const PabblySetupGuide = ({ styles }) => {
             </tr>
             <tr>
               <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>drawer-form-apply-now</code></td>
-              <td className={styles.guideTableCell}>Slide-in drawer — Book Site Survey</td>
+              <td className={styles.guideTableCell}>Slide-in drawer — Apply Now</td>
             </tr>
             <tr>
               <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>drawer-form-request-callback</code></td>
-              <td className={styles.guideTableCell}>Slide-in drawer — Request Callback</td>
+              <td className={styles.guideTableCell}>Slide-in drawer — Request Counsellor Callback</td>
             </tr>
             <tr>
               <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>drawer-form-get-details</code></td>
-              <td className={styles.guideTableCell}>Slide-in drawer — Get Details</td>
+              <td className={styles.guideTableCell}>Slide-in drawer — Get Program Details</td>
             </tr>
             <tr>
               <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>drawer-form-download-brochure</code></td>
-              <td className={styles.guideTableCell}>Slide-in drawer — Download Brochure</td>
+              <td className={styles.guideTableCell}>Slide-in drawer — Download Prospectus</td>
             </tr>
           </tbody>
         </table>
@@ -410,7 +411,7 @@ const PabblySetupGuide = ({ styles }) => {
             </tr>
             <tr>
               <td className={styles.guideTableCell}>D</td>
-              <td className={styles.guideTableCell}>Service Interest</td>
+              <td className={styles.guideTableCell}>Program of Interest</td>
               <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>{'{{service_interest}}'}</code></td>
             </tr>
             <tr>
@@ -493,17 +494,19 @@ const PabblySetupGuide = ({ styles }) => {
           Use this template for the email body in your Pabbly email notification action:
         </p>
         <pre className={styles.guideCode}>
-{`New lead from {{source}}
+{`New admission enquiry from {{source}}
 
-Name: {{name}}
+Applicant Name: {{name}}
 Mobile: {{mobile}}
 Email: {{email}}
-Service Interest: {{service_interest}}
-Message: {{message}}
+Program of Interest: {{service_interest}}
+Background: {{message}}
 
 Submitted: {{submitted_at}}
 Page: {{page_url}}
-UTM Source: {{utm_source}} | Campaign: {{utm_campaign}}`}
+UTM Source: {{utm_source}} | Campaign: {{utm_campaign}}
+
+— Counselling team to call within 24 hours.`}
         </pre>
       </div>
 
@@ -511,11 +514,12 @@ UTM Source: {{utm_source}} | Campaign: {{utm_campaign}}`}
       <h2 className={styles.guideTitle}>Lead Management Setup (Required for Admin Panel)</h2>
       <div className={styles.guideSection}>
         <p className={styles.guideParagraph}>
-          The Admin Panel needs to see leads from <strong>every</strong> device — a visitor could
-          submit a form from their phone in Delhi, and your sales team should be able to see that
-          lead from their laptop in Mumbai. To make this possible, the project ships a tiny PHP
-          file (<code className={styles.guideInlineCode}>public/api/leads.php</code>) that stores
-          every lead in a shared file on your server.
+          The Admin LMS needs to see enquiries from <strong>every</strong> device — a prospective
+          student could submit the form from their phone in Tezpur, and the admissions counsellor
+          should be able to see that enquiry from their laptop in the Chandmari office. To make
+          this possible, the project ships a tiny PHP file
+          (<code className={styles.guideInlineCode}>public/api/leads.php</code>) that stores every
+          enquiry in a shared file on your server.
         </p>
         <div className={styles.guideNote}>
           <strong>Requirement:</strong> Your hosting must support PHP (cPanel, Hostinger, VPS — yes.
@@ -592,15 +596,15 @@ REACT_APP_LEADS_ADMIN_KEY="Zk8pQ3mX9yL2wN7bV5rT1jH6cD4fG0aE"`}
         <h3 className={styles.guideSubtitle}>Step 4: Test</h3>
         <ol className={styles.guideStepList}>
           <li className={styles.guideStepItem}>
-            Submit a test lead from your phone (or any device other than the one you're admin'ing
-            from).
+            Submit a test admission enquiry from your phone (or any device other than the one
+            you're admin'ing from).
           </li>
           <li className={styles.guideStepItem}>
             Log into the admin panel at{' '}
             <code className={styles.guideInlineCode}>/admin/login</code>.
           </li>
           <li className={styles.guideStepItem}>
-            Open <code className={styles.guideInlineCode}>/admin/lms</code> — the lead should
+            Open <code className={styles.guideInlineCode}>/admin/lms</code> — the enquiry should
             appear within a few seconds.
           </li>
           <li className={styles.guideStepItem}>
@@ -611,7 +615,7 @@ REACT_APP_LEADS_ADMIN_KEY="Zk8pQ3mX9yL2wN7bV5rT1jH6cD4fG0aE"`}
         </ol>
 
         <div className={styles.guideTip}>
-          <strong>How it works under the hood:</strong> When a lead is submitted, the site POSTs to{' '}
+          <strong>How it works under the hood:</strong> When an enquiry is submitted, the site POSTs to{' '}
           <code className={styles.guideInlineCode}>/api/leads.php?action=create</code> (public, no
           auth needed). When the admin panel loads, it GETs{' '}
           <code className={styles.guideInlineCode}>/api/leads.php?action=list</code> with the{' '}
@@ -636,8 +640,8 @@ REACT_APP_LEADS_ADMIN_KEY="Zk8pQ3mX9yL2wN7bV5rT1jH6cD4fG0aE"`}
         <h3 className={styles.guideSubtitle}>Set it up only if you want:</h3>
         <ul className={styles.guideList}>
           <li className={styles.guideListItem}>
-            Your main Google Sheet to auto-update when an admin marks a lead as
-            Contacted/Converted/Lost.
+            Your main Google Sheet to auto-update when a counsellor marks an enquiry as
+            Contacted/Counselled/Admitted/Lost.
           </li>
           <li className={styles.guideListItem}>
             A Slack/email ping whenever any admin adds a note.
@@ -650,7 +654,7 @@ REACT_APP_LEADS_ADMIN_KEY="Zk8pQ3mX9yL2wN7bV5rT1jH6cD4fG0aE"`}
         <h3 className={styles.guideSubtitle}>Skip it if:</h3>
         <ul className={styles.guideList}>
           <li className={styles.guideListItem}>
-            You manage lead statuses only inside the Admin Panel itself.
+            You manage enquiry statuses only inside the Admin LMS itself.
           </li>
           <li className={styles.guideListItem}>
             You don't need external tools to know when admins change things.
@@ -678,28 +682,28 @@ REACT_APP_LEADS_ADMIN_KEY="Zk8pQ3mX9yL2wN7bV5rT1jH6cD4fG0aE"`}
           When configured, the admin panel will send one of these payloads for each action:
         </p>
         <pre className={styles.guideCode}>
-{`// When an admin changes a lead's status
+{`// When a counsellor changes an enquiry's status
 {
   "action": "status_update",
   "lead_id": "a1b2c3d4-e5f6...",
-  "new_status": "contacted",
-  "old_status": "new",
-  "timestamp": "2026-04-12T10:30:00.000Z"
+  "new_status": "admitted",
+  "old_status": "counselled",
+  "timestamp": "2026-04-27T10:30:00.000Z"
 }
 
-// When an admin adds a note
+// When a counsellor adds a note
 {
   "action": "note_added",
   "lead_id": "a1b2c3d4-e5f6...",
-  "note_text": "Called and left voicemail",
-  "timestamp": "2026-04-12T11:00:00.000Z"
+  "note_text": "Called — interested in B.Com Hons. Will visit campus Saturday.",
+  "timestamp": "2026-04-27T11:00:00.000Z"
 }
 
-// When an admin deletes a lead
+// When a counsellor deletes an enquiry
 {
   "action": "lead_deleted",
   "lead_id": "a1b2c3d4-e5f6...",
-  "timestamp": "2026-04-12T11:30:00.000Z"
+  "timestamp": "2026-04-27T11:30:00.000Z"
 }`}
         </pre>
         <div className={styles.guideTip}>
@@ -713,7 +717,7 @@ REACT_APP_LEADS_ADMIN_KEY="Zk8pQ3mX9yL2wN7bV5rT1jH6cD4fG0aE"`}
       <h2 className={styles.guideTitle}>Testing Checklist</h2>
       <div className={styles.guideSection}>
         <ol className={styles.guideStepList}>
-          <li className={styles.guideStepItem}>Submit a test lead form on the landing page</li>
+          <li className={styles.guideStepItem}>Submit a test admission enquiry form on the landing page</li>
           <li className={styles.guideStepItem}>
             Check Pabbly workflow history — data should appear within 30 seconds
           </li>
@@ -725,7 +729,7 @@ REACT_APP_LEADS_ADMIN_KEY="Zk8pQ3mX9yL2wN7bV5rT1jH6cD4fG0aE"`}
           </li>
           <li className={styles.guideStepItem}>
             Check the admin panel at{' '}
-            <code className={styles.guideInlineCode}>example.com/admin/lms</code> — lead should appear
+            <code className={styles.guideInlineCode}>landing.iconcommerce.edu/admin/lms</code> — enquiry should appear
           </li>
           <li className={styles.guideStepItem}>
             Try submitting the same phone number again — should show "Already Registered"
@@ -769,7 +773,7 @@ REACT_APP_LEADS_ADMIN_KEY="Zk8pQ3mX9yL2wN7bV5rT1jH6cD4fG0aE"`}
               </td>
             </tr>
             <tr>
-              <td className={styles.guideTableCell}>Leads appearing twice in admin panel</td>
+              <td className={styles.guideTableCell}>Enquiries appearing twice in admin panel</td>
               <td className={styles.guideTableCell}>
                 This was a bug that has been fixed. Make sure you're running the latest code.
               </td>
@@ -779,13 +783,13 @@ REACT_APP_LEADS_ADMIN_KEY="Zk8pQ3mX9yL2wN7bV5rT1jH6cD4fG0aE"`}
               <td className={styles.guideTableCell}>
                 UTM parameters must be in the landing page URL (e.g.,{' '}
                 <code className={styles.guideInlineCode}>
-                  example.com/?utm_source=google&utm_medium=cpc
+                  landing.iconcommerce.edu/?utm_source=google&utm_medium=cpc&utm_campaign=bcom_admissions_2026
                 </code>).
               </td>
             </tr>
             <tr>
               <td className={styles.guideTableCell}>
-                Admin Panel is empty even though Pabbly receives leads
+                Admin Panel is empty even though Pabbly receives enquiries
               </td>
               <td className={styles.guideTableCell}>
                 (1) Verify <code className={styles.guideInlineCode}>config.php</code> exists in{' '}
@@ -813,7 +817,7 @@ REACT_APP_LEADS_ADMIN_KEY="Zk8pQ3mX9yL2wN7bV5rT1jH6cD4fG0aE"`}
             </tr>
             <tr>
               <td className={styles.guideTableCell}>
-                Lead submissions don't reach the server
+                Enquiry submissions don't reach the server
               </td>
               <td className={styles.guideTableCell}>
                 Open DevTools → Network tab → submit a form. Look for a POST to{' '}

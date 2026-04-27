@@ -7,10 +7,15 @@ const SEOSetupGuide = ({ styles }) => {
       <h2 className={styles.guideTitle}>1. What is SEO?</h2>
       <div className={styles.guideSection}>
         <p className={styles.guideParagraph}>
-          SEO (Search Engine Optimization) helps your landing page appear in Google search results when people search for your services. Good SEO means more free traffic without paying for ads.
+          SEO (Search Engine Optimization) helps the Icon Commerce College admissions page appear in
+          Google search results when prospective students search "B.Com admissions Guwahati", "BBA
+          college Assam", or "Gauhati University affiliated college". Good SEO means more free
+          admission enquiries without paying for ads.
         </p>
         <p className={styles.guideParagraph}>
-          For a landing page, the most important SEO tasks are: setting the right title/description, adding structured data (JSON-LD), and submitting your sitemap to Google.
+          For an admissions landing page, the most important SEO tasks are: setting the right
+          title/description, adding structured data (EducationalOrganization / CollegeOrUniversity
+          schema with the four programs), and submitting your sitemap to Google.
         </p>
       </div>
 
@@ -24,7 +29,7 @@ const SEOSetupGuide = ({ styles }) => {
         <h3 className={styles.guideSubtitle}>Update the Title Tag</h3>
         <ol className={styles.guideStepList}>
           <li className={styles.guideStepItem}>
-            Find line ~171: <code className={styles.guideInlineCode}>{`<title>Your Business Name | Landing Page</title>`}</code>
+            Find line ~171: <code className={styles.guideInlineCode}>{`<title>Your Institution Name | Admissions</title>`}</code>
           </li>
           <li className={styles.guideStepItem}>
             Replace with your actual title (keep under 60 characters)
@@ -32,7 +37,7 @@ const SEOSetupGuide = ({ styles }) => {
           <li className={styles.guideStepItem}>
             Example:
             <pre className={styles.guideCode}>
-{`<title>__TBD_ICON_CONTENT__</title>`}
+{`<title>Icon Commerce College — B.Com / BBA / BCA Admissions 2026 | Guwahati</title>`}
             </pre>
           </li>
         </ol>
@@ -48,7 +53,7 @@ const SEOSetupGuide = ({ styles }) => {
           <li className={styles.guideStepItem}>
             Example:
             <pre className={styles.guideCode}>
-{`<meta name="description" content="__TBD_ICON_CONTENT__">`}
+{`<meta name="description" content="Admissions open at Icon Commerce College, Guwahati. Gauhati University affiliated B.Com, BBA, BCA, B.A. programs. Apply online — talk to a counsellor today.">`}
             </pre>
           </li>
         </ol>
@@ -56,9 +61,9 @@ const SEOSetupGuide = ({ styles }) => {
         <div className={styles.guideTip}>
           <strong>Tips:</strong>
           <ul style={{ marginTop: '8px', paddingLeft: '20px' }}>
-            <li style={{ marginBottom: '4px' }}>Title should include your primary keyword + brand name</li>
-            <li style={{ marginBottom: '4px' }}>Description should include a call-to-action ("Apply now", "Contact us")</li>
-            <li>Don't stuff keywords — write naturally</li>
+            <li style={{ marginBottom: '4px' }}>Title should include the primary keyword (program + city) + institution name</li>
+            <li style={{ marginBottom: '4px' }}>Description should include a clear admission CTA ("Apply Now", "Talk to Counsellor", "Download Prospectus")</li>
+            <li>Don't stuff keywords — write naturally for parents and Class 12 students</li>
           </ul>
         </div>
       </div>
@@ -86,10 +91,10 @@ const SEOSetupGuide = ({ styles }) => {
             Update in <code className={styles.guideInlineCode}>public/index.html</code>:
             <ul style={{ marginTop: '8px', paddingLeft: '20px' }}>
               <li style={{ marginBottom: '4px' }}>
-                Line ~76: <code className={styles.guideInlineCode}>{`<meta property="og:image" content="https://example.com/og-image.jpg">`}</code>
+                Line ~76: <code className={styles.guideInlineCode}>{`<meta property="og:image" content="https://landing.iconcommerce.edu/og-image.jpg">`}</code>
               </li>
               <li style={{ marginBottom: '4px' }}>
-                Line ~99: <code className={styles.guideInlineCode}>{`<meta name="twitter:image" content="https://example.com/og-image.jpg">`}</code>
+                Line ~99: <code className={styles.guideInlineCode}>{`<meta name="twitter:image" content="https://landing.iconcommerce.edu/og-image.jpg">`}</code>
               </li>
             </ul>
           </li>
@@ -99,7 +104,7 @@ const SEOSetupGuide = ({ styles }) => {
         </ol>
 
         <div className={styles.guideTip}>
-          <strong>Tip:</strong> Use Canva (free) to create your OG image. Template size: 1200×630px. Include your logo, tagline, and a compelling image.
+          <strong>Tip:</strong> Use Canva (free) to create your OG image. Template size: 1200×630px. For Icon Commerce College, include the logo, the tagline "Where Knowledge Meets Character — Admissions Open 2026", and a campus or convocation photo.
         </div>
       </div>
 
@@ -116,21 +121,26 @@ const SEOSetupGuide = ({ styles }) => {
         <h3 className={styles.guideSubtitle}>Key Things to Update in seo.js</h3>
         <pre className={styles.guideCode}>
 {`// Organization details
-organization.name       → Your company's legal name
-organization.url        → https://example.com
-organization.logo       → URL to your logo image
-organization.phone      → +91-1800-2020-001
-organization.email      → hello@example.com
-organization.address    → Gurugram, Haryana, India
+organization.name       → "Icon Commerce College"
+organization.url        → https://landing.iconcommerce.edu
+organization.logo       → URL to the college logo
+organization.phone      → +91-XXXXXXXXXX (admissions desk)
+organization.email      → admissions@iconcommerce.edu
+organization.address    → Rajgarh Road, Chandmari, Guwahati - 781003, Assam, India
+organization.foundingDate → "2004"
+
+// EducationalOrganization / CollegeOrUniversity (the headline schema)
+educationalOrganization.type           → "CollegeOrUniversity"
+educationalOrganization.parentOrganization → { name: "Gauhati University", url: "https://gauhati.ac.in" }
+educationalOrganization.identifier     → [{ propertyID: "Samarth College Code", value: "842" }]
+educationalOrganization.hasOfferCatalog → 4 Course entries: B.Com, B.A., BBA, BCA
 
 // FAQ section
-faqs                    → Replace with your actual FAQs (5-8 questions)
+faqs                    → 5-8 admission FAQs (eligibility, application, scholarships, fees,
+                          GU affiliation, location)
 
-// Local business
-localBusiness.type      → "HomeAndConstructionBusiness" or "LocalBusiness"
-localBusiness.priceRange → "$$", "$$$", etc.
-localBusiness.openingHours → Your actual hours
-localBusiness.geo       → Your latitude and longitude (get from Google Maps)`}
+// Course schemas (auto-generated from src/data/programsData.js)
+Each program needs: name, description, duration, feePerYear, affiliation`}
         </pre>
 
         <h3 className={styles.guideSubtitle}>How to Get Latitude & Longitude from Google Maps</h3>
@@ -150,7 +160,7 @@ localBusiness.geo       → Your latitude and longitude (get from Google Maps)`}
         </p>
         <ul style={{ paddingLeft: '24px', marginBottom: '16px' }}>
           <li className={styles.guideStepItem}>
-            Replace <code className={styles.guideInlineCode}>https://example.com/</code> with your actual domain
+            Replace <code className={styles.guideInlineCode}>https://example.com/</code> with your actual domain (e.g., <code className={styles.guideInlineCode}>https://landing.iconcommerce.edu/</code>)
           </li>
           <li className={styles.guideStepItem}>
             Update the <code className={styles.guideInlineCode}>{`<lastmod>`}</code> date to today's date
@@ -188,7 +198,7 @@ localBusiness.geo       → Your latitude and longitude (get from Google Maps)`}
             Open <code className={styles.guideInlineCode}>public/robots.txt</code>
           </li>
           <li className={styles.guideStepItem}>
-            Replace <code className={styles.guideInlineCode}>https://example.com/sitemap.xml</code> with your actual domain
+            Replace <code className={styles.guideInlineCode}>https://example.com/sitemap.xml</code> with your actual domain (e.g., <code className={styles.guideInlineCode}>https://landing.iconcommerce.edu/sitemap.xml</code>)
           </li>
           <li className={styles.guideStepItem}>
             The file already blocks <code className={styles.guideInlineCode}>/admin/</code> and <code className={styles.guideInlineCode}>/thank-you</code> from being indexed — don't change these
