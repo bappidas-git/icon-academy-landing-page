@@ -11,7 +11,7 @@
 }
 
 .question h4 {
-  font-family: var(--font-heading);
+  font-family: var(--ic-font-ui);
   font-weight: 700;
   font-size: 1rem;
   color: var(--form-heading, var(--primary-dark));

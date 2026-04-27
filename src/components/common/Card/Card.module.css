@@ -67,7 +67,8 @@
 }
 
 .statValue {
-  font-family: var(--font-heading);
+  font-family: var(--ic-font-ui);
+  font-variant-numeric: tabular-nums;
   font-size: var(--fs-2xl);
   font-weight: var(--fw-bold);
   color: var(--primary-dark);
@@ -97,7 +98,7 @@
 }
 
 .featureTitle {
-  font-family: var(--font-primary);
+  font-family: var(--ic-font-ui);
   font-size: var(--fs-base);
   font-weight: var(--fw-semibold);
   color: var(--primary-dark);
@@ -205,7 +206,7 @@
 
 /* Card Title */
 .cardTitle {
-  font-family: var(--font-primary);
+  font-family: var(--ic-font-ui);
   font-size: var(--fs-lg);
   font-weight: var(--fw-semibold);
   color: var(--primary-dark);

@@ -84,7 +84,7 @@
 }
 
 .formTitle {
-  font-family: var(--font-heading) !important;
+  font-family: var(--ic-font-ui) !important;
   font-weight: 700 !important;
   font-size: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem) !important;
   color: var(--primary-dark) !important;
@@ -278,7 +278,7 @@
 }
 
 .swalTitle {
-  font-family: var(--font-heading) !important;
+  font-family: var(--ic-font-ui) !important;
   color: var(--primary-dark) !important;
 }
 

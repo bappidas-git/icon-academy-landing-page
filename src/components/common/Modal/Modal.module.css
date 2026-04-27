@@ -75,7 +75,7 @@
 /* Title */
 .title {
   flex: 1;
-  font-family: var(--font-heading);
+  font-family: var(--ic-font-ui);
   font-size: var(--fs-xl);
   font-weight: var(--fw-bold);
   color: var(--primary-dark);
@@ -178,14 +178,14 @@
 }
 
 .swalTitle {
-  font-family: var(--font-heading) !important;
+  font-family: var(--ic-font-ui) !important;
   font-size: var(--fs-xl) !important;
   font-weight: var(--fw-bold) !important;
   color: var(--primary-dark) !important;
 }
 
 .swalContent {
-  font-family: var(--font-primary) !important;
+  font-family: var(--ic-font-body) !important;
   font-size: var(--fs-base) !important;
   color: var(--text-gray) !important;
   line-height: var(--lh-relaxed) !important;
@@ -198,7 +198,7 @@
 }
 
 .swalButton {
-  font-family: var(--font-primary) !important;
+  font-family: var(--ic-font-ui) !important;
   font-weight: var(--fw-semibold) !important;
   font-size: var(--fs-base) !important;
   padding: var(--space-3) var(--space-6) !important;
@@ -211,7 +211,7 @@
 }
 
 .swalCancelButton {
-  font-family: var(--font-primary) !important;
+  font-family: var(--ic-font-ui) !important;
   font-weight: var(--fw-semibold) !important;
   font-size: var(--fs-base) !important;
   padding: var(--space-3) var(--space-6) !important;

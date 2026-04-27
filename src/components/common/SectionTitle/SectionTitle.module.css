@@ -57,7 +57,7 @@
 
 /* Title */
 .title {
-  font-family: var(--font-heading);
+  font-family: var(--ic-font-heading);
   font-size: var(--fs-4xl);
   font-weight: var(--fw-bold);
   color: var(--primary-dark);

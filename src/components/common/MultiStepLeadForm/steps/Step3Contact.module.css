@@ -41,7 +41,7 @@
   font-size: 0.8125rem;
   font-weight: 600;
   color: var(--form-label, var(--primary-dark));
-  font-family: var(--font-primary);
+  font-family: var(--ic-font-ui);
   letter-spacing: 0.002em;
   line-height: 1.35;
 }
@@ -67,7 +67,7 @@
   border-radius: 12px;
   background: var(--white);
   font-size: 0.9375rem;
-  font-family: var(--font-primary);
+  font-family: var(--ic-font-body);
   color: var(--primary-dark);
   transition: box-shadow 0.18s ease;
 }
@@ -129,7 +129,7 @@
   min-height: 1em;
   font-size: 0.75rem;
   color: var(--form-hint, var(--text-gray));
-  font-family: var(--font-primary);
+  font-family: var(--ic-font-body);
 }
 
 .field :global(.MuiFormHelperText-root.Mui-error) {
@@ -240,7 +240,7 @@
 
 .privacyHeader h3 {
   margin: 0;
-  font-family: var(--font-heading);
+  font-family: var(--ic-font-ui);
   font-weight: 700;
   font-size: 1.05rem;
   color: var(--primary-dark);

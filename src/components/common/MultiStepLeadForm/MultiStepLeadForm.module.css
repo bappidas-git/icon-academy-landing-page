@@ -112,7 +112,7 @@
 
 .stepTitle {
   margin: 0;
-  font-family: var(--font-heading);
+  font-family: var(--ic-font-ui);
   font-weight: 700;
   font-size: clamp(1.15rem, 1rem + 0.7vw, 1.4rem);
   line-height: 1.25;
@@ -276,7 +276,7 @@
 
 .successTitle {
   margin: 0;
-  font-family: var(--font-heading);
+  font-family: var(--ic-font-ui);
   font-weight: 700;
   font-size: 1.25rem;
   color: inherit;

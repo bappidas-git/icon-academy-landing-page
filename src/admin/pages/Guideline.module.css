@@ -279,7 +279,7 @@
   border: 1px solid var(--admin-border);
   border-radius: 8px;
   padding: 16px;
-  font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+  font-family: var(--ic-font-mono);
   font-size: 0.8125rem;
   overflow-x: auto;
   white-space: pre;
@@ -314,7 +314,7 @@
   padding: 2px 6px;
   border-radius: 4px;
   font-size: 0.85em;
-  font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+  font-family: var(--ic-font-mono);
   color: var(--admin-primary);
 }
 

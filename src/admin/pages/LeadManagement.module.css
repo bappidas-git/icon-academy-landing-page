@@ -19,7 +19,7 @@
 }
 
 .pageTitle {
-  font-family: var(--font-heading);
+  font-family: var(--ic-font-ui);
   font-size: var(--fs-xl);
   font-weight: var(--fw-bold);
   color: var(--admin-primary);
@@ -106,7 +106,8 @@
 }
 
 .statValue {
-  font-family: var(--font-heading);
+  font-family: var(--ic-font-ui);
+  font-variant-numeric: tabular-nums;
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--admin-primary);
@@ -212,7 +213,7 @@
 .leadCardMobile {
   font-size: 0.8125rem;
   color: var(--admin-text-secondary);
-  font-family: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', monospace;
+  font-family: var(--ic-font-mono);
   margin: 4px 0 0;
 }
 

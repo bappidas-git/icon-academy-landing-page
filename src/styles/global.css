@@ -4,7 +4,8 @@
    ============================================ */
 
 /* ========== CSS Reset & Base Styles ========== */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+/* Fonts (Fraunces / Inter / Plus Jakarta Sans) are loaded via <link>
+   in public/index.html — no @import here, to avoid render-blocking. */
 
 *,
 *::before,
@@ -25,7 +26,7 @@ html {
 }
 
 body {
-  font-family: var(--font-primary);
+  font-family: var(--ic-font-body);
   font-size: var(--fs-base);
   font-weight: var(--fw-regular);
   line-height: var(--lh-normal);
@@ -33,6 +34,8 @@ body {
   background-color: var(--white);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Inter polish: stylistic-set 1 + character variant 11 */
+  font-feature-settings: "ss01", "cv11";
   overflow-x: hidden;
   overflow-y: auto;
   min-height: 100vh;
@@ -54,8 +57,20 @@ body.drawer-open {
 }
 
 /* ========== Typography Defaults ========== */
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
+/* h1-h3 use Fraunces (display serif) — set the optical-size axis on
+   h1/h2 so the variable font picks the display cut. h4-h6 stay in
+   Plus Jakarta Sans for readability at smaller sizes. */
+h1, h2, h3 {
+  font-family: var(--ic-font-heading);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-tight);
+  color: var(--primary-dark);
+  margin: 0;
+  text-rendering: optimizeLegibility;
+}
+
+h4, h5, h6 {
+  font-family: var(--ic-font-ui);
   font-weight: var(--fw-bold);
   line-height: var(--lh-tight);
   color: var(--primary-dark);
@@ -65,10 +80,12 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
   font-size: var(--fs-hero);
   letter-spacing: var(--ls-tight);
+  font-variation-settings: "opsz" 144;
 }
 
 h2 {
   font-size: var(--fs-4xl);
+  font-variation-settings: "opsz" 96;
 }
 
 h3 {
@@ -600,6 +617,23 @@ table {
   background-clip: text;
 }
 
+/* ========== Typography Utilities ========== */
+/* Eyebrow — small uppercase label (Plus Jakarta Sans, saffron). */
+.eyebrow {
+  font-family: var(--ic-font-ui);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ic-secondary);
+}
+
+/* Numeric — fee amounts, stats. Tabular figures for stable column widths. */
+.numeric {
+  font-family: var(--ic-font-ui);
+  font-variant-numeric: tabular-nums;
+}
+
 /* ========== Button Base Styles ========== */
 .btn {
   display: inline-flex;
@@ -607,7 +641,7 @@ table {
   justify-content: center;
   gap: var(--space-2);
   padding: var(--space-3) var(--space-6);
-  font-family: var(--font-primary);
+  font-family: var(--ic-font-ui);
   font-size: var(--fs-base);
   font-weight: var(--fw-semibold);
   line-height: 1;

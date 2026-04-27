@@ -18,7 +18,7 @@
 }
 
 .pageTitle {
-  font-family: var(--font-heading);
+  font-family: var(--ic-font-ui);
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--admin-primary);
@@ -116,7 +116,8 @@
 }
 
 .statValue {
-  font-family: var(--font-heading);
+  font-family: var(--ic-font-ui);
+  font-variant-numeric: tabular-nums;
   font-size: 2rem;
   font-weight: 700;
   color: var(--admin-primary);
@@ -210,7 +211,7 @@
 }
 
 .sectionTitle {
-  font-family: var(--font-heading);
+  font-family: var(--ic-font-ui);
   font-size: 1.0625rem;
   font-weight: 600;
   color: var(--admin-primary);
