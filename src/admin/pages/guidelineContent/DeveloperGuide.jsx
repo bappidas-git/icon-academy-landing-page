@@ -96,10 +96,10 @@ const DeveloperGuide = ({ styles }) => {
 │   │   └── utils/            # adminAuth, leadService, googleAdsExport, adminConfig
 │   ├── components/
 │   │   ├── common/           # Reusable: Header, Footer, LeadForm, Button, Card, Modal, etc.
-│   │   └── sections/         # Page sections: Hero, About, Programs, Faculty, Campus Life, Admission Process, Fee Structure, Scholarships, FAQs, CTA
+│   │   └── sections/         # Page sections: Hero, About, Services, Features, CTA, etc.
 │   ├── config/               # seo.js (SEO configuration)
 │   ├── context/              # ModalContext (drawer/modal state), ThemeContext
-│   ├── data/                 # Content data: programs, faculty, scholarships, stats, locations
+│   ├── data/                 # Content data: services, features, stats, locations
 │   ├── hooks/                # Custom hooks: useGTMTracking, useInView, useMediaQuery
 │   ├── pages/                # Full pages: ThankYou
 │   ├── styles/               # Global CSS: variables.css, global.css, animations.css, responsive.css
@@ -144,7 +144,7 @@ npm start
         </pre>
 
         <div className={styles.guideNote}>
-          <strong>Note:</strong> Make sure you have Node.js (v16+) and npm installed before starting. Edit the <code className={styles.guideInlineCode}>.env</code> file with the institution's details (name, contact, admissions credentials) before deploying.
+          <strong>Note:</strong> Make sure you have Node.js (v16+) and npm installed before starting. Edit the <code className={styles.guideInlineCode}>.env</code> file with your business details before deploying.
         </div>
       </div>
 
@@ -166,28 +166,28 @@ npm start
           <tbody>
             <tr>
               <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>.env</code></td>
-              <td className={styles.guideTableCell}>Institution name, admissions phone, email, admin credentials</td>
-              <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>REACT_APP_NAME="Icon Commerce College"</code></td>
+              <td className={styles.guideTableCell}>Business name, phone, email, admin credentials</td>
+              <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>REACT_APP_NAME="Brand"</code></td>
             </tr>
             <tr>
-              <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>src/data/programsData.js</code></td>
-              <td className={styles.guideTableCell}>Program cards (B.Com, B.A., BBA, BCA) — duration, fees, eligibility</td>
-              <td className={styles.guideTableCell}>Program names, fees, seats, NEP 2020 alignment</td>
+              <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>src/data/servicesData.js</code></td>
+              <td className={styles.guideTableCell}>Service plans/pricing cards</td>
+              <td className={styles.guideTableCell}>Plan names, features, prices</td>
             </tr>
             <tr>
-              <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>src/data/facultyData.js</code></td>
-              <td className={styles.guideTableCell}>Faculty showcase cards</td>
-              <td className={styles.guideTableCell}>Faculty names, departments, qualifications</td>
+              <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>src/data/featuresData.js</code></td>
+              <td className={styles.guideTableCell}>Feature categories and items</td>
+              <td className={styles.guideTableCell}>Your service features</td>
             </tr>
             <tr>
               <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>src/data/statsData.js</code></td>
               <td className={styles.guideTableCell}>Key statistics/highlights</td>
-              <td className={styles.guideTableCell}>"20+ Years Legacy", "Samarth Code 842"</td>
+              <td className={styles.guideTableCell}>"10+ Years", "500+ Stores"</td>
             </tr>
             <tr>
               <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>src/data/locationData.js</code></td>
-              <td className={styles.guideTableCell}>Campus address, contact info, nearby areas</td>
-              <td className={styles.guideTableCell}>Rajgarh Road, Chandmari, Guwahati - 781003</td>
+              <td className={styles.guideTableCell}>Office address, contact info, nearby areas</td>
+              <td className={styles.guideTableCell}>Your actual address</td>
             </tr>
             <tr>
               <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>src/styles/variables.css</code></td>
@@ -206,8 +206,8 @@ npm start
             </tr>
             <tr>
               <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>src/config/seo.js</code></td>
-              <td className={styles.guideTableCell}>SEO metadata, EducationalOrganization / CollegeOrUniversity schema, admission FAQs</td>
-              <td className={styles.guideTableCell}>Icon Commerce College details + Gauhati University parentOrganization</td>
+              <td className={styles.guideTableCell}>SEO metadata, schemas, FAQs</td>
+              <td className={styles.guideTableCell}>Your business details</td>
             </tr>
             <tr>
               <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>public/index.html</code></td>
@@ -307,10 +307,10 @@ npm start
         </p>
 
         <pre className={styles.guideCode}>
-{`Prospective student fills UnifiedLeadForm → handleSubmit()
+{`Lead fills UnifiedLeadForm → handleSubmit()
   ↓
 Form validation (validators.js)
-  Fields: name, mobile, email, service_interest (program), message (stream/state/year/city)
+  Fields: name, mobile, email, service_interest, message
   ↓
 Duplicate check (isDuplicateLead — checks localStorage by mobile number)
   ↓

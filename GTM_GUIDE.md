@@ -1,8 +1,8 @@
-# GTM, GA4, Google Ads, Meta Pixel & CAPI Setup — Icon Commerce College
+# Google Tag Manager (GTM) Setup Guide
 
 ## 1. Overview
 
-The Icon Commerce College admissions landing page uses Google Tag Manager as the central hub for every tracking tag — GA4, Google Ads conversion tracking, and Meta Pixel. Instead of hardcoding tracking scripts, every visitor interaction (admission enquiry submitted, "Apply Now" clicked, prospectus downloaded, phone tapped) is pushed to `window.dataLayer`, which GTM picks up and routes to the appropriate platform.
+This codebase uses Google Tag Manager as the central hub for all tracking tags — GA4, Google Ads conversions, and Meta Pixel. Instead of hardcoding tracking scripts, all user interaction events are pushed to `window.dataLayer`, which GTM picks up and routes to the appropriate platform.
 
 Key files involved:
 - **`public/index.html`** — GTM container snippet (head + noscript fallback)
@@ -37,9 +37,9 @@ Every event the codebase pushes to `window.dataLayer`:
 | Event Name | When It Fires | Key Parameters | File & Line |
 |---|---|---|---|
 | `virtual_pageview` | Route change | `page_path`, `page_title` | `src/utils/gtm.js:59` |
-| `lead_form_submission` | Admission enquiry submitted | `formSource`, `serviceInterest` (program) | `src/utils/gtm.js:71` |
-| `generate_lead` | Admission enquiry submitted (GA4 format) | `currency` (`INR`), `value` (lead value, see §5), `lead_source`, `method` | `src/utils/gtm.js:77` |
-| `cta_click` | CTA button clicked (Apply Now / Talk to Counsellor / Download Prospectus) | `cta_name`, `cta_location`, `cta_text` | `src/utils/gtm.js:92` |
+| `lead_form_submission` | Form submitted | `formSource`, `serviceInterest` | `src/utils/gtm.js:71` |
+| `generate_lead` | Form submitted (GA4 format) | `currency`, `value`, `lead_source`, `method` | `src/utils/gtm.js:77` |
+| `cta_click` | CTA button clicked | `cta_name`, `cta_location`, `cta_text` | `src/utils/gtm.js:92` |
 | `phone_click` | Phone number clicked | `phone_number`, `click_location` | `src/utils/gtm.js:105` |
 | `whatsapp_click` | WhatsApp link clicked | `click_location` | `src/utils/gtm.js:116` |
 | `scroll_depth` | User scrolls past milestone | `scroll_percentage` (25, 50, 75, 100) | `src/utils/gtm.js:126` |
@@ -56,7 +56,7 @@ Every event the codebase pushes to `window.dataLayer`:
 - `time_on_page` — at 30/60/120/300s (line 74)
 - `section_view` — via IntersectionObserver on 9 sections (line 91)
 
-Tracked sections: `home` (hero), `about` (Icon Commerce College story), `programs`, `faculty`, `campus-life`, `admission-process`, `fee-structure`, `scholarships`, `cta`, `contact`, `secondary-cta`. Tracking these gives the admissions team a heat map of which parts of the funnel are doing the convincing.
+Tracked sections: `home`, `about`, `services`, `highlights`, `features`, `location`, `cta`, `contact`, `secondary-cta`
 
 ---
 
@@ -68,17 +68,17 @@ Tracked sections: `home` (hero), `about` (Icon Commerce College story), `program
 3. Trigger: **All Pages**
 4. Save and publish
 
-### Event Tag for Admission Enquiry Conversions
+### Event Tag for Lead Conversions
 1. Create tag: **Google Analytics: GA4 Event**
 2. Configuration Tag: select your GA4 Config tag
 3. Event Name: `generate_lead`
 4. Event Parameters (map from dataLayer):
    | Parameter Name | Value |
    |---|---|
-   | `currency` | `{{dlv - currency}}` (`INR`) |
-   | `value` | `{{dlv - value}}` (admission enquiry value — see §5) |
-   | `lead_source` | `{{dlv - lead_source}}` (e.g., `hero-form`, `drawer-form-apply-now`) |
-   | `method` | `{{dlv - method}}` (`web_form`) |
+   | `currency` | `{{dlv - currency}}` |
+   | `value` | `{{dlv - value}}` |
+   | `lead_source` | `{{dlv - lead_source}}` |
+   | `method` | `{{dlv - method}}` |
 5. Create **Data Layer Variables** in GTM for each parameter above (Variable Type: Data Layer Variable)
 6. Trigger: **Custom Event** where Event Name equals `generate_lead`
 
@@ -92,18 +92,14 @@ Create additional GA4 Event tags for: `cta_click`, `phone_click`, `whatsapp_clic
 ### Step 1: Create Conversion Action
 1. In Google Ads, go to **Tools > Conversions > New conversion action**
 2. Choose **Website**, set category to **Submit lead form**
-3. Name it `Icon Commerce College — Admission Enquiry`
-4. Copy the **Conversion ID** (`AW-XXXXXXXXXX`) and **Conversion Label**
+3. Copy the **Conversion ID** (`AW-XXXXXXXXXX`) and **Conversion Label**
 
 ### Step 2: Configure Environment
-
 ```env
 REACT_APP_GOOGLE_ADS_ID=AW-XXXXXXXXXX
 REACT_APP_GOOGLE_ADS_CONVERSION_LABEL=AbCdEfGhIjKlMn
-REACT_APP_GOOGLE_ADS_CONVERSION_VALUE=500
+REACT_APP_GOOGLE_ADS_CONVERSION_VALUE=0
 ```
-
-> **Conversion value guidance:** Use the *expected value of one admission enquiry* — not the fee for one program seat. A typical undergraduate admission enquiry in the Indian market is worth roughly **₹500** to the institution at the *enquiry* stage (factoring in counselling cost ÷ enquiry-to-admission conversion rate). **TODO: confirm with Icon Commerce College stakeholders before going live.** If you have historical data — e.g., 1 in 20 enquiries convert to a paid admission with annual fees of ₹25,000 — set value to `25000 / 20 = 1250`.
 
 ### Method A: Via GTM (Recommended)
 1. Create tag: **Google Ads Conversion Tracking**
@@ -136,7 +132,7 @@ Sends hashed (SHA-256) user data for better conversion matching.
 
 ## 6. Google Ads Offline Conversions
 
-Offline conversions let you report back to Google Ads when an admission enquiry actually becomes an enrolled student (i.e., the applicant pays the fees and joins the program). Smart Bidding then optimises toward the keywords / creatives that produce *enrolled students*, not just form fills.
+Offline conversions let you report back to Google Ads when a lead actually converts (e.g., becomes a paying customer), improving Smart Bidding optimization.
 
 ### How GCLID is Captured
 `src/utils/gclidManager.js` handles the full lifecycle:
@@ -145,14 +141,12 @@ Offline conversions let you report back to Google Ads when an admission enquiry 
 - `associateGclidWithLead()` (line 68) — links gclid to a specific lead ID in localStorage
 
 ### Uploading Conversions
-1. In the Admin LMS, mark each enquiry that became an enrolled student as `Admitted` and click **Export Google Ads Conversions** to download the CSV.
+1. Export leads from your Admin LMS as CSV
 2. CSV format required by Google Ads:
 
    | Google Click ID | Conversion Name | Conversion Time | Conversion Value | Currency |
    |---|---|---|---|---|
-   | `EAIaIQob...` | `Admission Enrolled` | `2026-06-15 14:30:00` | `25000` | `INR` |
-
-   The Conversion Value should be the actual fees paid (e.g., ₹25,000 for a B.Com first-year fee).
+   | `EAIaIQob...` | `Lead Converted` | `2024-01-15 14:30:00` | `5000` | `INR` |
 
 3. Upload via **Google Ads > Tools > Conversions > Uploads**
 4. Alternatively, use the API endpoint at `public/api/google-offline-conversions.php` (requires OAuth2 credentials — see lines 29-37 for config)
@@ -174,9 +168,9 @@ REACT_APP_META_PIXEL_ID=123456789012345
 |---|---|---|---|
 | `initPixel()` | Pixel init | App startup | 20 |
 | `trackPageView()` | `PageView` | Route change | 60 |
-| `trackLead()` | `Lead` | Admission enquiry submitted | 72 |
-| `trackViewContent()` | `ViewContent` | Programs / Faculty / Fee section view | 105 |
-| `trackContact()` | `Contact` | Phone / WhatsApp / "Talk to Counsellor" click | 128 |
+| `trackLead()` | `Lead` | Form submission | 72 |
+| `trackViewContent()` | `ViewContent` | Section/content view | 105 |
+| `trackContact()` | `Contact` | Phone/WhatsApp click | 128 |
 | `trackCustom()` | Custom event | Manual trigger | 146 |
 
 ### Alternative: Via GTM
@@ -217,16 +211,16 @@ Both browser pixel and CAPI send events with the same `event_id`:
 `public/api/meta-capi.php` accepts: `Lead`, `Purchase`, `PageView`, `ViewContent`, `Contact`, `LeadConverted` (line 65)
 
 ### Sending Conversions from Admin LMS
-When marking an enquiry as `Admitted` in the admissions panel, POST to `/api/meta-capi.php`:
+When marking a lead as "Converted" in your admin panel, POST to `/api/meta-capi.php`:
 ```json
 {
   "event_name": "LeadConverted",
   "event_id": "unique_id",
-  "user_data": { "em": "applicant@example.com", "ph": "9876543210" },
-  "custom_data": { "value": 25000, "currency": "INR", "content_name": "B.Com Admission" }
+  "user_data": { "em": "email@example.com", "ph": "9876543210" },
+  "custom_data": { "value": 5000, "currency": "INR" }
 }
 ```
-The server hashes PII (line 76-83) and enriches with client IP (line 88) before forwarding to Meta. Use the actual first-year fee for the `value` field — Meta uses it to optimise lookalike audiences toward higher-value enrollments.
+The server hashes PII (line 76-83) and enriches with client IP (line 88) before forwarding to Meta.
 
 ### Testing
 1. Set `META_TEST_EVENT_CODE` in `config.php` (from **Meta Events Manager > Test Events**)
@@ -319,7 +313,7 @@ REACT_APP_ENABLE_CONSENT_MODE=true
 - [ ] Tags respect consent state (blocked when denied)
 
 ### End-to-End
-- [ ] Admission enquiry submission triggers: `generate_lead` (GTM) + Google Ads conversion + Meta `Lead` + CAPI `Lead`
-- [ ] Phone click on the admissions desk number triggers: `phone_click` (GTM) + Meta `Contact`
-- [ ] WhatsApp "Chat with Counsellor" click triggers: `whatsapp_click` (GTM)
-- [ ] Scroll and time events appear in GA4 after browsing the Programs / Fee Structure / Admission Process sections
+- [ ] Form submission triggers: `generate_lead` (GTM) + Google Ads conversion + Meta `Lead` + CAPI `Lead`
+- [ ] Phone click triggers: `phone_click` (GTM) + Meta `Contact`
+- [ ] WhatsApp click triggers: `whatsapp_click` (GTM)
+- [ ] Scroll and time events appear in GA4 after browsing

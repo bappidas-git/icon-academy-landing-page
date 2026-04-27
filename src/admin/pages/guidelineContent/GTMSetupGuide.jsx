@@ -29,9 +29,7 @@ const GTMSetupGuide = ({ styles }) => {
           </li>
           <li className={styles.guideStepItem}>Click "Create Account"</li>
           <li className={styles.guideStepItem}>
-            Account name: <code className={styles.guideInlineCode}>Icon Commerce College</code>.
-            Container name: <code className={styles.guideInlineCode}>landing.iconcommerce.edu</code>.
-            Platform: "Web"
+            Account name: __TBD_ICON_CONTENT__. Container name: example.com. Platform: "Web"
           </li>
           <li className={styles.guideStepItem}>
             Accept the terms of service — you'll get a container ID like{' '}
@@ -128,17 +126,17 @@ REACT_APP_ENABLE_ANALYTICS=true`}
               <td className={styles.guideTableCell}>
                 <code className={styles.guideInlineCode}>lead_form_submission</code>
               </td>
-              <td className={styles.guideTableCell}>Admission enquiry submitted</td>
+              <td className={styles.guideTableCell}>Form submitted</td>
               <td className={styles.guideTableCell}>
                 <code className={styles.guideInlineCode}>formSource</code>,{' '}
-                <code className={styles.guideInlineCode}>serviceInterest</code> (program)
+                <code className={styles.guideInlineCode}>serviceInterest</code>
               </td>
             </tr>
             <tr>
               <td className={styles.guideTableCell}>
                 <code className={styles.guideInlineCode}>generate_lead</code>
               </td>
-              <td className={styles.guideTableCell}>Admission enquiry submitted (GA4 format)</td>
+              <td className={styles.guideTableCell}>Form submitted (GA4 format)</td>
               <td className={styles.guideTableCell}>
                 <code className={styles.guideInlineCode}>currency</code>,{' '}
                 <code className={styles.guideInlineCode}>value</code>,{' '}
@@ -206,7 +204,7 @@ REACT_APP_ENABLE_ANALYTICS=true`}
               <td className={styles.guideTableCell}>
                 <code className={styles.guideInlineCode}>enhanced_conversion_data</code>
               </td>
-              <td className={styles.guideTableCell}>Admission enquiry submitted (hashed PII for Enhanced Conversions)</td>
+              <td className={styles.guideTableCell}>Form submitted (hashed PII)</td>
               <td className={styles.guideTableCell}>Hashed email, phone, name</td>
             </tr>
           </tbody>
@@ -231,7 +229,7 @@ REACT_APP_ENABLE_ANALYTICS=true`}
           <li className={styles.guideStepItem}>Click Save</li>
         </ol>
 
-        <h3 className={styles.guideSubtitle}>Track Admission Enquiries as GA4 Events</h3>
+        <h3 className={styles.guideSubtitle}>Track Leads as GA4 Events</h3>
         <ol className={styles.guideStepList}>
           <li className={styles.guideStepItem}>
             New Tag → "Google Analytics: GA4 Event"
