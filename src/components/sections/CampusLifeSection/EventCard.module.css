@@ -1,0 +1,155 @@
+/* ============================================
+   EventCard Styles — Icon Commerce College
+   Full-bleed 16:9 image with a 20 px radius,
+   saffron `badge` chip in the top-right, and a
+   frosted-glass content overlay at bottom-left.
+   Hover: image scales 1.05 over 400 ms.
+   ============================================ */
+
+.card {
+  position: relative;
+  display: block;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--ic-bg-default);
+  box-shadow: var(--ic-shadow-md);
+  transition: transform 250ms ease, box-shadow 250ms ease;
+  height: 100%;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--ic-shadow-lg);
+  }
+
+  .card:hover .image {
+    transform: scale(1.05);
+  }
+}
+
+/* ===== Image wrap ===== */
+.imageWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--ic-bg-soft);
+  overflow: hidden;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 400ms ease;
+}
+
+/* ===== Saffron badge ===== */
+.badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 12px;
+  background: var(--ic-secondary);
+  color: var(--ic-text-on-dark);
+  font-family: var(--ic-font-ui);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+  z-index: 2;
+}
+
+/* ===== Frosted-glass overlay ===== */
+.overlay {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px 20px 20px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.18);
+  z-index: 2;
+}
+
+.iconChip {
+  position: absolute;
+  top: -18px;
+  left: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--ic-secondary);
+  color: var(--ic-text-on-dark);
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.3);
+}
+
+.iconChipIcon {
+  display: block;
+}
+
+.title {
+  font-family: var(--ic-font-heading);
+  font-weight: 700;
+  font-size: clamp(1.125rem, 1rem + 0.6vw, 1.375rem);
+  line-height: 1.2;
+  color: var(--ic-text-primary);
+  margin: 4px 0 0;
+  letter-spacing: -0.01em;
+}
+
+.subtitle {
+  font-family: var(--ic-font-ui);
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 1.3;
+  color: var(--ic-secondary-dark);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.body {
+  font-family: var(--ic-font-body);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ic-text-secondary);
+  margin: 4px 0 0;
+}
+
+/* ===== Mobile adjustments ===== */
+@media (max-width: 600px) {
+  .overlay {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    padding: 16px 16px 18px;
+  }
+
+  .badge {
+    top: 12px;
+    right: 12px;
+  }
+
+  .body {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+}

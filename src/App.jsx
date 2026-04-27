@@ -26,6 +26,7 @@ import WhyIconSection from './components/sections/WhyIconSection';
 import FacultySection from './components/sections/FacultySection';
 import ResultsSection from './components/sections/ResultsSection';
 import FacilitiesSection from './components/sections/FacilitiesSection';
+import CampusLifeSection from './components/sections/CampusLifeSection';
 import Footer from './components/common/Footer/Footer';
 import Modal from './components/common/Modal/Modal';
 import MobileDrawer from './components/common/MobileDrawer/MobileDrawer';
@@ -456,6 +457,9 @@ const HomePageContent = () => {
 
         {/* Facilities Section - visual gallery of campus infrastructure */}
         <FacilitiesSection />
+
+        {/* Campus Life Section - flagship events, college week, academic life */}
+        <CampusLifeSection />
 
         {/* Lazy loaded sections with error boundaries */}
         <ErrorBoundary>
