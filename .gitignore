@@ -26,3 +26,5 @@ yarn-error.log*
 /public/api/config.php
 # Runtime-generated lead store
 /public/api/data/
+.claude/worktrees/ecstatic-villani-f113ee/
+.claude/worktrees/keen-hugle-4db5c4/
