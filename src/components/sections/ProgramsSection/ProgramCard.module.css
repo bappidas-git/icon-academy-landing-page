@@ -1,0 +1,289 @@
+/* ============================================
+   ProgramCard Styles — Icon Commerce College
+   White surface, 20 px radius, 4 px accent stripe
+   on the image header (colour from --program-accent
+   set inline). Hover lifts the card 4 px.
+   ============================================ */
+
+.card {
+  --program-accent: var(--ic-primary);
+  display: flex;
+  flex-direction: column;
+  background: var(--ic-bg-default);
+  border: 1px solid var(--ic-border);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--ic-shadow-sm);
+  transition: transform 250ms ease, box-shadow 250ms ease;
+  height: 100%;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--ic-shadow-md);
+  }
+}
+
+/* ===== Image header ===== */
+.imageHeader {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: var(--ic-bg-soft);
+  overflow: hidden;
+}
+
+.accentStripe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--program-accent);
+  z-index: 2;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.imageOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    45deg,
+    rgba(15, 23, 42, 0.55) 0%,
+    rgba(15, 23, 42, 0.15) 60%,
+    rgba(15, 23, 42, 0) 100%
+  );
+  pointer-events: none;
+}
+
+.codeBadge {
+  position: absolute;
+  left: 18px;
+  bottom: 16px;
+  font-family: var(--ic-font-ui);
+  font-weight: 800;
+  font-size: 28px;
+  line-height: 1;
+  color: #ffffff;
+  letter-spacing: 0.01em;
+  text-shadow: 0 2px 8px rgba(15, 23, 42, 0.45);
+  z-index: 2;
+}
+
+.affiliationPill {
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  padding: 0 12px;
+  background: var(--ic-secondary);
+  color: #ffffff;
+  font-family: var(--ic-font-ui);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  border-radius: 999px;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.2);
+  z-index: 2;
+}
+
+/* ===== Body ===== */
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px 22px 24px;
+  flex: 1;
+}
+
+.title {
+  font-family: var(--ic-font-heading);
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.2;
+  color: var(--ic-text-primary);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.tagline {
+  font-family: var(--ic-font-body);
+  font-style: italic;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--ic-text-secondary);
+  margin: 0;
+}
+
+/* ===== Meta rows ===== */
+.metaList {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.metaRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.metaIcon {
+  color: var(--program-accent);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.metaText {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.metaLabel {
+  font-family: var(--ic-font-ui);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ic-text-muted);
+}
+
+.metaValue {
+  font-family: var(--ic-font-body);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--ic-text-primary);
+}
+
+/* Truncate to 2 lines on mobile to keep cards compact */
+.metaValueClamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@media (max-width: 767px) {
+  .metaValueClamp {
+    -webkit-line-clamp: 2;
+  }
+}
+
+/* ===== Career chips ===== */
+.chipList {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  padding: 0 10px;
+  background: var(--ic-bg-cream);
+  border: 1px solid var(--ic-border);
+  border-radius: 999px;
+  font-family: var(--ic-font-ui);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ic-text-secondary);
+  white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+  .chipList {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    margin-left: -22px;
+    margin-right: -22px;
+    padding: 4px 22px 6px;
+    scrollbar-width: none;
+  }
+  .chipList::-webkit-scrollbar {
+    display: none;
+  }
+  .chip {
+    scroll-snap-align: start;
+  }
+}
+
+/* ===== CTA ===== */
+.applyCta {
+  margin-top: 8px !important;
+  min-height: 48px;
+  border-radius: 12px !important;
+  text-transform: none !important;
+  font-family: var(--ic-font-ui) !important;
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+  padding: 0.75rem 1.25rem !important;
+}
+
+.subjectsToggle {
+  align-self: flex-start;
+  text-transform: none !important;
+  font-family: var(--ic-font-ui) !important;
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+  color: var(--ic-primary) !important;
+  padding: 0.25rem 0.5rem !important;
+  margin-left: -0.5rem !important;
+}
+
+/* ===== Subjects accordion ===== */
+.subjectsPanel {
+  width: 100%;
+}
+
+.subjectsList {
+  list-style: none;
+  margin: 0;
+  padding: 8px 0 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 12px;
+}
+
+@media (max-width: 480px) {
+  .subjectsList {
+    grid-template-columns: 1fr;
+  }
+}
+
+.subjectItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--ic-font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ic-text-secondary);
+  line-height: 1.4;
+}
+
+.subjectIcon {
+  color: var(--ic-success);
+  flex-shrink: 0;
+}

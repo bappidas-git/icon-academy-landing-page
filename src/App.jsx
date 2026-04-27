@@ -21,6 +21,7 @@ import Header from './components/common/Header/Header';
 import HeroSection from './components/sections/HeroSection/HeroSection';
 import TrustBar from './components/sections/TrustBar/TrustBar';
 import AboutSection from './components/sections/AboutSection';
+import ProgramsSection from './components/sections/ProgramsSection';
 import Footer from './components/common/Footer/Footer';
 import Modal from './components/common/Modal/Modal';
 import MobileDrawer from './components/common/MobileDrawer/MobileDrawer';
@@ -436,6 +437,9 @@ const HomePageContent = () => {
 
         {/* About Section - institutional story */}
         <AboutSection />
+
+        {/* Programs Section - four UG programmes (primary conversion block) */}
+        <ProgramsSection />
 
         {/* Lazy loaded sections with error boundaries */}
         <ErrorBoundary>
