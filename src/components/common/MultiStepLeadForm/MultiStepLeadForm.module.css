@@ -1,0 +1,390 @@
+/* ============================================
+   MultiStepLeadForm styles
+   ============================================ */
+
+.wrapper {
+  width: 100%;
+  padding: 28px;
+  border-radius: 20px;
+  background: var(--surface);
+  box-shadow: var(--elev-3);
+  color: var(--primary-dark);
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.wrapperDefault {
+  background: var(--surface);
+  color: var(--primary-dark);
+}
+
+/* Dark variant — used in the hero column. Glass/card on navy. */
+.wrapperDark {
+  background: linear-gradient(180deg, #0F2A52 0%, #0A1F3D 100%);
+  color: var(--white);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(255, 184, 0, 0.12) inset;
+  --form-heading: #ffffff;
+  --form-hint: rgba(255, 255, 255, 0.72);
+  --form-label: rgba(255, 255, 255, 0.9);
+  --context-chip-bg: rgba(255, 255, 255, 0.06);
+  --context-chip-border: rgba(255, 255, 255, 0.14);
+  --context-chip-text: rgba(255, 255, 255, 0.82);
+  --context-chip-strong: #ffffff;
+  --step-track-bg: rgba(255, 255, 255, 0.16);
+  --step-circle-pending: rgba(255, 255, 255, 0.16);
+  --step-circle-pending-text: rgba(255, 255, 255, 0.72);
+  --form-active-label: #ffffff;
+}
+
+/* Drawer variant — transparent so drawer bg shows through */
+.wrapperDrawer {
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+  height: auto;
+  width: 100%;
+  color: var(--white);
+  gap: 18px;
+  --form-heading: #ffffff;
+  --form-hint: rgba(255, 255, 255, 0.72);
+  --form-label: rgba(255, 255, 255, 0.9);
+  --context-chip-bg: rgba(255, 255, 255, 0.06);
+  --context-chip-border: rgba(255, 255, 255, 0.14);
+  --context-chip-text: rgba(255, 255, 255, 0.82);
+  --context-chip-strong: #ffffff;
+  --step-track-bg: rgba(255, 255, 255, 0.16);
+  --step-circle-pending: rgba(255, 255, 255, 0.16);
+  --step-circle-pending-text: rgba(255, 255, 255, 0.72);
+  --form-active-label: #ffffff;
+}
+
+.prefillPill {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.28);
+  color: var(--savings-green, #10B981);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.wrapperDark .prefillPill,
+.wrapperDrawer .prefillPill {
+  background: rgba(16, 185, 129, 0.18);
+  border-color: rgba(16, 185, 129, 0.45);
+  color: #34D399;
+}
+
+.prefillPillIcon {
+  font-size: 16px;
+}
+
+.indicatorWrap {
+  padding: 4px 2px 0;
+}
+
+.stepStage {
+  position: relative;
+  min-height: 260px;
+}
+
+.stepShell {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+}
+
+.stepHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stepTitle {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(1.15rem, 1rem + 0.7vw, 1.4rem);
+  line-height: 1.25;
+  color: inherit;
+  letter-spacing: -0.01em;
+}
+
+.stepSubtitle {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--text-gray);
+}
+
+.wrapperDark .stepSubtitle,
+.wrapperDrawer .stepSubtitle {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.stepBody {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: opacity 0.2s ease;
+  /* Reset fieldset defaults */
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.stepBodySubmitting {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.stepNav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.backButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1.5px solid var(--border-gray);
+  color: var(--text-dark-gray);
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.backButton:hover:not(:disabled) {
+  border-color: var(--accent-gold);
+  background: rgba(255, 184, 0, 0.08);
+}
+
+.backButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.wrapperDark .backButton,
+.wrapperDrawer .backButton {
+  color: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.wrapperDark .backButton:hover:not(:disabled),
+.wrapperDrawer .backButton:hover:not(:disabled) {
+  border-color: var(--accent-gold-light);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--white);
+}
+
+.backSpacer {
+  display: inline-block;
+  width: 1px;
+}
+
+.primaryButton {
+  margin-left: auto;
+  padding: 13px 24px !important;
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+  border-radius: 12px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  min-width: 140px;
+  justify-content: center !important;
+}
+
+.loadingState {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.loadingState :global(.MuiCircularProgress-root) {
+  color: currentColor;
+}
+
+.footerTrust {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  margin-top: 4px;
+  font-size: 0.75rem;
+  color: var(--text-gray);
+  flex-wrap: wrap;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-gray);
+}
+
+.footerTrust span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.wrapperDark .footerTrust,
+.wrapperDrawer .footerTrust {
+  color: rgba(255, 255, 255, 0.78);
+  border-top-color: rgba(255, 255, 255, 0.12);
+}
+
+/* ===== Success card ===== */
+
+.successCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+  padding: 8px 4px;
+}
+
+.successBadge {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(16, 185, 129, 0.14);
+  color: var(--savings-green);
+  font-size: 36px;
+}
+
+.successTitle {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: inherit;
+}
+
+.successLead {
+  margin: 0;
+  color: var(--text-gray);
+  font-size: 0.9rem;
+  max-width: 360px;
+}
+
+.wrapperDark .successLead,
+.wrapperDrawer .successLead {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.successSteps {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 360px;
+  text-align: left;
+}
+
+.successSteps li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.875rem;
+  color: var(--text-dark-gray);
+}
+
+.wrapperDark .successSteps li,
+.wrapperDrawer .successSteps li {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.successSteps li svg {
+  color: var(--accent-gold);
+  flex-shrink: 0;
+  font-size: 20px;
+}
+
+.whatsappButton {
+  margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #25d366;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.35);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.whatsappButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 22px rgba(37, 211, 102, 0.42);
+}
+
+.whatsappButton svg {
+  font-size: 20px;
+}
+
+/* ===== Responsive ===== */
+
+@media (max-width: 480px) {
+  .wrapper {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .wrapperDrawer {
+    padding: 0;
+    border-radius: 0;
+  }
+
+  .stepStage {
+    min-height: 220px;
+  }
+
+  .primaryButton {
+    padding: 12px 16px !important;
+    font-size: 0.9rem !important;
+    min-width: 120px;
+  }
+
+  .backButton {
+    padding: 10px 14px;
+    font-size: 0.875rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .whatsappButton,
+  .backButton,
+  .primaryButton {
+    transition: none !important;
+  }
+}

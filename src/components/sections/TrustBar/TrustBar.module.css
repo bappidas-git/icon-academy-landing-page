@@ -1,0 +1,95 @@
+/* ============================================
+   TrustBar Styles
+   ============================================ */
+
+.bar {
+  background: var(--surface-muted);
+  border-top: 1px solid var(--border-gray);
+  border-bottom: 1px solid var(--border-gray);
+  padding: 16px 0;
+}
+
+.tagline {
+  text-align: center;
+  font-size: 0.8125rem;
+  color: var(--accent-gold-dark);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin: 0 0 10px;
+}
+
+.row {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  align-items: center;
+  max-width: var(--container-xl);
+  margin: 0 auto;
+  padding-inline: var(--section-px);
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.row::-webkit-scrollbar {
+  display: none;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.icon {
+  font-size: 22px;
+  color: var(--accent-gold);
+  flex-shrink: 0;
+}
+
+.value {
+  font-weight: 700;
+  color: var(--ink);
+  font-size: 0.9375rem;
+}
+
+.label {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+}
+
+.divider {
+  width: 1px;
+  height: 24px;
+  background: var(--border-gray);
+  flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+  .row {
+    justify-content: flex-start;
+    gap: 16px;
+  }
+
+  .divider {
+    display: none;
+  }
+
+  .item {
+    min-width: 140px;
+    padding: 4px 8px;
+    background: var(--white);
+    border: 1px solid var(--border-gray);
+    border-radius: 10px;
+  }
+}

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+
+Sitemap: https://phpstack-780646-6370629.cloudwaysapps.com/sitemap.xml

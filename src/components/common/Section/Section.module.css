@@ -1,0 +1,49 @@
+@import '../../../styles/tokens.css';
+
+.section {
+  position: relative;
+  width: 100%;
+}
+
+.sm {
+  padding-block: var(--section-y-sm);
+}
+
+.md {
+  padding-block: var(--section-y-md);
+}
+
+.lg {
+  padding-block: var(--section-y-lg);
+}
+
+.default {
+  background: var(--white);
+}
+
+.muted {
+  background: var(--light-gray);
+}
+
+.dark {
+  background: linear-gradient(180deg, var(--primary-dark) 0%, var(--primary-dark-alt) 100%);
+  color: var(--white);
+}
+
+.gold {
+  background: var(--card-yellow);
+}
+
+.container {
+  max-width: var(--container-xl);
+  margin: 0 auto;
+  padding-inline: var(--section-px);
+}
+
+.container-2xl {
+  max-width: var(--container-2xl);
+}
+
+.container-lg {
+  max-width: var(--container-lg);
+}

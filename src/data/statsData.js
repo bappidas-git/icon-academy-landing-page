@@ -1,0 +1,51 @@
+export const statsData = [
+  {
+    value: 10000,
+    suffix: "+",
+    label: "Rooftops powered",
+    description: "Homes and businesses switched to solar with Anvil",
+    icon: "mdi:home-lightning-bolt",
+  },
+  {
+    value: 90,
+    suffix: "%",
+    label: "Average bill cut",
+    description: "Typical monthly savings after going solar",
+    icon: "mdi:percent",
+  },
+  {
+    value: 78000,
+    prefix: "₹",
+    label: "Subsidy assistance",
+    description: "Filed under PM Surya Ghar Yojana per eligible home",
+    icon: "mdi:bank",
+  },
+  {
+    value: 25,
+    suffix: " yrs",
+    label: "Panel warranty",
+    description: "Linear power output warranty included",
+    icon: "mdi:shield-sun",
+  },
+  {
+    value: 300,
+    suffix: "+",
+    label: "Cities served",
+    description: "PAN-India installation network",
+    icon: "mdi:map-marker-radius",
+  },
+  {
+    value: 30,
+    suffix: " min",
+    label: "Callback time",
+    description: "Your Anvil Saathi calls back within 30 minutes",
+    icon: "mdi:phone-in-talk",
+  },
+  {
+    value: 7,
+    suffix: "% p.a.",
+    label: "EMI starting rate",
+    description: "Low-interest solar loans through partner banks",
+    icon: "mdi:currency-inr",
+  },
+];

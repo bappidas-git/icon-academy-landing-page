@@ -1,0 +1,766 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Google Tag Manager -->
+    <!-- Replace GTM-XXXXXXX with your actual GTM container ID -->
+    <!-- Set REACT_APP_GTM_ID in .env and REACT_APP_ENABLE_ANALYTICS=true to activate -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-XXXXXXX");
+    </script>
+    <!-- End Google Tag Manager -->
+
+    <meta charset="utf-8" />
+
+    <!-- =========================================
+         Early Preconnect / DNS Prefetch (perf)
+         ========================================= -->
+    <link rel="preconnect" href="https://placehold.co" crossorigin />
+    <link rel="dns-prefetch" href="https://placehold.co" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link rel="icon" type="image/svg+xml" href="https://phpstack-780646-6370629.cloudwaysapps.com/svgs/logo.svg" />
+    <link rel="alternate icon" href="%PUBLIC_URL%/favicon.png" type="image/png" />
+
+    <!-- =========================================
+         Viewport & Mobile Optimization
+         ========================================= -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#0A1F3D" />
+    <meta name="application-name" content="Anvil" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="Anvil" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-TileColor" content="#0A1F3D" />
+    <meta name="msapplication-tap-highlight" content="no" />
+
+    <!-- =========================================
+         SEO Meta Tags
+         ========================================= -->
+    <meta
+      name="description"
+      content="Cut your electricity bill by up to 90% with Anvil rooftop solar. PM Surya Ghar subsidy up to ₹78,000, zero-down-payment EMI from 7%. Free site visit across Assam, Nagaland & Bhubaneswar."
+    />
+    <meta
+      name="keywords"
+      content="rooftop solar Assam, solar Guwahati, solar Nagaland, solar Bhubaneswar, PM Surya Ghar, solar subsidy, solar EMI, home solar India"
+    />
+    <meta name="author" content="Anvil Energy" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow" />
+
+    <!-- =========================================
+         Open Graph / Facebook
+         ========================================= -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://phpstack-780646-6370629.cloudwaysapps.com/" />
+    <meta
+      property="og:title"
+      content="Rooftop Solar for Indian Homes — Anvil Energy"
+    />
+    <meta
+      property="og:description"
+      content="Save up to 90% on your power bill. ₹78,000 subsidy + EMI from 7%. Free site visit."
+    />
+    <meta
+      property="og:image"
+      content="https://placehold.co/1200x630?text=Anvil+Rooftop+Solar+For+Indian+Homes"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Anvil rooftop solar for Indian homes"
+    />
+    <meta property="og:site_name" content="Anvil Energy" />
+    <meta property="og:locale" content="en_IN" />
+
+    <!-- =========================================
+         Twitter Card
+         ========================================= -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@anvilenergy" />
+    <meta name="twitter:url" content="https://phpstack-780646-6370629.cloudwaysapps.com/" />
+    <meta
+      name="twitter:title"
+      content="Rooftop Solar — save up to 90% on your bill"
+    />
+    <meta
+      name="twitter:description"
+      content="Anvil handles subsidy, EMI, install. Free site visit across Assam, Nagaland & Bhubaneswar."
+    />
+    <meta
+      name="twitter:image"
+      content="https://placehold.co/1200x630?text=Anvil+Rooftop+Solar+For+Indian+Homes"
+    />
+
+    <!-- =========================================
+         Canonical & Alternate URLs
+         ========================================= -->
+    <link rel="canonical" href="https://phpstack-780646-6370629.cloudwaysapps.com/" />
+
+    <!-- Geo Tags -->
+    <meta name="geo.region" content="IN" />
+    <meta name="geo.placename" content="Assam, Nagaland, Bhubaneswar" />
+    <!-- Hreflang: Uncomment and update if multi-language support is needed -->
+    <!-- <link rel="alternate" hreflang="en" href="https://phpstack-780646-6370629.cloudwaysapps.com/" /> -->
+    <!-- <link rel="alternate" hreflang="hi" href="https://phpstack-780646-6370629.cloudwaysapps.com/hi/" /> -->
+    <!-- <link rel="alternate" hreflang="x-default" href="https://phpstack-780646-6370629.cloudwaysapps.com/" /> -->
+
+    <!-- =========================================
+         PWA Manifest & Icons
+         ========================================= -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/apple-touch-icon.png" />
+    <link
+      rel="apple-touch-icon"
+      sizes="152x152"
+      href="%PUBLIC_URL%/apple-touch-icon-152x152.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="%PUBLIC_URL%/apple-touch-icon-180x180.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="167x167"
+      href="%PUBLIC_URL%/apple-touch-icon-167x167.png"
+    />
+    <link
+      rel="mask-icon"
+      href="%PUBLIC_URL%/safari-pinned-tab.svg"
+      color="#0A1F3D"
+    />
+
+    <!-- =========================================
+         Preconnect & DNS Prefetch
+         ========================================= -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://phpstack-780646-6370629.cloudwaysapps.com" />
+    <link rel="preconnect" href="https://api.iconify.design" />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    <link rel="dns-prefetch" href="https://phpstack-780646-6370629.cloudwaysapps.com" />
+
+    <!-- =========================================
+         Preload Critical Resources
+         ========================================= -->
+    <!-- Hero background image (desktop) — rendered as CSS background in HeroSection;
+         preload so LCP paint doesn't wait for JS. Mobile hero uses a different URL
+         and is preloaded inside the component at runtime via the Image() object. -->
+    <link
+      rel="preload"
+      as="image"
+      href="https://placehold.co/1600x900?text=Assam+Home+With+Rooftop+Solar+Panels+Sunrise"
+      imagesrcset="https://placehold.co/1600x900?text=Assam+Home+With+Rooftop+Solar+Panels+Sunrise"
+      fetchpriority="high"
+      media="(min-width: 900px)"
+    />
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      as="style"
+      onload="
+        this.onload = null;
+        this.rel = 'stylesheet';
+      "
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
+
+    <!-- =========================================
+         Page Title
+         ========================================= -->
+    <title>Rooftop Solar in Assam, Nagaland & Bhubaneswar | Anvil Energy</title>
+
+    <!-- =========================================
+         Structured Data / JSON-LD for SEO
+         ========================================= -->
+
+    <!-- Schema: LocalBusiness -->
+    <!-- These static schemas are bootstrapping fallbacks; SEOHead replaces
+         them with dynamic versions (including Service and full FAQPage from
+         faqData.js) at runtime. -->
+    <script type="application/ld+json" id="schema-localbusiness">
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Anvil Energy",
+        "url": "https://phpstack-780646-6370629.cloudwaysapps.com",
+        "logo": "https://placehold.co/400x400?text=Anvil+Logo",
+        "image": "https://placehold.co/1200x630?text=Anvil+Rooftop+Solar",
+        "description": "Rooftop solar for homes across Assam, Nagaland, Bhubaneswar and PAN-India. PM Surya Ghar subsidy, EMI financing, 25-year warranty.",
+        "telephone": "+911800202001",
+        "email": "hello@anvil.energy",
+        "priceRange": "₹₹",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "IN",
+          "addressRegion": "Assam / Nagaland / Odisha / PAN-India"
+        },
+        "areaServed": ["Assam", "Nagaland", "Odisha", "India"],
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "200"
+        }
+      }
+    </script>
+
+    <!-- Schema: Service -->
+    <script type="application/ld+json" id="schema-service">
+      {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "serviceType": "Rooftop Solar Installation",
+        "provider": {
+          "@type": "Organization",
+          "name": "Anvil Energy"
+        },
+        "areaServed": ["Assam", "Nagaland", "Odisha", "India"],
+        "offers": {
+          "@type": "Offer",
+          "description": "Residential rooftop solar with PM Surya Ghar subsidy up to ₹78,000 and 0% down EMI from 7% p.a."
+        }
+      }
+    </script>
+
+    <!-- Schema: Organization -->
+    <script type="application/ld+json" id="schema-organization">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Anvil Energy",
+        "alternateName": "Anvil",
+        "url": "https://phpstack-780646-6370629.cloudwaysapps.com",
+        "logo": "https://placehold.co/400x400?text=Anvil+Logo",
+        "description": "Rooftop solar for homes across Assam, Nagaland, Bhubaneswar and PAN-India. PM Surya Ghar subsidy, EMI financing, 25-year warranty.",
+        "telephone": "+911800202001",
+        "email": "hello@anvil.energy",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+911800202001",
+          "contactType": "customer service",
+          "areaServed": "IN",
+          "availableLanguage": ["English", "Hindi"]
+        },
+        "sameAs": [
+          "https://www.facebook.com/anvilenergy",
+          "https://www.instagram.com/anvil.energy",
+          "https://www.linkedin.com/company/anvil-energy",
+          "https://www.youtube.com/@anvilenergy"
+        ]
+      }
+    </script>
+
+    <!-- Schema: FAQPage -->
+    <!-- Replaced at runtime with the complete FAQ list from src/data/faqData.js -->
+    <script type="application/ld+json" id="schema-faq">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How much can I really save on my electricity bill?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Most Anvil customers cut their bill by 70–90%. A 3 kW system in Assam or Odisha saves roughly ₹4,000–₹6,000 every month."
+            }
+          }
+        ]
+      }
+    </script>
+
+    <!-- Schema: BreadcrumbList -->
+    <script type="application/ld+json" id="schema-breadcrumb">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://phpstack-780646-6370629.cloudwaysapps.com/"
+          }
+        ]
+      }
+    </script>
+
+    <!-- Schema: WebPage -->
+    <script type="application/ld+json" id="schema-webpage">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Rooftop Solar in Assam, Nagaland & Bhubaneswar | Anvil Energy",
+        "description": "Cut your electricity bill by up to 90% with Anvil rooftop solar. PM Surya Ghar subsidy up to ₹78,000, zero-down-payment EMI from 7%. Free site visit across Assam, Nagaland & Bhubaneswar.",
+        "url": "https://phpstack-780646-6370629.cloudwaysapps.com/",
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "Anvil Energy",
+          "url": "https://phpstack-780646-6370629.cloudwaysapps.com/"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Anvil Energy",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://placehold.co/400x400?text=Anvil+Logo"
+          }
+        }
+      }
+    </script>
+
+    <!-- =========================================
+         Critical CSS (Above the Fold)
+         ========================================= -->
+    <style>
+      /* Critical CSS - Inline for fastest first paint */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        -webkit-text-size-adjust: 100%;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      body {
+        font-family:
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          Oxygen,
+          Ubuntu,
+          sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+        overflow-x: hidden;
+        background-color: #ffffff;
+        color: #1a1a1a;
+        line-height: 1.5;
+      }
+
+      /* Root element setup */
+      #root {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        isolation: isolate;
+      }
+
+      /* Skip link for accessibility */
+      .skip-link {
+        position: absolute;
+        top: -40px;
+        left: 0;
+        background: #0a1f3d;
+        color: #ffb800;
+        padding: 8px 16px;
+        z-index: 10000;
+        font-weight: 600;
+        text-decoration: none;
+        border-radius: 0 0 4px 0;
+        transition: top 0.2s ease;
+      }
+
+      .skip-link:focus {
+        top: 0;
+      }
+
+      /* ============================================
+         Initial Loader — Branded Splash Screen
+         Shown until React mounts, then fades out
+         ============================================ */
+      .initial-loader {
+        position: fixed;
+        inset: 0;
+        z-index: 999999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #ffffff;
+        transition:
+          opacity 0.4s ease,
+          visibility 0.4s ease;
+      }
+
+      .initial-loader.hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      /* Wrapper */
+      .loader-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 28px;
+        padding: 24px;
+        max-width: 280px;
+        width: 100%;
+      }
+
+      /* Brand Block */
+      .loader-brand {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .loader-logo-img {
+        width: 180px;
+        height: auto;
+        object-fit: contain;
+        animation: loaderFadeIn 0.6s ease both;
+      }
+
+      .loader-tagline {
+        margin: 0;
+        font-family:
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        color: #546e7a;
+        letter-spacing: 0.04em;
+        text-align: center;
+        animation: loaderFadeIn 0.6s 0.2s ease both;
+      }
+
+      /* Progress Bar Track */
+      .loader-bar-track {
+        width: 100%;
+        height: 3px;
+        background: #eceef5;
+        border-radius: 3px;
+        overflow: hidden;
+        animation: loaderFadeIn 0.4s 0.3s ease both;
+      }
+
+      .loader-bar-fill {
+        height: 100%;
+        width: 0%;
+        border-radius: 3px;
+        background: linear-gradient(90deg, #0a1f3d, #1e4a85, #ffb800);
+        background-size: 200% 100%;
+        animation:
+          loaderProgress 2s 0.4s ease-in-out forwards,
+          loaderShimmer 1.5s 0.4s ease-in-out infinite;
+      }
+
+      /* Loading Status Text */
+      .loader-status {
+        margin: 0;
+        font-family:
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        font-size: 12px;
+        font-weight: 400;
+        color: #90a4ae;
+        letter-spacing: 0.02em;
+        animation: loaderFadeIn 0.4s 0.4s ease both;
+      }
+
+      /* Animated dots "Loading..." */
+      .loader-dots::after {
+        content: "";
+        animation: loaderDots 1.4s steps(4, end) infinite;
+      }
+
+      /* ============================================
+         Loader Keyframes
+         ============================================ */
+      @keyframes loaderFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes loaderProgress {
+        0% {
+          width: 0%;
+        }
+        30% {
+          width: 40%;
+        }
+        60% {
+          width: 70%;
+        }
+        100% {
+          width: 92%;
+        }
+      }
+
+      @keyframes loaderShimmer {
+        0% {
+          background-position: 200% 0;
+        }
+        100% {
+          background-position: -200% 0;
+        }
+      }
+
+      @keyframes loaderDots {
+        0% {
+          content: "";
+        }
+        25% {
+          content: ".";
+        }
+        50% {
+          content: "..";
+        }
+        75% {
+          content: "...";
+        }
+        100% {
+          content: "";
+        }
+      }
+
+      /* Safe area for notched devices (iPhone X+) */
+      @supports (padding-bottom: env(safe-area-inset-bottom)) {
+        body {
+          padding-left: env(safe-area-inset-left);
+          padding-right: env(safe-area-inset-right);
+          padding-bottom: env(safe-area-inset-bottom);
+        }
+      }
+
+      /* ============================================
+         Reduced Motion — Respect user preference
+         ============================================ */
+      @media (prefers-reduced-motion: reduce) {
+        .loader-logo-img,
+        .loader-tagline,
+        .loader-bar-track,
+        .loader-status {
+          animation: none;
+          opacity: 1;
+          transform: none;
+        }
+        .loader-bar-fill {
+          animation: loaderProgress 2s ease-in-out forwards;
+        }
+
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+
+        html {
+          scroll-behavior: auto;
+        }
+      }
+
+      /* ============================================
+         Dark mode support (if user's OS is dark)
+         ============================================ */
+      @media (prefers-color-scheme: dark) {
+        .initial-loader {
+          background: #0a1f3d;
+        }
+        .loader-tagline {
+          color: rgba(255, 255, 255, 0.6);
+        }
+        .loader-bar-track {
+          background: rgba(255, 255, 255, 0.1);
+        }
+        .loader-status {
+          color: rgba(255, 255, 255, 0.4);
+        }
+        .loader-logo-img {
+          filter: brightness(0) invert(1);
+        }
+      }
+
+      /* High contrast mode support */
+      @media (prefers-contrast: high) {
+        body {
+          background-color: #000;
+          color: #fff;
+        }
+      }
+
+      /* Print styles */
+      @media print {
+        .initial-loader {
+          display: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <!-- Replace GTM-XXXXXXX with your actual GTM container ID -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <!-- Noscript fallback -->
+    <noscript>
+      <div
+        style="
+          padding: 20px;
+          text-align: center;
+          background: #0a1f3d;
+          color: #ffffff;
+          font-family: sans-serif;
+        "
+      >
+        <h1 style="color: #ffb800; margin-bottom: 10px">JavaScript Required</h1>
+        <p>You need to enable JavaScript to run Anvil.</p>
+        <p style="margin-top: 10px">
+          Please enable JavaScript in your browser settings and refresh the
+          page.
+        </p>
+      </div>
+    </noscript>
+
+    <!-- Initial Loader — Professional Branded Splash Screen -->
+    <div
+      class="initial-loader"
+      id="initial-loader"
+      role="progressbar"
+      aria-label="Loading Anvil"
+    >
+      <div class="loader-wrapper">
+        <!-- Logo + Brand -->
+        <div class="loader-brand">
+          <img
+            src="https://solar.anvil.energy/svgs/logo.svg"
+            alt="Anvil"
+            class="loader-logo-img"
+            width="180"
+            height="auto"
+          />
+          <p class="loader-tagline">Powering your rooftop with solar</p>
+        </div>
+
+        <!-- Animated Progress Bar -->
+        <div class="loader-bar-track">
+          <div class="loader-bar-fill"></div>
+        </div>
+
+        <!-- Loading text -->
+        <p class="loader-status">Loading<span class="loader-dots"></span></p>
+      </div>
+    </div>
+
+    <!-- React Root -->
+    <div id="root"></div>
+
+    <!-- Hide initial loader when React is ready -->
+    <script>
+      (function () {
+        // Performance mark for load timing
+        if (window.performance && window.performance.mark) {
+          window.performance.mark("loader-start");
+        }
+
+        // Hide loader on window load
+        window.addEventListener("load", function () {
+          // Give React time to mount
+          setTimeout(function () {
+            var loader = document.getElementById("initial-loader");
+            if (loader) {
+              loader.classList.add("hidden");
+
+              // Remove from DOM after transition
+              setTimeout(function () {
+                if (loader && loader.parentNode) {
+                  loader.style.display = "none";
+                }
+
+                // Performance mark for load complete
+                if (window.performance && window.performance.mark) {
+                  window.performance.mark("loader-end");
+                  window.performance.measure(
+                    "app-load-time",
+                    "loader-start",
+                    "loader-end",
+                  );
+                }
+              }, 400);
+            }
+          }, 200);
+        });
+
+        // Fallback: Hide loader after max timeout
+        setTimeout(function () {
+          var loader = document.getElementById("initial-loader");
+          if (loader && !loader.classList.contains("hidden")) {
+            loader.classList.add("hidden");
+            setTimeout(function () {
+              loader.style.display = "none";
+            }, 400);
+          }
+        }, 5000);
+      })();
+    </script>
+
+    <!-- Register touch events for mobile performance -->
+    <script>
+      document.addEventListener("touchstart", function () {}, {
+        passive: true,
+      });
+    </script>
+  </body>
+</html>

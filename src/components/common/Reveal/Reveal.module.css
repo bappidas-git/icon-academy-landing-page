@@ -1,0 +1,10 @@
+/* ============================================
+   Reveal styles
+   Kept intentionally minimal: the wrapper should
+   leave layout to its parent / child, so that
+   existing grid and flex styles continue to work.
+   ============================================ */
+
+.reveal {
+  min-width: 0;
+}

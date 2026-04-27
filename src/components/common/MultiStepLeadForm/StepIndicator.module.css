@@ -1,0 +1,118 @@
+/* ============================================
+   StepIndicator styles
+   ============================================ */
+
+.root {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.track {
+  position: relative;
+  height: 4px;
+  background: var(--step-track-bg, var(--step-pending));
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--step-active) 0%,
+    var(--step-complete) 100%
+  );
+  border-radius: 999px;
+}
+
+.pills {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.pill {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--form-hint, var(--text-gray));
+  min-width: 0;
+}
+
+.pill:not(:first-child) {
+  justify-content: center;
+}
+
+.pill:last-child {
+  justify-content: flex-end;
+}
+
+.pillCircle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: var(--step-circle-pending, var(--step-pending));
+  color: var(--step-circle-pending-text, var(--text-dark-gray));
+  flex-shrink: 0;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease;
+}
+
+.pillLabel {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pillActive .pillCircle {
+  background: var(--step-active);
+  color: var(--primary-dark);
+  box-shadow: 0 0 0 4px rgba(255, 184, 0, 0.18);
+}
+
+.pillActive {
+  color: var(--form-active-label, var(--primary-dark));
+  font-weight: 700;
+}
+
+.pillComplete .pillCircle {
+  background: var(--step-complete);
+  color: var(--white);
+}
+
+.pillComplete {
+  color: var(--step-complete);
+}
+
+.checkIcon {
+  font-size: 14px;
+}
+
+@media (max-width: 480px) {
+  .pillLabel {
+    display: none;
+  }
+
+  .pill,
+  .pill:not(:first-child),
+  .pill:last-child {
+    justify-content: center;
+  }
+}

@@ -1,0 +1,13 @@
+/* Public design tokens for the Anvil rebuild. Import in any new component. */
+@import './variables.css';
+
+/* Semantic aliases — always prefer these in new code */
+:root {
+  --ink: var(--primary-dark);
+  --ink-muted: var(--text-gray);
+  --surface: var(--white);
+  --surface-muted: var(--light-gray);
+  --brand: var(--accent-gold);
+  --cta: var(--cta-primary);
+  --savings: var(--savings-green);
+}

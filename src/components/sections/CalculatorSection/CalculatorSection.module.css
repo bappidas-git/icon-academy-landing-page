@@ -1,0 +1,89 @@
+@import '../../../styles/tokens.css';
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-top: 32px;
+  align-items: start;
+}
+
+.inputsCol,
+.outputCol {
+  min-width: 0;
+}
+
+.outputPlaceholder {
+  min-height: 400px;
+  background: var(--primary-dark);
+  color: var(--white);
+  border-radius: 16px;
+  padding: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--elev-2);
+}
+
+.placeholderInner {
+  width: 100%;
+  max-width: 320px;
+}
+
+.placeholderTitle {
+  font-family: var(--font-heading);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wider);
+  color: var(--accent-gold);
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.placeholderList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.placeholderList li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+}
+
+.placeholderList li:last-child {
+  border-bottom: none;
+}
+
+.placeholderList span {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.placeholderList strong {
+  font-family: var(--font-heading);
+  font-weight: var(--fw-bold);
+  color: var(--white);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: 1.1fr 1fr;
+    gap: 40px;
+  }
+
+  .outputCol {
+    position: sticky;
+    top: calc(var(--header-height) + 16px);
+  }
+}
