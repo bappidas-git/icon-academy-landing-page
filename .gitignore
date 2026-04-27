@@ -28,3 +28,5 @@ yarn-error.log*
 /public/api/data/
 .claude/worktrees/ecstatic-villani-f113ee/
 .claude/worktrees/keen-hugle-4db5c4/
+.claude/worktrees/hopeful-volhard-d8d2a6/
+.claude/worktrees/silly-shirley-be8586/
