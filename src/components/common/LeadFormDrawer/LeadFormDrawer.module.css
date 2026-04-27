@@ -24,7 +24,7 @@
   width: 100%;
   max-width: 520px;
   height: 100%;
-  background: linear-gradient(180deg, #0A1F3D 0%, #0F2A52 60%, #0A1F3D 100%);
+  background: linear-gradient(180deg, var(--ic-primary-dark) 0%, var(--ic-primary) 60%, var(--ic-primary-dark) 100%);
   box-shadow: 8px 0 40px rgba(0, 0, 0, 0.45);
   overflow-y: auto;
   overflow-x: hidden;
@@ -99,7 +99,7 @@
 
 .headerIcon svg {
   font-size: 30px;
-  color: #0A1F3D;
+  color: var(--ic-primary);
 }
 
 .title {

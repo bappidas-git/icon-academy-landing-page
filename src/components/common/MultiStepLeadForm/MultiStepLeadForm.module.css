@@ -21,7 +21,7 @@
 
 /* Dark variant — used in the hero column. Glass/card on navy. */
 .wrapperDark {
-  background: linear-gradient(180deg, #0F2A52 0%, #0A1F3D 100%);
+  background: linear-gradient(180deg, var(--ic-primary) 0%, var(--ic-primary-dark) 100%);
   color: var(--white);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow:

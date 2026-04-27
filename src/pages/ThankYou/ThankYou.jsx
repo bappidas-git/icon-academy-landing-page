@@ -83,14 +83,14 @@ const ThankYou = () => {
         ...defaults,
         particleCount,
         origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
-        colors: ["#FFB800", "#FFC939", "#FFD700", "#FFA500"],
+        colors: ["#1E3A8A", "#D97706", "#E11D48", "#F59E0B"],
       });
 
       confetti({
         ...defaults,
         particleCount,
         origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
-        colors: ["#FFB800", "#FFC939", "#FFD700", "#FFA500"],
+        colors: ["#1E3A8A", "#D97706", "#E11D48", "#F59E0B"],
       });
     }, 250);
 
@@ -98,7 +98,7 @@ const ThankYou = () => {
       particleCount: 100,
       spread: 70,
       origin: { y: 0.6 },
-      colors: ["#FFB800", "#FFC939", "#FFD700", "#4CAF50", "#2196F3"],
+      colors: ["#1E3A8A", "#D97706", "#E11D48", "#059669", "#3B5BDB"],
     });
   }, []);
 

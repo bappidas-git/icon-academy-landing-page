@@ -165,7 +165,7 @@ const HeroSection = () => {
                   label="__TBD_ICON_CONTENT__"
                   className={styles.launchBadge}
                   sx={{
-                    backgroundColor: "#FFB800",
+                    backgroundColor: "#D97706",
                     color: "#FFFFFF",
                     fontWeight: 600,
                     fontSize: "0.875rem",
@@ -240,7 +240,7 @@ const HeroSection = () => {
                     });
                   }}
                   sx={{
-                    backgroundColor: "#FF6B35",
+                    backgroundColor: "#E11D48",
                     color: "#FFFFFF",
                     fontWeight: 700,
                     fontSize: "1rem",
@@ -248,10 +248,10 @@ const HeroSection = () => {
                     borderRadius: "12px",
                     textTransform: "none",
                     fontFamily: "'Plus Jakarta Sans', 'Inter', sans-serif",
-                    boxShadow: "0 4px 20px rgba(255, 107, 53, 0.4)",
+                    boxShadow: "0 6px 20px rgba(225, 29, 72, 0.4)",
                     "&:hover": {
-                      backgroundColor: "#E85A20",
-                      boxShadow: "0 6px 24px rgba(255, 107, 53, 0.55)",
+                      backgroundColor: "#F43F5E",
+                      boxShadow: "0 10px 28px rgba(225, 29, 72, 0.55)",
                       transform: "translateY(-2px)",
                     },
                     transition: "all 0.3s ease",

@@ -192,7 +192,7 @@ npm start
             <tr>
               <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>src/styles/variables.css</code></td>
               <td className={styles.guideTableCell}>Brand colors (landing page only)</td>
-              <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>--primary-dark: #0A1F3D</code></td>
+              <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>--ic-primary: #1E3A8A</code></td>
             </tr>
             <tr>
               <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>src/theme/muiTheme.js</code></td>
@@ -251,19 +251,19 @@ npm start
           </thead>
           <tbody>
             <tr>
-              <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>--primary-dark</code></td>
-              <td className={styles.guideTableCell}>#0A1F3D (Deep Navy)</td>
-              <td className={styles.guideTableCell}>Headers, text</td>
+              <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>--ic-primary</code></td>
+              <td className={styles.guideTableCell}>#1E3A8A (Royal Indigo)</td>
+              <td className={styles.guideTableCell}>Headers, primary buttons, links</td>
             </tr>
             <tr>
-              <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>--accent-gold</code></td>
-              <td className={styles.guideTableCell}>#FFB800 (Teal)</td>
-              <td className={styles.guideTableCell}>Buttons, highlights, links</td>
+              <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>--ic-secondary</code></td>
+              <td className={styles.guideTableCell}>#D97706 (Warm Saffron)</td>
+              <td className={styles.guideTableCell}>Badges, accent strokes</td>
             </tr>
             <tr>
-              <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>--accent-orange</code></td>
-              <td className={styles.guideTableCell}>#E74C3C (Orange)</td>
-              <td className={styles.guideTableCell}>CTA buttons only</td>
+              <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>--ic-cta</code></td>
+              <td className={styles.guideTableCell}>#E11D48 (Coral Crimson)</td>
+              <td className={styles.guideTableCell}>Apply / Submit CTAs only</td>
             </tr>
           </tbody>
         </table>

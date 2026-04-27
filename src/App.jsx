@@ -89,7 +89,7 @@ class ErrorBoundary extends React.Component {
             <button
               onClick={() => this.setState({ hasError: false })}
               style={{
-                backgroundColor: '#FFB800',
+                backgroundColor: '#1E3A8A',
                 color: '#FFFFFF',
                 border: 'none',
                 padding: '10px 20px',
@@ -134,7 +134,7 @@ const SectionLoader = memo(({ height = 300, variant = 'default' }) => {
             size={40}
             thickness={3}
             sx={{
-              color: '#FFB800',
+              color: '#1E3A8A',
             }}
           />
         </motion.div>
@@ -146,7 +146,7 @@ const SectionLoader = memo(({ height = 300, variant = 'default' }) => {
           variant="text"
           width="30%"
           height={40}
-          sx={{ margin: '0 auto 20px', bgcolor: 'rgba(255, 184, 0, 0.1)' }}
+          sx={{ margin: '0 auto 20px', bgcolor: 'rgba(30, 58, 138, 0.1)' }}
         />
         <Skeleton
           variant="text"
@@ -161,7 +161,7 @@ const SectionLoader = memo(({ height = 300, variant = 'default' }) => {
               variant="rounded"
               width={250}
               height={180}
-              sx={{ bgcolor: 'rgba(255, 184, 0, 0.05)' }}
+              sx={{ bgcolor: 'rgba(30, 58, 138, 0.05)' }}
             />
           ))}
         </Box>
@@ -182,7 +182,7 @@ const SectionLoader = memo(({ height = 300, variant = 'default' }) => {
             width: 8,
             height: 8,
             borderRadius: '50%',
-            backgroundColor: '#FFB800',
+            backgroundColor: '#1E3A8A',
             animation: 'pulse 1s ease-in-out infinite',
           }}
         />
@@ -221,7 +221,7 @@ const ScrollProgressIndicator = memo(() => {
         left: 0,
         width: `${scrollProgress}%`,
         height: '3px',
-        background: 'linear-gradient(90deg, #FFB800 0%, #FFC939 100%)',
+        background: 'linear-gradient(90deg, #1E3A8A 0%, #3B5BDB 100%)',
         zIndex: 9999,
         transition: 'width 0.1s ease-out',
       }}
@@ -267,7 +267,7 @@ const BackToTopButton = memo(() => {
           initial={{ opacity: 0, scale: 0.5, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.5, y: 20 }}
-          whileHover={{ scale: 1.1, backgroundColor: '#E6A500' }}
+          whileHover={{ scale: 1.1, backgroundColor: '#152659' }}
           whileTap={{ scale: 0.9 }}
           onClick={scrollToTop}
           style={{
@@ -277,7 +277,7 @@ const BackToTopButton = memo(() => {
             width: '48px',
             height: '48px',
             borderRadius: '50%',
-            backgroundColor: '#FFB800',
+            backgroundColor: '#1E3A8A',
             color: '#FFFFFF',
             border: '1px solid rgba(255, 255, 255, 0.3)',
             cursor: 'pointer',

@@ -133,7 +133,7 @@ reportWebVitals(handleWebVitals);
 
 if (process.env.NODE_ENV === 'development') {
   // Log when app is ready
-  console.log('%c Landing Page ', 'background: #0A1F3D; color: #FFB800; padding: 10px 20px; font-size: 14px; font-weight: bold; border-radius: 4px;');
+  console.log('%c Landing Page ', 'background: #1E3A8A; color: #FFFBEB; padding: 10px 20px; font-size: 14px; font-weight: bold; border-radius: 4px;');
   console.log('%c Development Mode ', 'background: #4CAF50; color: white; padding: 5px 10px; font-size: 12px; border-radius: 4px;');
 }
 
