@@ -8,15 +8,14 @@ const MetaAdsGuide = ({ styles }) => {
       <div className={styles.guideSection}>
         <p className={styles.guideParagraph}>
           Meta Ads (formerly Facebook Ads) lets you show ads on Facebook and Instagram to people who
-          match your target audience profile. Unlike Google Ads where prospective students actively
-          search for you, Meta Ads proactively put Icon Commerce College in front of Class 12
-          finishers, parents, and HS-stream students based on age, location, and interests — even if
-          they weren't searching yet.
+          match your target audience profile. Unlike Google Ads where people search for you, Meta Ads
+          proactively show your ad to users based on their demographics, interests, and behaviors —
+          even if they weren't looking for your service.
         </p>
         <p className={styles.guideParagraph}>
-          Meta Ads are best for admissions awareness campaigns, retargeting prospective students who
-          visited but didn't submit an enquiry, and reaching parents in Assam and the wider
-          North-East. They complement Google Ads — Google captures intent, Meta builds reach.
+          Meta Ads are best for awareness campaigns, retargeting visitors who didn't convert, and
+          reaching specific demographics. If you want to get your brand in front of a large, targeted
+          audience quickly, Meta Ads is an excellent channel to complement your Google Ads efforts.
         </p>
       </div>
 
@@ -38,7 +37,7 @@ const MetaAdsGuide = ({ styles }) => {
           <li className={styles.guideStepItem}>
             Click "Connect Data Sources" → "Web" → "Facebook Pixel"
             <ul>
-              <li>Name your pixel (e.g., "Icon Commerce College Admissions Pixel")</li>
+              <li>Name your pixel (e.g., "Landing Page Pixel")</li>
               <li>Click "Create Pixel"</li>
               <li>You'll see a Pixel ID (15-digit number) — copy it</li>
             </ul>
@@ -88,26 +87,26 @@ const MetaAdsGuide = ({ styles }) => {
               <td className={styles.guideTableCell}>
                 <code className={styles.guideInlineCode}>Lead</code>
               </td>
-              <td className={styles.guideTableCell}>When a prospective student submits the admission enquiry form</td>
+              <td className={styles.guideTableCell}>When someone submits a form</td>
             </tr>
             <tr>
               <td className={styles.guideTableCell}>
                 <code className={styles.guideInlineCode}>Contact</code>
               </td>
-              <td className={styles.guideTableCell}>When someone taps the admissions phone or WhatsApp counsellor button</td>
+              <td className={styles.guideTableCell}>When someone clicks the phone or WhatsApp button</td>
             </tr>
             <tr>
               <td className={styles.guideTableCell}>
                 <code className={styles.guideInlineCode}>ViewContent</code>
               </td>
-              <td className={styles.guideTableCell}>When a visitor views the Programs / Faculty / Fee Structure sections</td>
+              <td className={styles.guideTableCell}>When someone views specific sections</td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      {/* Section 4: Create an Admission Enquiry Campaign */}
-      <h2 className={styles.guideTitle}>Create an Admission Enquiry Campaign</h2>
+      {/* Section 4: Create a Lead Generation Campaign */}
+      <h2 className={styles.guideTitle}>Create a Lead Generation Campaign</h2>
       <div className={styles.guideSection}>
         <ol className={styles.guideStepList}>
           <li className={styles.guideStepItem}>
@@ -116,47 +115,42 @@ const MetaAdsGuide = ({ styles }) => {
           <li className={styles.guideStepItem}>Click "+ Create" for a new campaign</li>
           <li className={styles.guideStepItem}>Objective: Select "Leads"</li>
           <li className={styles.guideStepItem}>
-            Campaign name: <code className={styles.guideInlineCode}>Icon Commerce College — Admissions 2026 — [Month]</code>
+            Campaign name: <code className={styles.guideInlineCode}>__TBD_ICON_CONTENT__ - Leads - [Month] [Year]</code>
           </li>
           <li className={styles.guideStepItem}>
-            Budget: Start with ₹500–800/day during the admission window. Choose "Daily Budget".
+            Budget: Start with ₹500-800/day. Choose "Daily Budget"
           </li>
           <li className={styles.guideStepItem}>
-            Audience: Target Assam + Meghalaya + Arunachal Pradesh + Nagaland; age 17–22 (applicants)
-            and 38–55 (parents); interests: Gauhati University, Class 12 results, commerce / arts /
-            BBA / BCA streams.
+            Audience: Set your target location, age range (25-55 for most businesses), interests
+            related to your service
           </li>
           <li className={styles.guideStepItem}>
             Placements: Choose "Advantage+ Placements" (let Meta optimize) OR manually select
-            Facebook Feed + Instagram Feed + Reels only.
+            Facebook Feed + Instagram Feed only
           </li>
           <li className={styles.guideStepItem}>
-            Ad creative: Campus shot or alumni testimonial reel + headline ("Admissions Open 2026 —
-            B.Com / BBA / BCA / B.A. at Icon Commerce College, Guwahati") + Apply Now CTA pointing
-            to the landing page.
+            Ad creative: Upload image/video, write headline and description, set the landing page URL
+            as the destination
           </li>
         </ol>
 
         <h3 className={styles.guideSubtitle}>Tips for Better Ad Creative</h3>
         <ol className={styles.guideStepList}>
           <li className={styles.guideStepItem}>
-            Use 15–30s campus walkthrough or student-testimonial videos — they out-perform static
-            images for admissions ads.
+            Use carousel or video ads for better engagement
           </li>
           <li className={styles.guideStepItem}>
-            Show real students, real classrooms, and the Gauhati University affiliation seal — avoid
-            generic stock photos.
+            Your ad image should be eye-catching — don't use stock photos that look generic
           </li>
           <li className={styles.guideStepItem}>
-            Write ad copy in Assamese / Bengali / English mixed — that's how the audience actually
-            speaks.
+            Write the ad copy in the same language your audience speaks (Hindi, English, or regional)
           </li>
           <li className={styles.guideStepItem}>
             The landing page URL should include UTM parameters:
           </li>
         </ol>
         <pre className={styles.guideCode}>
-{`https://landing.iconcommerce.edu/?utm_source=facebook&utm_medium=paid&utm_campaign=bcom_admissions_2026`}
+{`https://example.com/?utm_source=facebook&utm_medium=paid&utm_campaign=leads`}
         </pre>
       </div>
 
@@ -272,12 +266,12 @@ const MetaAdsGuide = ({ styles }) => {
             Start with "Advantage+ Placements" then optimize based on data
           </li>
           <li className={styles.guideStepItem}>
-            Retargeting: Create a custom audience of prospective students who visited the landing
-            page but didn't submit the admission enquiry form.
+            Retargeting: Create a custom audience of people who visited your landing page but didn't
+            submit the form
           </li>
           <li className={styles.guideStepItem}>
-            Lookalike audiences: After 50+ admission enquiries, create a 1% lookalike from your
-            converted-applicant list for sharper targeting.
+            Lookalike audiences: After getting 50+ leads, create a lookalike audience for better
+            targeting
           </li>
           <li className={styles.guideStepItem}>
             Ad fatigue: Change your ad creative every 2-3 weeks
@@ -307,7 +301,7 @@ const MetaAdsGuide = ({ styles }) => {
               </td>
             </tr>
             <tr>
-              <td className={styles.guideTableCell}>Lead event not firing on admission enquiry submit</td>
+              <td className={styles.guideTableCell}>Lead event not firing on form submit</td>
               <td className={styles.guideTableCell}>
                 Check browser console for errors. Verify{' '}
                 <code className={styles.guideInlineCode}>REACT_APP_ENABLE_ANALYTICS=true</code>.

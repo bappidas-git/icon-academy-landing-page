@@ -1,31 +1,31 @@
-# Pabbly Connect + Lead Management — Icon Commerce College
+# Pabbly Connect + Lead Management Setup Guide
 
-> **Who is this for?** The admissions team or developer setting up the **Icon Commerce College** admissions landing page (or any institution cloning this template). No code experience required — follow each step in order.
+> **Who is this for?** Anyone — even if you've never touched code before. Just follow each step in order.
 
 ---
 
 ## 1. The Big Picture (in plain English)
 
-When a prospective student fills the admission enquiry form, their details need to reach **three** places:
+When a visitor fills the form on your landing page, their details need to reach **three** places:
 
 | Where | Why it matters | Who reads it |
 |-------|----------------|--------------|
-| 📮 **Pabbly Connect** | Forwards the enquiry to Google Sheets / Email / WhatsApp / your CRM | The admissions counselling team |
-| 🗄️ **Your web server's `leads.json` file** | A shared filing cabinet every admin can read from | The Admin LMS |
+| 📮 **Pabbly Connect** | Forwards the lead to Google Sheets, Email, WhatsApp, or CRM | Your sales team |
+| 🗄️ **Your web server's `leads.json` file** | A shared filing cabinet every admin can read from | The Admin Panel |
 | 💾 **Visitor's browser** | Prevents duplicate submissions from the same phone | The landing page itself |
 
 ```
-Prospective student submits admission enquiry
+Visitor submits form
         │
-        ├──▶ Pabbly webhook      ──▶  Google Sheet / Email / Counselling CRM
+        ├──▶ Pabbly webhook      ──▶  Google Sheet / Email / CRM
         │
-        ├──▶ Your server         ──▶  Admin LMS (all devices)
+        ├──▶ Your server         ──▶  Admin Panel (all devices)
         │    (/api/leads.php)         (/admin/lms)
         │
-        └──▶ Visitor's browser   ──▶  "Already enquired" check
+        └──▶ Visitor's browser   ──▶  "Duplicate" check
 ```
 
-All of this happens in **under 2 seconds** — the visitor just sees a "Thank You — our admissions counsellor will call you" page.
+All of this happens in **under 2 seconds** — the visitor just sees a "Thank You" page.
 
 ---
 
@@ -35,10 +35,10 @@ All of this happens in **under 2 seconds** — the visitor just sees a "Thank Yo
 |-------|----------------|------|
 | A Pabbly Connect account | https://www.pabbly.com/connect/ | Free tier available |
 | A Google account (for Sheets) | https://accounts.google.com | Free |
-| The Icon Commerce College landing page hosted on a PHP-capable server (Cloudways, cPanel, Hostinger, VPS) | — | Your existing hosting |
+| Your landing page hosted on a PHP-capable server (cPanel, VPS, etc.) | — | Your existing hosting |
 | Access to the `.env` file of your project | Your code editor / hosting file manager | — |
 
-> **⚠️ Important:** The Lead Management system uses a small PHP file (`public/api/leads.php`) to store enquiries. Your hosting must support PHP (most shared hosting does — Netlify / Vercel static hosting do NOT). If you use Netlify/Vercel, host the PHP file on any cheap PHP host (Hostinger, cPanel) and point `REACT_APP_LEADS_API_URL` to that full URL.
+> **⚠️ Important:** The Lead Management system uses a small PHP file (`public/api/leads.php`) to store leads. Your hosting must support PHP (most shared hosting does — Netlify / Vercel static hosting do NOT). If you use Netlify/Vercel, put the PHP file on any cheap PHP host (Hostinger, cPanel) and point `REACT_APP_LEADS_API_URL` to that full URL.
 
 ---
 
@@ -48,7 +48,7 @@ All of this happens in **under 2 seconds** — the visitor just sees a "Thank Yo
 
 1. Log in at https://www.pabbly.com/connect/
 2. Click **"Create Workflow"**
-3. Name it: `Icon Commerce College — Admission Enquiry`
+3. Name it: `Landing Page - Lead Capture`
 4. For the **Trigger**, choose **Webhook**
 5. Pabbly shows a webhook URL like:
    `https://connect.pabbly.com/webhook-listener/webhook/IjU3NjIwNTZ...`
@@ -67,77 +67,75 @@ const DUMMY_MODE = false;  // must be false for production
 - Paste your Pabbly URL where it says `PASTE_YOUR_PABBLY_URL_HERE`.
 - Save the file.
 
-> **Tip:** While testing on your own computer, you can set `DUMMY_MODE = true` — then submissions are saved only in your browser and never sent anywhere. Useful when you're iterating on the form UI without sending fake leads to the counselling team.
+> **Tip:** While testing on your own computer, you can set `DUMMY_MODE = true` — then submissions are saved only in your browser and never sent anywhere.
 
 ### Step 3: Add a Google Sheets Action in Pabbly
 
 1. In your Pabbly workflow, click the **+** under the webhook trigger.
 2. Choose **Google Sheets** → Action: **Add Row**.
-3. Click **Connect** and sign in with the Google account that owns the sheet (e.g., `admissions@iconcommerce.edu`).
-4. Select your spreadsheet (e.g., `Icon Commerce College Admissions 2026`) and worksheet (e.g., `Enquiries`).
+3. Click **Connect** and sign in with the Google account that owns the sheet.
+4. Select your spreadsheet and worksheet (e.g., "Sheet1").
 5. Map the columns (see table below).
 6. Click **Save & Send Test Request**.
 
-#### Column Mapping Template — Admission Enquiry
+#### Column Mapping Template
 
 Create these headers in Row 1 of your sheet first:
 
-| Column | Header              | Pabbly Field           | Notes |
-|--------|---------------------|------------------------|-------|
-| A      | Name                | `{{name}}`             | Applicant's full name |
-| B      | Mobile              | `{{mobile}}`           | 10-digit Indian mobile |
-| C      | Email               | `{{email}}`            | Optional |
-| D      | Program of Interest | `{{service_interest}}` | `bcom` / `ba` / `bba` / `bca` |
-| E      | Message             | `{{message}}`          | Enriched: stream / state / passing year / city |
-| F      | Source              | `{{source}}`           | Which form was used (see §7) |
-| G      | Lead ID             | `{{lead_id}}`          | Auto-generated |
-| H      | Status              | `{{status}}`           | Always `new` at capture |
-| I      | Submitted At        | `{{submitted_at}}`     | ISO timestamp |
-| J      | Page URL            | `{{page_url}}`         | Full URL incl. UTMs |
-| K      | UTM Source          | `{{utm_source}}`       | `google` / `facebook` / etc. |
-| L      | UTM Medium          | `{{utm_medium}}`       | `cpc` / `paid` / `organic` |
-| M      | UTM Campaign        | `{{utm_campaign}}`     | e.g. `bcom_admissions_2026` |
-| N      | UTM Term            | `{{utm_term}}`         | Keyword |
-| O      | UTM Content         | `{{utm_content}}`      | Ad creative variant |
-| P      | GCLID               | `{{gclid}}`            | Google Ads click ID |
-| Q      | User Agent          | `{{user_agent}}`       | Browser info |
+| Column | Header           | Pabbly Field           |
+|--------|------------------|------------------------|
+| A      | Name             | `{{name}}`             |
+| B      | Mobile           | `{{mobile}}`           |
+| C      | Email            | `{{email}}`            |
+| D      | Service Interest | `{{service_interest}}` |
+| E      | Message          | `{{message}}`          |
+| F      | Source           | `{{source}}`           |
+| G      | Lead ID          | `{{lead_id}}`          |
+| H      | Status           | `{{status}}`           |
+| I      | Submitted At     | `{{submitted_at}}`     |
+| J      | Page URL         | `{{page_url}}`         |
+| K      | UTM Source       | `{{utm_source}}`       |
+| L      | UTM Medium       | `{{utm_medium}}`       |
+| M      | UTM Campaign     | `{{utm_campaign}}`     |
+| N      | UTM Term         | `{{utm_term}}`         |
+| O      | UTM Content      | `{{utm_content}}`      |
+| P      | GCLID            | `{{gclid}}`            |
+| Q      | User Agent       | `{{user_agent}}`       |
 
 ### Step 4 (Optional): Add Email Notification
 
 1. Add another action after Google Sheets.
 2. Choose **Email by Pabbly** (free, built-in) or **Gmail**.
-3. Subject: `New Admission Enquiry: {{name}} — {{service_interest}}`
+3. Subject: `New Consultation: {{name}} - {{service_interest}}`
 4. Body:
    ```
-   New admission enquiry from {{source}}
+   New consultation request from {{source}}
 
-   Applicant Name: {{name}}
+   Name: {{name}}
    Mobile: {{mobile}}
    Email: {{email}}
-   Program of Interest: {{service_interest}}
-   Background / Message: {{message}}
+   Service Interest: {{service_interest}}
+   Message: {{message}}
 
    Submitted: {{submitted_at}}
    Page: {{page_url}}
    UTM Source: {{utm_source}} | Campaign: {{utm_campaign}}
-
-   — Counselling team to call within 24 hours.
    ```
 
 ### Step 5: Test It
 
-1. Open the Icon Commerce College landing page (`https://landing.iconcommerce.edu/` or your local dev URL).
-2. Fill the admission enquiry form with fake data — e.g., program `B.Com`, stream `Commerce`, state `Assam`, passing year `2026`.
+1. Open your landing page.
+2. Fill the consultation form with fake data and submit.
 3. Inside Pabbly, open your workflow → **History** tab. A new entry should appear within 30 seconds.
 4. Open your Google Sheet — a new row should be there.
 
-✅ **Main webhook done.** Admission enquiries are now reaching Google Sheets and the counselling team.
+✅ **Main webhook done.** Leads are now reaching Google Sheets.
 
 ---
 
 ## 4. Part B — Set Up Lead Management (Admin Panel)
 
-The Admin LMS at `https://landing.iconcommerce.edu/admin/lms` lets the admissions team see, search, filter, and manage every enquiry — from **any device**. For this to work across devices, leads need to be stored on your **server**, not just in one browser. Here's how to enable it.
+The Admin Panel (`landing.yourdomain.com/admin`) lets you see, search, filter, and manage leads — from **any device**. For this to work across devices, leads need to be stored on your **server**, not just in one browser. Here's how to enable it.
 
 ### Step 1: Upload the PHP Files
 
@@ -156,7 +154,7 @@ On your server (via cPanel File Manager, FTP, or SSH):
    ```php
    define('ADMIN_API_KEY', 'CHANGE_ME_TO_A_LONG_RANDOM_STRING');
    ```
-4. Replace `CHANGE_ME_TO_A_LONG_RANDOM_STRING` with a **long random string** — e.g., generate one at https://www.random.org/strings/ and paste:
+4. Replace `CHANGE_ME_TO_A_LONG_RANDOM_STRING` with a **long random string** — e.g., run https://www.random.org/strings/ and paste something like:
    ```php
    define('ADMIN_API_KEY', 'Zk8pQ3mX9yL2wN7bV5rT1jH6cD4fG0aE');
    ```
@@ -175,9 +173,9 @@ REACT_APP_LEADS_ADMIN_KEY="Zk8pQ3mX9yL2wN7bV5rT1jH6cD4fG0aE"
 
 **The value of `REACT_APP_LEADS_ADMIN_KEY` must EXACTLY match `ADMIN_API_KEY` in `config.php`.** If they don't match, the admin panel will say "Unauthorized".
 
-If your PHP endpoint lives on a different domain than your landing page (e.g., the SPA is on Vercel and the PHP host is on Hostinger), use the full URL:
+If your PHP endpoint lives on a different domain than your landing page, use the full URL:
 ```env
-REACT_APP_LEADS_API_URL="https://api.iconcommerce.edu/api/leads.php"
+REACT_APP_LEADS_API_URL="https://api.yourdomain.com/api/leads.php"
 ```
 
 ### Step 4: Rebuild & Redeploy
@@ -190,7 +188,7 @@ Upload the fresh `build/` folder to your server. The env values get baked into t
 
 ### Step 5: Make Sure the `data/` Folder Is Writable
 
-The first time an enquiry is submitted, `leads.php` creates a folder at `api/data/` to store `leads.json`. Your PHP process needs write permission.
+The first time a lead is submitted, `leads.php` creates a folder at `api/data/` to store `leads.json`. Your PHP process needs write permission.
 
 - On cPanel/shared hosting: usually works out of the box.
 - On a VPS: run `chmod 755 public_html/api && chown www-data:www-data public_html/api`.
@@ -198,13 +196,13 @@ The first time an enquiry is submitted, `leads.php` creates a folder at `api/dat
 
 ### Step 6: Test the Admin Panel
 
-1. Open `https://landing.iconcommerce.edu/admin/login`
+1. Open `https://yourdomain.com/admin/login`
 2. Log in with the credentials from `.env` (`REACT_APP_ADMIN_USERNAME` / `REACT_APP_ADMIN_PASSWORD`).
-3. Submit a new test admission enquiry from the landing page on a **different browser or phone**.
-4. Refresh the Admin LMS — the enquiry should appear in the lead table.
+3. Submit a new test lead from the landing page on a **different browser or phone**.
+4. Refresh the Admin Panel — the lead should appear in the Lead Management table.
 5. If it doesn't, see the Troubleshooting section at the end.
 
-✅ **Lead Management is live.** Every admissions counsellor sees every enquiry, from every device.
+✅ **Lead Management is live.** Every admin sees every lead, from every device.
 
 ---
 
@@ -212,21 +210,21 @@ The first time an enquiry is submitted, `leads.php` creates a folder at `api/dat
 
 > **Short answer: You do NOT need this for Lead Management to work.** The setup above (Part B) already handles everything across all admin devices via your server.
 
-The Admin Panel Pabbly Webhook is only useful if you want admin actions — status changes, notes, deletions — to **also** land in a **second** Pabbly workflow (e.g., to update a separate Google Sheet for the principal, or notify the counselling team on Slack when an enquiry moves to "Converted / Admitted").
+The Admin Panel Pabbly Webhook is only useful if you want admin actions — status changes, notes, deletions — to **also** land in a **second** Pabbly workflow (e.g., to update a separate Google Sheet or notify your team on Slack).
 
 ### When to set it up
 
 Set `REACT_APP_ADMIN_PABBLY_WEBHOOK_URL` only if you answer **YES** to any of these:
 
-- "I want my Google Sheet to update the status column when a counsellor marks a lead as Contacted / Counselled / Admitted / Lost."
-- "I want a Slack/Email ping when any admin adds a note to an enquiry."
-- "I want a full audit log of admin actions inside Pabbly for the principal's review."
+- "I want my Google Sheet to update the status column when an admin marks a lead as Contacted / Converted / Lost."
+- "I want to get a Slack/Email ping when any admin adds a note to a lead."
+- "I want a full audit log of admin actions inside Pabbly."
 
 ### When to skip it
 
 Skip it (leave the value blank, or remove the line) if:
 
-- You manage enquiry statuses only inside the Admin LMS itself.
+- You manage lead statuses only inside the Admin Panel itself.
 - You don't need external tools to know about admin-side changes.
 
 ### Setup (if you need it)
@@ -243,10 +241,10 @@ Skip it (leave the value blank, or remove the line) if:
 
 ```json
 // status_update
-{ "action": "status_update", "lead_id": "...", "new_status": "admitted", "old_status": "counselled", "timestamp": "..." }
+{ "action": "status_update", "lead_id": "...", "new_status": "contacted", "old_status": "new", "timestamp": "..." }
 
 // note_added
-{ "action": "note_added", "lead_id": "...", "note_text": "Called — interested in B.Com Hons. Will visit campus Saturday.", "timestamp": "..." }
+{ "action": "note_added", "lead_id": "...", "note_text": "Called and left voicemail", "timestamp": "..." }
 
 // lead_deleted
 { "action": "lead_deleted", "lead_id": "...", "timestamp": "..." }
@@ -262,7 +260,7 @@ Put these in your project's `.env` file:
 
 | Variable | Required? | What it does |
 |----------|-----------|--------------|
-| *(none — set `WEBHOOK_URL` directly in `webhookSubmit.js`)* | **Yes** | The main Pabbly webhook for admission enquiry capture |
+| *(none — set `WEBHOOK_URL` directly in `webhookSubmit.js`)* | **Yes** | The main Pabbly webhook for lead capture |
 | `REACT_APP_LEADS_API_URL` | **Yes** (for Admin Panel) | Path to your `leads.php` endpoint. Default: `/api/leads.php` |
 | `REACT_APP_LEADS_ADMIN_KEY` | **Yes** (for Admin Panel) | Secret that must match `ADMIN_API_KEY` in `config.php` |
 | `REACT_APP_ADMIN_PABBLY_WEBHOOK_URL` | **No (Optional)** | Second Pabbly webhook for admin-side actions only |
@@ -279,34 +277,34 @@ On your server, inside `public/api/config.php`:
 
 ## 7. Fields Sent to the Webhook
 
-Every admission enquiry submission sends these fields:
+Every form submission sends these fields:
 
 | Field | Example | Description |
 |-------|---------|-------------|
-| `name` | `Rahul Sharma` | Applicant's full name |
+| `name` | `Rahul Sharma` | Visitor's full name |
 | `mobile` | `9876543210` | 10-digit mobile |
 | `email` | `rahul@example.com` | Email (optional) |
-| `service_interest` | `bcom` | Selected program (`bcom` / `ba` / `bba` / `bca`) |
-| `message` | `Stream: Commerce / State: Assam / Year: 2026 / City: Guwahati` | Enriched: stream + state + passing year + city + free-text |
+| `service_interest` | `general` | Selected service |
+| `message` | `Interested in FUE` | Optional message |
 | `source` | `hero-form` | Which form was used (see below) |
 | `lead_id` | `a1b2-c3d4-...` | Auto-generated unique ID |
 | `status` | `new` | Always "new" at capture |
-| `submitted_at` | `2026-04-27T10:30:00.000Z` | Submission timestamp |
-| `page_url` | `https://landing.iconcommerce.edu/?utm_source=google&utm_campaign=bcom_admissions_2026` | Full page URL |
+| `submitted_at` | `2026-04-12T10:30:00.000Z` | Submission timestamp |
+| `page_url` | `https://landing.yourdomain.com/?utm_source=google` | Full page URL |
 | `user_agent` | `Mozilla/5.0 ...` | Browser info |
-| `utm_source` / `utm_medium` / `utm_campaign` / `utm_term` / `utm_content` | `google` / `cpc` / `bcom_admissions_2026` / ... | Ad tracking parameters |
+| `utm_source` / `utm_medium` / `utm_campaign` / `utm_term` / `utm_content` | `google` / `cpc` / `spring_sale` / ... | Ad tracking parameters |
 | `gclid` | `EAIaIQobChMI...` | Google Ads click ID |
 
 ### Form Source Values
 
 | Source | Where it came from |
 |--------|-------------------|
-| `hero-form` | Main 3-step admission form at the top of the page |
-| `contact-form` | Form in the Contact / "Talk to Counsellor" section |
-| `drawer-form-apply-now` | Sliding drawer — "Apply Now" |
+| `hero-form` | Main form at the top of the page |
+| `contact-form` | Form in the Contact section |
+| `drawer-form-apply-now` | Sliding drawer — "Book Consultation" |
 | `drawer-form-request-callback` | Sliding drawer — "Request Callback" |
-| `drawer-form-get-details` | Sliding drawer — "Get Program Details" |
-| `drawer-form-download-brochure` | Sliding drawer — "Download Prospectus" |
+| `drawer-form-get-details` | Sliding drawer — "Get Details" |
+| `drawer-form-download-brochure` | Sliding drawer — "Download Brochure" |
 | `unified-lead-form` | Default (fallback) |
 
 ---
@@ -316,13 +314,13 @@ Every admission enquiry submission sends these fields:
 | Problem | Fix |
 |---------|-----|
 | Form submits but Pabbly shows nothing | In `webhookSubmit.js`: confirm `USE_PABBLY = true`, `DUMMY_MODE = false`, and the `WEBHOOK_URL` is correct. Rebuild + redeploy after changes. |
-| Admin Panel is empty even though Pabbly receives enquiries | (1) Verify `config.php` exists in `api/` with `ADMIN_API_KEY`. (2) Verify `REACT_APP_LEADS_ADMIN_KEY` in `.env` **exactly** matches `ADMIN_API_KEY`. (3) Verify `api/data/` folder is writable by the PHP process. (4) Open browser DevTools → Network tab → look for `/api/leads.php?action=list` and check its status code. |
+| Admin Panel is empty even though Pabbly receives leads | (1) Verify `config.php` exists in `api/` with `ADMIN_API_KEY`. (2) Verify `REACT_APP_LEADS_ADMIN_KEY` in `.env` **exactly** matches `ADMIN_API_KEY`. (3) Verify `api/data/` folder is writable by the PHP process. (4) Open browser DevTools → Network tab → look for `/api/leads.php?action=list` and check its status code. |
 | Admin Panel says "Unauthorized" | The two keys don't match. Copy `ADMIN_API_KEY` from `config.php`, paste into `.env` as `REACT_APP_LEADS_ADMIN_KEY`, run `npm run build`, redeploy. |
 | 404 or 400 from Pabbly webhook | Regenerate the URL in Pabbly — the old one may have expired or been deleted. |
-| Enquiries missing UTM fields | UTMs must be in the landing page URL (e.g. `?utm_source=google&utm_medium=cpc&utm_campaign=bcom_admissions_2026`). |
+| Leads missing UTM fields | UTMs must be in the landing page URL (e.g. `?utm_source=google&utm_medium=cpc`). |
 | GCLID not captured | Check that Google Ads auto-tagging is enabled in your Google Ads account. |
 | CORS error in console | Pabbly webhooks accept cross-origin POST; double-check the URL. For the leads API — make sure it's on the same domain or that CORS headers are set (already handled by `leads.php`). |
-| Duplicate enquiries appearing | `isDuplicateLead()` checks by mobile number — clear browser localStorage to reset. |
+| Duplicate leads appearing | `isDuplicateLead()` checks by mobile number — clear browser localStorage to reset. |
 | "leads.json permission denied" in server logs | `chmod 755 api/` and make sure PHP user can write. On cPanel, use File Manager → right-click `api/` → Change Permissions → set to `755`. |
 
 ---
@@ -331,11 +329,11 @@ Every admission enquiry submission sends these fields:
 
 | Mode | `USE_PABBLY` | `DUMMY_MODE` | Behavior |
 |------|--------------|--------------|----------|
-| Local testing | `false` | `true` | Enquiries saved only in your browser. No network requests. Great for iterating on form UI. |
-| Production | `true` | `false` | Enquiries sent to Pabbly + stored on server. Admin LMS shows all enquiries. |
+| Local testing | `false` | `true` | Leads saved only in your browser. No network requests. Great for development. |
+| Production | `true` | `false` | Leads sent to Pabbly + stored on server. Admin panel shows all leads. |
 
-To inspect test enquiries in the browser, open DevTools → Console and run:
+To inspect test leads in the browser, open DevTools → Console and run:
 ```js
-JSON.parse(localStorage.getItem("lp_test_leads"))   // dummy mode enquiries
-JSON.parse(localStorage.getItem("lp_submitted_leads")) // real enquiries captured on this device
+JSON.parse(localStorage.getItem("lp_test_leads"))   // dummy mode leads
+JSON.parse(localStorage.getItem("lp_submitted_leads")) // real leads captured on this device
 ```
