@@ -1,316 +1,180 @@
 /* ============================================
    Header Component
-   Fixed header with scroll behavior and navigation
+   Sticky top bar for Icon Commerce College.
    ============================================ */
 
-import React, { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import { Container, IconButton, useMediaQuery, useTheme } from "@mui/material";
 import { Icon } from "@iconify/react";
-import { trackPhoneClick, trackNavigation } from "../../../utils/gtm";
+import { trackNavigation } from "../../../utils/gtm";
 import { trackCtaClickEvent } from "../../../utils/leadEvents";
 import { useModal } from "../../../context/ModalContext";
+import { useScrolledPast } from "../../../hooks/useScrollPosition";
+import { NAV_LINKS, PRIMARY_CTA, BRAND } from "../../../data/navigationData";
 import styles from "./Header.module.css";
 
-const LOGO_URL = "https://placehold.co/400x400?text=TBD+Logo";
-const LOGO_WHITE_URL = "https://placehold.co/400x400?text=TBD+Logo";
-const BRAND_NAME = process.env.REACT_APP_NAME || "";
+const HEADER_OFFSET = 80;
+const SCROLL_SHADOW_THRESHOLD = 24;
 
-const SALES_PHONE_DISPLAY = process.env.REACT_APP_SALES_PHONE || "";
-const SALES_PHONE_TEL =
-  process.env.REACT_APP_WHATSAPP_NUMBER ||
-  (process.env.REACT_APP_SALES_PHONE || "").replace(/\s+/g, "");
+const scrollToAnchor = (href) => {
+  const targetId = href.replace(/^#/, "");
+  const target = targetId ? document.getElementById(targetId) : null;
+  if (!target) return false;
 
-// Navigation items
-const navItems = [
-  { label: "FAQs", href: "#faq", icon: "mdi:help-circle-outline" },
-];
+  const elementPosition = target.getBoundingClientRect().top;
+  const offsetPosition = elementPosition + window.pageYOffset - HEADER_OFFSET;
+  window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+  return true;
+};
 
-const Header = ({ forceCloseMenu = false }) => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+const Header = ({ forceCloseMenu = false, onMobileMenuToggle }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
+  const isScrolled = useScrolledPast(SCROLL_SHADOW_THRESHOLD);
+  const [activeSection, setActiveSection] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { openLeadDrawer } = useModal();
 
-  // Close mobile menu when bottom drawer opens
   useEffect(() => {
     if (forceCloseMenu && isMobileMenuOpen) {
       setIsMobileMenuOpen(false);
     }
   }, [forceCloseMenu, isMobileMenuOpen]);
 
-  // Handle scroll event
-  const handleScroll = useCallback(() => {
-    const scrollPosition = window.scrollY;
-    setIsScrolled(scrollPosition > 50);
+  // Scroll-spy for active section highlight (desktop)
+  useEffect(() => {
+    if (isMobile) return undefined;
 
-    // Determine active section
-    const sections = navItems.map((item) => item.href.substring(1));
-    for (let i = sections.length - 1; i >= 0; i--) {
-      const section = document.getElementById(sections[i]);
-      if (section) {
-        const rect = section.getBoundingClientRect();
-        if (rect.top <= 150) {
-          setActiveSection(sections[i]);
-          break;
+    const handleSpy = () => {
+      for (let i = NAV_LINKS.length - 1; i >= 0; i -= 1) {
+        const id = NAV_LINKS[i].href.replace(/^#/, "");
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= 150) {
+          setActiveSection(id);
+          return;
         }
       }
-    }
-  }, []);
+      setActiveSection(null);
+    };
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [handleScroll]);
+    window.addEventListener("scroll", handleSpy, { passive: true });
+    handleSpy();
+    return () => window.removeEventListener("scroll", handleSpy);
+  }, [isMobile]);
 
-  // Smooth scroll to section (for desktop navigation)
-  const scrollToSection = (e, href) => {
+  const handleNavClick = (e, link) => {
     e.preventDefault();
-    const targetId = href.substring(1);
-    const targetElement = document.getElementById(targetId);
-
-    if (targetElement) {
-      const headerOffset = 80;
-      const elementPosition = targetElement.getBoundingClientRect().top;
-      const offsetPosition =
-        elementPosition + window.pageYOffset - headerOffset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
-    }
-
+    trackNavigation(isMobile ? "mobile_drawer" : "desktop_nav", "click", link.label);
+    scrollToAnchor(link.href);
     setIsMobileMenuOpen(false);
   };
 
-  // Handle mobile menu item click (close menu first, then scroll with delay)
-  const handleMobileMenuClick = (e, href) => {
+  const handleApplyClick = (e, location = "header") => {
     e.preventDefault();
-    e.stopPropagation();
-
-    // Store the target href before closing
-    const targetHref = href;
-
-    // Close menu first
+    trackCtaClickEvent(PRIMARY_CTA.id, location, PRIMARY_CTA.label);
+    openLeadDrawer({ source: PRIMARY_CTA.source });
     setIsMobileMenuOpen(false);
-
-    // Scroll after a brief delay to allow menu close animation to start
-    setTimeout(() => {
-      const targetId = targetHref.substring(1);
-      const targetElement = document.getElementById(targetId);
-
-      if (targetElement) {
-        const headerOffset = 80;
-        const elementPosition = targetElement.getBoundingClientRect().top;
-        const offsetPosition =
-          elementPosition + window.pageYOffset - headerOffset;
-
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: "smooth",
-        });
-      }
-    }, 50);
   };
 
-  // Animation variants
-  const headerVariants = {
-    initial: { y: -100, opacity: 0 },
-    animate: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.5, ease: "easeOut" },
-    },
-  };
-
-  const navItemVariants = {
-    initial: { opacity: 0, y: -10 },
-    animate: (i) => ({
-      opacity: 1,
-      y: 0,
-      transition: { delay: i * 0.1, duration: 0.3 },
-    }),
-  };
-
-  const logoVariants = {
-    initial: { opacity: 0, x: -20 },
-    animate: {
-      opacity: 1,
-      x: 0,
-      transition: { duration: 0.5, delay: 0.2 },
-    },
+  const handleHamburgerClick = () => {
+    const next = !isMobileMenuOpen;
+    trackNavigation("mobile_menu", next ? "open" : "close");
+    setIsMobileMenuOpen(next);
+    if (typeof onMobileMenuToggle === "function") {
+      onMobileMenuToggle(next);
+    }
   };
 
   return (
     <motion.header
+      role="banner"
       className={`${styles.header} ${isScrolled ? styles.scrolled : ""}`}
-      variants={headerVariants}
-      initial="initial"
-      animate="animate"
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
     >
       <Container maxWidth="xl" className={styles.headerContainer}>
-        {/* Logo Section */}
-        <motion.div
-          className={styles.logoSection}
-          variants={logoVariants}
-          initial="initial"
-          animate="animate"
-        >
+        {/* Logo */}
+        <div className={styles.logoSection}>
           <a
-            href="#home"
-            onClick={(e) => scrollToSection(e, "#home")}
+            href="/"
             className={styles.logoLink}
+            aria-label={BRAND.name}
           >
-            <div className={styles.logoWrapper}>
-              <img
-                src={isScrolled ? LOGO_URL : LOGO_WHITE_URL}
-                alt={BRAND_NAME}
-                className={styles.mainLogo}
-                style={{
-                  height: "40px",
-                  width: "auto",
-                }}
-              />
-            </div>
+            <img
+              src={isMobile ? BRAND.logoCompact : BRAND.logoWide}
+              alt={BRAND.name}
+              className={styles.mainLogo}
+            />
           </a>
-        </motion.div>
+          {!isMobile && (
+            <span className={styles.eyebrow}>{BRAND.eyebrow}</span>
+          )}
+        </div>
 
         {/* Desktop Navigation */}
         {!isMobile && (
-          <nav className={styles.desktopNav}>
+          <nav className={styles.desktopNav} aria-label="Primary">
             <ul className={styles.navList}>
-              {navItems.map((item, index) => (
-                <motion.li
-                  key={item.label}
-                  variants={navItemVariants}
-                  initial="initial"
-                  animate="animate"
-                  custom={index}
-                >
-                  <a
-                    href={item.href}
-                    onClick={(e) => {
-                      trackNavigation("desktop_nav", "click", item.label);
-                      scrollToSection(e, item.href);
-                    }}
-                    className={`${styles.navLink} ${activeSection === item.href.substring(1) ? styles.active : ""}`}
-                  >
-                    {item.label}
-                  </a>
-                </motion.li>
-              ))}
+              {NAV_LINKS.map((link) => {
+                const sectionId = link.href.replace(/^#/, "");
+                const isActive = activeSection === sectionId;
+                return (
+                  <li key={link.id}>
+                    <a
+                      href={link.href}
+                      onClick={(e) => handleNavClick(e, link)}
+                      className={`${styles.navLink} ${isActive ? styles.active : ""}`}
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           </nav>
         )}
 
-        {/* Right Section - Logo Icon & CTA */}
+        {/* Right Section */}
         <div className={styles.rightSection}>
           {!isMobile && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.5, duration: 0.3 }}
+            <button
+              type="button"
+              className={styles.ctaButton}
+              onClick={(e) => handleApplyClick(e, "header")}
             >
-              <a
-                href="#book"
-                role="button"
-                className={styles.callButton}
-                onClick={(e) => {
-                  e.preventDefault();
-                  trackCtaClickEvent("header_cta", "header", "__TBD_ICON_CONTENT__");
-                  openLeadDrawer("header_cta");
-                  setIsMobileMenuOpen(false);
-                }}
-              >
-                <Icon icon="mdi:phone" className={styles.callButtonIcon} />
-                __TBD_ICON_CONTENT__
-              </a>
-            </motion.div>
+              {PRIMARY_CTA.label}
+            </button>
           )}
 
-          {/* Mobile Menu Button */}
           {isMobile && (
-            <IconButton
-              className={styles.menuButton}
-              onClick={() => {
-                const newState = !isMobileMenuOpen;
-                trackNavigation("mobile_menu", newState ? "open" : "close");
-                setIsMobileMenuOpen(newState);
-              }}
-              aria-label="Toggle menu"
-            >
-              <Icon
-                icon={isMobileMenuOpen ? "mdi:close" : "mdi:menu"}
-                className={styles.menuIcon}
-              />
-            </IconButton>
+            <>
+              <IconButton
+                className={styles.mobileCtaIcon}
+                onClick={(e) => handleApplyClick(e, "header_mobile")}
+                aria-label={PRIMARY_CTA.label}
+              >
+                <Icon icon="mdi:send-circle-outline" />
+              </IconButton>
+              <IconButton
+                className={styles.menuButton}
+                onClick={handleHamburgerClick}
+                aria-label={isMobileMenuOpen ? "Close navigation" : "Open navigation"}
+                aria-expanded={isMobileMenuOpen}
+                aria-controls="mobile-drawer"
+              >
+                <Icon
+                  icon={isMobileMenuOpen ? "mdi:close" : "mdi:menu"}
+                  className={styles.menuIcon}
+                />
+              </IconButton>
+            </>
           )}
         </div>
       </Container>
-
-      {/* Mobile Navigation Drawer */}
-      <AnimatePresence>
-        {isMobile && isMobileMenuOpen && (
-          <motion.div
-            className={styles.mobileNav}
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <nav className={styles.mobileNavContent}>
-              <ul className={styles.mobileNavList}>
-                {navItems.map((item, index) => (
-                  <motion.li
-                    key={item.label}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                  >
-                    <button
-                      type="button"
-                      onClick={(e) => handleMobileMenuClick(e, item.href)}
-                      className={`${styles.mobileNavLink} ${activeSection === item.href.substring(1) ? styles.active : ""}`}
-                    >
-                      <Icon
-                        icon={getNavIcon(item.label)}
-                        className={styles.mobileNavIcon}
-                      />
-                      {item.label}
-                    </button>
-                  </motion.li>
-                ))}
-              </ul>
-              <div className={styles.mobileNavCTA}>
-                <a
-                  href={`tel:${SALES_PHONE_TEL}`}
-                  className={styles.mobileCallButton}
-                  onClick={() => {
-                    trackPhoneClick(SALES_PHONE_TEL, "header_mobile_menu");
-                    setIsMobileMenuOpen(false);
-                  }}
-                >
-                  <Icon icon="mdi:phone" className={styles.callButtonIcon} />
-                  {SALES_PHONE_DISPLAY}
-                </a>
-              </div>
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </motion.header>
   );
-};
-
-// Helper function to get navigation icons
-const getNavIcon = (label) => {
-  const icons = {
-    FAQs: "mdi:help-circle-outline",
-  };
-  return icons[label] || "mdi:circle-outline";
 };
 
 export default Header;

@@ -420,7 +420,10 @@ const HomePageContent = () => {
   return (
     <>
       {/* Header/Navigation */}
-      <Header forceCloseMenu={isMobileDrawerOpen} />
+      <Header
+        forceCloseMenu={isMobileDrawerOpen}
+        onMobileMenuToggle={setIsMobileDrawerOpen}
+      />
 
       {/* Main Content */}
       <main id="main-content" className="main-content">
