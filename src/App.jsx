@@ -20,6 +20,7 @@ import { ModalProvider, useModal } from './context/ModalContext';
 import Header from './components/common/Header/Header';
 import HeroSection from './components/sections/HeroSection/HeroSection';
 import TrustBar from './components/sections/TrustBar/TrustBar';
+import AboutSection from './components/sections/AboutSection';
 import Footer from './components/common/Footer/Footer';
 import Modal from './components/common/Modal/Modal';
 import MobileDrawer from './components/common/MobileDrawer/MobileDrawer';
@@ -432,6 +433,9 @@ const HomePageContent = () => {
 
         {/* Trust Bar - Eager-loaded, sits directly under hero */}
         <TrustBar />
+
+        {/* About Section - institutional story */}
+        <AboutSection />
 
         {/* Lazy loaded sections with error boundaries */}
         <ErrorBoundary>

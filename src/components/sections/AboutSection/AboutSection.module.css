@@ -1,0 +1,298 @@
+/* ============================================
+   AboutSection Styles — Icon Commerce College
+   Cream institutional story section. Two-column
+   on desktop (≥1024 px), stacked on mobile.
+   ============================================ */
+
+.section {
+  position: relative;
+  background: var(--ic-bg-cream);
+  padding: 96px 0;
+}
+
+.container {
+  position: relative;
+}
+
+/* ===== Layout ===== */
+.layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .layout {
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+  }
+}
+
+/* ===== Left column ===== */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 600px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  height: 32px;
+  padding: 0 14px;
+  background-color: rgba(217, 119, 6, 0.12);
+  color: var(--ic-secondary);
+  font-family: var(--ic-font-ui);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  border-radius: 999px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.heading {
+  font-family: var(--ic-font-heading) !important;
+  font-weight: 700 !important;
+  color: var(--ic-text-primary);
+  font-size: clamp(2rem, 1.4rem + 2.5vw, 3rem);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+
+.lead {
+  font-family: var(--ic-font-body) !important;
+  font-weight: 400 !important;
+  color: var(--ic-text-primary);
+  font-size: clamp(1.0625rem, 0.95rem + 0.5vw, 1.1875rem);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.body {
+  font-family: var(--ic-font-body) !important;
+  font-weight: 400 !important;
+  color: var(--ic-text-secondary);
+  font-size: 1rem;
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* ===== Signature card ===== */
+.signatureCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: var(--ic-bg-default);
+  border-radius: var(--radius-lg);
+  border-left: 4px solid var(--ic-primary);
+  box-shadow: var(--ic-shadow-sm);
+  margin-top: 0.25rem;
+}
+
+.signaturePortrait {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: var(--ic-bg-soft);
+}
+
+.signatureText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.35;
+}
+
+.signatureName {
+  font-family: var(--ic-font-ui);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ic-text-primary);
+}
+
+.signatureRole {
+  font-family: var(--ic-font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ic-text-secondary);
+}
+
+.signatureCreds {
+  font-family: var(--ic-font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ic-text-secondary);
+}
+
+/* ===== CTA row ===== */
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  margin-top: 0.5rem;
+}
+
+.primaryCta {
+  min-height: 48px;
+  border-radius: 12px !important;
+  text-transform: none !important;
+  font-family: var(--ic-font-ui) !important;
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+  padding: 0.75rem 1.75rem !important;
+  min-width: 220px;
+}
+
+.secondaryCta {
+  text-transform: none !important;
+  font-family: var(--ic-font-ui) !important;
+  font-weight: 600 !important;
+  font-size: 0.9375rem !important;
+  color: var(--ic-primary) !important;
+  padding: 0.5rem 0.75rem !important;
+}
+
+/* ===== Right column ===== */
+.visual {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+  position: relative;
+}
+
+.imageCard {
+  width: 100%;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: var(--ic-shadow-lg);
+  background: var(--ic-bg-soft);
+}
+
+.buildingImg {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 8 / 9;
+  object-fit: cover;
+}
+
+/* ===== Pillar cards ===== */
+.pillarList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.pillarCard {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  background: var(--ic-bg-default);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: var(--ic-shadow-sm);
+}
+
+.pillarIcon {
+  color: var(--ic-secondary);
+  flex-shrink: 0;
+}
+
+.pillarTitle {
+  font-family: var(--ic-font-ui);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ic-text-primary);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.pillarCopy {
+  font-family: var(--ic-font-body);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--ic-text-secondary);
+  margin: 0;
+  line-height: 1.55;
+}
+
+/* ===== Desktop ≥1024 — pillar cards float right of image ===== */
+@media (min-width: 1024px) {
+  .visual {
+    gap: 1.5rem;
+  }
+
+  .pillarList {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.875rem;
+  }
+
+  .imageCard {
+    margin-right: 2rem;
+  }
+
+  .pillarList {
+    margin-left: 2rem;
+  }
+}
+
+/* ===== Tablet (768–1023) ===== */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .pillarList {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.875rem;
+  }
+}
+
+/* ===== Mobile (<768) ===== */
+@media (max-width: 767px) {
+  .section {
+    padding: 64px 0;
+  }
+
+  .layout {
+    gap: 2rem;
+  }
+
+  .content {
+    gap: 1rem;
+  }
+
+  .buildingImg {
+    aspect-ratio: 16 / 9;
+  }
+
+  .ctaRow {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .primaryCta {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .secondaryCta {
+    align-self: flex-start;
+  }
+
+  .signatureCard {
+    padding: 12px 14px;
+  }
+}
