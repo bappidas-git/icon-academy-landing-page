@@ -1,95 +1,262 @@
 /* ============================================
-   TrustBar Styles
+   TrustBar Styles — Icon Commerce College
+   Slim credibility strip below the hero.
    ============================================ */
 
-.bar {
-  background: var(--surface-muted);
-  border-top: 1px solid var(--border-gray);
-  border-bottom: 1px solid var(--border-gray);
-  padding: 16px 0;
+.section {
+  background: var(--ic-bg-soft);
+  border-top: 1px solid var(--ic-border);
+  border-bottom: 1px solid var(--ic-border);
+  padding: 32px 0;
 }
 
-.tagline {
-  text-align: center;
-  font-size: 0.8125rem;
-  color: var(--accent-gold-dark);
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  margin: 0 0 10px;
-}
-
-.row {
-  display: flex;
-  gap: 24px;
-  justify-content: center;
-  align-items: center;
+.inner {
   max-width: var(--container-xl);
   margin: 0 auto;
   padding-inline: var(--section-px);
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.row::-webkit-scrollbar {
-  display: none;
-}
-
-.item {
-  display: flex;
+  display: grid;
+  grid-template-columns: 40% 35% 25%;
   align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-  scroll-snap-align: start;
+  gap: 24px;
 }
 
-.text {
+/* ===== Column A — Affiliation badges ===== */
+.badgesCol {
   display: flex;
   flex-direction: column;
-  line-height: 1.2;
+  gap: 10px;
 }
 
-.icon {
-  font-size: 22px;
-  color: var(--accent-gold);
+.badgeCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: var(--ic-bg-default);
+  border: 1px solid var(--ic-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--ic-shadow-sm);
+}
+
+.badgeImg {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
   flex-shrink: 0;
+  background: var(--ic-bg-soft);
 }
 
-.value {
-  font-weight: 700;
-  color: var(--ink);
-  font-size: 0.9375rem;
+.badgeText {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  column-gap: 8px;
+  row-gap: 2px;
+  line-height: 1.3;
 }
 
-.label {
+.badgeIcon {
+  grid-row: 1 / span 2;
+  font-size: 20px;
+  color: var(--ic-primary);
+}
+
+.badgeLabel {
+  font-family: var(--ic-font-body);
   font-size: 0.75rem;
-  color: var(--ink-muted);
+  color: var(--ic-text-secondary);
+  font-weight: var(--fw-medium);
 }
 
-.divider {
-  width: 1px;
-  height: 24px;
-  background: var(--border-gray);
+.badgeAccent {
+  font-family: var(--ic-font-ui);
+  font-size: 0.9375rem;
+  color: var(--ic-text-primary);
+  font-weight: var(--fw-bold);
+}
+
+/* ===== Column B — Marquee ===== */
+.marqueeCol {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+}
+
+.marqueeViewport {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 40px,
+    #000 calc(100% - 40px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 40px,
+    #000 calc(100% - 40px),
+    transparent 100%
+  );
+}
+
+.marqueeViewportStatic {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.marqueeTrack {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: max-content;
+  will-change: transform;
+}
+
+.marqueeTrackStatic {
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.marqueeItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 14px;
+  background: var(--ic-bg-cream);
+  border: 1px solid var(--ic-secondary);
+  border-radius: var(--radius-full);
+  color: var(--ic-text-primary);
+  font-family: var(--ic-font-ui);
+  font-size: 0.8125rem;
+  font-weight: var(--fw-semibold);
+  white-space: nowrap;
   flex-shrink: 0;
 }
 
-@media (max-width: 640px) {
-  .row {
-    justify-content: flex-start;
-    gap: 16px;
+.marqueeItem:focus-visible {
+  outline: 2px solid var(--ic-primary);
+  outline-offset: 2px;
+}
+
+.marqueeIcon {
+  font-size: 18px;
+  color: var(--ic-primary);
+  flex-shrink: 0;
+}
+
+.marqueeText {
+  line-height: 1;
+}
+
+/* Visually hidden but readable to assistive tech */
+.srOnlyList {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ===== Column C — Estd. anchor ===== */
+.anchorCol {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  text-align: right;
+}
+
+.anchorEyebrow {
+  font-family: var(--ic-font-ui);
+  font-size: 12px;
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wider);
+  color: var(--ic-secondary);
+}
+
+.anchorCaption {
+  font-family: var(--ic-font-ui);
+  font-size: 17px;
+  font-weight: var(--fw-semibold);
+  color: var(--ic-text-primary);
+  line-height: var(--lh-snug);
+}
+
+/* ===== Tablet (768–1024) — 2 stacked rows ===== */
+@media (max-width: 1023px) and (min-width: 768px) {
+  .inner {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      'badges anchor'
+      'marquee marquee';
+    row-gap: 20px;
   }
 
-  .divider {
-    display: none;
+  .badgesCol {
+    grid-area: badges;
   }
 
-  .item {
-    min-width: 140px;
-    padding: 4px 8px;
-    background: var(--white);
-    border: 1px solid var(--border-gray);
-    border-radius: 10px;
+  .anchorCol {
+    grid-area: anchor;
+  }
+
+  .marqueeCol {
+    grid-area: marquee;
+  }
+}
+
+/* ===== Mobile (<768) — single stacked row ===== */
+@media (max-width: 767px) {
+  .section {
+    padding: 24px 0;
+  }
+
+  .inner {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .badgesCol {
+    gap: 8px;
+  }
+
+  .badgeCard {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .badgeImg {
+    width: 56px;
+    height: 56px;
+  }
+
+  .anchorCol {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
+/* ===== Reduced motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  .marqueeTrack {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .marqueeViewport {
+    -webkit-mask-image: none;
+    mask-image: none;
   }
 }
