@@ -1,67 +1,55 @@
+/* ============================================
+   TestimonialCard
+   Single alumni quote card. Saffron decorative
+   quote glyph behind the text, top-right star
+   row, footer with circular portrait + name +
+   role.
+   ============================================ */
+
 import React from 'react';
 import { Icon } from '@iconify/react';
 import styles from './TestimonialsSection.module.css';
 
 const TestimonialCard = ({ testimonial }) => {
-  const {
-    name,
-    city,
-    avatar,
-    photo,
-    metricLabel,
-    metricValue,
-    quote,
-    rating = 5,
-  } = testimonial;
+  const { id, name, role, img, quote, rating = 5 } = testimonial;
 
   return (
-    <article className={styles.card}>
-      <img
-        src={photo}
-        alt={`Photo for testimonial from ${city}`}
-        className={styles.photo}
-        loading="lazy"
-        decoding="async"
-        width="600"
-        height="400"
+    <article className={styles.card} tabIndex={0}>
+      <Icon
+        icon="mdi:format-quote-open"
+        className={styles.quoteGlyph}
+        aria-hidden="true"
       />
 
-      <div className={styles.body}>
-        <div
-          className={styles.stars}
-          role="img"
-          aria-label={`${rating} out of 5 stars`}
-        >
-          {Array.from({ length: rating }).map((_, i) => (
-            <Icon key={i} icon="mdi:star" aria-hidden="true" />
-          ))}
-        </div>
-
-        <p className={styles.quote}>&ldquo;{quote}&rdquo;</p>
-
-        <div className={styles.metrics}>
-          <span className={styles.metric}>{metricLabel}</span>
-          <span className={`${styles.metric} ${styles.savings}`}>
-            {metricValue}
-          </span>
-        </div>
-
-        <div className={styles.footerRow}>
-          <img
-            src={avatar}
-            alt={name}
-            className={styles.avatar}
-            loading="lazy"
-            decoding="async"
-            width="120"
-            height="120"
-          />
-          <div className={styles.identity}>
-            <span className={styles.name}>{name}</span>
-            <span className={styles.city}>{city}</span>
-          </div>
-        </div>
+      <div
+        className={styles.stars}
+        role="img"
+        aria-label={`${rating} out of 5 stars`}
+      >
+        {Array.from({ length: rating }).map((_, i) => (
+          <Icon key={i} icon="mdi:star" aria-hidden="true" />
+        ))}
       </div>
+
+      <blockquote className={styles.quote} cite={`#${id}`}>
+        <p className={styles.quoteText}>{quote}</p>
+      </blockquote>
+
+      <footer className={styles.footerRow}>
+        <img
+          src={img}
+          alt=""
+          className={styles.avatar}
+          loading="lazy"
+          decoding="async"
+          width="120"
+          height="120"
+        />
+        <div className={styles.identity}>
+          <cite className={styles.name}>{name}</cite>
+          <span className={styles.role}>{role}</span>
+        </div>
+      </footer>
     </article>
   );
 };
