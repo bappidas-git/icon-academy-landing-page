@@ -1,160 +1,74 @@
 /* ============================================
    MobileNavigation Component
-   Bottom sticky navigation bar for mobile devices
+   Bottom sticky tab bar — Icon Commerce College
    ============================================ */
 
-import React, { useState, useEffect } from "react";
-import { IconButton, Typography, Badge } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Icon } from "@iconify/react";
-import { trackPhoneClick, trackNavigation, trackCTAClick } from "../../../utils/gtm";
+import { trackNavigation } from "../../../utils/gtm";
+import { trackCtaClickEvent } from "../../../utils/leadEvents";
+import { useModal } from "../../../context/ModalContext";
+import { PRIMARY_CTA } from "../../../data/navigationData";
 import styles from "./MobileNavigation.module.css";
 
-const SALES_PHONE_TEL = (process.env.REACT_APP_SALES_PHONE || "").replace(/\s+/g, "");
+const HEADER_OFFSET = 80;
 
-// Navigation items configuration
-const navItems = [
-  {
-    id: "home",
-    label: "Home",
-    icon: "mdi:home",
-    color: "var(--primary-dark)",
-    action: "scroll",
-    href: "#home",
-  },
-  {
-    id: "call",
-    label: "Call",
-    icon: "mdi:phone",
-    color: "var(--primary-dark)",
-    action: "call",
-    href: `tel:${SALES_PHONE_TEL}`,
-    external: true,
-  },
-  {
-    id: "enquiry",
-    label: "Book",
-    icon: "mdi:calendar-check",
-    color: "var(--accent-gold)",
-    action: "enquiry",
-    badge: true,
-    primary: true,
-  },
+const TABS = [
+  { id: "home", label: "Home", icon: "mdi:home-outline", action: "scroll", target: "home" },
+  { id: "programs", label: "Programmes", icon: "mdi:book-open-variant", action: "scroll", target: "programs" },
+  { id: "apply", label: "Apply", icon: "mdi:send", action: "apply", primary: true },
+  { id: "contact", label: "Contact", icon: "mdi:phone-outline", action: "scroll", target: "contact" },
 ];
 
-const MobileNavigation = ({
-  onEnquiryClick,
-  onMenuClick,
-  isDrawerOpen = false,
-  showBadge = false,
-}) => {
+const scrollToSection = (id) => {
+  if (!id) return;
+  if (id === "home") {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    return;
+  }
+  const target = document.getElementById(id);
+  if (!target) return;
+  const elementPosition = target.getBoundingClientRect().top;
+  const offsetPosition = elementPosition + window.pageYOffset - HEADER_OFFSET;
+  window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+};
+
+const MobileNavigation = ({ onEnquiryClick }) => {
+  const { openLeadDrawer } = useModal();
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const [activeItem, setActiveItem] = useState(null);
+  const [activeId, setActiveId] = useState(null);
 
-  // Hide navigation on scroll down, show on scroll up
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+      const y = window.scrollY;
+      if (y > lastScrollY && y > 100) {
         setIsVisible(false);
       } else {
         setIsVisible(true);
       }
-
-      setLastScrollY(currentScrollY);
+      setLastScrollY(y);
     };
-
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
-  // Handle navigation item click
-  const handleItemClick = (item) => {
-    setActiveItem(item.id);
+  const handleTabClick = (tab) => {
+    setActiveId(tab.id);
+    setTimeout(() => setActiveId(null), 280);
 
-    // Reset active state after animation
-    setTimeout(() => setActiveItem(null), 300);
-
-    switch (item.action) {
-      case "call":
-        trackPhoneClick(SALES_PHONE_TEL, 'mobile_nav');
-        window.open(item.href, "_blank");
-        break;
-      case "enquiry":
-        trackCTAClick('book_your_free_call', 'mobile_nav', 'bottom_bar');
-        if (onEnquiryClick) onEnquiryClick();
-        break;
-      case "scroll": {
-        trackNavigation('mobile_bottom_nav', 'click', item.label);
-        const targetId = item.href.substring(1);
-        const targetElement = document.getElementById(targetId);
-        if (targetElement) {
-          const headerOffset = 80;
-          const elementPosition = targetElement.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-          window.scrollTo({ top: offsetPosition, behavior: "smooth" });
-        }
-        break;
+    if (tab.action === "apply") {
+      trackCtaClickEvent(PRIMARY_CTA.id, "mobile_bottom_nav", PRIMARY_CTA.label);
+      if (typeof onEnquiryClick === "function") {
+        onEnquiryClick();
+      } else {
+        openLeadDrawer({ source: PRIMARY_CTA.source });
       }
-      case "menu":
-        trackNavigation('mobile_drawer', 'open');
-        if (onMenuClick) onMenuClick();
-        break;
-      default:
-        break;
+      return;
     }
-  };
-
-  // Animation variants for the navigation bar
-  const navVariants = {
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 30,
-      },
-    },
-    hidden: {
-      y: 100,
-      opacity: 0,
-      transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 30,
-      },
-    },
-  };
-
-  // Animation variants for individual items
-  const itemVariants = {
-    tap: {
-      scale: 0.9,
-      transition: { duration: 0.1 },
-    },
-    hover: {
-      scale: 1.05,
-      transition: { duration: 0.2 },
-    },
-  };
-
-  // Ripple animation for buttons
-  const rippleVariants = {
-    initial: {
-      scale: 0,
-      opacity: 0.5,
-    },
-    animate: {
-      scale: 2.5,
-      opacity: 0,
-      transition: {
-        duration: 0.4,
-        ease: "easeOut",
-      },
-    },
+    trackNavigation("mobile_bottom_nav", "click", tab.label);
+    scrollToSection(tab.target);
   };
 
   return (
@@ -162,102 +76,35 @@ const MobileNavigation = ({
       {isVisible && (
         <motion.nav
           className={styles.mobileNav}
-          variants={navVariants}
-          initial="hidden"
-          animate="visible"
-          exit="hidden"
           role="navigation"
-          aria-label="Mobile navigation"
+          aria-label="Primary mobile"
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: 100, opacity: 0 }}
+          transition={{ type: "spring", stiffness: 320, damping: 30 }}
         >
-          {/* Safe area background for notched devices */}
-          <div className={styles.safeAreaBackground} />
-
-          <div className={styles.navContainer}>
-            {navItems.map((item, index) => (
-              <motion.div
-                key={item.id}
-                className={`${styles.navItem} ${
-                  activeItem === item.id ? styles.active : ""
-                } ${item.primary ? styles.primaryItem : ""}`}
-                variants={itemVariants}
-                whileTap="tap"
-                whileHover="hover"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                  transition: { delay: index * 0.05 },
-                }}
-              >
-                <IconButton
-                  className={styles.navButton}
-                  onClick={() => handleItemClick(item)}
-                  aria-label={item.label}
-                  sx={{
-                    position: "relative",
-                    overflow: "hidden",
-                  }}
-                >
-                  {/* Ripple effect */}
-                  <AnimatePresence>
-                    {activeItem === item.id && (
-                      <motion.span
-                        className={styles.ripple}
-                        variants={rippleVariants}
-                        initial="initial"
-                        animate="animate"
-                        exit={{ opacity: 0 }}
-                        style={{ backgroundColor: item.color }}
-                      />
-                    )}
-                  </AnimatePresence>
-
-                  {/* Icon with badge for enquiry */}
-                  {item.badge && showBadge ? (
-                    <Badge
-                      badgeContent=""
-                      variant="dot"
-                      sx={{
-                        "& .MuiBadge-badge": {
-                          backgroundColor: "var(--accent-orange)",
-                          width: 8,
-                          height: 8,
-                          minWidth: 8,
-                        },
-                      }}
-                    >
-                      <Icon
-                        icon={item.icon}
-                        className={styles.navIcon}
-                        style={{ color: item.color }}
-                      />
-                    </Badge>
-                  ) : (
-                    <Icon
-                      icon={
-                        item.id === "menu" && isDrawerOpen
-                          ? "mdi:close"
-                          : item.icon
-                      }
-                      className={styles.navIcon}
-                      style={{ color: item.color }}
-                    />
-                  )}
-                </IconButton>
-
-                <Typography
-                  variant="caption"
-                  className={styles.navLabel}
-                  sx={{ color: item.color }}
-                >
-                  {item.label}
-                </Typography>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Decorative top border gradient */}
           <div className={styles.topBorder} />
+          <div className={styles.navContainer}>
+            {TABS.map((tab) => {
+              const isActive = activeId === tab.id;
+              const itemClass = `${styles.navItem} ${tab.primary ? styles.primaryItem : ""} ${isActive ? styles.active : ""}`;
+              return (
+                <button
+                  key={tab.id}
+                  type="button"
+                  className={itemClass}
+                  onClick={() => handleTabClick(tab)}
+                  aria-label={tab.label}
+                >
+                  <span className={styles.navIconWrap}>
+                    <Icon icon={tab.icon} className={styles.navIcon} />
+                  </span>
+                  <span className={styles.navLabel}>{tab.label}</span>
+                </button>
+              );
+            })}
+          </div>
+          <div className={styles.safeAreaBackground} />
         </motion.nav>
       )}
     </AnimatePresence>

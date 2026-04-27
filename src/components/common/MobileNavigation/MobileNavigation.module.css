@@ -1,21 +1,16 @@
 /* ============================================
    MobileNavigation Styles
-   Bottom sticky navigation bar for mobile devices
+   Bottom sticky tab bar — Icon Commerce College
    ============================================ */
 
-/* Main Navigation Container */
 .mobileNav {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   z-index: var(--z-fixed);
-  background: var(--white);
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-
-  /* Only visible on mobile/tablet */
+  background: var(--ic-bg-default);
+  box-shadow: 0 -6px 24px rgba(15, 23, 42, 0.1);
   display: none;
 }
 
@@ -25,276 +20,221 @@
   }
 }
 
-/* Safe area background for notched devices (iPhone X+) */
 .safeAreaBackground {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   height: env(safe-area-inset-bottom, 0);
-  background: var(--white);
+  background: var(--ic-bg-default);
 }
 
-/* Navigation Items Container */
+.topBorder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--ic-secondary) 50%,
+    transparent 100%
+  );
+  opacity: 0.4;
+}
+
 .navContainer {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 8px 16px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: end;
+  padding: 8px 12px;
   padding-bottom: calc(8px + env(safe-area-inset-bottom, 0));
-  max-width: 500px;
+  max-width: 560px;
   margin: 0 auto;
+  gap: 4px;
 }
 
-/* Individual Navigation Item */
 .navItem {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 4px;
-  flex: 1;
-  min-width: 64px;
-  transition: transform var(--transition-fast);
+  min-width: 0;
+  min-height: 56px;
+  padding: 6px 4px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--ic-text-secondary);
+  font-family: var(--ic-font-ui);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.navItem:hover {
+  color: var(--ic-secondary);
 }
 
 .navItem.active {
-  transform: scale(0.95);
+  transform: scale(0.96);
 }
 
-/* Navigation Button */
-.navButton {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: transparent;
-  transition: all var(--transition-base);
-  position: relative;
-  overflow: hidden;
+.navIconWrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  transition: background-color 0.2s ease;
 }
 
-.navButton:hover {
-  background: rgba(255, 184, 0, 0.08);
+.navItem:hover .navIconWrap {
+  background: var(--ic-secondary-50);
 }
 
-.navButton:active {
-  background: rgba(255, 184, 0, 0.15);
-}
-
-/* Navigation Icon */
 .navIcon {
   font-size: 24px;
-  transition: transform var(--transition-base), color var(--transition-base);
-  position: relative;
-  z-index: 1;
+  transition: transform 0.2s ease;
 }
 
-.navItem:hover .navIcon {
-  transform: scale(1.1);
-}
-
-/* Navigation Label */
 .navLabel {
-  font-size: 11px !important;
-  font-weight: 500 !important;
+  font-size: 11px;
+  font-weight: 500;
   letter-spacing: 0.02em;
-  text-transform: capitalize;
-  transition: color var(--transition-base);
   white-space: nowrap;
+  text-transform: capitalize;
 }
 
-/* Ripple Effect */
-.ripple {
-  position: absolute;
-  width: 20px;
-  height: 20px;
+/* Primary (Apply) — coral FAB-style centre tile */
+.primaryItem {
+  position: relative;
+  color: var(--ic-cta);
+}
+
+.primaryItem .navIconWrap {
+  width: 56px;
+  height: 56px;
+  margin-top: -22px;
   border-radius: 50%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Top Border Gradient */
-.topBorder {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    var(--accent-gold) 20%,
-    var(--accent-gold-light) 50%,
-    var(--accent-gold) 80%,
-    transparent 100%
-  );
-  opacity: 0.6;
-}
-
-/* Primary CTA Item (Book) */
-.primaryItem .navButton {
-  background: var(--accent-orange-gradient);
-  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.35);
-  width: 52px;
-  height: 52px;
-  margin-top: -6px;
+  background: var(--ic-cta);
+  color: var(--ic-text-on-dark);
+  box-shadow: var(--ic-shadow-cta);
+  border: 4px solid var(--ic-bg-default);
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .primaryItem .navIcon {
-  color: var(--white) !important;
+  font-size: 24px;
+  color: var(--ic-text-on-dark);
 }
 
 .primaryItem .navLabel {
-  color: var(--accent-orange) !important;
-  font-weight: 600 !important;
+  color: var(--ic-cta);
+  font-weight: 600;
 }
 
-.primaryItem .navButton:hover {
-  background: var(--accent-orange-gradient-reverse);
-  box-shadow: 0 6px 16px rgba(255, 107, 53, 0.45);
+.primaryItem:hover .navIconWrap {
+  background: var(--ic-cta-dark);
+  box-shadow: var(--ic-shadow-cta-hover);
+  transform: translateY(-2px);
 }
 
-.primaryItem .navButton:active {
-  background: linear-gradient(135deg, var(--accent-orange-dark) 0%, var(--accent-orange) 100%);
+.primaryItem:hover {
+  color: var(--ic-cta-dark);
 }
 
-/* Active State Visual Feedback */
-.navItem:active .navLabel {
-  transform: scale(0.95);
+/* Focus */
+.navItem:focus-visible {
+  outline: none;
 }
 
-/* Badge Styling Adjustments */
-.navItem :global(.MuiBadge-root) {
-  position: relative;
+.navItem:focus-visible .navIconWrap {
+  outline: 2px solid var(--ic-secondary);
+  outline-offset: 2px;
 }
 
-.navItem :global(.MuiBadge-badge) {
-  animation: pulse 2s ease-in-out infinite;
+.primaryItem:focus-visible .navIconWrap {
+  outline: 2px solid var(--ic-cta);
+  outline-offset: 3px;
 }
 
-/* Dark Mode Support */
-@media (prefers-color-scheme: dark) {
-  .mobileNav {
-    background: rgba(10, 31, 61, 0.95);
-  }
-
-  .safeAreaBackground {
-    background: rgba(10, 31, 61, 0.95);
-  }
-
-  .navButton:hover {
-    background: rgba(255, 184, 0, 0.15);
-  }
-}
-
-/* Landscape Mode Adjustments */
+/* Landscape */
 @media (max-height: 500px) and (orientation: landscape) {
   .navContainer {
-    padding: 4px 24px;
+    padding: 4px 16px;
     padding-bottom: calc(4px + env(safe-area-inset-bottom, 0));
   }
 
-  .navButton {
+  .navItem {
+    min-height: 48px;
+  }
+
+  .navIconWrap {
     width: 40px;
     height: 40px;
   }
 
+  .primaryItem .navIconWrap {
+    width: 48px;
+    height: 48px;
+    margin-top: -16px;
+  }
+
   .navIcon {
-    font-size: 20px;
+    font-size: 22px;
   }
 
   .navLabel {
-    font-size: 10px !important;
+    font-size: 10px;
   }
 }
 
-/* Animation for initial load */
-@keyframes slideUpNav {
-  from {
-    transform: translateY(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-/* Pulse animation for badge */
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.2);
-    opacity: 0.8;
-  }
-}
-
-/* Hover glow effect for buttons */
-.navButton::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  background: radial-gradient(circle, rgba(255, 184, 0, 0.3) 0%, transparent 70%);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  transition: width 0.3s ease, height 0.3s ease;
-  pointer-events: none;
-}
-
-.navButton:hover::after {
-  width: 60px;
-  height: 60px;
-}
-
-/* Accessibility - Focus states */
-.navButton:focus-visible {
-  outline: 2px solid var(--accent-gold);
-  outline-offset: 2px;
-}
-
-/* Touch feedback optimization */
-@media (hover: none) {
-  .navButton:hover {
-    background: transparent;
-  }
-
-  .navButton:hover::after {
-    width: 0;
-    height: 0;
-  }
-
-  .navButton:active {
-    background: rgba(255, 184, 0, 0.15);
-  }
-}
-
-/* Tablet specific adjustments */
+/* Tablet */
 @media (min-width: 768px) and (max-width: 1023px) {
   .navContainer {
-    max-width: 600px;
-    padding: 12px 32px;
+    max-width: 640px;
+    padding: 12px 24px;
     padding-bottom: calc(12px + env(safe-area-inset-bottom, 0));
   }
 
-  .navButton {
-    width: 56px;
-    height: 56px;
+  .navIconWrap {
+    width: 48px;
+    height: 48px;
+  }
+
+  .primaryItem .navIconWrap {
+    width: 60px;
+    height: 60px;
   }
 
   .navIcon {
-    font-size: 28px;
+    font-size: 26px;
   }
 
   .navLabel {
-    font-size: 12px !important;
+    font-size: 12px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .navItem,
+  .navIconWrap,
+  .primaryItem .navIconWrap,
+  .navIcon {
+    transition: none !important;
+  }
+}
+
+/* Touch-only — disable hover bg lift */
+@media (hover: none) {
+  .navItem:hover .navIconWrap {
+    background: transparent;
+  }
+
+  .primaryItem:hover .navIconWrap {
+    transform: none;
   }
 }
