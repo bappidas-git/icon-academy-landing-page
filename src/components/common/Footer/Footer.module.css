@@ -79,7 +79,7 @@
 }
 
 .col h4 {
-  font-family: var(--font-heading);
+  font-family: var(--ic-font-ui);
   color: var(--white);
   font-weight: 700;
   font-size: 0.9375rem;

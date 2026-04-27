@@ -37,7 +37,7 @@
 }
 
 .loginTitle {
-  font-family: var(--font-heading);
+  font-family: var(--ic-font-ui);
   font-size: var(--fs-2xl);
   font-weight: var(--fw-bold);
   color: var(--admin-primary);

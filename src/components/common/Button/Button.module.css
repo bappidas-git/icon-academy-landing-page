@@ -9,7 +9,7 @@
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
-  font-family: var(--font-primary);
+  font-family: var(--ic-font-ui);
   font-weight: var(--fw-semibold);
   line-height: 1;
   text-align: center;

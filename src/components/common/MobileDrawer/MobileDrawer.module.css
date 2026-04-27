@@ -98,7 +98,7 @@
   font-weight: 700 !important;
   color: var(--primary-dark) !important;
   line-height: 1.2 !important;
-  font-family: var(--font-heading) !important;
+  font-family: var(--ic-font-ui) !important;
 }
 
 .projectSubtitle {

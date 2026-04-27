@@ -185,8 +185,8 @@ const HeroSection = () => {
                   className={styles.heroTitle}
                   sx={{
                     color: "#FFFFFF",
-                    fontFamily: "'Plus Jakarta Sans', 'Inter', sans-serif",
-                    fontWeight: 800,
+                    fontFamily: "'Fraunces', 'Playfair Display', Georgia, serif",
+                    fontWeight: 700,
                     fontSize: {
                       xs: "2.5rem",
                       sm: "3rem",
@@ -195,6 +195,7 @@ const HeroSection = () => {
                     },
                     lineHeight: 1.05,
                     letterSpacing: "-0.02em",
+                    fontVariationSettings: '"opsz" 144',
                     marginTop: "1.5rem",
                   }}
                 >

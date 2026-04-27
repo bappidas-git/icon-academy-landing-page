@@ -8,7 +8,7 @@
 }
 
 .question {
-  font-family: var(--font-heading);
+  font-family: var(--ic-font-ui);
   font-weight: 600;
   font-size: var(--fs-md);
   color: var(--ink);
