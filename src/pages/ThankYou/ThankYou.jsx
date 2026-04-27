@@ -32,7 +32,7 @@ const ThankYou = () => {
     updatePageSEO({
       title: seoConfig.pages.thankYou.title,
       description: seoConfig.pages.thankYou.description,
-      url: seoConfig.siteUrl + '/thank-you',
+      url: seoConfig.site.url + '/thank-you',
       robots: 'noindex, nofollow',
     });
 

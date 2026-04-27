@@ -13,31 +13,32 @@ import {
   injectSchema,
   removeSchema,
   generateOrganizationSchema,
-  generateLocalBusinessSchema,
-  generateServiceSchemaTopLevel,
+  generateCourseSchemas,
   generateFAQSchema,
   generateBreadcrumbSchema,
   generateWebPageSchema,
 } from '../../../utils/seo';
 
-// Schema IDs owned by this component — kept in one place so route changes
-// can add/remove them cleanly.
+// Schema IDs owned by this component on the home route — kept in one place
+// so route changes can add/remove them cleanly. One Course schema per
+// programme listed in `seoConfig.courses`.
 const HOME_SCHEMA_IDS = [
-  'schema-organization',
-  'schema-localbusiness',
-  'schema-service',
-  'schema-faq',
-  'schema-breadcrumb',
-  'schema-webpage',
+  'organization-schema',
+  'course-bcom-schema',
+  'course-bba-schema',
+  'course-bca-schema',
+  'course-ba-schema',
+  'faq-schema',
+  'breadcrumb-schema',
+  'webpage-schema',
 ];
 
 const SEOHead = () => {
   const location = useLocation();
 
-  // Update page SEO + structured data based on current route
   useEffect(() => {
     const { pathname } = location;
-    const canonicalUrl = seoConfig.siteUrl + pathname;
+    const canonicalUrl = seoConfig.site.url + pathname;
 
     if (pathname === '/') {
       updatePageSEO({
@@ -46,24 +47,26 @@ const SEOHead = () => {
         url: canonicalUrl,
       });
 
-      // Home-only structured data: LocalBusiness, Service, FAQPage
-      // + supporting Organization, Breadcrumb, WebPage
-      injectSchema('schema-localbusiness', generateLocalBusinessSchema());
-      injectSchema('schema-service', generateServiceSchemaTopLevel());
-      injectSchema('schema-faq', generateFAQSchema());
-      injectSchema('schema-organization', generateOrganizationSchema());
+      injectSchema('organization-schema', generateOrganizationSchema());
+
+      const courseSchemas = generateCourseSchemas();
+      seoConfig.courses.forEach((course, idx) => {
+        injectSchema(`course-${course.id}-schema`, courseSchemas[idx]);
+      });
+
+      injectSchema('faq-schema', generateFAQSchema());
       injectSchema(
-        'schema-breadcrumb',
+        'breadcrumb-schema',
         generateBreadcrumbSchema([
-          { name: 'Home', url: seoConfig.siteUrl + '/' },
+          { name: 'Home', url: seoConfig.site.url + '/' },
         ])
       );
       injectSchema(
-        'schema-webpage',
+        'webpage-schema',
         generateWebPageSchema({
           name: seoConfig.pages.home.title,
           description: seoConfig.pages.home.description,
-          url: seoConfig.siteUrl + '/',
+          url: seoConfig.site.url + '/',
         })
       );
     } else if (pathname === '/thank-you') {
