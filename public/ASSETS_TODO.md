@@ -9,6 +9,7 @@ Replace these placeholders with stakeholder-supplied artwork before launch.
 | public/apple-touch-icon.png | 180x180 | iOS home screen |
 | (logo svg in src/assets/) | scalable | Header / Footer logo |
 | public/faculty/{id}.jpg (or .webp) | 300x300 (1:1, square crop) | Faculty portrait — `id` matches the entry in `src/data/facultyData.js` (e.g. `principal.jpg`, `mandira-sharma.jpg`). Update the `img` field in that file to point at the new asset. |
+| public/facilities/{id}.jpg (or .webp) | 800x600 (4:3, landscape crop) | Facility photo for the FacilitiesSection — `id` matches the entry in `src/data/facilitiesData.js` (`library`, `computer-lab`, `smart-classrooms`, `online-learning`, `canteen`, `drinking-water`). Update the `image` field in that file to point at the new asset. Currently sourced from `https://placehold.co/800x600?text=...` placeholders. |
 
 Brand colour: #1E3A8A (Royal Indigo)
 
