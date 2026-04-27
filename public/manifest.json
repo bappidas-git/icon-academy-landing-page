@@ -1,7 +1,7 @@
 {
-  "short_name": "",
-  "name": "",
-  "description": "",
+  "short_name": "Icon Commerce",
+  "name": "Icon Commerce College — Admissions",
+  "description": "Admissions portal for Icon Commerce College, Guwahati. Affiliated to Gauhati University.",
   "icons": [
     {
       "src": "favicon.ico",
@@ -9,26 +9,24 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
-      "type": "image/png",
+      "src": "favicon.png",
       "sizes": "192x192",
-      "purpose": "any maskable"
+      "type": "image/png"
     },
     {
-      "src": "logo512.png",
-      "type": "image/png",
-      "sizes": "512x512",
-      "purpose": "any maskable"
+      "src": "apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
     }
   ],
   "start_url": ".",
   "display": "standalone",
-  "orientation": "portrait-primary",
-  "theme_color": "#0A1F3D",
-  "background_color": "#FFFFFF",
-  "categories": ["education"],
-  "lang": "en",
-  "dir": "ltr",
+  "theme_color": "#1E3A8A",
+  "background_color": "#FFFBEB",
+  "orientation": "portrait",
   "scope": "/",
-  "prefer_related_applications": false
+  "lang": "en-IN",
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "categories": ["education", "college", "admissions"]
 }
