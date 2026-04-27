@@ -8,6 +8,7 @@ Replace these placeholders with stakeholder-supplied artwork before launch.
 | public/favicon.png | 192x192 | PWA icon, Android |
 | public/apple-touch-icon.png | 180x180 | iOS home screen |
 | (logo svg in src/assets/) | scalable | Header / Footer logo |
+| public/faculty/{id}.jpg (or .webp) | 300x300 (1:1, square crop) | Faculty portrait — `id` matches the entry in `src/data/facultyData.js` (e.g. `principal.jpg`, `mandira-sharma.jpg`). Update the `img` field in that file to point at the new asset. |
 
 Brand colour: #1E3A8A (Royal Indigo)
 

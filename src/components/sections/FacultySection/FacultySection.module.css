@@ -1,0 +1,406 @@
+/* ============================================
+   FacultySection Styles — Icon Commerce College
+   Cream surface to alternate with the white
+   WhyIcon section above. Leadership rail uses a
+   horizontal scroll-snap on mobile and a 4-up
+   grid on desktop. Faculty grid uses a 4 / 3 / 2
+   / 1-column layout with department filter pills.
+   ============================================ */
+
+.section {
+  position: relative;
+  background: var(--ic-bg-cream);
+  padding: 96px 0;
+}
+
+.container {
+  position: relative;
+}
+
+/* ===== Section header ===== */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 760px;
+  margin: 0 auto 3rem;
+  text-align: center;
+  align-items: center;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 14px;
+  background-color: rgba(217, 119, 6, 0.16);
+  color: var(--ic-secondary-dark);
+  font-family: var(--ic-font-ui);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  border-radius: 999px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.heading {
+  font-family: var(--ic-font-heading) !important;
+  font-weight: 700 !important;
+  color: var(--ic-text-primary);
+  font-size: clamp(2rem, 1.4rem + 2.5vw, 3rem);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+
+.subhead {
+  font-family: var(--ic-font-body) !important;
+  font-weight: 400 !important;
+  color: var(--ic-text-secondary);
+  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.subheading {
+  font-family: var(--ic-font-heading);
+  font-weight: 700;
+  font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
+  color: var(--ic-text-primary);
+  margin: 0 0 1.25rem;
+  letter-spacing: -0.01em;
+}
+
+/* ===== Leadership rail ===== */
+.leadershipBlock {
+  margin-bottom: 4rem;
+}
+
+.leadershipRail {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.leadershipItem {
+  display: flex;
+}
+
+.leadershipItem > * {
+  width: 100%;
+  display: flex;
+}
+
+@media (max-width: 1023px) {
+  .leadershipRail {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .leadershipRail {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 70%;
+    grid-template-columns: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 0.875rem;
+    padding: 4px 4px 12px;
+    margin: 0 -1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    scrollbar-width: none;
+  }
+  .leadershipRail::-webkit-scrollbar {
+    display: none;
+  }
+  .leadershipItem {
+    scroll-snap-align: start;
+  }
+}
+
+/* ===== Faculty block ===== */
+.facultyBlock {
+  margin-bottom: 4rem;
+}
+
+.filterRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.625rem;
+  margin: 0 0 1.75rem;
+}
+
+.filterPill {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 16px;
+  background: var(--ic-bg-default);
+  border: 1px solid var(--ic-border);
+  border-radius: 999px;
+  font-family: var(--ic-font-ui);
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--ic-text-secondary);
+  cursor: pointer;
+  transition: background-color 200ms ease, border-color 200ms ease,
+    color 200ms ease, transform 200ms ease;
+  white-space: nowrap;
+}
+
+.filterPill:hover {
+  border-color: var(--ic-secondary);
+  color: var(--ic-secondary-dark);
+  background: rgba(217, 119, 6, 0.08);
+}
+
+.filterPill:focus-visible {
+  outline: 2px solid var(--ic-primary);
+  outline-offset: 2px;
+}
+
+.filterPillActive,
+.filterPillActive:hover {
+  background: var(--ic-primary);
+  border-color: var(--ic-primary);
+  color: var(--ic-text-on-dark);
+}
+
+@media (max-width: 767px) {
+  .filterRow {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    padding: 4px 1rem 8px;
+    scrollbar-width: none;
+  }
+  .filterRow::-webkit-scrollbar {
+    display: none;
+  }
+  .filterPill {
+    scroll-snap-align: start;
+    flex-shrink: 0;
+  }
+}
+
+.facultyGrid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.facultyItem {
+  display: flex;
+}
+
+.facultyItem > * {
+  width: 100%;
+  display: flex;
+}
+
+@media (max-width: 1199px) {
+  .facultyGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .facultyGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .facultyGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.emptyState {
+  font-family: var(--ic-font-body);
+  font-size: 0.95rem;
+  color: var(--ic-text-secondary);
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.expandRow {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.expandToggle {
+  text-transform: none !important;
+  font-family: var(--ic-font-ui) !important;
+  font-weight: 600 !important;
+  font-size: 0.9375rem !important;
+  border-radius: 999px !important;
+  border-color: var(--ic-primary) !important;
+  color: var(--ic-primary) !important;
+  padding: 0.5rem 1.5rem !important;
+  min-height: 42px;
+}
+
+.expandToggle:hover {
+  background-color: rgba(30, 58, 138, 0.06) !important;
+  border-color: var(--ic-primary-dark) !important;
+}
+
+/* ===== Guest faculty strip ===== */
+.guestBlock {
+  margin-bottom: 3rem;
+}
+
+.guestGrid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.guestItem {
+  display: flex;
+}
+
+.guestItem > * {
+  width: 100%;
+}
+
+@media (max-width: 767px) {
+  .guestGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.guestCard {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: var(--ic-bg-default);
+  border: 1px solid var(--ic-border);
+  border-radius: 16px;
+  padding: 20px 22px;
+  box-shadow: var(--ic-shadow-sm);
+  height: 100%;
+}
+
+.guestName {
+  font-family: var(--ic-font-heading);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--ic-text-primary);
+  margin: 0;
+  letter-spacing: -0.005em;
+}
+
+.guestRole {
+  font-family: var(--ic-font-body);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ic-text-secondary);
+  margin: 0;
+}
+
+.guestMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.guestCredentials {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  background: var(--ic-bg-cream);
+  color: var(--ic-primary);
+  font-family: var(--ic-font-ui);
+  font-weight: 600;
+  font-size: 11px;
+  border-radius: 999px;
+  border: 1px solid rgba(30, 58, 138, 0.12);
+}
+
+.guestDept {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  background: rgba(217, 119, 6, 0.12);
+  color: var(--ic-secondary-dark);
+  font-family: var(--ic-font-ui);
+  font-weight: 600;
+  font-size: 11px;
+  border-radius: 999px;
+}
+
+/* ===== Counsellor CTA ===== */
+.counsellorCta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+  background: var(--ic-bg-default);
+  border: 1px solid var(--ic-border);
+  border-radius: 20px;
+  padding: 24px 28px;
+}
+
+.counsellorText {
+  font-family: var(--ic-font-body) !important;
+  font-weight: 500 !important;
+  font-size: 1rem !important;
+  color: var(--ic-text-primary);
+  margin: 0 !important;
+}
+
+.counsellorButton {
+  text-transform: none !important;
+  font-family: var(--ic-font-ui) !important;
+  font-weight: 700 !important;
+  font-size: 0.9375rem !important;
+  border-radius: 12px !important;
+  padding: 0.625rem 1.5rem !important;
+  min-height: 44px;
+}
+
+@media (max-width: 767px) {
+  .section {
+    padding: 64px 0;
+  }
+  .header {
+    margin-bottom: 2.25rem;
+    text-align: left;
+    align-items: flex-start;
+  }
+  .leadershipBlock,
+  .facultyBlock {
+    margin-bottom: 3rem;
+  }
+  .counsellorCta {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    padding: 20px;
+  }
+  .counsellorButton {
+    width: 100%;
+  }
+}
