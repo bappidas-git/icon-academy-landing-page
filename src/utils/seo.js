@@ -1,42 +1,41 @@
 /* ============================================
-   SEO Utility Functions
-   Dynamic SEO management for SPAs including
-   meta tag updates and JSON-LD schema injection.
+   SEO Utility Functions — Icon Commerce College
+   Dynamic SEO management for SPAs: meta tag
+   updates and JSON-LD schema injection.
+
+   Note: the legacy generic-service generator has
+   been retired. SEOHead.jsx now calls
+   `generateCourseSchemas()` directly (preferred
+   approach per spec — call-sites updated rather
+   than aliasing a no-op export).
    ============================================ */
 
 import { seoConfig } from '../config/seo';
-import { faqData } from '../data/faqData';
 
 // =========================================
 // Page SEO — Update document title & meta tags
 // =========================================
 
 /**
- * Update page title, meta description, OG tags, and Twitter cards dynamically.
- * @param {Object} pageConfig - Page-specific SEO overrides
- * @param {string} [pageConfig.title] - Page title
- * @param {string} [pageConfig.description] - Meta description (150-160 chars recommended)
- * @param {string} [pageConfig.image] - OG/Twitter image URL
- * @param {string} [pageConfig.url] - Canonical URL for this page
- * @param {string} [pageConfig.robots] - Robots directive (e.g., 'noindex, nofollow')
- * @param {string} [pageConfig.type] - OG type (default: 'website')
+ * Update page title, meta description, OG tags, Twitter cards, and canonical
+ * link based on the supplied page-level config. Mirrors the previous public
+ * signature: callers pass an object with title / description / image / url /
+ * robots / type. SEOHead.jsx feeds this from `seoConfig.pages[<key>]`.
  */
 export function updatePageSEO(pageConfig = {}) {
   const {
     title,
-    description = seoConfig.defaultDescription,
-    image = seoConfig.defaultImage,
+    description = seoConfig.site.defaultDescription,
+    image = seoConfig.site.defaultImage,
     url,
     robots,
     type = 'website',
   } = pageConfig;
 
-  // Title
   if (title) {
     document.title = title;
   }
 
-  // Helper to set or create a meta tag
   const setMeta = (attr, key, value) => {
     if (!value) return;
     let el = document.querySelector(`meta[${attr}="${key}"]`);
@@ -48,29 +47,28 @@ export function updatePageSEO(pageConfig = {}) {
     el.setAttribute('content', value);
   };
 
-  // Standard meta
   setMeta('name', 'description', description);
   if (robots) {
     setMeta('name', 'robots', robots);
   }
 
-  // Open Graph
-  setMeta('property', 'og:title', title || seoConfig.defaultTitle);
+  setMeta('property', 'og:title', title || seoConfig.site.defaultTitle);
   setMeta('property', 'og:description', description);
   setMeta('property', 'og:image', image);
   setMeta('property', 'og:type', type);
-  setMeta('property', 'og:site_name', seoConfig.siteName);
-  setMeta('property', 'og:locale', seoConfig.locale);
+  setMeta('property', 'og:site_name', seoConfig.site.name);
+  setMeta('property', 'og:locale', seoConfig.site.locale);
   if (url) {
     setMeta('property', 'og:url', url);
   }
 
-  // Twitter Card
-  setMeta('name', 'twitter:title', title || seoConfig.defaultTitle);
+  setMeta('name', 'twitter:title', title || seoConfig.site.defaultTitle);
   setMeta('name', 'twitter:description', description);
   setMeta('name', 'twitter:image', image);
+  if (seoConfig.site.twitterHandle) {
+    setMeta('name', 'twitter:site', seoConfig.site.twitterHandle);
+  }
 
-  // Canonical URL
   if (url) {
     let canonical = document.querySelector('link[rel="canonical"]');
     if (!canonical) {
@@ -86,13 +84,8 @@ export function updatePageSEO(pageConfig = {}) {
 // JSON-LD Schema Injection / Removal
 // =========================================
 
-/**
- * Inject a JSON-LD schema into the <head>. If a script with the given ID
- * already exists, its content is replaced.
- * @param {string} id - Unique ID for the script element (e.g., 'schema-organization')
- * @param {Object} schemaObject - The JSON-LD object to inject
- */
 export function injectSchema(id, schemaObject) {
+  if (!schemaObject) return;
   let script = document.getElementById(id);
   if (!script) {
     script = document.createElement('script');
@@ -103,10 +96,6 @@ export function injectSchema(id, schemaObject) {
   script.textContent = JSON.stringify(schemaObject);
 }
 
-/**
- * Remove a JSON-LD schema by its script element ID.
- * @param {string} id - The ID of the script element to remove
- */
 export function removeSchema(id) {
   const script = document.getElementById(id);
   if (script && script.parentNode) {
@@ -118,16 +107,29 @@ export function removeSchema(id) {
 // Schema Generators
 // =========================================
 
+function buildPostalAddress(address) {
+  return {
+    '@type': 'PostalAddress',
+    ...(address.streetAddress && { streetAddress: address.streetAddress }),
+    ...(address.addressLocality && { addressLocality: address.addressLocality }),
+    ...(address.addressRegion && { addressRegion: address.addressRegion }),
+    ...(address.postalCode && { postalCode: address.postalCode }),
+    addressCountry: address.addressCountry,
+  };
+}
+
 /**
- * Generate Organization schema from seoConfig.
- * @param {Object} [config] - Override seoConfig.organization
- * @returns {Object} JSON-LD Organization schema
+ * Generate the EducationalOrganization / CollegeOrUniversity schema for the
+ * college. Uses an @type array so the page is recognised as both an
+ * EducationalOrganization (for the wider knowledge graph) and a
+ * CollegeOrUniversity (for higher-ed surfaces).
  */
 export function generateOrganizationSchema(config) {
   const org = config || seoConfig.organization;
+
   const schema = {
     '@context': 'https://schema.org',
-    '@type': 'Organization',
+    '@type': ['EducationalOrganization', 'CollegeOrUniversity'],
     name: org.name,
     alternateName: org.alternateName,
     url: org.url,
@@ -135,45 +137,105 @@ export function generateOrganizationSchema(config) {
     description: org.description,
     telephone: org.phone,
     email: org.email,
-    address: {
-      '@type': 'PostalAddress',
-      ...(org.address.streetAddress && { streetAddress: org.address.streetAddress }),
-      ...(org.address.addressLocality && { addressLocality: org.address.addressLocality }),
-      ...(org.address.addressRegion && { addressRegion: org.address.addressRegion }),
-      ...(org.address.postalCode && { postalCode: org.address.postalCode }),
-      addressCountry: org.address.addressCountry,
-    },
+    address: buildPostalAddress(org.address),
   };
+
+  if (org.geo && org.geo.latitude && org.geo.longitude) {
+    schema.geo = {
+      '@type': 'GeoCoordinates',
+      latitude: org.geo.latitude,
+      longitude: org.geo.longitude,
+    };
+  }
+
+  if (org.areaServed && org.areaServed.length > 0) {
+    schema.areaServed = org.areaServed;
+  }
 
   if (org.sameAs && org.sameAs.length > 0) {
     schema.sameAs = org.sameAs;
-  }
-
-  if (org.founder && org.founder.name) {
-    schema.founder = {
-      '@type': 'Person',
-      name: org.founder.name,
-      ...(org.founder.jobTitle && { jobTitle: org.founder.jobTitle }),
-    };
   }
 
   if (org.foundingDate) {
     schema.foundingDate = org.foundingDate;
   }
 
+  if (org.parentOrganization && org.parentOrganization.name) {
+    schema.parentOrganization = {
+      '@type': 'CollegeOrUniversity',
+      name: org.parentOrganization.name,
+      ...(org.parentOrganization.url && { url: org.parentOrganization.url }),
+    };
+  }
+
+  if (org.aggregateRating && org.aggregateRating.ratingValue) {
+    schema.aggregateRating = {
+      '@type': 'AggregateRating',
+      ratingValue: org.aggregateRating.ratingValue,
+      reviewCount: org.aggregateRating.reviewCount,
+      ...(org.aggregateRating.bestRating && { bestRating: org.aggregateRating.bestRating }),
+      ...(org.aggregateRating.worstRating && { worstRating: org.aggregateRating.worstRating }),
+    };
+  }
+
   return schema;
 }
 
 /**
- * Generate FAQPage schema. Reads from the live FAQ data file
- * (src/data/faqData.js) so the rich result stays in sync with what
- * users see on the page.
- * @param {Array} [faqs] - Array of FAQ items. Accepts either
- *   {q, a} (faqData) or {question, answer} shapes.
- * @returns {Object} JSON-LD FAQPage schema
+ * Legacy alias retained so SEOHead.jsx imports stay stable. Routes to the
+ * EducationalOrganization builder above.
+ */
+export function generateLocalBusinessSchema(config) {
+  return generateOrganizationSchema(config);
+}
+
+/**
+ * Build one Course schema per programme listed in seoConfig.courses.
+ * Each schema also declares a CourseInstance (Google's required `hasCourseInstance`
+ * field for Course rich results).
+ */
+export function generateCourseSchemas() {
+  const org = seoConfig.organization;
+
+  return seoConfig.courses.map((course) => {
+    const schema = {
+      '@context': 'https://schema.org',
+      '@type': 'Course',
+      name: course.name,
+      description: course.description,
+      provider: {
+        '@type': 'EducationalOrganization',
+        name: course.provider || org.name,
+        sameAs: org.url,
+      },
+      educationalLevel: course.educationalLevel,
+      occupationalCategory: course.occupationalCategory,
+      hasCourseInstance: {
+        '@type': 'CourseInstance',
+        courseMode: 'Onsite',
+        ...(course.durationP && { courseWorkload: course.durationP }),
+      },
+    };
+
+    if (course.offers) {
+      schema.offers = {
+        '@type': 'Offer',
+        price: course.offers.price,
+        priceCurrency: course.offers.priceCurrency,
+        category: course.offers.category,
+        availability: 'https://schema.org/InStock',
+      };
+    }
+
+    return schema;
+  });
+}
+
+/**
+ * FAQPage schema sourced from seoConfig.faqs.
  */
 export function generateFAQSchema(faqs) {
-  const faqItems = faqs || faqData;
+  const faqItems = faqs || seoConfig.faqs;
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -188,107 +250,6 @@ export function generateFAQSchema(faqs) {
   };
 }
 
-/**
- * Generate LocalBusiness schema.
- * @param {Object} [config] - Override seoConfig.localBusiness
- * @returns {Object} JSON-LD LocalBusiness schema
- */
-export function generateLocalBusinessSchema(config) {
-  const biz = config || seoConfig.localBusiness;
-  const org = seoConfig.organization;
-
-  const schema = {
-    '@context': 'https://schema.org',
-    '@type': biz.type || 'LocalBusiness',
-    name: org.name,
-    url: org.url,
-    logo: org.logo,
-    image: org.image || org.logo,
-    description: org.description,
-    telephone: org.phone,
-    email: org.email,
-    priceRange: biz.priceRange,
-    address: {
-      '@type': 'PostalAddress',
-      ...(org.address.streetAddress && { streetAddress: org.address.streetAddress }),
-      ...(org.address.addressLocality && { addressLocality: org.address.addressLocality }),
-      ...(org.address.addressRegion && { addressRegion: org.address.addressRegion }),
-      ...(org.address.postalCode && { postalCode: org.address.postalCode }),
-      addressCountry: org.address.addressCountry,
-    },
-  };
-
-  if (org.areaServed && org.areaServed.length > 0) {
-    schema.areaServed = org.areaServed;
-  }
-
-  if (org.aggregateRating && org.aggregateRating.ratingValue) {
-    schema.aggregateRating = {
-      '@type': 'AggregateRating',
-      ratingValue: org.aggregateRating.ratingValue,
-      reviewCount: org.aggregateRating.reviewCount,
-    };
-  }
-
-  if (biz.openingHours) {
-    schema.openingHoursSpecification = {
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: biz.openingHours.days,
-      opens: biz.openingHours.opens,
-      closes: biz.openingHours.closes,
-    };
-  }
-
-  if (biz.geo && biz.geo.latitude && biz.geo.longitude) {
-    schema.geo = {
-      '@type': 'GeoCoordinates',
-      latitude: biz.geo.latitude,
-      longitude: biz.geo.longitude,
-    };
-  }
-
-  if (biz.hasMap) {
-    schema.hasMap = biz.hasMap;
-  }
-
-  if (biz.availableService && biz.availableService.length > 0) {
-    schema.availableService = biz.availableService.map((service) => ({
-      '@type': 'Service',
-      name: service.name,
-      description: service.description,
-    }));
-  }
-
-  return schema;
-}
-
-/**
- * Generate a top-level Service schema for the core offering.
- * @returns {Object} JSON-LD Service schema
- */
-export function generateServiceSchemaTopLevel() {
-  const org = seoConfig.organization;
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'Service',
-    serviceType: '',
-    provider: {
-      '@type': 'Organization',
-      name: org.name,
-    },
-    areaServed: org.areaServed || [],
-    offers: {
-      '@type': 'Offer',
-      description: '',
-    },
-  };
-}
-
-/**
- * Generate BreadcrumbList schema.
- * @param {Array<{name: string, url: string}>} items - Breadcrumb items in order
- * @returns {Object} JSON-LD BreadcrumbList schema
- */
 export function generateBreadcrumbSchema(items) {
   return {
     '@context': 'https://schema.org',
@@ -302,28 +263,21 @@ export function generateBreadcrumbSchema(items) {
   };
 }
 
-/**
- * Generate WebPage schema.
- * @param {Object} config - Page configuration
- * @param {string} config.name - Page name/title
- * @param {string} config.description - Page description
- * @param {string} config.url - Page URL
- * @returns {Object} JSON-LD WebPage schema
- */
-export function generateWebPageSchema(config) {
+export function generateWebPageSchema(config = {}) {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    name: config.name || seoConfig.defaultTitle,
-    description: config.description || seoConfig.defaultDescription,
-    url: config.url || seoConfig.siteUrl,
+    name: config.name || seoConfig.site.defaultTitle,
+    description: config.description || seoConfig.site.defaultDescription,
+    url: config.url || seoConfig.site.url,
+    inLanguage: seoConfig.site.language,
     isPartOf: {
       '@type': 'WebSite',
-      name: seoConfig.siteName,
-      url: seoConfig.siteUrl,
+      name: seoConfig.site.name,
+      url: seoConfig.site.url,
     },
     publisher: {
-      '@type': 'Organization',
+      '@type': 'EducationalOrganization',
       name: seoConfig.organization.name,
       logo: {
         '@type': 'ImageObject',
@@ -331,104 +285,4 @@ export function generateWebPageSchema(config) {
       },
     },
   };
-}
-
-/**
- * Generate Service schema for a list of services/plans.
- * @param {Array<{name: string, description: string, id: string}>} services - Service data
- * @returns {Object} JSON-LD Service schema (ItemList)
- */
-export function generateServiceSchema(services) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'ItemList',
-    itemListElement: services.map((service, index) => ({
-      '@type': 'ListItem',
-      position: index + 1,
-      item: {
-        '@type': 'Service',
-        name: service.name,
-        description: service.description,
-        provider: {
-          '@type': 'Organization',
-          name: seoConfig.organization.name,
-        },
-        ...(service.duration && {
-          offers: {
-            '@type': 'Offer',
-            price: '0',
-            priceCurrency: 'INR',
-            description: service.duration,
-            availability: 'https://schema.org/InStock',
-          },
-        }),
-      },
-    })),
-  };
-}
-
-/**
- * Generate Product schema for service plans with pricing.
- * @param {Array<Object>} products - Product/plan data
- * @param {string} products[].name - Product name
- * @param {string} products[].description - Product description
- * @param {string} [products[].price] - Price (numeric string)
- * @param {string} [products[].currency] - Currency code (default: 'INR')
- * @returns {Object} JSON-LD Product schema (ItemList)
- */
-export function generateProductSchema(products) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'ItemList',
-    itemListElement: products.map((product, index) => ({
-      '@type': 'ListItem',
-      position: index + 1,
-      item: {
-        '@type': 'Product',
-        name: product.name,
-        description: product.description,
-        brand: {
-          '@type': 'Organization',
-          name: seoConfig.organization.name,
-        },
-        offers: {
-          '@type': 'Offer',
-          priceCurrency: product.currency || 'INR',
-          ...(product.price
-            ? { price: product.price }
-            : { price: '0', description: 'Contact for pricing' }),
-          availability: 'https://schema.org/InStock',
-        },
-      },
-    })),
-  };
-}
-
-// =========================================
-// Convenience: Inject all default schemas
-// =========================================
-
-/**
- * Inject all default schemas (Organization, FAQ, LocalBusiness, BreadcrumbList, WebPage)
- * into the document head. Call this on initial page load.
- */
-export function injectDefaultSchemas() {
-  injectSchema('schema-organization', generateOrganizationSchema());
-  injectSchema('schema-localbusiness', generateLocalBusinessSchema());
-  injectSchema('schema-service', generateServiceSchemaTopLevel());
-  injectSchema('schema-faq', generateFAQSchema());
-  injectSchema(
-    'schema-breadcrumb',
-    generateBreadcrumbSchema([
-      { name: 'Home', url: seoConfig.siteUrl + '/' },
-    ])
-  );
-  injectSchema(
-    'schema-webpage',
-    generateWebPageSchema({
-      name: seoConfig.pages.home.title,
-      description: seoConfig.pages.home.description,
-      url: seoConfig.siteUrl + '/',
-    })
-  );
 }
