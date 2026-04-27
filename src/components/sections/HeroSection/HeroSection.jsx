@@ -1,347 +1,208 @@
 /* ============================================
-   HeroSection Component
-   Hero section with animations
+   HeroSection — Icon Commerce College
+   Above-the-fold admissions hero. Two-column
+   60/40 layout on desktop, single-column stack
+   on mobile. Cream gradient background, primary
+   "Apply Now" CTA + secondary "Talk to a
+   Counsellor" CTA, benefit chips, trust strip,
+   hero visual with floating stats card and
+   "Affiliated · Gauhati University" badge.
    ============================================ */
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { motion } from "framer-motion";
-import {
-  Container,
-  Typography,
-  Grid,
-  Chip,
-  useMediaQuery,
-  useTheme,
-  Button,
-} from "@mui/material";
+import { Container, Typography, Button } from "@mui/material";
 import { Icon } from "@iconify/react";
 import { useModal } from "../../../context/ModalContext";
-import { trackCTAClick } from "../../../utils/gtm";
-import MultiStepLeadForm from "../../common/MultiStepLeadForm";
+import AnimatedCounter from "../../common/AnimatedCounter/AnimatedCounter";
+import Reveal from "../../common/Reveal/Reveal";
+import useReducedMotion from "../../../hooks/useReducedMotion";
 import styles from "./HeroSection.module.css";
 
-// Set REACT_APP_HERO_VIDEO_URL in .env to enable hero background video
-// Hero images with fallbacks
-const HERO_IMAGES = {
-  desktop: [
-    "https://placehold.co/1600x900?text=TBD",
-  ],
-  mobile: [
-    "https://placehold.co/800x1000?text=TBD",
-  ],
-};
+const BENEFIT_CHIPS = [
+  { icon: "mdi:school-outline", label: "Affiliated to Gauhati University" },
+  { icon: "mdi:certificate-outline", label: "NEP 2020 aligned" },
+  { icon: "mdi:account-group", label: "Mentor-led batches" },
+  { icon: "mdi:trophy-outline", label: "Estd. 2004 · 20+ Years" },
+];
 
-// Animation variants
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.2,
-    },
-  },
-};
+const HERO_STATS = [
+  { value: "2,500+", label: "Students Trained" },
+  { value: "4", label: "UG Programmes" },
+  { value: "20+", label: "Years of Excellence" },
+];
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.25, 0.46, 0.45, 0.94],
-    },
-  },
-};
+const TRUST_STRIP = [
+  { icon: "🔒", text: "100% confidential" },
+  { icon: "📞", text: "Call within 24 hrs" },
+  { icon: "✅", text: "Direct admissions support" },
+];
 
-const badgeVariants = {
-  hidden: { opacity: 0, scale: 0.8 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      duration: 0.5,
-      ease: "easeOut",
-    },
-  },
-};
+const HERO_IMG_DESKTOP =
+  "https://placehold.co/720x720?text=Icon+Commerce+College+Campus";
+const HERO_IMG_MOBILE = "https://placehold.co/720x540?text=ICC+Campus";
 
-const buttonVariants = {
-  hidden: { opacity: 0, scale: 0.9 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      duration: 0.5,
-      ease: "easeOut",
-    },
-  },
-};
-
-// Trust indicators data
-const trustIndicators = [];
-
-const HeroSection = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-  const isDesktop = useMediaQuery(theme.breakpoints.up("lg"));
+const HeroSection = ({ useVideo = false, videoSrc = "" }) => {
   const { openLeadDrawer } = useModal();
+  const reduced = useReducedMotion();
 
-  // Fallback image state
-  const [heroImageUrl, setHeroImageUrl] = useState("");
-  const [imageLoaded, setImageLoaded] = useState(false);
-
-  // Try loading fallback images in order
-  useEffect(() => {
-    const images = isMobile ? HERO_IMAGES.mobile : HERO_IMAGES.desktop;
-    let cancelled = false;
-
-    const tryLoadImage = async () => {
-      for (const url of images) {
-        if (cancelled) return;
-        try {
-          const loaded = await new Promise((resolve) => {
-            const img = new Image();
-            img.onload = () => resolve(true);
-            img.onerror = () => resolve(false);
-            img.src = url;
-            setTimeout(() => resolve(false), 5000);
-          });
-          if (loaded && !cancelled) {
-            setHeroImageUrl(url);
-            setImageLoaded(true);
-            return;
-          }
-        } catch {
-          continue;
-        }
-      }
-      console.warn("All hero images failed to load, using gradient fallback");
-    };
-
-    tryLoadImage();
-    return () => {
-      cancelled = true;
-    };
-  }, [isMobile]);
+  const visualInitial = reduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 };
+  const visualAnimate = { opacity: 1, y: 0 };
 
   return (
-    <section className={styles.heroSection} id="home">
-      {/* === Background Layer 1: Gradient fallback (always present) === */}
-      <div className={styles.heroBgGradient} />
+    <section
+      id="hero"
+      role="region"
+      aria-label="Hero — Icon Commerce College admissions"
+      className={styles.heroSection}
+    >
+      {/* Background layers */}
+      <div className={styles.heroBackground} aria-hidden="true">
+        <div className={styles.bgGradient} />
+        <div className={styles.bgRadialGloss} />
+        <div className={styles.bgMesh} />
+      </div>
 
-      {/* === Background Layer 2: Fallback image === */}
-      {imageLoaded && (
-        <div
-          className={styles.heroBgImage}
-          style={{ backgroundImage: `url('${heroImageUrl}')` }}
-          role="img"
-          aria-label=""
-        />
-      )}
+      {/* Optional hero video — boilerplate scaffolding, gated off by default */}
+      {useVideo && videoSrc ? (
+        <video
+          className={styles.heroVideo}
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-hidden="true"
+        >
+          <source src={videoSrc} type="video/mp4" />
+        </video>
+      ) : null}
 
-      {/* === Dark overlay for text readability === */}
-      <div className={styles.heroOverlay} />
-
-      {/* Animated Background Pattern */}
-      <div className={styles.patternOverlay} />
-
-      {/* Main Content */}
       <Container maxWidth="xl" className={styles.heroContainer}>
-        <Grid container spacing={isMobile ? 3 : 6} alignItems="center">
-          {/* Left Content */}
-          <Grid item xs={12} lg={7}>
-            <motion.div
-              className={styles.heroContent}
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
-            >
-              {/* Pre-headline Badge */}
-              <motion.div variants={badgeVariants}>
-                <Chip
-                  icon={<span className={styles.pulseDot} />}
-                  label="__TBD_ICON_CONTENT__"
-                  className={styles.launchBadge}
-                  sx={{
-                    backgroundColor: "#D97706",
-                    color: "#FFFFFF",
-                    fontWeight: 600,
-                    fontSize: "0.875rem",
-                    height: "36px",
-                    borderRadius: "20px",
-                    "& .MuiChip-icon": {
-                      marginLeft: "8px",
-                    },
-                  }}
-                />
-              </motion.div>
+        <div className={styles.heroLayout}>
+          {/* === Left column === */}
+          <div className={styles.heroContent}>
+            <Reveal variant="slide-up" delay={0}>
+              <span className={styles.eyebrow}>
+                ADMISSIONS OPEN · 2026–27
+              </span>
+            </Reveal>
 
-              {/* Main Headline */}
-              <motion.div variants={itemVariants}>
-                <Typography
-                  variant="h1"
-                  className={styles.heroTitle}
-                  sx={{
-                    color: "#FFFFFF",
-                    fontFamily: "'Fraunces', 'Playfair Display', Georgia, serif",
-                    fontWeight: 700,
-                    fontSize: {
-                      xs: "2.5rem",
-                      sm: "3rem",
-                      md: "3.75rem",
-                      lg: "4.25rem",
-                    },
-                    lineHeight: 1.05,
-                    letterSpacing: "-0.02em",
-                    fontVariationSettings: '"opsz" 144',
-                    marginTop: "1.5rem",
-                  }}
-                >
-                  __TBD_ICON_CONTENT__
-                </Typography>
-              </motion.div>
-
-              {/* Sub-headline */}
-              <motion.div variants={itemVariants}>
-                <Typography
-                  variant="h6"
-                  className={styles.heroSubtitle}
-                  sx={{
-                    color: "#FFFFFF",
-                    fontWeight: 500,
-                    fontSize: { xs: "1.05rem", md: "1.25rem" },
-                    marginTop: "1.25rem",
-                    maxWidth: "620px",
-                    lineHeight: 1.55,
-                  }}
-                >
-                  __TBD_ICON_CONTENT__
-                </Typography>
-              </motion.div>
-
-              {/* CTA Buttons */}
-              <motion.div
-                variants={buttonVariants}
-                className={styles.ctaButtons}
+            <Reveal variant="slide-up" delay={100}>
+              <Typography
+                variant="h1"
+                component="h1"
+                className={styles.heroTitle}
               >
+                Begin Your Career at Icon Commerce College
+              </Typography>
+            </Reveal>
+
+            <Reveal variant="slide-up" delay={200}>
+              <Typography
+                variant="subtitle1"
+                component="p"
+                className={styles.heroSubtitle}
+              >
+                NEP 2020 aligned undergraduate programmes — B.Com, BBA, BCA,
+                B.A. — affiliated to Gauhati University, Guwahati. 20+ years
+                of nurturing future-ready graduates.
+              </Typography>
+            </Reveal>
+
+            <Reveal variant="slide-up" delay={250}>
+              <ul className={styles.benefitChips}>
+                {BENEFIT_CHIPS.map((chip) => (
+                  <li key={chip.label} className={styles.benefitChip}>
+                    <Icon
+                      icon={chip.icon}
+                      className={styles.benefitChipIcon}
+                      width={20}
+                      height={20}
+                      aria-hidden="true"
+                    />
+                    <span>{chip.label}</span>
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+
+            <Reveal variant="slide-up" delay={300}>
+              <div className={styles.ctaRow}>
                 <Button
+                  color="cta"
                   variant="contained"
                   size="large"
                   className={styles.primaryCta}
-                  onClick={() => {
-                    trackCTAClick(
-                      "hero_primary_cta",
-                      "hero",
-                      "__TBD_ICON_CONTENT__",
-                    );
-                    openLeadDrawer({
-                      source: isMobile ? "hero_mobile" : "hero_primary",
-                    });
-                  }}
-                  sx={{
-                    backgroundColor: "#E11D48",
-                    color: "#FFFFFF",
-                    fontWeight: 700,
-                    fontSize: "1rem",
-                    padding: "0.875rem 2rem",
-                    borderRadius: "12px",
-                    textTransform: "none",
-                    fontFamily: "'Plus Jakarta Sans', 'Inter', sans-serif",
-                    boxShadow: "0 6px 20px rgba(225, 29, 72, 0.4)",
-                    "&:hover": {
-                      backgroundColor: "#F43F5E",
-                      boxShadow: "0 10px 28px rgba(225, 29, 72, 0.55)",
-                      transform: "translateY(-2px)",
-                    },
-                    transition: "all 0.3s ease",
-                  }}
+                  onClick={() => openLeadDrawer({ source: "hero_primary" })}
                 >
-                  __TBD_ICON_CONTENT__
+                  Apply Now
                 </Button>
                 <Button
                   variant="outlined"
                   size="large"
                   className={styles.secondaryCta}
-                  component="a"
-                  href="#"
-                  onClick={() => {
-                    trackCTAClick(
-                      "hero_secondary_cta",
-                      "hero",
-                      "__TBD_ICON_CONTENT__",
-                    );
-                  }}
-                  sx={{
-                    borderColor: "rgba(255, 255, 255, 0.6)",
-                    color: "#FFFFFF",
-                    fontWeight: 600,
-                    fontSize: "1rem",
-                    padding: "0.875rem 2rem",
-                    borderRadius: "12px",
-                    textTransform: "none",
-                    fontFamily: "'Plus Jakarta Sans', 'Inter', sans-serif",
-                    borderWidth: "2px",
-                    "&:hover": {
-                      borderColor: "#FFFFFF",
-                      backgroundColor: "rgba(255, 255, 255, 0.1)",
-                      borderWidth: "2px",
-                    },
-                    transition: "all 0.3s ease",
-                  }}
+                  onClick={() =>
+                    openLeadDrawer({ source: "hero_counsellor" })
+                  }
                 >
-                  __TBD_ICON_CONTENT__
+                  Talk to a Counsellor
                 </Button>
-              </motion.div>
+              </div>
+            </Reveal>
 
-              {/* Trust Indicators */}
-              <motion.div
-                variants={itemVariants}
-                className={styles.trustIndicators}
-              >
-                {trustIndicators.map((indicator, index) => (
-                  <div key={index} className={styles.trustIndicator}>
-                    <Icon icon={indicator.icon} className={styles.trustIcon} />
-                    <span>{indicator.text}</span>
-                  </div>
+            <Reveal variant="fade" delay={400}>
+              <ul className={styles.trustStrip}>
+                {TRUST_STRIP.map((item) => (
+                  <li key={item.text} className={styles.trustItem}>
+                    <span aria-hidden="true">{item.icon}</span>
+                    <span>{item.text}</span>
+                  </li>
                 ))}
-              </motion.div>
-            </motion.div>
-          </Grid>
+              </ul>
+            </Reveal>
+          </div>
 
-          {/* Right Content - Lead Form Slot (Desktop only) */}
-          {isDesktop && (
-            <Grid item lg={5}>
-              <motion.div
-                className={styles.formWrapper}
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5, duration: 0.6, ease: "easeOut" }}
-              >
-                <div id="hero-form-slot" className={styles.formCard}>
-                  <MultiStepLeadForm source="hero" variant="dark" />
+          {/* === Right column === */}
+          <motion.div
+            className={styles.heroVisualWrapper}
+            initial={visualInitial}
+            animate={visualAnimate}
+            transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
+          >
+            <div className={styles.heroVisualCard}>
+              <picture>
+                <source media="(max-width: 767px)" srcSet={HERO_IMG_MOBILE} />
+                <img
+                  src={HERO_IMG_DESKTOP}
+                  alt="Icon Commerce College campus"
+                  className={styles.heroVisualImg}
+                  loading="eager"
+                  decoding="async"
+                  width="720"
+                  height="720"
+                />
+              </picture>
+
+              <span className={styles.affiliatedBadge}>
+                AFFILIATED · GAUHATI UNIVERSITY
+              </span>
+            </div>
+
+            <div className={styles.statsCard}>
+              {HERO_STATS.map((stat) => (
+                <div key={stat.label} className={styles.statsItem}>
+                  <AnimatedCounter
+                    value={stat.value}
+                    label={stat.label}
+                    color="dark"
+                    duration={2}
+                  />
                 </div>
-              </motion.div>
-            </Grid>
-          )}
-        </Grid>
+              ))}
+            </div>
+          </motion.div>
+        </div>
       </Container>
-
-      {/* Scroll Indicator */}
-      <motion.div
-        className={styles.scrollIndicator}
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.5, duration: 0.5 }}
-      >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <Icon icon="mdi:chevron-double-down" className={styles.scrollIcon} />
-        </motion.div>
-      </motion.div>
     </section>
   );
 };
