@@ -23,6 +23,7 @@ import TrustBar from './components/sections/TrustBar/TrustBar';
 import AboutSection from './components/sections/AboutSection';
 import ProgramsSection from './components/sections/ProgramsSection';
 import WhyIconSection from './components/sections/WhyIconSection';
+import FacultySection from './components/sections/FacultySection';
 import Footer from './components/common/Footer/Footer';
 import Modal from './components/common/Modal/Modal';
 import MobileDrawer from './components/common/MobileDrawer/MobileDrawer';
@@ -444,6 +445,9 @@ const HomePageContent = () => {
 
         {/* Why Icon Section - twelve USPs + soft re-engagement CTA */}
         <WhyIconSection />
+
+        {/* Faculty Section - leadership rail, filterable faculty grid, guest strip */}
+        <FacultySection />
 
         {/* Lazy loaded sections with error boundaries */}
         <ErrorBoundary>

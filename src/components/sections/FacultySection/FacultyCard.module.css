@@ -1,0 +1,134 @@
+/* ============================================
+   FacultyCard Styles — Icon Commerce College
+   White surface card. Square portrait fills the
+   top edge-to-edge. Hover lifts the card and
+   underlines the name with a saffron accent.
+   ============================================ */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--ic-bg-default);
+  border: 1px solid var(--ic-border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--ic-shadow-sm);
+  transition: transform 250ms ease, box-shadow 250ms ease,
+    border-color 250ms ease;
+  height: 100%;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--ic-shadow-md);
+    border-color: var(--ic-border-strong);
+  }
+  .card:hover .name::after {
+    transform: scaleX(1);
+  }
+}
+
+/* ===== Image ===== */
+.imageWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: var(--ic-bg-soft);
+  overflow: hidden;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ===== Body ===== */
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 16px;
+  flex: 1;
+}
+
+.name {
+  position: relative;
+  font-family: var(--ic-font-heading);
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.25;
+  color: var(--ic-text-primary);
+  margin: 0;
+  letter-spacing: -0.005em;
+  display: inline-block;
+  padding-bottom: 2px;
+}
+
+.name::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--ic-secondary);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 250ms ease;
+}
+
+.role {
+  font-family: var(--ic-font-body);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--ic-text-secondary);
+  margin: 0;
+}
+
+.credentialsChip {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 6px;
+  padding: 3px 10px;
+  background: var(--ic-bg-cream);
+  color: var(--ic-primary);
+  font-family: var(--ic-font-ui);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.01em;
+  line-height: 1.3;
+  border-radius: 999px;
+  max-width: 100%;
+  white-space: normal;
+  text-align: left;
+}
+
+.deptChip {
+  display: inline-flex;
+  align-items: center;
+  margin-top: auto;
+  padding: 3px 10px;
+  background: rgba(217, 119, 6, 0.12);
+  color: var(--ic-secondary-dark);
+  font-family: var(--ic-font-ui);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  line-height: 1.3;
+  border-radius: 999px;
+}
+
+/* ===== Leadership variant — slightly larger emphasis ===== */
+.leadership .name {
+  font-size: 17px;
+}
+
+.leadership .role {
+  font-weight: 600;
+  color: var(--ic-primary);
+}
