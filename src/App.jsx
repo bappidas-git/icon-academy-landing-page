@@ -22,6 +22,7 @@ import HeroSection from './components/sections/HeroSection/HeroSection';
 import TrustBar from './components/sections/TrustBar/TrustBar';
 import AboutSection from './components/sections/AboutSection';
 import ProgramsSection from './components/sections/ProgramsSection';
+import WhyIconSection from './components/sections/WhyIconSection';
 import Footer from './components/common/Footer/Footer';
 import Modal from './components/common/Modal/Modal';
 import MobileDrawer from './components/common/MobileDrawer/MobileDrawer';
@@ -440,6 +441,9 @@ const HomePageContent = () => {
 
         {/* Programs Section - four UG programmes (primary conversion block) */}
         <ProgramsSection />
+
+        {/* Why Icon Section - twelve USPs + soft re-engagement CTA */}
+        <WhyIconSection />
 
         {/* Lazy loaded sections with error boundaries */}
         <ErrorBoundary>
