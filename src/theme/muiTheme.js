@@ -1,132 +1,83 @@
 /* ============================================
-   MUI Theme Configuration - Landing Page Boilerplate
-   Landing Page
+   MUI Theme — Icon Commerce College
+   Royal Indigo + Warm Saffron + Coral Crimson
    ============================================ */
 
 import { createTheme, alpha } from '@mui/material/styles';
 
-// Color palette matching CSS variables
+// Color palette mirroring src/styles/variables.css --ic-* tokens
 const colors = {
   primary: {
-    main: '#0A1F3D',
-    light: '#1E4A85',
-    dark: '#061330',
+    main: '#1E3A8A',
+    light: '#3B5BDB',
+    dark: '#152659',
+    50: '#EEF2FF',
+    100: '#E0E7FF',
     contrastText: '#FFFFFF',
   },
   secondary: {
-    main: '#FFB800',
-    light: '#FFC939',
-    dark: '#E6A500',
+    main: '#D97706',
+    light: '#F59E0B',
+    dark: '#B45309',
+    50: '#FFFBEB',
     contrastText: '#FFFFFF',
   },
-  orange: {
-    main: '#FF6B35',
-    light: '#FF8C5A',
-    dark: '#E85A20',
-    50: '#FFF3ED',
-    100: '#FFE0CC',
-    200: '#FFCAAA',
-    300: '#FFB088',
-    400: '#FF8C5A',
-    500: '#FF6B35',
-    600: '#E85A20',
-    700: '#CC4D1A',
-    800: '#A63F15',
-    900: '#803110',
+  cta: {
+    main: '#E11D48',
+    light: '#F43F5E',
+    dark: '#BE123C',
+    contrastText: '#FFFFFF',
   },
-  savings: {
-    main: '#10B981',
+  success: {
+    main: '#059669',
     light: '#34D399',
     dark: '#047857',
-    bg: '#ECFDF5',
+    bg: '#D1FAE5',
+    contrastText: '#FFFFFF',
+  },
+  warning: {
+    main: '#F59E0B',
+    contrastText: '#0F172A',
+  },
+  error: {
+    main: '#DC2626',
+    bg: '#FEE2E2',
+    contrastText: '#FFFFFF',
+  },
+  info: {
+    main: '#0284C7',
     contrastText: '#FFFFFF',
   },
   region: {
     assam: '#1E7F5A',
-    nagaland: '#C2410C',
-    odisha: '#7C3AED',
-  },
-  navy: {
-    main: '#0A1F3D',
-    light: '#1E4A85',
-    dark: '#061330',
-    50: '#EBF5FB',
-    100: '#D6EAF8',
-    200: '#AED6F1',
-    300: '#85C1E9',
-    400: '#3B6FB5',
-    500: '#1E4A85',
-    600: '#14315B',
-    700: '#0A1F3D',
-    800: '#0A1F3D',
-    900: '#061330',
-  },
-  success: {
-    main: '#2E7D32',
-    light: '#66BB6A',
-    dark: '#1B5E20',
-    contrastText: '#FFFFFF',
-  },
-  warning: {
-    main: '#F57C00',
-    light: '#FFB74D',
-    dark: '#E65100',
-    contrastText: '#FFFFFF',
-  },
-  error: {
-    main: '#D32F2F',
-    light: '#EF5350',
-    dark: '#C62828',
-    contrastText: '#FFFFFF',
-  },
-  info: {
-    main: '#2196F3',
-    light: '#64B5F6',
-    dark: '#1976D2',
-    contrastText: '#FFFFFF',
+    northeast: '#7C3AED',
+    gauhatiUni: '#6B1E1E',
   },
   grey: {
-    50: '#FAFAFA',
-    100: '#F8F9FA',
-    200: '#F5F7FA',
-    300: '#E8EDF2',
-    400: '#B0BEC5',
-    500: '#90A4AE',
-    600: '#78909C',
-    700: '#607D8B',
-    800: '#455A64',
-    900: '#263238',
+    50: '#F8FAFC',
+    100: '#F1F5F9',
+    200: '#E2E8F0',
+    300: '#CBD5E1',
+    400: '#94A3B8',
+    500: '#64748B',
+    600: '#475569',
+    700: '#334155',
+    800: '#1E293B',
+    900: '#0F172A',
   },
   background: {
     default: '#FFFFFF',
     paper: '#FFFFFF',
-    dark: '#0A1F3D',
-    light: '#F8FAFC',
+    cream: '#FFFBEB',
+    dark: '#1E3A8A',
+    soft: '#F8FAFC',
   },
   text: {
-    primary: '#1B2631',
-    secondary: '#546E7A',
-    disabled: '#90A4AE',
-    dark: '#1B2631',
+    primary: '#0F172A',
+    secondary: '#475569',
+    disabled: '#94A3B8',
+    dark: '#0F172A',
     light: '#FFFFFF',
-  },
-  iconColors: {
-    gold: '#FFB800',
-    green: '#4CAF50',
-    purple: '#9C27B0',
-    orange: '#FF6B35',
-    pink: '#E91E63',
-    red: '#F44336',
-    teal: '#FFB800',
-    blue: '#2196F3',
-  },
-  cardBg: {
-    yellow: '#FFF3E0',
-    green: '#E8F5E9',
-    pink: '#FCE4EC',
-    purple: '#F3E5F5',
-    orange: '#FFF3E0',
-    blue: '#E3F2FD',
   },
 };
 
@@ -253,64 +204,59 @@ const typography = {
 // Shadows configuration
 const shadows = [
   'none',
-  '0 1px 2px rgba(0, 0, 0, 0.05)',
-  '0 1px 3px rgba(0, 0, 0, 0.1)',
-  '0 4px 6px rgba(0, 0, 0, 0.05)',
-  '0 4px 8px rgba(0, 0, 0, 0.08)',
-  '0 4px 12px rgba(0, 0, 0, 0.08)',
-  '0 4px 20px rgba(0, 0, 0, 0.08)',
-  '0 8px 16px rgba(0, 0, 0, 0.1)',
-  '0 8px 24px rgba(0, 0, 0, 0.1)',
-  '0 8px 30px rgba(0, 0, 0, 0.12)',
-  '0 12px 40px rgba(0, 0, 0, 0.12)',
-  '0 12px 48px rgba(0, 0, 0, 0.15)',
-  '0 16px 56px rgba(0, 0, 0, 0.15)',
-  '0 16px 64px rgba(0, 0, 0, 0.18)',
-  '0 20px 72px rgba(0, 0, 0, 0.18)',
-  '0 20px 80px rgba(0, 0, 0, 0.2)',
-  '0 24px 88px rgba(0, 0, 0, 0.2)',
-  '0 24px 96px rgba(0, 0, 0, 0.22)',
-  '0 28px 104px rgba(0, 0, 0, 0.22)',
-  '0 28px 112px rgba(0, 0, 0, 0.24)',
-  '0 32px 120px rgba(0, 0, 0, 0.24)',
-  '0 32px 128px rgba(0, 0, 0, 0.26)',
-  '0 36px 136px rgba(0, 0, 0, 0.26)',
-  '0 36px 144px rgba(0, 0, 0, 0.28)',
-  '0 40px 152px rgba(0, 0, 0, 0.28)',
+  '0 1px 2px rgba(15, 23, 42, 0.06)',
+  '0 1px 3px rgba(15, 23, 42, 0.08)',
+  '0 4px 6px rgba(15, 23, 42, 0.06)',
+  '0 4px 8px rgba(15, 23, 42, 0.08)',
+  '0 4px 12px rgba(15, 23, 42, 0.08)',
+  '0 4px 20px rgba(15, 23, 42, 0.08)',
+  '0 8px 16px rgba(15, 23, 42, 0.10)',
+  '0 8px 24px rgba(15, 23, 42, 0.10)',
+  '0 12px 28px rgba(15, 23, 42, 0.12)',
+  '0 12px 40px rgba(15, 23, 42, 0.12)',
+  '0 12px 48px rgba(15, 23, 42, 0.15)',
+  '0 16px 56px rgba(15, 23, 42, 0.15)',
+  '0 16px 64px rgba(15, 23, 42, 0.18)',
+  '0 20px 72px rgba(15, 23, 42, 0.18)',
+  '0 20px 80px rgba(15, 23, 42, 0.20)',
+  '0 24px 88px rgba(15, 23, 42, 0.20)',
+  '0 24px 96px rgba(15, 23, 42, 0.22)',
+  '0 28px 104px rgba(15, 23, 42, 0.22)',
+  '0 28px 112px rgba(15, 23, 42, 0.24)',
+  '0 32px 120px rgba(15, 23, 42, 0.24)',
+  '0 32px 128px rgba(15, 23, 42, 0.26)',
+  '0 36px 136px rgba(15, 23, 42, 0.26)',
+  '0 36px 144px rgba(15, 23, 42, 0.28)',
+  '0 40px 152px rgba(15, 23, 42, 0.28)',
 ];
 
-// Orange shadow for CTA buttons and highlights
-const orangeShadow = '0 4px 14px rgba(255, 107, 53, 0.35)';
-const orangeShadowHover = '0 6px 20px rgba(255, 107, 53, 0.45)';
+// Coral CTA shadow tints (Apply / Submit only)
+const ctaShadow = '0 6px 20px rgba(225, 29, 72, 0.35)';
+const ctaShadowHover = '0 10px 28px rgba(225, 29, 72, 0.45)';
 
 // Create theme
 const theme = createTheme({
   palette: {
     mode: 'light',
-    primary: colors.primary,
-    secondary: colors.secondary,
-    success: colors.success,
-    warning: colors.warning,
-    error: colors.error,
-    info: colors.info,
+    primary: { main: '#1E3A8A', light: '#3B5BDB', dark: '#152659', contrastText: '#FFFFFF' },
+    secondary: { main: '#D97706', light: '#F59E0B', dark: '#B45309', contrastText: '#FFFFFF' },
+    cta: { main: '#E11D48', light: '#F43F5E', dark: '#BE123C', contrastText: '#FFFFFF' },
+    success: { main: '#059669', light: '#34D399', dark: '#047857', contrastText: '#FFFFFF', bg: '#D1FAE5' },
+    warning: { main: '#F59E0B', contrastText: '#0F172A' },
+    error: { main: '#DC2626', contrastText: '#FFFFFF', bg: '#FEE2E2' },
+    info: { main: '#0284C7', contrastText: '#FFFFFF' },
+    background: { default: '#FFFFFF', paper: '#FFFFFF', cream: '#FFFBEB', dark: '#1E3A8A', soft: '#F8FAFC' },
+    text: { primary: '#0F172A', secondary: '#475569', disabled: '#94A3B8', dark: '#0F172A', light: '#FFFFFF' },
+    region: { assam: '#1E7F5A', northeast: '#7C3AED', gauhatiUni: '#6B1E1E' },
+    divider: '#E2E8F0',
     grey: colors.grey,
-    background: colors.background,
-    text: colors.text,
-    orange: colors.orange,
-    savings: colors.savings,
-    region: colors.region,
-    navy: colors.navy,
-    iconColors: colors.iconColors,
-    cardBg: colors.cardBg,
-    divider: colors.grey[300],
     action: {
-      active: colors.secondary.main,
-      hover: alpha(colors.secondary.main, 0.08),
-      selected: alpha(colors.secondary.main, 0.16),
+      active: colors.primary.main,
+      hover: alpha(colors.primary.main, 0.06),
+      selected: alpha(colors.primary.main, 0.12),
       disabled: colors.grey[400],
       disabledBackground: colors.grey[200],
-      focus: alpha(colors.secondary.main, 0.12),
-      savingsHover: alpha('#10B981', 0.08),
+      focus: alpha(colors.primary.main, 0.12),
     },
   },
   breakpoints,
@@ -368,22 +314,22 @@ const theme = createTheme({
           overflowX: 'hidden',
         },
         '::selection': {
-          backgroundColor: colors.secondary.main,
-          color: colors.background.default,
+          backgroundColor: colors.primary.main,
+          color: '#FFFFFF',
         },
         '::-webkit-scrollbar': {
           width: 8,
           height: 8,
         },
         '::-webkit-scrollbar-track': {
-          background: colors.grey[200],
+          background: colors.grey[100],
           borderRadius: 4,
         },
         '::-webkit-scrollbar-thumb': {
-          background: colors.secondary.main,
+          background: colors.primary.main,
           borderRadius: 4,
           '&:hover': {
-            background: colors.secondary.dark,
+            background: colors.primary.dark,
           },
         },
       },
@@ -402,7 +348,7 @@ const theme = createTheme({
           textTransform: 'none',
           transition: 'all 0.25s ease',
           '&:focus-visible': {
-            outline: `2px solid ${colors.secondary.main}`,
+            outline: `2px solid ${colors.primary.main}`,
             outlineOffset: 2,
           },
         },
@@ -413,24 +359,25 @@ const theme = createTheme({
             transform: 'translateY(-2px)',
           },
         },
+        // Page-chrome / nav primary buttons — Royal Indigo
         containedPrimary: {
-          background: `linear-gradient(135deg, ${colors.orange.main} 0%, ${colors.orange.light} 100%)`,
+          backgroundColor: colors.primary.main,
           color: '#FFFFFF',
-          boxShadow: orangeShadow,
           '&:hover': {
-            background: `linear-gradient(135deg, ${colors.orange.light} 0%, ${colors.orange.main} 100%)`,
-            boxShadow: orangeShadowHover,
+            backgroundColor: colors.primary.light,
+            boxShadow: shadows[5],
             transform: 'translateY(-2px)',
           },
           '&:active': {
+            backgroundColor: colors.primary.dark,
             transform: 'translateY(0)',
           },
         },
         containedSecondary: {
-          backgroundColor: colors.primary.main,
-          color: colors.background.default,
+          backgroundColor: colors.secondary.main,
+          color: '#FFFFFF',
           '&:hover': {
-            backgroundColor: colors.primary.light,
+            backgroundColor: colors.secondary.light,
           },
         },
         outlined: {
@@ -440,6 +387,14 @@ const theme = createTheme({
           },
         },
         outlinedPrimary: {
+          borderColor: colors.primary.main,
+          color: colors.primary.main,
+          '&:hover': {
+            backgroundColor: alpha(colors.primary.main, 0.06),
+            borderColor: colors.primary.main,
+          },
+        },
+        outlinedSecondary: {
           borderColor: colors.secondary.main,
           color: colors.secondary.main,
           '&:hover': {
@@ -447,17 +402,9 @@ const theme = createTheme({
             borderColor: colors.secondary.main,
           },
         },
-        outlinedSecondary: {
-          borderColor: colors.primary.main,
-          color: colors.primary.main,
-          '&:hover': {
-            backgroundColor: alpha(colors.primary.main, 0.08),
-            borderColor: colors.primary.main,
-          },
-        },
         text: {
           '&:hover': {
-            backgroundColor: alpha(colors.secondary.main, 0.08),
+            backgroundColor: alpha(colors.primary.main, 0.06),
           },
         },
         sizeLarge: {
@@ -469,6 +416,38 @@ const theme = createTheme({
           fontSize: '0.8125rem',
         },
       },
+      variants: [
+        // Apply / Submit / final-stage CTAs — Coral Crimson.
+        // Use as: <Button variant="contained" color="cta" /> or className="MuiButton-containedCta"
+        {
+          props: { color: 'cta', variant: 'contained' },
+          style: {
+            backgroundColor: colors.cta.main,
+            color: '#FFFFFF',
+            boxShadow: ctaShadow,
+            '&:hover': {
+              backgroundColor: colors.cta.light,
+              boxShadow: ctaShadowHover,
+              transform: 'translateY(-2px)',
+            },
+            '&:active': {
+              backgroundColor: colors.cta.dark,
+              transform: 'translateY(0)',
+            },
+          },
+        },
+        {
+          props: { color: 'cta', variant: 'outlined' },
+          style: {
+            borderColor: colors.cta.main,
+            color: colors.cta.main,
+            '&:hover': {
+              backgroundColor: alpha(colors.cta.main, 0.08),
+              borderColor: colors.cta.dark,
+            },
+          },
+        },
+      ],
     },
     // Icon Button
     MuiIconButton: {
@@ -476,7 +455,7 @@ const theme = createTheme({
         root: {
           transition: 'all 0.25s ease',
           '&:hover': {
-            backgroundColor: alpha(colors.secondary.main, 0.1),
+            backgroundColor: alpha(colors.primary.main, 0.08),
           },
         },
       },
@@ -569,10 +548,10 @@ const theme = createTheme({
             borderRadius: 12,
             transition: 'all 0.25s ease',
             '&:hover .MuiOutlinedInput-notchedOutline': {
-              borderColor: colors.secondary.main,
+              borderColor: colors.primary.main,
             },
             '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-              borderColor: colors.secondary.main,
+              borderColor: colors.primary.main,
               borderWidth: 2,
             },
           },
@@ -584,14 +563,14 @@ const theme = createTheme({
         root: {
           borderRadius: 12,
           '&:hover .MuiOutlinedInput-notchedOutline': {
-            borderColor: colors.secondary.main,
+            borderColor: colors.primary.main,
           },
           '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-            borderColor: colors.secondary.main,
+            borderColor: colors.primary.main,
           },
         },
         notchedOutline: {
-          borderColor: colors.grey[300],
+          borderColor: colors.grey[200],
           transition: 'border-color 0.25s ease',
         },
         input: {
@@ -604,7 +583,7 @@ const theme = createTheme({
         root: {
           color: colors.text.secondary,
           '&.Mui-focused': {
-            color: colors.secondary.main,
+            color: colors.primary.main,
           },
         },
       },
@@ -638,12 +617,12 @@ const theme = createTheme({
           padding: '12px 16px',
           transition: 'background-color 0.2s ease',
           '&:hover': {
-            backgroundColor: alpha(colors.secondary.main, 0.08),
+            backgroundColor: alpha(colors.primary.main, 0.06),
           },
           '&.Mui-selected': {
-            backgroundColor: alpha(colors.secondary.main, 0.12),
+            backgroundColor: alpha(colors.primary.main, 0.12),
             '&:hover': {
-              backgroundColor: alpha(colors.secondary.main, 0.16),
+              backgroundColor: alpha(colors.primary.main, 0.16),
             },
           },
         },
@@ -666,15 +645,15 @@ const theme = createTheme({
           borderWidth: 1.5,
         },
         colorPrimary: {
-          backgroundColor: colors.secondary.main,
+          backgroundColor: colors.primary.main,
           color: '#FFFFFF',
           '&:hover': {
-            backgroundColor: colors.secondary.light,
+            backgroundColor: colors.primary.light,
           },
         },
         colorSecondary: {
-          backgroundColor: colors.primary.main,
-          color: colors.background.default,
+          backgroundColor: colors.secondary.main,
+          color: '#FFFFFF',
         },
       },
     },
@@ -697,7 +676,7 @@ const theme = createTheme({
           fontWeight: 600,
         },
         colorPrimary: {
-          backgroundColor: colors.secondary.main,
+          backgroundColor: colors.primary.main,
           color: '#FFFFFF',
         },
       },
@@ -711,7 +690,7 @@ const theme = createTheme({
         indicator: {
           height: 3,
           borderRadius: '3px 3px 0 0',
-          backgroundColor: colors.secondary.main,
+          backgroundColor: colors.primary.main,
         },
       },
     },
@@ -725,10 +704,10 @@ const theme = createTheme({
           textTransform: 'none',
           transition: 'all 0.2s ease',
           '&.Mui-selected': {
-            color: colors.secondary.main,
+            color: colors.primary.main,
           },
           '&:hover': {
-            color: colors.secondary.main,
+            color: colors.primary.main,
             opacity: 1,
           },
         },
@@ -739,13 +718,14 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           height: 6,
+          color: colors.primary.main,
           '&.Mui-disabled': {
             color: colors.grey[400],
           },
         },
         track: {
           border: 'none',
-          background: `linear-gradient(90deg, ${colors.secondary.main}, ${colors.secondary.light})`,
+          background: `linear-gradient(90deg, ${colors.primary.main}, ${colors.primary.light})`,
         },
         rail: {
           opacity: 0.3,
@@ -754,10 +734,10 @@ const theme = createTheme({
         thumb: {
           width: 20,
           height: 20,
-          backgroundColor: colors.secondary.main,
-          boxShadow: orangeShadow,
+          backgroundColor: colors.primary.main,
+          boxShadow: shadows[4],
           '&:hover, &.Mui-focusVisible': {
-            boxShadow: orangeShadowHover,
+            boxShadow: shadows[6],
           },
           '&:before': {
             display: 'none',
@@ -777,7 +757,7 @@ const theme = createTheme({
           borderRadius: 2,
         },
         markActive: {
-          backgroundColor: colors.secondary.light,
+          backgroundColor: colors.primary.light,
         },
       },
     },
@@ -793,9 +773,9 @@ const theme = createTheme({
           padding: 2,
           '&.Mui-checked': {
             transform: 'translateX(22px)',
-            color: colors.background.default,
+            color: '#FFFFFF',
             '& + .MuiSwitch-track': {
-              backgroundColor: colors.secondary.main,
+              backgroundColor: colors.primary.main,
               opacity: 1,
             },
           },
@@ -819,7 +799,7 @@ const theme = createTheme({
         root: {
           color: colors.grey[400],
           '&.Mui-checked': {
-            color: colors.secondary.main,
+            color: colors.primary.main,
           },
         },
       },
@@ -830,7 +810,7 @@ const theme = createTheme({
         root: {
           color: colors.grey[400],
           '&.Mui-checked': {
-            color: colors.secondary.main,
+            color: colors.primary.main,
           },
         },
       },
@@ -839,8 +819,8 @@ const theme = createTheme({
     MuiTooltip: {
       styleOverrides: {
         tooltip: {
-          backgroundColor: colors.primary.main,
-          color: colors.background.default,
+          backgroundColor: colors.text.primary,
+          color: '#FFFFFF',
           fontSize: '0.8125rem',
           fontWeight: 500,
           padding: '8px 12px',
@@ -848,7 +828,7 @@ const theme = createTheme({
           boxShadow: shadows[4],
         },
         arrow: {
-          color: colors.primary.main,
+          color: colors.text.primary,
         },
       },
     },
@@ -917,15 +897,15 @@ const theme = createTheme({
         },
         standardError: {
           backgroundColor: alpha(colors.error.main, 0.12),
-          color: colors.error.dark,
+          color: '#991B1B',
         },
         standardWarning: {
           backgroundColor: alpha(colors.warning.main, 0.12),
-          color: colors.warning.dark,
+          color: '#92400E',
         },
         standardInfo: {
           backgroundColor: alpha(colors.info.main, 0.12),
-          color: colors.info.dark,
+          color: '#075985',
         },
       },
     },
@@ -983,7 +963,7 @@ const theme = createTheme({
     MuiSkeleton: {
       styleOverrides: {
         root: {
-          backgroundColor: colors.grey[200],
+          backgroundColor: colors.grey[100],
         },
         rectangular: {
           borderRadius: 8,
@@ -994,7 +974,7 @@ const theme = createTheme({
     MuiBackdrop: {
       styleOverrides: {
         root: {
-          backgroundColor: alpha(colors.primary.main, 0.7),
+          backgroundColor: alpha(colors.text.primary, 0.7),
           backdropFilter: 'blur(4px)',
         },
       },
@@ -1006,11 +986,11 @@ const theme = createTheme({
       },
       styleOverrides: {
         root: {
-          color: colors.secondary.main,
+          color: colors.primary.main,
           fontWeight: 500,
           transition: 'color 0.2s ease',
           '&:hover': {
-            color: colors.secondary.light,
+            color: colors.primary.light,
           },
         },
       },
@@ -1030,10 +1010,10 @@ const theme = createTheme({
           '& .MuiPaginationItem-root': {
             fontWeight: 500,
             '&.Mui-selected': {
-              backgroundColor: colors.secondary.main,
+              backgroundColor: colors.primary.main,
               color: '#FFFFFF',
               '&:hover': {
-                backgroundColor: colors.secondary.light,
+                backgroundColor: colors.primary.light,
               },
             },
           },
@@ -1058,7 +1038,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           '&:hover': {
-            backgroundColor: alpha(colors.secondary.main, 0.04),
+            backgroundColor: alpha(colors.primary.main, 0.04),
           },
         },
       },
@@ -1069,13 +1049,13 @@ const theme = createTheme({
         root: {
           borderRadius: 12,
           '&.Mui-selected': {
-            backgroundColor: alpha(colors.secondary.main, 0.12),
+            backgroundColor: alpha(colors.primary.main, 0.10),
             '&:hover': {
-              backgroundColor: alpha(colors.secondary.main, 0.16),
+              backgroundColor: alpha(colors.primary.main, 0.14),
             },
           },
           '&:hover': {
-            backgroundColor: alpha(colors.secondary.main, 0.08),
+            backgroundColor: alpha(colors.primary.main, 0.06),
           },
         },
       },
@@ -1084,7 +1064,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           minWidth: 40,
-          color: colors.secondary.main,
+          color: colors.primary.main,
         },
       },
     },
@@ -1093,7 +1073,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           height: 64,
-          backgroundColor: colors.background.default,
+          backgroundColor: '#FFFFFF',
           borderTop: `1px solid ${colors.grey[200]}`,
         },
       },
@@ -1105,7 +1085,7 @@ const theme = createTheme({
           padding: '8px 12px',
           color: colors.text.secondary,
           '&.Mui-selected': {
-            color: colors.secondary.main,
+            color: colors.primary.main,
           },
         },
         label: {
@@ -1117,31 +1097,41 @@ const theme = createTheme({
         },
       },
     },
-    // Fab Component
+    // Fab Component — defaults to coral CTA (Apply / Submit)
     MuiFab: {
       styleOverrides: {
         root: {
-          boxShadow: orangeShadow,
+          boxShadow: ctaShadow,
           '&:hover': {
-            boxShadow: orangeShadowHover,
+            boxShadow: ctaShadowHover,
           },
         },
         primary: {
-          background: `linear-gradient(135deg, ${colors.orange.main} 0%, ${colors.orange.light} 100%)`,
+          backgroundColor: colors.cta.main,
           color: '#FFFFFF',
+          '&:hover': {
+            backgroundColor: colors.cta.light,
+          },
+        },
+        secondary: {
+          backgroundColor: colors.primary.main,
+          color: '#FFFFFF',
+          '&:hover': {
+            backgroundColor: colors.primary.light,
+          },
         },
       },
     },
-    // Speed Dial Component
+    // Speed Dial Component — coral CTA
     MuiSpeedDial: {
       styleOverrides: {
         fab: {
-          background: `linear-gradient(135deg, ${colors.orange.main} 0%, ${colors.orange.light} 100%)`,
+          backgroundColor: colors.cta.main,
           color: '#FFFFFF',
-          boxShadow: orangeShadow,
+          boxShadow: ctaShadow,
           '&:hover': {
-            background: `linear-gradient(135deg, ${colors.orange.light} 0%, ${colors.orange.main} 100%)`,
-            boxShadow: orangeShadowHover,
+            backgroundColor: colors.cta.light,
+            boxShadow: ctaShadowHover,
           },
         },
       },
@@ -1149,7 +1139,7 @@ const theme = createTheme({
     MuiSpeedDialAction: {
       styleOverrides: {
         fab: {
-          backgroundColor: colors.background.default,
+          backgroundColor: '#FFFFFF',
           color: colors.primary.main,
           boxShadow: shadows[4],
           '&:hover': {
@@ -1162,5 +1152,5 @@ const theme = createTheme({
 });
 
 // Export theme and colors for use in styled components
-export { colors, orangeShadow, orangeShadowHover };
+export { colors, ctaShadow, ctaShadowHover };
 export default theme;

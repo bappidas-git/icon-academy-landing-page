@@ -66,7 +66,7 @@ const AdminLogin = () => {
               sx={{
                 '& .MuiOutlinedInput-root': {
                   '&.Mui-focused fieldset': {
-                    borderColor: '#FFB800',
+                    borderColor: '#1E3A8A',
                   },
                 },
               }}
@@ -89,7 +89,7 @@ const AdminLogin = () => {
               sx={{
                 '& .MuiOutlinedInput-root': {
                   '&.Mui-focused fieldset': {
-                    borderColor: '#FFB800',
+                    borderColor: '#1E3A8A',
                   },
                 },
               }}
@@ -102,7 +102,7 @@ const AdminLogin = () => {
               size="small"
               checked={rememberMe}
               onChange={(e) => setRememberMe(e.target.checked)}
-              sx={{ padding: 0, color: '#FFB800', '&.Mui-checked': { color: '#FFB800' } }}
+              sx={{ padding: 0, color: '#1E3A8A', '&.Mui-checked': { color: '#1E3A8A' } }}
             />
             <label htmlFor="remember" className={styles.rememberLabel}>
               Remember me

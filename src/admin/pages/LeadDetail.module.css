@@ -397,7 +397,7 @@
 
 .trackingChipBlue {
   background: #E0F7F1;
-  color: #FFB800;
+  color: var(--ic-primary);
 }
 
 .trackingChipMuted {

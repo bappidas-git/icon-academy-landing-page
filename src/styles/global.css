@@ -94,17 +94,17 @@ p {
 
 /* ========== Links ========== */
 a {
-  color: var(--accent-gold);
+  color: var(--ic-primary);
   text-decoration: none;
   transition: color var(--transition-fast);
 }
 
 a:hover {
-  color: var(--accent-gold-light);
+  color: var(--ic-primary-light);
 }
 
 a:focus-visible {
-  outline: 2px solid var(--accent-gold);
+  outline: 2px solid var(--ic-primary);
   outline-offset: 2px;
   border-radius: var(--radius-sm);
 }
@@ -177,13 +177,13 @@ table {
 
 /* ========== Selection ========== */
 ::selection {
-  background-color: var(--accent-gold);
-  color: var(--white);
+  background-color: var(--ic-primary);
+  color: var(--ic-text-on-dark);
 }
 
 ::-moz-selection {
-  background-color: var(--accent-gold);
-  color: var(--white);
+  background-color: var(--ic-primary);
+  color: var(--ic-text-on-dark);
 }
 
 /* ========== Scrollbar Styling ========== */
@@ -193,24 +193,24 @@ table {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--light-gray);
+  background: var(--ic-bg-soft);
   border-radius: var(--radius-full);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--accent-gold);
+  background: var(--ic-primary);
   border-radius: var(--radius-full);
   transition: background var(--transition-fast);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-gold-dark);
+  background: var(--ic-primary-dark);
 }
 
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--accent-gold) var(--light-gray);
+  scrollbar-color: var(--ic-primary) var(--ic-bg-soft);
 }
 
 /* ========== Container Classes ========== */
@@ -258,35 +258,43 @@ table {
 }
 
 .section-dark {
-  background-color: var(--primary-dark);
-  color: var(--white);
+  background-color: var(--ic-bg-dark);
+  color: var(--ic-text-on-dark);
 }
 
 .section-light {
-  background-color: var(--off-white);
+  background-color: var(--ic-bg-soft);
+}
+
+.section-cream {
+  background-color: var(--ic-bg-cream);
 }
 
 .section-gold {
-  background: var(--accent-gold-gradient);
+  background: linear-gradient(135deg, var(--ic-secondary) 0%, var(--ic-secondary-light) 100%);
 }
 
 /* ========== Utility Classes ========== */
 
 /* Text Colors */
 .text-primary {
-  color: var(--primary-dark);
+  color: var(--ic-primary);
 }
 
 .text-gold {
-  color: var(--accent-gold);
+  color: var(--ic-secondary);
+}
+
+.text-cta {
+  color: var(--ic-cta);
 }
 
 .text-white {
-  color: var(--white);
+  color: var(--ic-text-on-dark);
 }
 
 .text-gray {
-  color: var(--text-gray);
+  color: var(--ic-text-secondary);
 }
 
 /* Text Alignment */
@@ -575,7 +583,7 @@ table {
   bottom: -4px;
   width: 60px;
   height: 3px;
-  background: var(--accent-gold-gradient);
+  background: linear-gradient(135deg, var(--ic-secondary) 0%, var(--ic-secondary-light) 100%);
   border-radius: var(--radius-full);
 }
 
@@ -586,7 +594,7 @@ table {
 
 /* ========== Gradient Text ========== */
 .gradient-text {
-  background: var(--accent-gold-gradient);
+  background: linear-gradient(135deg, var(--ic-primary) 0%, var(--ic-primary-light) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -614,39 +622,52 @@ table {
 }
 
 .btn:focus-visible {
-  outline: 2px solid var(--accent-gold);
+  outline: 2px solid var(--ic-primary);
   outline-offset: 2px;
 }
 
 .btn-primary {
-  background: var(--accent-gold-gradient);
-  color: var(--primary-dark);
-  box-shadow: var(--shadow-button);
+  background: var(--ic-primary);
+  color: var(--ic-text-on-dark);
+  box-shadow: var(--ic-shadow-md);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: var(--shadow-button-hover);
+  background: var(--ic-primary-light);
+  box-shadow: var(--ic-shadow-lg);
+}
+
+.btn-cta {
+  background: var(--ic-cta);
+  color: var(--ic-text-on-dark);
+  box-shadow: var(--ic-shadow-cta);
+}
+
+.btn-cta:hover {
+  transform: translateY(-2px);
+  background: var(--ic-cta-light);
+  box-shadow: var(--ic-shadow-cta-hover);
 }
 
 .btn-secondary {
   background: transparent;
-  color: var(--accent-gold);
-  border: 2px solid var(--accent-gold);
+  color: var(--ic-primary);
+  border: 2px solid var(--ic-primary);
 }
 
 .btn-secondary:hover {
-  background: var(--accent-gold);
-  color: var(--primary-dark);
+  background: var(--ic-primary);
+  color: var(--ic-text-on-dark);
 }
 
 .btn-dark {
-  background: var(--primary-dark);
-  color: var(--white);
+  background: var(--ic-bg-dark);
+  color: var(--ic-text-on-dark);
 }
 
 .btn-dark:hover {
-  background: var(--primary-dark-alt);
+  background: var(--ic-primary-dark);
 }
 
 .btn-lg {
@@ -695,19 +716,19 @@ table {
 }
 
 .badge-gold {
-  background: var(--accent-gold);
-  color: var(--primary-dark);
+  background: var(--ic-secondary);
+  color: var(--ic-text-on-dark);
 }
 
 .badge-dark {
-  background: var(--primary-dark);
-  color: var(--white);
+  background: var(--ic-bg-dark);
+  color: var(--ic-text-on-dark);
 }
 
 .badge-outline {
   background: transparent;
-  border: 1px solid var(--accent-gold);
-  color: var(--accent-gold);
+  border: 1px solid var(--ic-secondary);
+  color: var(--ic-secondary);
 }
 
 /* ========== Icon Circle Styles ========== */
@@ -800,7 +821,7 @@ table {
 .divider-gold {
   height: 3px;
   width: 60px;
-  background: var(--accent-gold-gradient);
+  background: linear-gradient(135deg, var(--ic-secondary) 0%, var(--ic-secondary-light) 100%);
   border-radius: var(--radius-full);
 }
 
@@ -810,12 +831,12 @@ table {
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent-gold);
+  outline: 2px solid var(--ic-primary);
   outline-offset: 2px;
 }
 
 :where(button, a, [role="button"], [role="radio"], [role="slider"], input, select, textarea):focus-visible {
-  outline: 2px solid var(--accent-gold);
+  outline: 2px solid var(--ic-primary);
   outline-offset: 2px;
   border-radius: 6px;
 }
@@ -837,8 +858,8 @@ table {
   position: absolute;
   top: -100%;
   left: 0;
-  background: var(--accent-gold);
-  color: var(--primary-dark);
+  background: var(--ic-primary);
+  color: var(--ic-text-on-dark);
   padding: var(--space-3) var(--space-4);
   z-index: var(--z-max);
   transition: top var(--transition-fast);
@@ -919,9 +940,10 @@ table {
 /* ========== High Contrast Mode ========== */
 @media (prefers-contrast: high) {
   :root {
-    --accent-gold: #1FA89B;
-    --primary-dark: #000000;
-    --border-gray: #000000;
+    --ic-primary: #000000;
+    --ic-secondary: #B45309;
+    --ic-cta: #BE123C;
+    --ic-border: #000000;
   }
 }
 

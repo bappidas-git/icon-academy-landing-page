@@ -3,11 +3,12 @@
 
 /* Semantic aliases — always prefer these in new code */
 :root {
-  --ink: var(--primary-dark);
-  --ink-muted: var(--text-gray);
-  --surface: var(--white);
-  --surface-muted: var(--light-gray);
-  --brand: var(--accent-gold);
-  --cta: var(--cta-primary);
-  --savings: var(--savings-green);
+  --ink: var(--ic-text-primary);
+  --ink-muted: var(--ic-text-secondary);
+  --surface: var(--ic-bg-default);
+  --surface-muted: var(--ic-bg-soft);
+  --surface-cream: var(--ic-bg-cream);
+  --brand: var(--ic-primary);
+  --cta: var(--ic-cta);
+  --savings: var(--ic-success);
 }

@@ -73,7 +73,7 @@
 
 .chip.selected {
   border: 2px solid var(--accent-gold);
-  background: #FFF8E1;
+  background: var(--ic-bg-cream);
   box-shadow: 0 8px 22px rgba(255, 184, 0, 0.28);
   padding: 13.5px 15.5px;
 }

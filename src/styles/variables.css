@@ -1,126 +1,180 @@
 /* ============================================
-   CSS Variables - Landing Page Boilerplate
-   Landing Page
+   CSS Variables — Icon Commerce College
+   Royal Indigo + Warm Saffron + Coral Crimson
    ============================================ */
 
 :root {
-  /* ========== Primary Colors ========== */
-  --primary-dark: #0A1F3D;
-  --primary-dark-alt: #14315B;
-  --primary-dark-light: #1E4A85;
-  --primary-dark-lighter: #3B6FB5;
+  /* ========== Primary — Royal Indigo ========== */
+  --ic-primary: #1E3A8A;
+  --ic-primary-light: #3B5BDB;
+  --ic-primary-dark: #152659;
+  --ic-primary-50: #EEF2FF;
+  --ic-primary-100: #E0E7FF;
 
-  /* ========== Accent Colors - Gold ========== */
-  --accent-gold: #FFB800;
-  --accent-gold-light: #FFC939;
-  --accent-gold-dark: #E6A500;
-  --accent-gold-hover: #F5B000;
-  --accent-gold-gradient: linear-gradient(135deg, #FFB800 0%, #FFC939 100%);
-  --accent-gold-gradient-reverse: linear-gradient(135deg, #FFC939 0%, #FFB800 100%);
-  --accent-gold-gradient-horizontal: linear-gradient(90deg, #FFB800 0%, #FFC939 50%, #FFB800 100%);
+  /* ========== Secondary — Warm Saffron ========== */
+  --ic-secondary: #D97706;
+  --ic-secondary-light: #F59E0B;
+  --ic-secondary-dark: #B45309;
+  --ic-secondary-50: #FFFBEB;
 
-  /* ========== Conversion Tokens ========== */
-  --savings-green: #10B981;
+  /* ========== CTA — Coral Crimson (Apply / Submit only) ========== */
+  --ic-cta: #E11D48;
+  --ic-cta-light: #F43F5E;
+  --ic-cta-dark: #BE123C;
+
+  /* ========== Semantic ========== */
+  --ic-success: #059669;
+  --ic-success-bg: #D1FAE5;
+  --ic-warning: #F59E0B;
+  --ic-error: #DC2626;
+  --ic-error-bg: #FEE2E2;
+  --ic-info: #0284C7;
+
+  /* ========== Surfaces ========== */
+  --ic-bg-default: #FFFFFF;
+  --ic-bg-cream: #FFFBEB;
+  --ic-bg-soft: #F8FAFC;
+  --ic-bg-dark: #1E3A8A;
+
+  /* ========== Text ========== */
+  --ic-text-primary: #0F172A;
+  --ic-text-secondary: #475569;
+  --ic-text-muted: #94A3B8;
+  --ic-text-on-dark: #FFFFFF;
+
+  /* ========== Borders ========== */
+  --ic-border: #E2E8F0;
+  --ic-border-strong: #CBD5E1;
+
+  /* ========== Shadows ========== */
+  --ic-shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
+  --ic-shadow-md: 0 4px 12px rgba(15, 23, 42, 0.08);
+  --ic-shadow-lg: 0 12px 28px rgba(15, 23, 42, 0.12);
+  --ic-shadow-cta: 0 6px 20px rgba(225, 29, 72, 0.35);
+  --ic-shadow-cta-hover: 0 10px 28px rgba(225, 29, 72, 0.45);
+
+  /* ========== Region Accents ========== */
+  --ic-assam: #1E7F5A;
+  --ic-northeast: #7C3AED;
+  --ic-gauhati-uni: #6B1E1E;
+
+  /* ============================================
+     DEPRECATED — backwards-compat aliases.
+     Old token names kept for selectors that have
+     not yet been migrated to --ic-*. Do not use
+     in new code. Will be removed once the rebrand
+     cascade is complete.
+     ============================================ */
+  --primary-dark: var(--ic-primary);
+  --primary-dark-alt: var(--ic-primary-dark);
+  --primary-dark-light: var(--ic-primary-light);
+  --primary-dark-lighter: var(--ic-primary-light);
+
+  --accent-gold: var(--ic-secondary);
+  --accent-gold-light: var(--ic-secondary-light);
+  --accent-gold-dark: var(--ic-secondary-dark);
+  --accent-gold-hover: var(--ic-secondary-light);
+  --accent-gold-gradient: linear-gradient(135deg, var(--ic-secondary) 0%, var(--ic-secondary-light) 100%);
+  --accent-gold-gradient-reverse: linear-gradient(135deg, var(--ic-secondary-light) 0%, var(--ic-secondary) 100%);
+  --accent-gold-gradient-horizontal: linear-gradient(90deg, var(--ic-secondary) 0%, var(--ic-secondary-light) 50%, var(--ic-secondary) 100%);
+
+  --cta-primary: var(--ic-cta);
+  --cta-primary-hover: var(--ic-cta-dark);
+  --cta-secondary: var(--ic-primary);
+  --cta-ghost-border: rgba(255, 255, 255, 0.7);
+
+  --accent-orange: var(--ic-cta);
+  --accent-orange-light: var(--ic-cta-light);
+  --accent-orange-dark: var(--ic-cta-dark);
+  --accent-orange-gradient: linear-gradient(135deg, var(--ic-cta) 0%, var(--ic-cta-light) 100%);
+  --accent-orange-gradient-reverse: linear-gradient(135deg, var(--ic-cta-light) 0%, var(--ic-cta) 100%);
+
+  --savings-green: var(--ic-success);
   --savings-green-dark: #047857;
-  --savings-green-bg: #ECFDF5;
+  --savings-green-bg: var(--ic-success-bg);
 
-  --cta-primary: #FF6B35;           /* sunrise orange — primary CTA */
-  --cta-primary-hover: #E85A20;
-  --cta-secondary: #0A1F3D;          /* navy — secondary CTA */
-  --cta-ghost-border: rgba(255,255,255,0.7);
+  --calc-output-bg: linear-gradient(135deg, var(--ic-primary) 0%, var(--ic-primary-dark) 100%);
+  --calc-output-accent: var(--ic-secondary);
+  --calc-output-savings: var(--ic-success);
 
-  /* State pills for Assam / Nagaland / Odisha */
-  --region-assam: #1E7F5A;
-  --region-nagaland: #C2410C;
-  --region-odisha: #7C3AED;
-  --region-pill-bg: rgba(255, 184, 0, 0.12);
-
-  /* Calculator output tokens */
-  --calc-output-bg: linear-gradient(135deg, #0A1F3D 0%, #14315B 100%);
-  --calc-output-accent: #FFB800;
-  --calc-output-savings: #10B981;
-
-  /* Step indicator for multi-step form */
-  --step-active: #FFB800;
-  --step-complete: #10B981;
+  --step-active: var(--ic-secondary);
+  --step-complete: var(--ic-success);
   --step-pending: #D1D9E6;
 
-  /* Elevation scale (new, additive) */
-  --elev-1: 0 1px 2px rgba(10,31,61,0.06);
-  --elev-2: 0 4px 14px rgba(10,31,61,0.08);
-  --elev-3: 0 12px 32px rgba(10,31,61,0.10);
-  --elev-4: 0 24px 56px rgba(10,31,61,0.14);
-  --elev-cta: 0 8px 24px rgba(255,107,53,0.35);
+  --region-assam: var(--ic-assam);
+  --region-nagaland: var(--ic-northeast);
+  --region-odisha: var(--ic-northeast);
+  --region-pill-bg: rgba(217, 119, 6, 0.12);
+
+  /* Elevation */
+  --elev-1: var(--ic-shadow-sm);
+  --elev-2: var(--ic-shadow-md);
+  --elev-3: var(--ic-shadow-lg);
+  --elev-4: 0 24px 56px rgba(15, 23, 42, 0.14);
+  --elev-cta: var(--ic-shadow-cta);
 
   /* Section rhythm */
   --section-y-sm: clamp(2rem, 4vw, 3rem);
   --section-y-md: clamp(3rem, 6vw, 5rem);
   --section-y-lg: clamp(4rem, 8vw, 7rem);
 
-  /* ========== Accent Orange - CTAs Only ========== */
-  --accent-orange: #FF6B35;
-  --accent-orange-light: #FF8C5A;
-  --accent-orange-dark: #E85A20;
-  --accent-orange-gradient: linear-gradient(135deg, #FF6B35 0%, #FF8C5A 100%);
-  --accent-orange-gradient-reverse: linear-gradient(135deg, #FF8C5A 0%, #FF6B35 100%);
-
   /* ========== Neutral Colors ========== */
   --white: #FFFFFF;
   --off-white: #FAFBFC;
-  --light-gray: #F8FAFC;
+  --light-gray: var(--ic-bg-soft);
   --medium-gray: #E8EDF2;
-  --border-gray: #D1D9E6;
-  --text-gray: #546E7A;
-  --text-dark-gray: #1B2631;
+  --border-gray: var(--ic-border);
+  --text-gray: var(--ic-text-secondary);
+  --text-dark-gray: var(--ic-text-primary);
   --dark-gray: #455A64;
 
   /* ========== Icon Background Colors ========== */
-  --icon-gold: #FFB800;
-  --icon-gold-bg: rgba(255, 184, 0, 0.15);
-  --icon-green: #10B981;
-  --icon-green-bg: rgba(16, 185, 129, 0.15);
-  --icon-purple: #9C27B0;
-  --icon-purple-bg: rgba(156, 39, 176, 0.15);
-  --icon-orange: #FF6B35;
-  --icon-orange-bg: rgba(255, 107, 53, 0.15);
+  --icon-gold: var(--ic-secondary);
+  --icon-gold-bg: rgba(217, 119, 6, 0.15);
+  --icon-green: var(--ic-success);
+  --icon-green-bg: rgba(5, 150, 105, 0.15);
+  --icon-purple: var(--ic-northeast);
+  --icon-purple-bg: rgba(124, 58, 237, 0.15);
+  --icon-orange: var(--ic-cta);
+  --icon-orange-bg: rgba(225, 29, 72, 0.15);
   --icon-pink: #E91E63;
   --icon-pink-bg: rgba(233, 30, 99, 0.15);
-  --icon-red: #F44336;
-  --icon-red-bg: rgba(244, 67, 54, 0.15);
-  --icon-teal: #10B981;
-  --icon-teal-bg: rgba(16, 185, 129, 0.15);
-  --icon-blue: #2196F3;
-  --icon-blue-bg: rgba(33, 150, 243, 0.15);
+  --icon-red: var(--ic-error);
+  --icon-red-bg: rgba(220, 38, 38, 0.15);
+  --icon-teal: var(--ic-success);
+  --icon-teal-bg: rgba(5, 150, 105, 0.15);
+  --icon-blue: var(--ic-info);
+  --icon-blue-bg: rgba(2, 132, 199, 0.15);
 
   /* ========== Card Backgrounds ========== */
-  --card-yellow: #FFF8E1;
+  --card-yellow: var(--ic-bg-cream);
   --card-green: #E8F5F0;
   --card-pink: #FCE4EC;
   --card-purple: #F3E5F5;
   --card-orange: #FFF3E0;
   --card-blue: #EEF4FB;
-  --card-gold-gradient: linear-gradient(135deg, #FFB800 0%, #E6A500 100%);
-  --card-dark-gradient: linear-gradient(135deg, #0A1F3D 0%, #1E4A85 100%);
+  --card-gold-gradient: linear-gradient(135deg, var(--ic-secondary) 0%, var(--ic-secondary-dark) 100%);
+  --card-dark-gradient: linear-gradient(135deg, var(--ic-primary) 0%, var(--ic-primary-light) 100%);
 
   /* ========== Semantic Colors ========== */
-  --success: #2E7D32;
-  --success-light: #66BB6A;
-  --warning: #F57C00;
-  --warning-light: #FFB74D;
-  --error: #D32F2F;
-  --error-light: #EF5350;
-  --info: #2196F3;
-  --info-light: #64B5F6;
+  --success: var(--ic-success);
+  --success-light: #34D399;
+  --warning: var(--ic-warning);
+  --warning-light: #FBBF24;
+  --error: var(--ic-error);
+  --error-light: #F87171;
+  --info: var(--ic-info);
+  --info-light: #38BDF8;
 
   /* ========== Shadow Colors ========== */
   --shadow-light: rgba(0, 0, 0, 0.05);
   --shadow-medium: rgba(0, 0, 0, 0.1);
   --shadow-dark: rgba(0, 0, 0, 0.15);
-  --shadow-gold: rgba(255, 184, 0, 0.3);
-  --shadow-card: 0 2px 12px rgba(10, 31, 61, 0.08);
-  --shadow-card-hover: 0 8px 30px rgba(10, 31, 61, 0.12);
-  --shadow-button: 0 4px 14px rgba(255, 107, 53, 0.35);
-  --shadow-button-hover: 0 6px 20px rgba(255, 107, 53, 0.45);
+  --shadow-gold: rgba(217, 119, 6, 0.3);
+  --shadow-card: var(--ic-shadow-md);
+  --shadow-card-hover: var(--ic-shadow-lg);
+  --shadow-button: var(--ic-shadow-cta);
+  --shadow-button-hover: var(--ic-shadow-cta-hover);
 
   /* ========== Typography ========== */
   --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -250,10 +304,10 @@
 
   /* ========== Overlays ========== */
   --overlay-light: rgba(255, 255, 255, 0.8);
-  --overlay-dark: rgba(10, 31, 61, 0.7);
-  --overlay-darker: rgba(10, 31, 61, 0.85);
-  --overlay-gradient: linear-gradient(180deg, rgba(10, 31, 61, 0.9) 0%, rgba(10, 31, 61, 0.4) 100%);
-  --overlay-gradient-reverse: linear-gradient(0deg, rgba(10, 31, 61, 0.9) 0%, rgba(10, 31, 61, 0.2) 100%);
+  --overlay-dark: rgba(30, 58, 138, 0.7);
+  --overlay-darker: rgba(30, 58, 138, 0.85);
+  --overlay-gradient: linear-gradient(180deg, rgba(30, 58, 138, 0.9) 0%, rgba(30, 58, 138, 0.4) 100%);
+  --overlay-gradient-reverse: linear-gradient(0deg, rgba(30, 58, 138, 0.9) 0%, rgba(30, 58, 138, 0.2) 100%);
 
   /* ========== Aspect Ratios ========== */
   --aspect-square: 1 / 1;
@@ -279,52 +333,53 @@
 
 /* ========== Semantic Aliases ========== */
 :root {
-  --ink: var(--primary-dark);
-  --ink-muted: var(--text-gray);
-  --surface: var(--white);
-  --surface-muted: var(--light-gray);
-  --brand: var(--accent-gold);
-  --cta: var(--cta-primary);
-  --savings: var(--savings-green);
+  --ink: var(--ic-text-primary);
+  --ink-muted: var(--ic-text-secondary);
+  --surface: var(--ic-bg-default);
+  --surface-muted: var(--ic-bg-soft);
+  --surface-cream: var(--ic-bg-cream);
+  --brand: var(--ic-primary);
+  --cta: var(--ic-cta);
+  --savings: var(--ic-success);
 }
 
 /* ========== Admin Panel Colors ========== */
 :root {
-  --admin-primary: #0A1F3D;
-  --admin-primary-light: #1E4A85;
-  --admin-primary-dark: #061330;
-  --admin-accent: #FFB800;
-  --admin-accent-light: #FFC939;
+  --admin-primary: var(--ic-primary);
+  --admin-primary-light: var(--ic-primary-light);
+  --admin-primary-dark: var(--ic-primary-dark);
+  --admin-accent: var(--ic-secondary);
+  --admin-accent-light: var(--ic-secondary-light);
   --admin-magenta: #D6246E;
   --admin-magenta-light: #E85A94;
-  --admin-cyan: #FFC939;
+  --admin-cyan: var(--ic-secondary-light);
   --admin-cyan-light: #FFE08A;
-  --admin-gradient: linear-gradient(135deg, #0A1F3D 0%, #1E4A85 100%);
-  --admin-gradient-accent: linear-gradient(135deg, #0A1F3D 0%, #FFB800 100%);
+  --admin-gradient: linear-gradient(135deg, var(--ic-primary) 0%, var(--ic-primary-light) 100%);
+  --admin-gradient-accent: linear-gradient(135deg, var(--ic-primary) 0%, var(--ic-secondary) 100%);
   --admin-bg: #F4F7FC;
   --admin-card-bg: #FFFFFF;
-  --admin-border: #E2E8F0;
-  --admin-text-primary: #1A2332;
-  --admin-text-secondary: #5A6B7F;
-  --admin-text-muted: #8E9BAD;
-  --admin-success: #10B981;
-  --admin-warning: #F59E0B;
-  --admin-error: #EF4444;
-  --admin-info: #3B82F6;
+  --admin-border: var(--ic-border);
+  --admin-text-primary: var(--ic-text-primary);
+  --admin-text-secondary: var(--ic-text-secondary);
+  --admin-text-muted: var(--ic-text-muted);
+  --admin-success: var(--ic-success);
+  --admin-warning: var(--ic-warning);
+  --admin-error: var(--ic-error);
+  --admin-info: var(--ic-info);
 }
 
 /* ========== Dark Mode Variables (for potential future use) ========== */
 [data-theme="dark"] {
-  --bg-primary: var(--primary-dark);
-  --bg-secondary: var(--primary-dark-alt);
-  --text-primary: var(--white);
+  --bg-primary: var(--ic-bg-dark);
+  --bg-secondary: var(--ic-primary-dark);
+  --text-primary: var(--ic-text-on-dark);
   --text-secondary: var(--off-white);
 }
 
 /* ========== Light Mode Variables ========== */
 [data-theme="light"] {
-  --bg-primary: var(--white);
+  --bg-primary: var(--ic-bg-default);
   --bg-secondary: var(--off-white);
-  --text-primary: var(--primary-dark);
-  --text-secondary: var(--text-dark-gray);
+  --text-primary: var(--ic-text-primary);
+  --text-secondary: var(--ic-text-secondary);
 }

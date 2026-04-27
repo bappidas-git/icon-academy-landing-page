@@ -263,7 +263,7 @@ const LeadForm = ({
         icon: 'success',
         title: '__TBD_ICON_CONTENT__',
         text: '__TBD_ICON_CONTENT__',
-        confirmButtonColor: '#0A1F3D',
+        confirmButtonColor: '#1E3A8A',
         confirmButtonText: 'Great!',
         timer: 3000,
         timerProgressBar: true,

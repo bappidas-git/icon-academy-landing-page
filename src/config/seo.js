@@ -18,7 +18,7 @@ export const seoConfig = {
   twitterHandle: "",
   locale: "en_IN",
   language: "en",
-  themeColor: "#0A1F3D",
+  themeColor: "#1E3A8A",
 
   // =========================================
   // Primary Contact (top-level convenience)
