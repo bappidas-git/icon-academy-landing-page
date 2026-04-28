@@ -1,147 +1,347 @@
 /* ============================================
-   Footer Component
-   Four-strip footer: top CTA band, main dark grid,
-   certifications, bottom bar.
+   Footer — Icon Commerce College
+   Affiliation strip + 4-column desktop grid
+   (Brand / Programmes / Admissions / Quick Links)
+   that collapses to stacked accordions on mobile.
+   Bottom band carries copyright, legal links, and
+   a "designed with care" credit. A floating
+   back-to-top button appears once the user has
+   scrolled past the hero.
    ============================================ */
 
-import React from "react";
-import styles from "./Footer.module.css";
+import React, { useState } from 'react';
+import { useMediaQuery, useTheme } from '@mui/material';
+import { Icon } from '@iconify/react';
 
-const LOGO_URL = "https://placehold.co/400x400?text=TBD+Logo";
-const WHATSAPP_URL = "";
+import { useModal } from '../../../context/ModalContext';
+import { useScrolledPast } from '../../../hooks/useScrollPosition';
+import { COLLEGE_LOCATION } from '../../../data/locationData';
+import styles from './Footer.module.css';
 
-const solutionLinks = [];
-const companyLinks = [];
+const LOGO_URL =
+  'https://placehold.co/200x60?text=Icon+Commerce+College+inverted';
+const SAMARTH_URL = 'https://assamadmission.samarth.ac.in/';
+const BACK_TO_TOP_THRESHOLD = 600;
 
-const socialLinks = [
-  { label: "LinkedIn", letter: "L" },
-  { label: "Instagram", letter: "I" },
-  { label: "YouTube", letter: "Y" },
-  { label: "Facebook", letter: "F" },
+const stripPhoneForTel = (value) => (value || '').replace(/[^0-9+]/g, '');
+
+const PROGRAMME_LINKS = [
+  { label: 'B.Com', href: '#programs' },
+  { label: 'BBA', href: '#programs' },
+  { label: 'BCA', href: '#programs' },
+  { label: 'B.A.', href: '#programs' },
+  { label: 'Compare Programmes', href: '#programs' },
 ];
 
-const certBadges = [];
+const QUICK_LINKS = [
+  { label: 'About', href: '#about' },
+  { label: 'Why Icon', href: '#why-icon' },
+  { label: 'Faculty', href: '#faculty' },
+  { label: 'Campus Life', href: '#campus-life' },
+  { label: 'Testimonials', href: '#testimonials' },
+  { label: 'FAQ', href: '#faq' },
+  { label: 'Contact', href: '#contact' },
+];
+
+const SOCIAL_PLATFORM_LABELS = {
+  facebook: 'Facebook',
+  instagram: 'Instagram',
+  linkedin: 'LinkedIn',
+  youtube: 'YouTube',
+};
 
 const Footer = () => {
-  return (
-    <footer className={styles.footer}>
-      {/* Strip 1 — Top CTA band */}
-      <div className={styles.topBand}>
-        <div className={styles.topBandInner}>
-          <p className={styles.topBandText}>__TBD_ICON_CONTENT__</p>
-          <a
-            href={WHATSAPP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.topBandCta}
+  const { openLeadDrawer } = useModal();
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
+  const isScrolledPastHero = useScrolledPast(BACK_TO_TOP_THRESHOLD);
+  const [openColumn, setOpenColumn] = useState(null);
+
+  const { name, addressLine1, addressLine2, phone, email, socials } =
+    COLLEGE_LOCATION;
+
+  const phoneHref = `tel:${stripPhoneForTel(phone)}`;
+  const emailHref = `mailto:${email}`;
+  const visibleSocials = socials.filter((s) => !!s.url);
+  const currentYear = new Date().getFullYear();
+
+  const handleApplyClick = (event) => {
+    event.preventDefault();
+    openLeadDrawer({ source: 'footer_apply' });
+  };
+
+  const handleColumnToggle = (key) => () => {
+    setOpenColumn((current) => (current === key ? null : key));
+  };
+
+  const handleBackToTop = () => {
+    const heroEl = document.getElementById('hero');
+    if (heroEl) {
+      heroEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const renderColumn = ({ key, heading, children }) => {
+    const isOpen = isDesktop || openColumn === key;
+    const panelId = `footer-${key}-panel`;
+    return (
+      <div
+        className={`${styles.col} ${isOpen ? styles.colOpen : ''}`}
+        data-column={key}
+      >
+        {isDesktop ? (
+          <h2 className={`${styles.colHeading} ${styles.colHeadingStatic}`}>
+            <span className={styles.colHeadingText}>{heading}</span>
+          </h2>
+        ) : (
+          <button
+            type="button"
+            className={styles.colHeading}
+            onClick={handleColumnToggle(key)}
+            aria-expanded={isOpen}
+            aria-controls={panelId}
           >
-            __TBD_ICON_CONTENT__
-          </a>
+            <span className={styles.colHeadingText} role="heading" aria-level={2}>
+              {heading}
+            </span>
+            <Icon
+              icon={isOpen ? 'mdi:minus' : 'mdi:plus'}
+              width={20}
+              height={20}
+              className={styles.colHeadingIcon}
+              aria-hidden="true"
+            />
+          </button>
+        )}
+        <div id={panelId} className={styles.colPanel}>
+          {children}
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <footer
+      className={styles.footer}
+      role="contentinfo"
+      aria-label="Site footer"
+    >
+      {/* ===== Affiliation strip ===== */}
+      <div className={styles.affiliationWrap}>
+        <div className={styles.affiliationCard}>
+          <Icon
+            icon="mdi:school-outline"
+            width={20}
+            height={20}
+            className={styles.affiliationIcon}
+            aria-hidden="true"
+          />
+          <span className={styles.affiliationText}>
+            Affiliated to Gauhati University · NEP 2020 aligned · Samarth
+            College Code 842
+          </span>
         </div>
       </div>
 
-      {/* Strip 2 — Main footer */}
+      {/* ===== Main columns ===== */}
       <div className={styles.main}>
         <div className={styles.mainInner}>
-          {/* Col 1 — Brand */}
-          <div className={styles.col}>
-            <img src={LOGO_URL} alt="" className={styles.logo} />
-            <p className={styles.tagline}>__TBD_ICON_CONTENT__</p>
-            <div className={styles.social}>
-              {socialLinks.map((s) => (
-                <a
-                  key={s.label}
-                  href={`https://placehold.co/40x40?text=${s.letter}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.socialBtn}
-                  aria-label={s.label}
-                >
-                  <img
-                    src={`https://placehold.co/40x40?text=${s.letter}`}
-                    alt={s.label}
-                    width={36}
-                    height={36}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </a>
-              ))}
-            </div>
-          </div>
-
-          {/* Col 2 — Programs */}
-          <div className={styles.col}>
-            <h4>__TBD_ICON_CONTENT__</h4>
-            <ul>
-              {solutionLinks.map((link) => (
-                <li key={link.label}>
-                  <a href={link.href}>{link.label}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Col 3 — Company */}
-          <div className={styles.col}>
-            <h4>__TBD_ICON_CONTENT__</h4>
-            <ul>
-              {companyLinks.map((link) => (
-                <li key={link.label}>
-                  <a href={link.href}>{link.label}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Col 4 — Talk to us */}
-          <div className={styles.col}>
-            <h4>__TBD_ICON_CONTENT__</h4>
-            <ul>
-              <li className={styles.regions}>__TBD_ICON_CONTENT__</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      {/* Strip 3 — Certifications / regulator strip */}
-      <div className={styles.certs}>
-        <div className={styles.certsInner}>
-          {certBadges.map((badge) => (
+          {/* Col 1 — Brand (always open on mobile) */}
+          <div className={`${styles.col} ${styles.brandCol}`} data-column="brand">
             <img
-              key={badge.alt}
-              src={badge.src}
-              alt={badge.alt}
-              className={styles.certBadge}
+              src={LOGO_URL}
+              alt={`${name} logo`}
+              className={styles.logo}
+              width={200}
+              height={60}
               loading="lazy"
               decoding="async"
-              width="120"
-              height="48"
             />
-          ))}
+            <p className={styles.tagline}>
+              Where Knowledge Meets Character — Estd. 2004, Guwahati
+            </p>
+            <address className={styles.address}>
+              <span>{addressLine1}</span>
+              <span>
+                {addressLine2}, {COLLEGE_LOCATION.state}
+              </span>
+            </address>
+            <ul className={styles.contactList} role="list">
+              <li>
+                <a href={phoneHref} className={styles.contactLink}>
+                  <Icon
+                    icon="mdi:phone-outline"
+                    width={16}
+                    height={16}
+                    aria-hidden="true"
+                  />
+                  <span>{phone}</span>
+                </a>
+              </li>
+              <li>
+                <a href={emailHref} className={styles.contactLink}>
+                  <Icon
+                    icon="mdi:email-outline"
+                    width={16}
+                    height={16}
+                    aria-hidden="true"
+                  />
+                  <span>{email}</span>
+                </a>
+              </li>
+            </ul>
+            {visibleSocials.length > 0 && (
+              <ul className={styles.socialList} role="list">
+                {visibleSocials.map((social) => {
+                  const platformLabel =
+                    SOCIAL_PLATFORM_LABELS[social.id] || social.id;
+                  return (
+                    <li key={social.id}>
+                      <a
+                        href={social.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.socialLink}
+                        aria-label={`Visit ${name} on ${platformLabel}`}
+                      >
+                        <Icon
+                          icon={social.icon}
+                          width={18}
+                          height={18}
+                          aria-hidden="true"
+                        />
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </div>
+
+          {/* Col 2 — Programmes */}
+          {renderColumn({
+            key: 'programmes',
+            heading: 'Programmes',
+            children: (
+              <ul className={styles.linkList} role="list">
+                {PROGRAMME_LINKS.map((link) => (
+                  <li key={link.label}>
+                    <a href={link.href} className={styles.link}>
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            ),
+          })}
+
+          {/* Col 3 — Admissions */}
+          {renderColumn({
+            key: 'admissions',
+            heading: 'Admissions',
+            children: (
+              <ul className={styles.linkList} role="list">
+                <li>
+                  <a
+                    href="#apply"
+                    className={styles.link}
+                    onClick={handleApplyClick}
+                  >
+                    Apply Now
+                  </a>
+                </li>
+                <li>
+                  <a href="#fees" className={styles.link}>
+                    Fee Structure
+                  </a>
+                </li>
+                <li>
+                  <a href="#scholarships" className={styles.link}>
+                    Scholarships
+                  </a>
+                </li>
+                <li>
+                  <a href="#admissions" className={styles.link}>
+                    Admission Process
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={SAMARTH_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.link}
+                  >
+                    Samarth Portal
+                    <Icon
+                      icon="mdi:open-in-new"
+                      width={14}
+                      height={14}
+                      className={styles.externalIcon}
+                      aria-hidden="true"
+                    />
+                  </a>
+                </li>
+              </ul>
+            ),
+          })}
+
+          {/* Col 4 — Quick Links */}
+          {renderColumn({
+            key: 'quick',
+            heading: 'Quick Links',
+            children: (
+              <ul className={styles.linkList} role="list">
+                {QUICK_LINKS.map((link) => (
+                  <li key={link.label}>
+                    <a href={link.href} className={styles.link}>
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            ),
+          })}
         </div>
       </div>
 
-      {/* Strip 4 — Bottom bar */}
+      {/* ===== Bottom band ===== */}
       <div className={styles.bottom}>
         <div className={styles.bottomInner}>
-          <span>&copy; 2026 __TBD_ICON_CONTENT__. All rights reserved.</span>
-          <div className={styles.bottomLinks}>
-            <a href="#" target="_blank" rel="noopener noreferrer">
+          <span className={styles.copyright}>
+            &copy; {currentYear} Icon Commerce College. All rights reserved.
+          </span>
+          <nav
+            className={styles.legalLinks}
+            aria-label="Footer legal navigation"
+          >
+            <a href="#" className={styles.legalLink}>
               Privacy Policy
             </a>
-            <span aria-hidden="true">·</span>
-            <a href="#" target="_blank" rel="noopener noreferrer">
-              Terms of Service
+            <a href="#" className={styles.legalLink}>
+              Terms of Use
             </a>
-            <span aria-hidden="true">·</span>
-            <a href="#" target="_blank" rel="noopener noreferrer">
-              Refund Policy
+            <a href="/sitemap.xml" className={styles.legalLink}>
+              Sitemap
             </a>
-          </div>
-          <span className={styles.tagRight}>__TBD_ICON_CONTENT__</span>
+          </nav>
+          <span className={styles.credit}>Designed &amp; built with care.</span>
         </div>
       </div>
+
+      {/* ===== Back-to-top floating button ===== */}
+      <button
+        type="button"
+        onClick={handleBackToTop}
+        aria-label="Back to top"
+        className={`${styles.backToTop} ${
+          isScrolledPastHero ? styles.backToTopVisible : ''
+        }`}
+      >
+        <Icon icon="mdi:arrow-up" width={22} height={22} aria-hidden="true" />
+      </button>
     </footer>
   );
 };
