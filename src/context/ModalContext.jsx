@@ -133,6 +133,12 @@ export const DRAWER_TITLES = {
     subtitle: 'We will reply on phone, WhatsApp, or email — your choice.',
   },
 
+  // Final CTA (page-bottom closing block)
+  final_cta_apply: {
+    title: 'Apply for 2026 Admissions',
+    subtitle: 'You are 2 minutes from your future.',
+  },
+
   // Default fallback
   general: {
     title: 'Apply for 2026 Admissions',

@@ -20,16 +20,6 @@ import { ModalProvider, useModal } from './context/ModalContext';
 import Header from './components/common/Header/Header';
 import HeroSection from './components/sections/HeroSection/HeroSection';
 import TrustBar from './components/sections/TrustBar/TrustBar';
-import AboutSection from './components/sections/AboutSection';
-import ProgramsSection from './components/sections/ProgramsSection';
-import WhyIconSection from './components/sections/WhyIconSection';
-import FacultySection from './components/sections/FacultySection';
-import ResultsSection from './components/sections/ResultsSection';
-import FacilitiesSection from './components/sections/FacilitiesSection';
-import CampusLifeSection from './components/sections/CampusLifeSection';
-import AdmissionsSection from './components/sections/AdmissionsSection';
-import FeesSection from './components/sections/FeesSection';
-import ScholarshipsSection from './components/sections/ScholarshipsSection';
 import Footer from './components/common/Footer/Footer';
 import Modal from './components/common/Modal/Modal';
 import MobileDrawer from './components/common/MobileDrawer/MobileDrawer';
@@ -56,8 +46,19 @@ const ThankYouPage = lazy(() => import('./pages/ThankYou/ThankYou'));
 const AdminLayout = lazy(() => import('./admin/components/AdminLayout'));
 
 // Lazy loaded sections for performance (Below the fold)
+const AboutSection = lazy(() => import('./components/sections/AboutSection'));
+const ProgramsSection = lazy(() => import('./components/sections/ProgramsSection'));
+const WhyIconSection = lazy(() => import('./components/sections/WhyIconSection'));
+const FacultySection = lazy(() => import('./components/sections/FacultySection'));
+const ResultsSection = lazy(() => import('./components/sections/ResultsSection'));
+const FacilitiesSection = lazy(() => import('./components/sections/FacilitiesSection'));
+const CampusLifeSection = lazy(() => import('./components/sections/CampusLifeSection'));
+const TestimonialsSection = lazy(() => import('./components/sections/TestimonialsSection/TestimonialsSection'));
+const AdmissionsSection = lazy(() => import('./components/sections/AdmissionsSection'));
+const FeesSection = lazy(() => import('./components/sections/FeesSection'));
+const ScholarshipsSection = lazy(() => import('./components/sections/ScholarshipsSection'));
 const FAQSection = lazy(() => import('./components/sections/FAQSection/FAQSection'));
-const ContactSection = lazy(() => import('./components/sections/ContactSection/ContactSection'));
+const ContactSection = lazy(() => import('./components/sections/ContactSection'));
 const FinalCTASection = lazy(() => import('./components/sections/FinalCTASection/FinalCTASection'));
 
 // ===========================================
@@ -321,15 +322,25 @@ BackToTopButton.displayName = 'BackToTopButton';
 // ===========================================
 // Preload Manager - Preload sections on idle
 // ===========================================
+// Order matters: Programs / Admissions / Fees are the most-clicked Header
+// anchors, so they warm first. FAQ and FinalCTA round out the must-haves
+// before the user scrolls past mid-page.
+const SECTION_PRELOADS = [
+  () => import('./components/sections/AboutSection'),
+  () => import('./components/sections/ProgramsSection'),
+  () => import('./components/sections/WhyIconSection'),
+  () => import('./components/sections/FacultySection'),
+  () => import('./components/sections/AdmissionsSection'),
+  () => import('./components/sections/FeesSection'),
+  () => import('./components/sections/FAQSection/FAQSection'),
+  () => import('./components/sections/FinalCTASection/FinalCTASection'),
+];
+
 const useIdlePreload = () => {
   useEffect(() => {
     // Preload sections during idle time
     if ('requestIdleCallback' in window) {
-      const sections = [
-        () => import('./components/sections/FAQSection/FAQSection'),
-        () => import('./components/sections/ContactSection/ContactSection'),
-        () => import('./components/sections/FinalCTASection/FinalCTASection'),
-      ];
+      const sections = SECTION_PRELOADS;
 
       let currentIndex = 0;
 
@@ -445,36 +456,83 @@ const HomePageContent = () => {
         <TrustBar />
 
         {/* About Section - institutional story */}
-        <AboutSection />
+        <ErrorBoundary>
+          <Suspense fallback={<SectionLoader height={400} variant="default" />}>
+            <AboutSection />
+          </Suspense>
+        </ErrorBoundary>
 
         {/* Programs Section - four UG programmes (primary conversion block) */}
-        <ProgramsSection />
+        <ErrorBoundary>
+          <Suspense fallback={<SectionLoader height={500} variant="skeleton" />}>
+            <ProgramsSection />
+          </Suspense>
+        </ErrorBoundary>
 
         {/* Why Icon Section - twelve USPs + soft re-engagement CTA */}
-        <WhyIconSection />
+        <ErrorBoundary>
+          <Suspense fallback={<SectionLoader height={400} variant="default" />}>
+            <WhyIconSection />
+          </Suspense>
+        </ErrorBoundary>
 
         {/* Faculty Section - leadership rail, filterable faculty grid, guest strip */}
-        <FacultySection />
+        <ErrorBoundary>
+          <Suspense fallback={<SectionLoader height={500} variant="skeleton" />}>
+            <FacultySection />
+          </Suspense>
+        </ErrorBoundary>
 
         {/* Results Section - stat strip, achievement badges, notable alumni */}
-        <ResultsSection />
+        <ErrorBoundary>
+          <Suspense fallback={<SectionLoader height={300} variant="minimal" />}>
+            <ResultsSection />
+          </Suspense>
+        </ErrorBoundary>
 
         {/* Facilities Section - visual gallery of campus infrastructure */}
-        <FacilitiesSection />
+        <ErrorBoundary>
+          <Suspense fallback={<SectionLoader height={400} variant="default" />}>
+            <FacilitiesSection />
+          </Suspense>
+        </ErrorBoundary>
 
         {/* Campus Life Section - flagship events, college week, academic life */}
-        <CampusLifeSection />
+        <ErrorBoundary>
+          <Suspense fallback={<SectionLoader height={400} variant="default" />}>
+            <CampusLifeSection />
+          </Suspense>
+        </ErrorBoundary>
+
+        {/* Testimonials Section - swipeable alumni testimonial carousel */}
+        <ErrorBoundary>
+          <Suspense fallback={<SectionLoader height={500} variant="skeleton" />}>
+            <TestimonialsSection />
+          </Suspense>
+        </ErrorBoundary>
 
         {/* Admissions Section - four-step Samarth process + College Code 842 */}
-        <AdmissionsSection />
+        <ErrorBoundary>
+          <Suspense fallback={<SectionLoader height={400} variant="default" />}>
+            <AdmissionsSection />
+          </Suspense>
+        </ErrorBoundary>
 
         {/* Fees Section - transparent fee schedule for the four UG programmes */}
-        <FeesSection />
+        <ErrorBoundary>
+          <Suspense fallback={<SectionLoader height={500} variant="skeleton" />}>
+            <FeesSection />
+          </Suspense>
+        </ErrorBoundary>
 
         {/* Scholarships Section - Government scheme facilitation + Nodal Officer */}
-        <ScholarshipsSection />
+        <ErrorBoundary>
+          <Suspense fallback={<SectionLoader height={400} variant="default" />}>
+            <ScholarshipsSection />
+          </Suspense>
+        </ErrorBoundary>
 
-        {/* Lazy loaded sections with error boundaries */}
+        {/* FAQ Section - high-friction admission questions + deflection CTAs */}
         <ErrorBoundary>
           <Suspense fallback={<SectionLoader height={500} variant="skeleton" />}>
             <FAQSection />
@@ -489,6 +547,7 @@ const HomePageContent = () => {
           </Suspense>
         </ErrorBoundary>
 
+        {/* Final CTA - indigo closing block: Apply Now + WhatsApp Us */}
         <ErrorBoundary>
           <Suspense fallback={<SectionLoader height={500} variant="default" />}>
             <FinalCTASection />
