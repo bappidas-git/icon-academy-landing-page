@@ -1,0 +1,335 @@
+/* ============================================
+   FeesTable Styles — Icon Commerce College
+   Indigo sticky header, cream zebra rows, tabular
+   numeric cells. Stacked cards on mobile so we
+   never force horizontal scroll. Disclaimers in
+   muted caption italics.
+   ============================================ */
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ===== Desktop / tablet table ===== */
+.tableScroll {
+  border-radius: 16px;
+  border: 1px solid var(--ic-border);
+  background: var(--ic-bg-default);
+  box-shadow: var(--ic-shadow-sm);
+  overflow: hidden;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--ic-font-body);
+  color: var(--ic-text-primary);
+}
+
+.thead {
+  position: sticky;
+  top: var(--header-height, 80px);
+  z-index: 1;
+  background: var(--ic-primary);
+}
+
+.thead th {
+  background: var(--ic-primary);
+  color: var(--ic-text-on-dark);
+  font-family: var(--ic-font-ui);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 16px 20px;
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.thNumeric,
+.thAction {
+  text-align: right;
+}
+
+.thSub {
+  display: block;
+  margin-top: 2px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.row {
+  background: var(--ic-bg-default);
+  transition: background-color 180ms ease;
+}
+
+.row:nth-child(odd) {
+  background: var(--ic-bg-cream);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .row:hover {
+    background: rgba(217, 119, 6, 0.08);
+  }
+}
+
+.row + .row {
+  border-top: 1px solid var(--ic-border);
+}
+
+.cellProgram,
+.cellNumeric,
+.cellAction {
+  padding: 18px 20px;
+  vertical-align: top;
+}
+
+/* Programme cell — code + full name + inclusion notes */
+.cellProgram {
+  text-align: left;
+  font-weight: 400;
+}
+
+.programCode {
+  display: block;
+  font-family: var(--ic-font-heading);
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.2;
+  color: var(--ic-text-primary);
+  letter-spacing: -0.01em;
+}
+
+.programName {
+  display: block;
+  font-family: var(--ic-font-body);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--ic-text-secondary);
+  margin-top: 2px;
+}
+
+.programNotes {
+  display: block;
+  font-family: var(--ic-font-body);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--ic-text-muted);
+  margin-top: 6px;
+  max-width: 36ch;
+}
+
+/* Numeric cells — right-aligned, tabular */
+.cellNumeric {
+  text-align: right;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ic-text-primary);
+  white-space: nowrap;
+}
+
+.cellNumericSub {
+  display: inline-block;
+  margin-left: 4px;
+  font-family: var(--ic-font-body);
+  font-weight: 500;
+  font-size: 12px;
+  color: var(--ic-text-secondary);
+  letter-spacing: 0;
+}
+
+.cellAction {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.applyButton {
+  text-transform: none !important;
+  border-radius: 10px !important;
+  font-family: var(--ic-font-ui) !important;
+  font-weight: 700 !important;
+  font-size: 0.8125rem !important;
+  padding: 0.5rem 0.875rem !important;
+  white-space: nowrap;
+}
+
+/* Hide stacked cards on desktop */
+.cards {
+  display: none;
+}
+
+/* ===== Mobile (<768px) — switch to stacked cards ===== */
+@media (max-width: 767px) {
+  .tableScroll {
+    display: none;
+  }
+
+  .cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .card {
+    background: var(--ic-bg-default);
+    border: 1px solid var(--ic-border);
+    border-radius: 16px;
+    padding: 18px 18px 16px;
+    box-shadow: var(--ic-shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .card:nth-child(odd) {
+    background: var(--ic-bg-cream);
+  }
+
+  .cardHead {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .cardCode {
+    font-family: var(--ic-font-heading);
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--ic-text-primary);
+  }
+
+  .cardName {
+    font-family: var(--ic-font-body);
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--ic-text-secondary);
+  }
+
+  .cardGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 12px;
+    margin: 4px 0 0;
+  }
+
+  .cardItem {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 10px 12px;
+    background: var(--ic-bg-default);
+    border: 1px solid var(--ic-border);
+    border-radius: 10px;
+  }
+
+  .card:nth-child(odd) .cardItem {
+    background: var(--ic-bg-default);
+  }
+
+  .cardItem:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .cardLabel {
+    font-family: var(--ic-font-ui);
+    font-weight: 700;
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ic-secondary-dark);
+    margin: 0;
+  }
+
+  .cardValue {
+    font-family: var(--ic-font-ui);
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1.2;
+    color: var(--ic-text-primary);
+    margin: 0;
+  }
+
+  .cardNotes {
+    font-family: var(--ic-font-body);
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--ic-text-muted);
+    margin: 0;
+  }
+
+  .cardApply {
+    margin-top: 4px;
+    text-transform: none !important;
+    border-radius: 10px !important;
+    font-family: var(--ic-font-ui) !important;
+    font-weight: 700 !important;
+    font-size: 0.9375rem !important;
+    min-height: 44px;
+  }
+}
+
+/* ===== Tablet (768–1023): tighter padding ===== */
+@media (max-width: 1023px) and (min-width: 768px) {
+  .thead th {
+    padding: 14px 14px;
+    font-size: 12px;
+  }
+
+  .cellProgram,
+  .cellNumeric,
+  .cellAction {
+    padding: 14px;
+  }
+
+  .programCode {
+    font-size: 18px;
+  }
+
+  .programNotes {
+    display: none;
+  }
+
+  .cellNumeric {
+    font-size: 15px;
+  }
+}
+
+/* ===== Disclaimers ===== */
+.disclaimers {
+  list-style: decimal;
+  padding-left: 1.25rem;
+  margin: 0;
+  padding-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.disclaimerItem {
+  font-family: var(--ic-font-body);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--ic-text-secondary);
+  font-style: italic;
+}
+
+@media (max-width: 767px) {
+  .disclaimers {
+    padding-top: 16px;
+  }
+}

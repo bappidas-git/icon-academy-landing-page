@@ -28,6 +28,7 @@ import ResultsSection from './components/sections/ResultsSection';
 import FacilitiesSection from './components/sections/FacilitiesSection';
 import CampusLifeSection from './components/sections/CampusLifeSection';
 import AdmissionsSection from './components/sections/AdmissionsSection';
+import FeesSection from './components/sections/FeesSection';
 import Footer from './components/common/Footer/Footer';
 import Modal from './components/common/Modal/Modal';
 import MobileDrawer from './components/common/MobileDrawer/MobileDrawer';
@@ -464,6 +465,9 @@ const HomePageContent = () => {
 
         {/* Admissions Section - four-step Samarth process + College Code 842 */}
         <AdmissionsSection />
+
+        {/* Fees Section - transparent fee schedule for the four UG programmes */}
+        <FeesSection />
 
         {/* Lazy loaded sections with error boundaries */}
         <ErrorBoundary>
