@@ -23,15 +23,21 @@ import {
   getNameErrorMessage,
   getMobileErrorMessage,
   getEmailErrorMessage,
+  getProgramErrorMessage,
+  getHsStreamErrorMessage,
+  PROGRAM_OPTIONS_LIST,
 } from "../../../utils/validators";
 import { showError, showInfo } from "../../../utils/swalHelper";
 
-const INITIAL_DATA = {
-  monthlyBill: "",
+export const INITIAL_DATA = {
+  // Step 1
+  program: "",
+  hsStream: "",
+  // Step 2
   state: "",
-  propertyType: "",
-  roofType: "",
-  systemPreference: "",
+  passingYear: "",
+  cityOrTown: "",
+  // Step 3
   name: "",
   mobile: "",
   email: "",
@@ -43,9 +49,30 @@ const INITIAL_CONTEXT = {
   solution: null,
 };
 
+// Drawer sources whose key implies a specific programme. Opening the
+// drawer with one of these sources preselects that programme in Step 1.
+const SOURCE_TO_PROGRAM = {
+  program_bcom_apply: "B.Com.",
+  program_bba_apply: "BBA",
+  program_bca_apply: "BCA",
+  program_ba_apply: "B.A.",
+  fees_bcom_apply: "B.Com.",
+  fees_bba_apply: "BBA",
+  fees_bca_apply: "BCA",
+  fees_ba_apply: "B.A.",
+};
+
 const buildInitialState = (initialContext = {}) => {
   const context = { ...INITIAL_CONTEXT, ...initialContext };
   const data = { ...INITIAL_DATA };
+
+  // If a programme override was passed via `solution`, preselect Step 1's
+  // `program` field (e.g. opening the drawer from a programme card).
+  if (context.solution && PROGRAM_OPTIONS_LIST.includes(context.solution)) {
+    data.program = context.solution;
+  } else if (SOURCE_TO_PROGRAM[context.source]) {
+    data.program = SOURCE_TO_PROGRAM[context.source];
+  }
 
   return {
     step: 1,
@@ -93,17 +120,20 @@ const reducer = (state, action) => {
 
 const validateStep1 = (data) => {
   const errors = {};
-  if (!data.monthlyBill) errors.monthlyBill = "__TBD_ICON_CONTENT__";
-  if (!data.state) errors.state = "__TBD_ICON_CONTENT__";
+  const programErr = getProgramErrorMessage(data.program);
+  if (programErr) errors.program = programErr;
+  const streamErr = getHsStreamErrorMessage(data.hsStream);
+  if (streamErr) errors.hsStream = streamErr;
   return errors;
 };
 
 const validateStep2 = (data) => {
   const errors = {};
-  if (!data.propertyType) errors.propertyType = "__TBD_ICON_CONTENT__";
-  if (!data.roofType) errors.roofType = "__TBD_ICON_CONTENT__";
-  if (!data.systemPreference)
-    errors.systemPreference = "__TBD_ICON_CONTENT__";
+  if (!data.state) errors.state = "Please select your state";
+  if (!data.passingYear) errors.passingYear = "Please select your HS passing year";
+  if (!data.cityOrTown || data.cityOrTown.trim().length < 2) {
+    errors.cityOrTown = "Please enter your city or town";
+  }
   return errors;
 };
 
@@ -121,7 +151,7 @@ const validateStep3 = (data) => {
   }
 
   if (!data.consent) {
-    errors.consent = "__TBD_ICON_CONTENT__";
+    errors.consent = "Please agree to be contacted before submitting";
   }
   return errors;
 };
@@ -138,12 +168,15 @@ const validateStep = (step, data) => {
 const buildEnrichedMessage = (data, context) => {
   const parts = [];
 
-  if (data.monthlyBill) parts.push(`Bill: ${data.monthlyBill}`);
+  if (data.program) parts.push(`Programme: ${data.program}`);
+  if (data.hsStream) parts.push(`HS Stream: ${data.hsStream}`);
   if (data.state) parts.push(`State: ${data.state}`);
-  if (data.propertyType) parts.push(`Property: ${data.propertyType}`);
-  if (data.roofType) parts.push(`Roof: ${data.roofType}`);
-  if (data.systemPreference) parts.push(`Pref: ${data.systemPreference}`);
-  if (context?.solution) parts.push(`Solution: ${context.solution}`);
+  if (data.passingYear) parts.push(`HS Passing Year: ${data.passingYear}`);
+  if (data.cityOrTown) parts.push(`City: ${data.cityOrTown}`);
+  if (context?.solution && context.solution !== data.program) {
+    parts.push(`Source Solution: ${context.solution}`);
+  }
+  if (context?.source) parts.push(`Source: ${context.source}`);
 
   return parts.filter(Boolean).join(" | ");
 };
@@ -222,7 +255,10 @@ const useLeadFormMachine = (initialContext = {}) => {
       const { data, context } = state;
 
       if (isDuplicateLead(data.mobile, data.email)) {
-        await showInfo("__TBD_ICON_CONTENT__", "__TBD_ICON_CONTENT__");
+        await showInfo(
+          "Already submitted",
+          "We've already received your details — our admissions team will call you within 24 hours."
+        );
         return { success: false, duplicate: true };
       }
 
@@ -235,16 +271,22 @@ const useLeadFormMachine = (initialContext = {}) => {
         name: data.name.trim(),
         mobile: data.mobile.trim(),
         email: data.email.trim(),
-        service_interest: context.solution || data.systemPreference || "",
+        service_interest: data.program || context.solution || "",
         message: enrichedMessage || "",
         source,
+        // Pass new fields at top level so admin panel can show them as columns.
+        program: data.program,
+        hs_stream: data.hsStream,
+        state: data.state,
+        passing_year: data.passingYear,
+        city_or_town: data.cityOrTown,
       };
 
       try {
         const result = await submitLeadToWebhook(leadData);
 
         if (!result.success) {
-          await showError("__TBD_ICON_CONTENT__", result.message);
+          await showError("Submission failed", result.message);
           dispatch({ type: "SET_SUBMITTING", value: false });
           return { success: false };
         }
@@ -294,7 +336,10 @@ const useLeadFormMachine = (initialContext = {}) => {
         return { success: true };
       } catch (error) {
         console.error("Lead submission error:", error);
-        await showError("__TBD_ICON_CONTENT__", "__TBD_ICON_CONTENT__");
+        await showError(
+          "Something went wrong",
+          "Please try again or call us directly."
+        );
         dispatch({ type: "SET_SUBMITTING", value: false });
         return { success: false };
       }

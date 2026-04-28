@@ -363,7 +363,6 @@ const LeadFormDrawerWrapper = () => {
       subtitle={drawerConfig.subtitle}
       source={drawerConfig.source}
       solution={drawerConfig.solution}
-      calculatorSnapshot={drawerConfig.calculatorSnapshot}
     />
   );
 };
@@ -388,7 +387,7 @@ const HomePageContent = () => {
 
   const handleMobileDrawerClose = () => setIsMobileDrawerOpen(false);
   const handleMobileDrawerOpen = () => setIsMobileDrawerOpen(true);
-  const handleEnquiryClick = () => openLeadDrawer('default');
+  const handleEnquiryClick = () => openLeadDrawer('general');
 
   // Handle hash-based scroll to section (e.g., /#overview, /#floor-plans)
   // Sections are lazy-loaded, so we poll until the target element appears in the DOM

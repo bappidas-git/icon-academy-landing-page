@@ -51,7 +51,16 @@ const PrivacyModal = ({ open, onClose }) => {
               </IconButton>
             </div>
             <div className={styles.privacyBody}>
-              <p>__TBD_ICON_CONTENT__</p>
+              <p>
+                Icon Commerce College respects your privacy. The information
+                you share is used only to contact you about admission to our
+                undergraduate programmes. Your details are never sold or shared
+                with third parties. For questions, write to{" "}
+                <a href="mailto:privacy@iconcommercecollege.in">
+                  privacy@iconcommercecollege.in
+                </a>
+                .
+              </p>
             </div>
           </motion.div>
         </motion.div>
@@ -65,10 +74,11 @@ const Step3Contact = ({ data, errors, context, onChange }) => {
   const [privacyOpen, setPrivacyOpen] = useState(false);
 
   const dataParts = [
-    data.monthlyBill,
+    data.program,
+    data.hsStream,
     data.state,
-    data.propertyType,
-    data.systemPreference,
+    data.passingYear,
+    data.cityOrTown,
   ].filter(Boolean);
 
   return (
@@ -81,7 +91,7 @@ const Step3Contact = ({ data, errors, context, onChange }) => {
             className={styles.contextIcon}
           />
           <span>
-            <strong>__TBD_ICON_CONTENT__</strong> {dataParts.join(" · ")}
+            <strong>Your enquiry:</strong> {dataParts.join(" · ")}
           </span>
         </div>
       )}
@@ -168,7 +178,8 @@ const Step3Contact = ({ data, errors, context, onChange }) => {
           inputProps={{ "aria-describedby": "lead-consent-help" }}
         />
         <span id="lead-consent-help">
-          __TBD_ICON_CONTENT__{" "}
+          I agree to be contacted by Icon Commerce College about my admission
+          enquiry and accept the{" "}
           <a
             href="#"
             role="button"
@@ -196,7 +207,9 @@ const Step3Contact = ({ data, errors, context, onChange }) => {
       )}
 
       <div className={styles.trustRow} aria-hidden="true">
-        <span>__TBD_ICON_CONTENT__</span>
+        <span>🔒 100% confidential</span>
+        <span>📞 Call within 24 hrs</span>
+        <span>✅ Direct admissions support</span>
       </div>
 
       <PrivacyModal

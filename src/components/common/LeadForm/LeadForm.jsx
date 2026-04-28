@@ -31,8 +31,14 @@ import {
 } from '../../../utils/validators';
 import styles from './LeadForm.module.css';
 
-// Service interest options
-const SERVICE_OPTIONS = [];
+// Programme of interest options
+const PROGRAM_OPTIONS = [
+  { value: 'B.Com.', label: 'Bachelor of Commerce (B.Com.)' },
+  { value: 'BBA', label: 'Bachelor of Business Administration (BBA)' },
+  { value: 'BCA', label: 'Bachelor of Computer Applications (BCA)' },
+  { value: 'B.A.', label: 'Bachelor of Arts (B.A.)' },
+  { value: 'Not sure yet', label: 'Not sure yet — counsel me' },
+];
 
 // Initial form state
 const initialFormState = {
@@ -54,15 +60,16 @@ const initialErrorState = {
 
 const LeadForm = ({
   variant = 'default', // 'default', 'compact', 'dark', 'card'
-  title = '__TBD_ICON_CONTENT__',
-  subtitle = '__TBD_ICON_CONTENT__',
-  submitButtonText = '__TBD_ICON_CONTENT__',
+  title = 'Send us a message',
+  subtitle = 'Share a few details — our admissions team will call you within 24 hours.',
+  submitButtonText = 'Send enquiry',
   showTitle = true,
   showCourseFields = true,
   onSubmitSuccess,
   onSubmitError,
   className = '',
   formId = 'lead-form',
+  source = 'contact_inline',
 }) => {
   // Form state
   const [formData, setFormData] = useState(initialFormState);
@@ -133,7 +140,7 @@ const LeadForm = ({
         break;
       case 'service_interest':
         if (showCourseFields && !formData.service_interest) {
-          errorMessage = 'Please select a service';
+          errorMessage = 'Please select a programme';
         }
         break;
       case 'message':
@@ -159,7 +166,7 @@ const LeadForm = ({
       email: formData.email ? getEmailErrorMessage(formData.email) : '',
       service_interest:
         showCourseFields && !formData.service_interest
-          ? 'Please select a service'
+          ? 'Please select a programme'
           : '',
       message:
         formData.message && formData.message.length > 500
@@ -216,7 +223,7 @@ const LeadForm = ({
           mobile: formData.mobile,
           service_interest: formData.service_interest || '',
           message: formData.message || '',
-          source: 'website',
+          source,
         }),
       });
 
@@ -236,8 +243,8 @@ const LeadForm = ({
       // Handle duplicate lead (409 Conflict)
       if (response.status === 409 || data.data?.duplicate) {
         await showInfo(
-          '__TBD_ICON_CONTENT__',
-          '__TBD_ICON_CONTENT__'
+          'Already submitted',
+          "We've already received your details — our admissions team will call you within 24 hours."
         );
         return;
       }
@@ -261,8 +268,8 @@ const LeadForm = ({
       // Show success message with SweetAlert2
       await showAlert({
         icon: 'success',
-        title: '__TBD_ICON_CONTENT__',
-        text: '__TBD_ICON_CONTENT__',
+        title: 'Thanks!',
+        text: 'Our admissions team will call you within 24 hours.',
         confirmButtonColor: '#1E3A8A',
         confirmButtonText: 'Great!',
         timer: 3000,
@@ -414,7 +421,7 @@ const LeadForm = ({
             helperText={
               touched.mobile && errors.mobile
                 ? errors.mobile
-                : "__TBD_ICON_CONTENT__"
+                : 'Used only to call you about your enquiry.'
             }
             disabled={isSubmitting}
             className={styles.textField}
@@ -471,18 +478,18 @@ const LeadForm = ({
                   if (!selected) {
                     return (
                       <span style={{ color: variant === 'dark' ? '#FFFFFF80' : undefined, opacity: variant === 'dark' ? 1 : 0.5 }}>
-                        __TBD_ICON_CONTENT__
+                        Programme of interest
                       </span>
                     );
                   }
-                  const match = SERVICE_OPTIONS.find((opt) => opt.value === selected);
+                  const match = PROGRAM_OPTIONS.find((opt) => opt.value === selected);
                   return match ? match.label : selected;
                 }}
                 classes={{
                   root: styles.inputRoot,
                 }}
                 inputProps={{
-                  'aria-label': 'What are you interested in?',
+                  'aria-label': 'Programme of interest',
                 }}
                 sx={
                   variant === 'dark'
@@ -490,7 +497,7 @@ const LeadForm = ({
                     : undefined
                 }
               >
-                {SERVICE_OPTIONS.map((option) => (
+                {PROGRAM_OPTIONS.map((option) => (
                   <MenuItem key={option.value} value={option.value}>
                     {option.label}
                   </MenuItem>
@@ -607,7 +614,7 @@ const LeadForm = ({
             className={styles.privacyNote}
             sx={variant === 'dark' ? { color: '#FFFFFFB3 !important' } : undefined}
           >
-            __TBD_ICON_CONTENT__
+            By submitting, you agree to be contacted by Icon Commerce College about your admission enquiry.
           </Typography>
         </motion.div>
 
@@ -626,7 +633,7 @@ const LeadForm = ({
                   onClose={() => setSubmitStatus(null)}
                 >
                   {submitStatus === 'success'
-                    ? '__TBD_ICON_CONTENT__'
+                    ? 'Thanks! Our admissions team will call you within 24 hours.'
                     : 'Failed to submit. Please try again.'}
                 </Alert>
               </Collapse>
