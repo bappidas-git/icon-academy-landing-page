@@ -1,5 +1,29 @@
 @import '../../../styles/tokens.css';
 
+.finalCta {
+  background: linear-gradient(135deg, #1E3A8A 0%, #3B5BDB 100%);
+  color: var(--white);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.finalCta::before {
+  content: '';
+  position: absolute;
+  top: -120px;
+  right: -120px;
+  width: 360px;
+  height: 360px;
+  background: radial-gradient(closest-side, rgba(255, 184, 0, 0.22), rgba(255, 184, 0, 0) 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.finalCta > * {
+  position: relative;
+  z-index: 1;
+}
+
 .grid {
   display: grid;
   grid-template-columns: 1fr;
