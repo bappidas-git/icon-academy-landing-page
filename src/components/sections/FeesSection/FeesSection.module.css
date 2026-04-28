@@ -1,0 +1,217 @@
+/* ============================================
+   FeesSection Styles — Icon Commerce College
+   Soft surface hosts the indigo-headed fee table,
+   three tinted callout pills (saffron / indigo /
+   coral), and the bottom CTA pair (Apply Now +
+   View Scholarships ↓).
+   ============================================ */
+
+.section {
+  position: relative;
+  background: var(--ic-bg-soft);
+  padding: 96px 0;
+}
+
+.container {
+  position: relative;
+}
+
+/* ===== Section header ===== */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 760px;
+  margin: 0 auto 3rem;
+  text-align: center;
+  align-items: center;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 14px;
+  background-color: rgba(217, 119, 6, 0.16);
+  color: var(--ic-secondary-dark);
+  font-family: var(--ic-font-ui);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  border-radius: 999px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.heading {
+  font-family: var(--ic-font-heading) !important;
+  font-weight: 700 !important;
+  color: var(--ic-text-primary);
+  font-size: clamp(2rem, 1.4rem + 2.5vw, 3rem);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+
+.subhead {
+  font-family: var(--ic-font-body) !important;
+  font-weight: 400 !important;
+  color: var(--ic-text-secondary);
+  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ===== Callout strips ===== */
+.callouts {
+  list-style: none;
+  margin: 2.5rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.calloutItem {
+  display: flex;
+}
+
+.calloutItem > * {
+  width: 100%;
+  display: flex;
+}
+
+.calloutCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid transparent;
+  font-family: var(--ic-font-body);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ic-text-primary);
+}
+
+.calloutIconWrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.calloutIcon {
+  display: block;
+}
+
+.calloutText {
+  flex: 1;
+}
+
+/* Tone — Saffron */
+.tone-saffron .calloutCard {
+  background: var(--ic-bg-cream);
+  border-color: rgba(217, 119, 6, 0.22);
+}
+
+.tone-saffron .calloutIconWrap {
+  background: rgba(217, 119, 6, 0.16);
+  color: var(--ic-secondary-dark);
+}
+
+/* Tone — Indigo */
+.tone-indigo .calloutCard {
+  background: var(--ic-primary-50);
+  border-color: rgba(30, 58, 138, 0.18);
+}
+
+.tone-indigo .calloutIconWrap {
+  background: rgba(30, 58, 138, 0.12);
+  color: var(--ic-primary);
+}
+
+/* Tone — Coral */
+.tone-coral .calloutCard {
+  background: rgba(225, 29, 72, 0.08);
+  border-color: rgba(225, 29, 72, 0.20);
+}
+
+.tone-coral .calloutIconWrap {
+  background: rgba(225, 29, 72, 0.14);
+  color: var(--ic-cta);
+}
+
+/* ===== Bottom CTA pair ===== */
+.bottomCta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px 20px;
+  margin-top: 3rem;
+}
+
+.primaryButton {
+  min-height: 52px;
+  border-radius: 12px !important;
+  text-transform: none !important;
+  font-family: var(--ic-font-ui) !important;
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+  padding: 0.75rem 2rem !important;
+  min-width: 200px;
+}
+
+.secondaryButton {
+  text-transform: none !important;
+  font-family: var(--ic-font-ui) !important;
+  font-weight: 600 !important;
+  font-size: 0.9375rem !important;
+  color: var(--ic-primary) !important;
+  padding: 0.5rem 1rem !important;
+}
+
+/* ===== Tablet ===== */
+@media (max-width: 1023px) {
+  .callouts {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 767px) {
+  .section {
+    padding: 64px 0;
+  }
+
+  .header {
+    margin-bottom: 2rem;
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .callouts {
+    margin-top: 2rem;
+  }
+
+  .bottomCta {
+    flex-direction: column;
+    align-items: stretch;
+    margin-top: 2rem;
+  }
+
+  .primaryButton {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .secondaryButton {
+    width: 100%;
+  }
+}
