@@ -27,6 +27,7 @@ import FacultySection from './components/sections/FacultySection';
 import ResultsSection from './components/sections/ResultsSection';
 import FacilitiesSection from './components/sections/FacilitiesSection';
 import CampusLifeSection from './components/sections/CampusLifeSection';
+import AdmissionsSection from './components/sections/AdmissionsSection';
 import Footer from './components/common/Footer/Footer';
 import Modal from './components/common/Modal/Modal';
 import MobileDrawer from './components/common/MobileDrawer/MobileDrawer';
@@ -460,6 +461,9 @@ const HomePageContent = () => {
 
         {/* Campus Life Section - flagship events, college week, academic life */}
         <CampusLifeSection />
+
+        {/* Admissions Section - four-step Samarth process + College Code 842 */}
+        <AdmissionsSection />
 
         {/* Lazy loaded sections with error boundaries */}
         <ErrorBoundary>
