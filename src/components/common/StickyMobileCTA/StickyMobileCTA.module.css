@@ -5,65 +5,59 @@
   bottom: 0;
   z-index: 950;
   display: none;
-  background: var(--white);
-  border-top: 1px solid var(--border-gray);
-  box-shadow: 0 -8px 24px rgba(10, 31, 61, 0.12);
+  background: var(--ic-bg-default);
+  border-top: 1px solid var(--ic-border);
+  box-shadow: 0 -4px 12px rgba(15, 23, 42, 0.08);
   padding-bottom: env(safe-area-inset-bottom);
 }
 
 @media (max-width: 768px) {
   .bar {
     display: grid;
-    grid-template-columns: 1fr 1fr 1.2fr;
+    grid-template-columns: 1fr 1fr;
   }
 }
 
 .cell {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2px;
-  padding: 10px 6px;
-  font-size: 0.6875rem;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  font-family: var(--ic-font-ui);
+  font-size: 0.875rem;
   font-weight: 700;
-  letter-spacing: 0.03em;
-  color: var(--ink);
+  letter-spacing: 0.02em;
+  color: var(--ic-text-primary);
   text-decoration: none;
   border: none;
   background: transparent;
   cursor: pointer;
-  font-family: inherit;
-  min-height: 60px;
+  min-height: 56px;
   -webkit-tap-highlight-color: transparent;
 }
 
 .cell svg,
 .cell [class^='iconify'] {
-  font-size: 22px;
-  color: var(--ink);
-}
-
-.cell.whatsapp svg,
-.cell.whatsapp [class^='iconify'] {
-  color: #25D366;
+  font-size: 20px;
+  color: var(--ic-primary);
 }
 
 .cell.primary {
-  background: var(--cta-primary);
-  color: var(--white);
+  background: var(--ic-cta);
+  color: var(--ic-text-on-dark);
 }
 
 .cell.primary svg,
 .cell.primary [class^='iconify'] {
-  color: var(--white);
+  color: var(--ic-text-on-dark);
 }
 
 .cell.primary:hover {
-  background: var(--cta-primary-hover);
+  background: var(--ic-cta-dark);
 }
 
 .cell:focus-visible {
-  outline: 2px solid var(--cta-primary);
-  outline-offset: -2px;
+  outline: 3px solid var(--ic-secondary);
+  outline-offset: -3px;
 }

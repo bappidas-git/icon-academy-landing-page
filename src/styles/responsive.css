@@ -13,6 +13,21 @@
   2xl: 1440px - Large desktops
 */
 
+/* ========== Content width ========== */
+:root {
+  --ic-content-max: 1200px;
+}
+
+/* Canonical container — fluid horizontal padding (16px → 32px) and
+   capped at --ic-content-max. Min-width media queries below tighten
+   the cap on larger screens via .container max-width overrides. */
+.container {
+  width: 100%;
+  max-width: var(--ic-content-max);
+  padding-inline: clamp(16px, 4vw, 32px);
+  margin-inline: auto;
+}
+
 /* ========== Mobile First Base Styles ========== */
 /* These are the default mobile styles */
 

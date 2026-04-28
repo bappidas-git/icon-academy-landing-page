@@ -1,54 +1,59 @@
 /* ============================================
    StickyMobileCTA
-   Fixed 3-button bar (Call · WhatsApp · Get Quote)
-   that docks to the bottom of the viewport on
-   mobile once the user scrolls past the hero.
+   Mobile-only (<768px) bottom-docked bar with two
+   tappable halves: "Call Admissions" (tel:) and a
+   coral "Apply Now" button that opens the lead
+   drawer with source `sticky_mobile_apply`.
 
-   Conflict with MobileNavigation: both render at
-   <= 768px and dock to bottom: 0. We resolve this
-   with z-index stacking — StickyMobileCTA (z: 950)
-   sits on top of MobileNavigation (z: var(--z-fixed) = 300)
-   and effectively replaces it once visible (after 400px
-   scroll). This is the "replaces the mobile nav" option
-   called out in prompt 23.
+   Hidden during the first 100vh so it does not
+   compete with the hero CTA, hidden while the lead
+   drawer is open, and hidden on /admin and
+   /thank-you routes.
    ============================================ */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Icon } from '@iconify/react';
 import { useModal } from '../../../context/ModalContext';
 import { useScrolledPast } from '../../../hooks/useScrollPosition';
+import useMediaQuery from '../../../hooks/useMediaQuery';
 import { trackCTAClick } from '../../../utils/gtm';
 import { trackCtaClickEvent, trackFunnelStep } from '../../../utils/leadEvents';
 import styles from './StickyMobileCTA.module.css';
 
 const SALES_PHONE_TEL = (process.env.REACT_APP_SALES_PHONE || '').replace(/\s+/g, '');
-const WHATSAPP_NUMBER = SALES_PHONE_TEL.replace(/[^0-9]/g, '');
 
 const StickyMobileCTA = () => {
   const location = useLocation();
   const { isDrawerOpen, openLeadDrawer } = useModal();
-  const scrolledPast = useScrolledPast(400);
+  const isMobile = useMediaQuery('(max-width: 768px)');
+
+  // Track viewport height so the CTA stays hidden through the entire hero
+  // even when the user rotates or the mobile address bar resizes.
+  const [heroThreshold, setHeroThreshold] = useState(
+    typeof window !== 'undefined' ? window.innerHeight : 800
+  );
+  useEffect(() => {
+    const onResize = () => setHeroThreshold(window.innerHeight);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+  const scrolledPastHero = useScrolledPast(heroThreshold);
 
   const isHiddenRoute =
     location.pathname === '/thank-you' || location.pathname.startsWith('/admin');
 
-  const shouldShow = scrolledPast && !isDrawerOpen && !isHiddenRoute;
+  const shouldShow = isMobile && scrolledPastHero && !isDrawerOpen && !isHiddenRoute;
 
   const handleCallClick = () => {
-    trackCTAClick('sticky_call', 'sticky_mobile_cta', 'Call');
+    trackCTAClick('sticky_call', 'sticky_mobile_cta', 'Call Admissions');
     trackFunnelStep('phone_click', { source: 'sticky_mobile' });
   };
 
-  const handleWhatsAppClick = () => {
-    trackCTAClick('sticky_whatsapp', 'sticky_mobile_cta', 'WhatsApp');
-    trackFunnelStep('whatsapp_click', { source: 'sticky_mobile' });
-  };
-
-  const handleQuoteClick = () => {
-    trackCtaClickEvent('sticky_get_quote', 'sticky_bar', 'Get Quote');
-    openLeadDrawer({ source: 'sticky_mobile' });
+  const handleApplyClick = () => {
+    trackCtaClickEvent('sticky_mobile_apply', 'sticky_bar', 'Apply Now');
+    openLeadDrawer({ source: 'sticky_mobile_apply' });
   };
 
   return (
@@ -56,10 +61,10 @@ const StickyMobileCTA = () => {
       {shouldShow && (
         <motion.div
           className={styles.bar}
-          initial={{ y: 100, opacity: 0 }}
+          initial={{ y: '100%', opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 100, opacity: 0 }}
-          transition={{ type: 'spring', stiffness: 320, damping: 30 }}
+          exit={{ y: '100%', opacity: 0 }}
+          transition={{ duration: 0.24, ease: 'easeOut' }}
           role="region"
           aria-label="Quick contact actions"
         >
@@ -67,32 +72,20 @@ const StickyMobileCTA = () => {
             href={`tel:${SALES_PHONE_TEL}`}
             className={styles.cell}
             onClick={handleCallClick}
-            aria-label="Call"
+            aria-label="Call Admissions"
           >
             <Icon icon="mdi:phone" aria-hidden="true" />
-            <span>Call</span>
-          </a>
-
-          <a
-            href={`https://wa.me/${WHATSAPP_NUMBER}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`${styles.cell} ${styles.whatsapp}`}
-            onClick={handleWhatsAppClick}
-            aria-label="WhatsApp"
-          >
-            <Icon icon="mdi:whatsapp" aria-hidden="true" />
-            <span>WhatsApp</span>
+            <span>Call Admissions</span>
           </a>
 
           <button
             type="button"
             className={`${styles.cell} ${styles.primary}`}
-            onClick={handleQuoteClick}
-            aria-label="Get a free quote"
+            onClick={handleApplyClick}
+            aria-label="Apply Now"
           >
             <Icon icon="mdi:flash" aria-hidden="true" />
-            <span>Get Quote</span>
+            <span>Apply Now</span>
           </button>
         </motion.div>
       )}
