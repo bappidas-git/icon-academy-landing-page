@@ -38,15 +38,15 @@ const STATUS_OPTIONS = [
   { value: "new", label: "New Lead", color: "#2B7BD5", bg: "#EBF5FF" },
   { value: "contacted", label: "Contacted", color: "#F59E0B", bg: "#FFF7ED" },
   { value: "consultation_booked", label: "Consultation Booked", color: "#8B5CF6", bg: "#F3E8FF" },
-  { value: "procedure_scheduled", label: "Site Survey Scheduled", color: "#0097A7", bg: "#E0F7FA" },
+  { value: "procedure_scheduled", label: "Campus Visit Scheduled", color: "#0097A7", bg: "#E0F7FA" },
   { value: "completed", label: "Completed", color: "#10B981", bg: "#ECFDF5" },
   { value: "not_interested", label: "Not Interested", color: "#EF4444", bg: "#FEF2F2" },
 ];
 
 const CONVERSION_TYPES = [
-  "Consultation Completed",
-  "Site Survey Booked",
-  "Site Survey Completed",
+  "Counselling Completed",
+  "Application Submitted",
+  "Admission Confirmed",
   "Completed",
   "Referral",
   "Other",
@@ -313,74 +313,142 @@ const LeadDetail = () => {
       <div className={styles.columns}>
         {/* Left Column — Lead Information */}
         <div className={styles.leftColumn}>
-          {/* Contact Details */}
-          <div className={styles.card}>
-            <h3 className={styles.cardTitle}>
-              <Icon icon="mdi:account-circle-outline" width={16} />
-              Lead Details
-            </h3>
-            <div className={styles.infoGrid}>
-              <div className={styles.infoField}>
-                <span className={styles.infoLabel}>Full Name</span>
-                <span className={lead.name ? styles.infoValue : styles.infoDash}>
-                  {lead.name || "\u2014"}
-                </span>
+          {/* Two info cards side-by-side: Contact + Application context */}
+          <div className={styles.infoCardPair}>
+            {/* Card 1: Contact */}
+            <div className={styles.card}>
+              <h3 className={styles.cardTitle}>
+                <Icon icon="mdi:account-circle-outline" width={16} />
+                Contact
+              </h3>
+              <div className={styles.infoGrid}>
+                <div className={styles.infoFieldFull}>
+                  <span className={styles.infoLabel}>Name</span>
+                  <span className={lead.name ? styles.infoValue : styles.infoDash}>
+                    {lead.name || "\u2014"}
+                  </span>
+                </div>
+                <div className={styles.infoFieldFull}>
+                  <span className={styles.infoLabel}>Mobile</span>
+                  {lead.mobile ? (
+                    <a href={`tel:${lead.mobile}`} className={styles.infoLink}>
+                      {lead.mobile}
+                    </a>
+                  ) : (
+                    <span className={styles.infoDash}>{"\u2014"}</span>
+                  )}
+                </div>
+                <div className={styles.infoFieldFull}>
+                  <span className={styles.infoLabel}>Email</span>
+                  {lead.email ? (
+                    <a href={`mailto:${lead.email}`} className={styles.infoLink}>
+                      {lead.email}
+                    </a>
+                  ) : (
+                    <span className={styles.infoDash}>{"\u2014"}</span>
+                  )}
+                </div>
+                <div className={styles.infoFieldFull}>
+                  <span className={styles.infoLabel}>City / Town</span>
+                  <span className={lead.city_or_town ? styles.infoValue : styles.infoDash}>
+                    {lead.city_or_town || "\u2014"}
+                  </span>
+                </div>
               </div>
-              <div className={styles.infoField}>
-                <span className={styles.infoLabel}>Mobile</span>
-                {lead.mobile ? (
-                  <a href={`tel:${lead.mobile}`} className={styles.infoLink}>
-                    {lead.mobile}
-                  </a>
-                ) : (
-                  <span className={styles.infoDash}>{"\u2014"}</span>
-                )}
-              </div>
-              <div className={styles.infoFieldFull}>
-                <span className={styles.infoLabel}>Email</span>
-                {lead.email ? (
-                  <a href={`mailto:${lead.email}`} className={styles.infoLink}>
-                    {lead.email}
-                  </a>
-                ) : (
-                  <span className={styles.infoDash}>{"\u2014"}</span>
-                )}
+            </div>
+
+            {/* Card 2: Application context */}
+            <div className={styles.card}>
+              <h3 className={styles.cardTitle}>
+                <Icon icon="mdi:school-outline" width={16} />
+                Application context
+              </h3>
+              <div className={styles.infoGrid}>
+                <div className={styles.infoFieldFull}>
+                  <span className={styles.infoLabel}>Programme</span>
+                  {(lead.program || lead.service_interest) ? (
+                    <span className={styles.programmeChip}>
+                      {lead.program || lead.service_interest}
+                    </span>
+                  ) : (
+                    <span className={styles.infoDash}>{"\u2014"}</span>
+                  )}
+                </div>
+                <div className={styles.infoFieldFull}>
+                  <span className={styles.infoLabel}>HS Stream</span>
+                  {lead.hs_stream ? (
+                    <span className={styles.streamChip}>{lead.hs_stream}</span>
+                  ) : (
+                    <span className={styles.infoDash}>{"\u2014"}</span>
+                  )}
+                </div>
+                <div className={styles.infoField}>
+                  <span className={styles.infoLabel}>State</span>
+                  {lead.state ? (
+                    <span className={styles.stateValue}>
+                      <Icon icon="mdi:map-marker" width={14} />
+                      {lead.state}
+                    </span>
+                  ) : (
+                    <span className={styles.infoDash}>{"\u2014"}</span>
+                  )}
+                </div>
+                <div className={styles.infoField}>
+                  <span className={styles.infoLabel}>Passing Year</span>
+                  <span
+                    className={lead.passing_year ? styles.passingYearValue : styles.infoDash}
+                  >
+                    {lead.passing_year || "\u2014"}
+                  </span>
+                </div>
+                <div className={styles.infoFieldFull}>
+                  <span className={styles.infoLabel}>Source</span>
+                  {lead.source ? (
+                    <span className={styles.sourceChip}>{lead.source}</span>
+                  ) : (
+                    <span className={styles.infoDash}>{"\u2014"}</span>
+                  )}
+                </div>
+                <div className={styles.infoFieldFull}>
+                  <span className={styles.infoLabel}>GCLID</span>
+                  <span className={lead.gclid ? styles.infoValue : styles.infoDash}>
+                    {lead.gclid ? (
+                      <>
+                        {lead.gclid.length > 24 ? lead.gclid.slice(0, 24) + "..." : lead.gclid}
+                        <button
+                          className={styles.copyBtn}
+                          onClick={() => handleCopy(lead.gclid, "gclid")}
+                        >
+                          <Icon icon={copiedField === "gclid" ? "mdi:check" : "mdi:content-copy"} width={12} />
+                          {copiedField === "gclid" ? "Copied" : "Copy"}
+                        </button>
+                      </>
+                    ) : (
+                      "\u2014"
+                    )}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Interest Details */}
-          <div className={styles.card}>
-            <h3 className={styles.cardTitle}>
-              <Icon icon="mdi:tag-outline" width={16} />
-              Interest
-            </h3>
-            <div className={styles.infoGrid}>
-              <div className={styles.infoField}>
-                <span className={styles.infoLabel}>Service Interest</span>
-                <span className={lead.service_interest ? styles.infoValue : styles.infoDash}>
-                  {lead.service_interest || "\u2014"}
-                </span>
-              </div>
+          {/* Enriched message summary (rendered below the two cards) */}
+          {lead.message && (
+            <div className={styles.card}>
+              <h3 className={styles.cardTitle}>
+                <Icon icon="mdi:message-text-outline" width={16} />
+                Enquiry summary
+              </h3>
+              <p className={styles.enrichedMessage}>{lead.message}</p>
             </div>
-          </div>
+          )}
 
-          {/* Source & UTM Data */}
+          {/* UTM data */}
           <div className={styles.card}>
             <h3 className={styles.cardTitle}>
               <Icon icon="mdi:web" width={16} />
-              Source & UTM Data
+              UTM Data
             </h3>
-            <div style={{ marginBottom: 10 }}>
-              <span className={styles.infoLabel}>Source</span>
-              <div style={{ marginTop: 4 }}>
-                {lead.source ? (
-                  <span className={styles.sourceChip}>{lead.source}</span>
-                ) : (
-                  <span className={styles.infoDash}>{"\u2014"}</span>
-                )}
-              </div>
-            </div>
             <div className={styles.utmGrid}>
               {[
                 { label: "UTM Source", value: lead.utm_source },
@@ -396,25 +464,6 @@ const LeadDetail = () => {
                   </span>
                 </div>
               ))}
-              <div className={styles.utmItemFull}>
-                <span className={styles.infoLabel}>GCLID</span>
-                <span className={lead.gclid ? styles.infoValue : styles.infoDash}>
-                  {lead.gclid ? (
-                    <>
-                      {lead.gclid.length > 24 ? lead.gclid.slice(0, 24) + "..." : lead.gclid}
-                      <button
-                        className={styles.copyBtn}
-                        onClick={() => handleCopy(lead.gclid, "gclid")}
-                      >
-                        <Icon icon={copiedField === "gclid" ? "mdi:check" : "mdi:content-copy"} width={12} />
-                        {copiedField === "gclid" ? "Copied" : "Copy"}
-                      </button>
-                    </>
-                  ) : (
-                    "\u2014"
-                  )}
-                </span>
-              </div>
             </div>
           </div>
 

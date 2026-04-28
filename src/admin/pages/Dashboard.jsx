@@ -94,11 +94,30 @@ const Dashboard = () => {
     };
   }, []);
 
+  const truncate = (val, max = 14) => {
+    const s = String(val ?? 'N/A');
+    return s.length > max ? `${s.slice(0, max)}…` : s;
+  };
+
   const statCards = [
     { label: 'Total Leads', value: stats?.totalLeads ?? 0, icon: 'mdi:account-multiple', colorClass: 'statIconBlue' },
-    { label: 'Pending Follow-ups', value: stats?.newLeads24h ?? 0, icon: 'mdi:phone-in-talk', colorClass: 'statIconGreen' },
-    { label: 'Calls Booked', value: stats?.weekLeads ?? 0, icon: 'mdi:calendar-check', colorClass: 'statIconPink' },
+    { label: 'New (last 24h)', value: stats?.newLeads24h ?? 0, icon: 'mdi:account-plus', colorClass: 'statIconGreen' },
+    { label: 'This Week', value: stats?.weekLeads ?? 0, icon: 'mdi:calendar-week', colorClass: 'statIconPink' },
     { label: 'Conversion Rate', value: `${stats?.conversionRate ?? 0}%`, icon: 'mdi:chart-line', colorClass: 'statIconTeal' },
+    {
+      label: 'Top Programme',
+      value: truncate(stats?.topProgram),
+      title: stats?.topProgram,
+      icon: 'mdi:school-outline',
+      colorClass: 'statIconBlue',
+    },
+    {
+      label: 'Top Source Channel',
+      value: truncate(stats?.topSource),
+      title: stats?.topSource,
+      icon: 'mdi:target',
+      colorClass: 'statIconPink',
+    },
   ];
 
   const recentLeads = stats?.recentLeads || [];
@@ -185,7 +204,7 @@ const Dashboard = () => {
               <Icon icon={stat.icon} width={22} height={22} />
             </div>
             <div className={styles.statContent}>
-              <p className={styles.statValue}>{stat.value}</p>
+              <p className={styles.statValue} title={stat.title || undefined}>{stat.value}</p>
               <p className={styles.statLabel}>{stat.label}</p>
             </div>
           </div>
@@ -236,6 +255,7 @@ const Dashboard = () => {
                   <tr>
                     <th>Name</th>
                     <th>Phone</th>
+                    <th>Programme</th>
                     <th>Source</th>
                     <th>Status</th>
                     <th>Date</th>
@@ -245,10 +265,32 @@ const Dashboard = () => {
                 <tbody>
                   {recentLeads.map((lead, idx) => {
                     const sc = STATUS_COLORS[lead.status] || STATUS_COLORS.new;
+                    const programme = lead.program || lead.service_interest || '';
                     return (
                       <tr key={lead.lead_id} className={idx % 2 === 1 ? styles.rowAlt : undefined}>
                         <td className={styles.leadName}>{lead.name || '—'}</td>
                         <td>{lead.mobile || '—'}</td>
+                        <td>
+                          {programme ? (
+                            <Chip
+                              label={programme}
+                              size="small"
+                              sx={{
+                                fontSize: '0.7rem',
+                                fontWeight: 600,
+                                bgcolor: '#FFF8E1',
+                                color: '#3F2F8A',
+                                maxWidth: 110,
+                                '& .MuiChip-label': {
+                                  overflow: 'hidden',
+                                  textOverflow: 'ellipsis',
+                                },
+                              }}
+                            />
+                          ) : (
+                            '—'
+                          )}
+                        </td>
                         <td>
                           <Chip
                             label={lead.source || '—'}
@@ -299,6 +341,8 @@ const Dashboard = () => {
             <div className={styles.mobileCards}>
               {recentLeads.map((lead) => {
                 const sc = STATUS_COLORS[lead.status] || STATUS_COLORS.new;
+                const programme = lead.program || lead.service_interest || '';
+                // On small screens, programme renders as a compact code chip.
                 return (
                   <div
                     key={lead.lead_id}
@@ -325,12 +369,27 @@ const Dashboard = () => {
                       <span>{lead.mobile || '—'}</span>
                     </div>
                     <div className={styles.mobileCardBottom}>
-                      <Chip
-                        label={lead.source || '—'}
-                        size="small"
-                        variant="outlined"
-                        sx={{ fontSize: '0.65rem', height: 22 }}
-                      />
+                      <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'wrap' }}>
+                        {programme && (
+                          <Chip
+                            label={truncate(programme, 8)}
+                            size="small"
+                            sx={{
+                              fontSize: '0.65rem',
+                              height: 22,
+                              fontWeight: 600,
+                              bgcolor: '#FFF8E1',
+                              color: '#3F2F8A',
+                            }}
+                          />
+                        )}
+                        <Chip
+                          label={lead.source || '—'}
+                          size="small"
+                          variant="outlined"
+                          sx={{ fontSize: '0.65rem', height: 22 }}
+                        />
+                      </div>
                       <span className={styles.mobileCardDate}>
                         {lead.submitted_at
                           ? new Date(lead.submitted_at).toLocaleDateString('en-IN', {

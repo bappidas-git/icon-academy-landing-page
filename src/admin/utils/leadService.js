@@ -137,7 +137,10 @@ const saveLeads = (allLeads) => {
 
 /**
  * Get all leads with optional filters
- * @param {Object} filters - { search, status, source, dateRange, startDate, endDate }
+ * @param {Object} filters - {
+ *   search, status, source, dateRange, startDate, endDate,
+ *   program, hsStream, state, passingYear, service
+ * }
  * @returns {Array} Filtered leads
  */
 export const getLeads = (filters = {}) => {
@@ -150,7 +153,8 @@ export const getLeads = (filters = {}) => {
       (l) =>
         (l.name || "").toLowerCase().includes(q) ||
         (l.email || "").toLowerCase().includes(q) ||
-        (l.mobile || "").includes(q)
+        (l.mobile || "").includes(q) ||
+        (l.city_or_town || "").toLowerCase().includes(q)
     );
   }
 
@@ -162,6 +166,35 @@ export const getLeads = (filters = {}) => {
   // Source filter
   if (filters.source && filters.source !== "all") {
     leads = leads.filter((l) => l.source === filters.source);
+  }
+
+  // Programme filter
+  if (filters.program && filters.program !== "all") {
+    leads = leads.filter((l) => l.program === filters.program);
+  }
+
+  // HS Stream filter
+  if (filters.hsStream && filters.hsStream !== "all") {
+    leads = leads.filter((l) => l.hs_stream === filters.hsStream);
+  }
+
+  // State filter
+  if (filters.state && filters.state !== "all") {
+    leads = leads.filter((l) => l.state === filters.state);
+  }
+
+  // Passing Year filter
+  if (filters.passingYear && filters.passingYear !== "all") {
+    leads = leads.filter((l) => l.passing_year === filters.passingYear);
+  }
+
+  // Legacy `service` filter — match against either the new programme
+  // field or the legacy service_interest, for backward compat with reports
+  // that still pass it.
+  if (filters.service && filters.service !== "all") {
+    leads = leads.filter(
+      (l) => l.program === filters.service || l.service_interest === filters.service
+    );
   }
 
   // Date range filter
@@ -370,13 +403,18 @@ export const deleteLeads = (ids) => {
 export const exportLeadsCSV = (leads) => {
   const headers = [
     "Lead ID",
+    "Submitted At",
+    "Status",
+    "Source",
+    "Programme",
+    "HS Stream",
+    "State",
+    "Passing Year",
+    "City / Town",
     "Name",
     "Mobile",
     "Email",
-    "Service Interest",
-    "Source",
-    "Status",
-    "Submitted At",
+    "Message",
     "Page URL",
     "UTM Source",
     "UTM Medium",
@@ -397,13 +435,18 @@ export const exportLeadsCSV = (leads) => {
 
   const rows = leads.map((l) => [
     l.lead_id,
+    l.submitted_at,
+    l.status,
+    l.source,
+    l.program || l.service_interest || "",
+    l.hs_stream,
+    l.state,
+    l.passing_year,
+    l.city_or_town,
     l.name,
     l.mobile,
     l.email,
-    l.service_interest,
-    l.source,
-    l.status,
-    l.submitted_at,
+    l.message,
     l.page_url,
     l.utm_source,
     l.utm_medium,
@@ -444,15 +487,34 @@ export const importLeadsCSV = (csvText) => {
   let imported = 0;
   let duplicates = 0;
 
+  // Header → lead-object key map. Accepts both the legacy column set
+  // ("Service Interest") and the new admissions column set ("Programme",
+  // "HS Stream", etc.) so historical exports re-import cleanly.
   const fieldMap = {
     "lead id": "lead_id",
     name: "name",
     mobile: "mobile",
     email: "email",
     "service interest": "service_interest",
+    programme: "program",
+    program: "program",
+    "hs stream": "hs_stream",
+    state: "state",
+    "passing year": "passing_year",
+    "city / town": "city_or_town",
+    "city/town": "city_or_town",
+    "city or town": "city_or_town",
+    message: "message",
     source: "source",
     status: "status",
     "submitted at": "submitted_at",
+    "page url": "page_url",
+    "utm source": "utm_source",
+    "utm medium": "utm_medium",
+    "utm campaign": "utm_campaign",
+    "utm term": "utm_term",
+    "utm content": "utm_content",
+    gclid: "gclid",
   };
 
   for (let i = 1; i < lines.length; i++) {
@@ -516,6 +578,26 @@ export const getLeadStats = () => {
   const topSource =
     Object.entries(sourceCounts).sort((a, b) => b[1] - a[1])[0]?.[0] || "N/A";
 
+  // Programme distribution (falls back to legacy service_interest so
+  // pre-existing leads still contribute to the "Top Programme" KPI).
+  const programDistribution = leads.reduce((acc, l) => {
+    const p = l.program || l.service_interest || "Unknown";
+    acc[p] = (acc[p] || 0) + 1;
+    return acc;
+  }, {});
+  const topProgram =
+    Object.entries(programDistribution).sort(([, a], [, b]) => b - a)[0]?.[0] ||
+    "N/A";
+
+  // Top state across all leads (skips leads without a state field so legacy
+  // entries don't pollute the ranking).
+  const stateCounts = leads.reduce((acc, l) => {
+    if (l.state) acc[l.state] = (acc[l.state] || 0) + 1;
+    return acc;
+  }, {});
+  const topState =
+    Object.entries(stateCounts).sort(([, a], [, b]) => b - a)[0]?.[0] || "N/A";
+
   // Recent leads (last 5)
   const recentLeads = [...leads]
     .sort((a, b) => new Date(b.submitted_at) - new Date(a.submitted_at))
@@ -531,6 +613,9 @@ export const getLeadStats = () => {
     conversionRate,
     convertedLeads,
     topSource,
+    topProgram,
+    topState,
+    programDistribution,
     recentLeads,
     sources,
   };
