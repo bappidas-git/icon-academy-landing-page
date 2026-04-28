@@ -1,21 +1,21 @@
 /* ============================================
    StepShell
-   Wraps each step body with a horizontal slide
-   transition and the shared bottom nav row.
+   Presentational wrapper for each step body.
+   Animates the step in from the right and out to
+   the left (fades only under reduced motion). The
+   actual Back / Next / Submit controls live in the
+   form's footer band, not here.
    ============================================ */
 
 import React from "react";
 import { motion } from "framer-motion";
-import { CircularProgress } from "@mui/material";
-import { Icon } from "@iconify/react";
-import Button from "../../Button/Button";
 import useReducedMotion from "../../../../hooks/useReducedMotion";
 import shellStyles from "../MultiStepLeadForm.module.css";
 
 const slideVariants = {
-  enter: { opacity: 0, x: 32 },
+  enter: { opacity: 0, x: 16 },
   centre: { opacity: 1, x: 0 },
-  exit: { opacity: 0, x: -32 },
+  exit: { opacity: 0, x: -16 },
 };
 
 const fadeVariants = {
@@ -29,11 +29,6 @@ const StepShell = ({
   title,
   subtitle,
   children,
-  onBack,
-  onPrimary,
-  primaryLabel = "Continue",
-  primaryIcon = "mdi:arrow-right",
-  showBack = true,
   isSubmitting = false,
   legend,
 }) => {
@@ -52,12 +47,17 @@ const StepShell = ({
       initial="enter"
       animate="centre"
       exit="exit"
-      transition={{ duration: reduced ? 0.15 : 0.28, ease: [0.25, 0.46, 0.45, 0.94] }}
+      transition={{
+        duration: reduced ? 0.15 : 0.18,
+        ease: [0.16, 1, 0.3, 1],
+      }}
     >
-      <header className={shellStyles.stepHeader}>
-        {title && <h3 className={shellStyles.stepTitle}>{title}</h3>}
-        {subtitle && <p className={shellStyles.stepSubtitle}>{subtitle}</p>}
-      </header>
+      {(title || subtitle) && (
+        <header className={shellStyles.stepHeader}>
+          {title && <h3 className={shellStyles.stepTitle}>{title}</h3>}
+          {subtitle && <p className={shellStyles.stepSubtitle}>{subtitle}</p>}
+        </header>
+      )}
 
       <fieldset
         className={bodyClassName}
@@ -67,43 +67,6 @@ const StepShell = ({
         {legend && <legend className="sr-only">{legend}</legend>}
         {children}
       </fieldset>
-
-      <div className={shellStyles.stepNav}>
-        {showBack ? (
-          <button
-            type="button"
-            className={shellStyles.backButton}
-            onClick={onBack}
-            disabled={isSubmitting}
-          >
-            <Icon icon="mdi:arrow-left" aria-hidden="true" />
-            <span>Back</span>
-          </button>
-        ) : (
-          <span className={shellStyles.backSpacer} aria-hidden="true" />
-        )}
-
-        <Button
-          type="button"
-          variant="primary"
-          onClick={onPrimary}
-          disabled={isSubmitting}
-          aria-busy={isSubmitting || undefined}
-          className={shellStyles.primaryButton}
-        >
-          {isSubmitting ? (
-            <span className={shellStyles.loadingState}>
-              <CircularProgress size={18} color="inherit" />
-              <span>Submitting...</span>
-            </span>
-          ) : (
-            <>
-              <span>{primaryLabel}</span>
-              {primaryIcon && <Icon icon={primaryIcon} aria-hidden="true" />}
-            </>
-          )}
-        </Button>
-      </div>
     </motion.div>
   );
 };

@@ -1,12 +1,12 @@
 /* ============================================
    Step3Contact
    Final step of the multi-step lead form. Collects
-   name, mobile, optional email, and consent. Shows
-   a summary chip of previous answers and a trust
-   strip beneath the consent checkbox.
+   name, mobile (+91 chip prefix), optional email,
+   and consent. Privacy Policy opens an inline
+   modal. A soft trust strip sits below the consent.
    ============================================ */
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import {
   TextField,
@@ -34,14 +34,17 @@ const PrivacyModal = ({ open, onClose }) => {
         >
           <motion.div
             className={styles.privacyCard}
-            initial={{ opacity: 0, y: 24, scale: 0.97 }}
+            initial={{ opacity: 0, y: 16, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 16, scale: 0.97 }}
+            exit={{ opacity: 0, y: 12, scale: 0.97 }}
             transition={{ type: "spring", damping: 26, stiffness: 320 }}
             onClick={(event) => event.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="lead-privacy-title"
           >
             <div className={styles.privacyHeader}>
-              <h3>Privacy Policy</h3>
+              <h3 id="lead-privacy-title">Privacy Policy</h3>
               <IconButton
                 onClick={onClose}
                 size="small"
@@ -54,8 +57,12 @@ const PrivacyModal = ({ open, onClose }) => {
               <p>
                 Icon Commerce College respects your privacy. The information
                 you share is used only to contact you about admission to our
-                undergraduate programmes. Your details are never sold or shared
-                with third parties. For questions, write to{" "}
+                undergraduate programmes — typically a phone or WhatsApp call
+                from our counsellor within 24 hours.
+              </p>
+              <p>
+                We never sell or share your details with third parties. You
+                can ask us to remove your record at any time by writing to{" "}
                 <a href="mailto:privacy@iconcommercecollege.in">
                   privacy@iconcommercecollege.in
                 </a>
@@ -70,32 +77,16 @@ const PrivacyModal = ({ open, onClose }) => {
   );
 };
 
-const Step3Contact = ({ data, errors, context, onChange }) => {
+const Step3Contact = ({ data, errors, onChange }) => {
   const [privacyOpen, setPrivacyOpen] = useState(false);
+  const nameRef = useRef(null);
 
-  const dataParts = [
-    data.program,
-    data.hsStream,
-    data.state,
-    data.passingYear,
-    data.cityOrTown,
-  ].filter(Boolean);
+  useEffect(() => {
+    nameRef.current?.focus({ preventScroll: true });
+  }, []);
 
   return (
-    <div>
-      {dataParts.length > 0 && (
-        <div className={styles.contextChip} aria-label="Your plan summary">
-          <Icon
-            icon="mdi:sparkles"
-            aria-hidden="true"
-            className={styles.contextIcon}
-          />
-          <span>
-            <strong>Your enquiry:</strong> {dataParts.join(" · ")}
-          </span>
-        </div>
-      )}
-
+    <div className={styles.stepWrap}>
       <div className={styles.field}>
         <label className={styles.fieldLabel} htmlFor="lead-full-name">
           Full name <span className={styles.required} aria-hidden="true">*</span>
@@ -103,20 +94,36 @@ const Step3Contact = ({ data, errors, context, onChange }) => {
         <TextField
           fullWidth
           id="lead-full-name"
-          placeholder=""
+          inputRef={nameRef}
+          placeholder="As it appears on your HS marksheet"
           value={data.name}
           onChange={(event) => onChange("name", event.target.value)}
           error={Boolean(errors?.name)}
-          helperText={errors?.name || " "}
-          inputProps={{ maxLength: 50, autoComplete: "name" }}
+          helperText=" "
+          aria-describedby={errors?.name ? "lead-name-error" : undefined}
+          inputProps={{
+            maxLength: 50,
+            autoComplete: "name",
+            autoCapitalize: "words",
+          }}
           InputProps={{
             startAdornment: (
-              <InputAdornment position="start">
-                <Icon icon="mdi:account-outline" className={styles.fieldIcon} />
+              <InputAdornment position="start" className={styles.startAdornment}>
+                <Icon
+                  icon="mdi:account"
+                  className={styles.fieldIcon}
+                  aria-hidden="true"
+                />
               </InputAdornment>
             ),
           }}
         />
+        {errors?.name && (
+          <p id="lead-name-error" className={styles.errorText} role="alert">
+            <Icon icon="mdi:alert-circle-outline" aria-hidden="true" />
+            <span>{errors.name}</span>
+          </p>
+        )}
       </div>
 
       <div className={styles.field}>
@@ -130,21 +137,34 @@ const Step3Contact = ({ data, errors, context, onChange }) => {
           value={data.mobile}
           onChange={(event) => onChange("mobile", event.target.value)}
           error={Boolean(errors?.mobile)}
-          helperText={errors?.mobile || " "}
+          helperText=" "
+          aria-describedby={errors?.mobile ? "lead-mobile-error" : undefined}
           inputProps={{
             inputMode: "numeric",
+            type: "tel",
             maxLength: 10,
             autoComplete: "tel-national",
-            pattern: "[0-9]*",
+            pattern: "[6-9][0-9]{9}",
           }}
           InputProps={{
             startAdornment: (
-              <InputAdornment position="start">
-                <span className={styles.phonePrefix}>+91</span>
+              <InputAdornment
+                position="start"
+                className={styles.phonePrefixAdornment}
+              >
+                <span className={styles.phonePrefixChip} aria-hidden="true">
+                  +91
+                </span>
               </InputAdornment>
             ),
           }}
         />
+        {errors?.mobile && (
+          <p id="lead-mobile-error" className={styles.errorText} role="alert">
+            <Icon icon="mdi:alert-circle-outline" aria-hidden="true" />
+            <span>{errors.mobile}</span>
+          </p>
+        )}
       </div>
 
       <div className={styles.field}>
@@ -155,19 +175,31 @@ const Step3Contact = ({ data, errors, context, onChange }) => {
           fullWidth
           id="lead-email"
           placeholder="your@email.com"
+          type="email"
           value={data.email}
           onChange={(event) => onChange("email", event.target.value)}
           error={Boolean(errors?.email)}
-          helperText={errors?.email || " "}
+          helperText=" "
+          aria-describedby={errors?.email ? "lead-email-error" : undefined}
           inputProps={{ autoComplete: "email" }}
           InputProps={{
             startAdornment: (
-              <InputAdornment position="start">
-                <Icon icon="mdi:email-outline" className={styles.fieldIcon} />
+              <InputAdornment position="start" className={styles.startAdornment}>
+                <Icon
+                  icon="mdi:email-outline"
+                  className={styles.fieldIcon}
+                  aria-hidden="true"
+                />
               </InputAdornment>
             ),
           }}
         />
+        {errors?.email && (
+          <p id="lead-email-error" className={styles.errorText} role="alert">
+            <Icon icon="mdi:alert-circle-outline" aria-hidden="true" />
+            <span>{errors.email}</span>
+          </p>
+        )}
       </div>
 
       <label className={styles.consentRow}>
@@ -177,39 +209,38 @@ const Step3Contact = ({ data, errors, context, onChange }) => {
           size="small"
           inputProps={{ "aria-describedby": "lead-consent-help" }}
         />
-        <span id="lead-consent-help">
+        <span id="lead-consent-help" className={styles.consentText}>
           I agree to be contacted by Icon Commerce College about my admission
           enquiry and accept the{" "}
-          <a
-            href="#"
-            role="button"
-            tabIndex={0}
-            onClick={(event) => {
-              event.preventDefault();
-              setPrivacyOpen(true);
-            }}
-            onKeyDown={(event) => {
-              if (event.key === "Enter" || event.key === " ") {
-                event.preventDefault();
-                setPrivacyOpen(true);
-              }
-            }}
+          <button
+            type="button"
+            className={styles.privacyLink}
+            onClick={() => setPrivacyOpen(true)}
           >
             Privacy Policy
-          </a>
+          </button>
           .
         </span>
       </label>
       {errors?.consent && (
-        <p className={styles.errorText} role="alert">
-          {errors.consent}
+        <p className={styles.consentError} role="alert">
+          <Icon icon="mdi:alert-circle-outline" aria-hidden="true" />
+          <span>{errors.consent}</span>
         </p>
       )}
 
-      <div className={styles.trustRow} aria-hidden="true">
-        <span>🔒 100% confidential</span>
-        <span>📞 Call within 24 hrs</span>
-        <span>✅ Direct admissions support</span>
+      <div className={styles.softTrust} aria-hidden="true">
+        <span className={styles.softTrustChip}>
+          <Icon icon="mdi:timer-outline" aria-hidden="true" />2 minutes
+        </span>
+        <span className={styles.softTrustChip}>
+          <Icon icon="mdi:shield-lock-outline" aria-hidden="true" />
+          No spam
+        </span>
+        <span className={styles.softTrustChip}>
+          <Icon icon="mdi:phone-outline" aria-hidden="true" />
+          Counsellor calls within 24 hrs
+        </span>
       </div>
 
       <PrivacyModal

@@ -326,6 +326,7 @@ const useLeadFormMachine = (initialContext = {}) => {
         markLeadAsSubmitted(data.mobile);
         sessionStorage.setItem("lead_submitted", "true");
         sessionStorage.setItem("lead_name", data.name);
+        sessionStorage.setItem("lead_mobile", data.mobile);
 
         dispatch({ type: "SET_STEP", step: "success" });
         dispatch({ type: "SET_SUBMITTING", value: false });

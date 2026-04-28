@@ -2,11 +2,10 @@
    Step2Background
    Step 2 of the multi-step lead form. Captures the
    prospective student's home state, HS passing year,
-   and city/town so admissions counsellors can route
-   the right scholarship and travel guidance.
+   and city/town.
    ============================================ */
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import {
   TextField,
   InputAdornment,
@@ -36,6 +35,12 @@ const PASSING_YEAR_OPTIONS = [
 ];
 
 const Step2Background = ({ data, errors, onChange }) => {
+  const stateRef = useRef(null);
+
+  useEffect(() => {
+    stateRef.current?.focus({ preventScroll: true });
+  }, []);
+
   const handleSelect = (field, value) => onChange(field, value);
 
   const handleKeyDown = (event, field, value) => {
@@ -46,31 +51,40 @@ const Step2Background = ({ data, errors, onChange }) => {
   };
 
   return (
-    <div>
-      <section
-        className={styles.question}
-        aria-labelledby="step2-state-label"
-      >
-        <h4 id="step2-state-label">Which state are you from?</h4>
-        <FormControl fullWidth error={Boolean(errors?.state)}>
+    <div className={styles.stepWrap}>
+      <section className={styles.field} aria-labelledby="step2-state-label">
+        <label id="step2-state-label" className={styles.fieldLabel}>
+          State
+        </label>
+        <FormControl
+          fullWidth
+          error={Boolean(errors?.state)}
+          className={styles.selectField}
+        >
           <Select
             id="step2-state"
+            inputRef={stateRef}
             displayEmpty
             value={data.state || ""}
             onChange={(event) => handleSelect("state", event.target.value)}
             renderValue={(selected) =>
-              selected ? selected : (
-                <span style={{ color: "var(--text-gray)" }}>
-                  Select your state
-                </span>
+              selected ? (
+                selected
+              ) : (
+                <span className={styles.placeholder}>Select your state</span>
               )
             }
             startAdornment={
-              <InputAdornment position="start">
-                <Icon icon="mdi:map-marker-outline" />
+              <InputAdornment position="start" className={styles.startAdornment}>
+                <Icon
+                  icon="mdi:map-marker-outline"
+                  className={styles.fieldIcon}
+                  aria-hidden="true"
+                />
               </InputAdornment>
             }
             inputProps={{ "aria-label": "Your home state" }}
+            classes={{ icon: styles.selectChevron }}
           >
             {STATE_OPTIONS.map((option) => (
               <MenuItem key={option} value={option}>
@@ -81,18 +95,21 @@ const Step2Background = ({ data, errors, onChange }) => {
         </FormControl>
         {errors?.state && (
           <p className={styles.errorText} role="alert">
-            {errors.state}
+            <Icon icon="mdi:alert-circle-outline" aria-hidden="true" />
+            <span>{errors.state}</span>
           </p>
         )}
       </section>
 
       <section
-        className={styles.question}
+        className={styles.field}
         role="radiogroup"
         aria-labelledby="step2-year-label"
       >
-        <h4 id="step2-year-label">When did (or will) you finish HS?</h4>
-        <div className={`${styles.chipGrid} ${styles.three}`}>
+        <label id="step2-year-label" className={styles.fieldLabel}>
+          When do (or did) you finish HS?
+        </label>
+        <div className={styles.segmented}>
           {PASSING_YEAR_OPTIONS.map((option) => {
             const isSelected = data.passingYear === option.value;
             return (
@@ -101,58 +118,65 @@ const Step2Background = ({ data, errors, onChange }) => {
                 type="button"
                 role="radio"
                 aria-checked={isSelected}
-                className={`${styles.chip} ${isSelected ? styles.selected : ""}`}
+                className={`${styles.segment} ${
+                  isSelected ? styles.segmentSelected : ""
+                }`}
                 onClick={() => handleSelect("passingYear", option.value)}
                 onKeyDown={(event) =>
                   handleKeyDown(event, "passingYear", option.value)
                 }
               >
-                <Icon
-                  icon="mdi:calendar-month-outline"
-                  className={styles.chipIcon}
-                  aria-hidden="true"
-                />
                 <span>{option.label}</span>
-                {isSelected && (
-                  <Icon
-                    icon="mdi:check-circle"
-                    className={styles.chipCheck}
-                    aria-hidden="true"
-                  />
-                )}
               </button>
             );
           })}
         </div>
         {errors?.passingYear && (
           <p className={styles.errorText} role="alert">
-            {errors.passingYear}
+            <Icon icon="mdi:alert-circle-outline" aria-hidden="true" />
+            <span>{errors.passingYear}</span>
           </p>
         )}
       </section>
 
-      <section
-        className={styles.question}
-        aria-labelledby="step2-city-label"
-      >
-        <h4 id="step2-city-label">Which city or town do you live in?</h4>
+      <section className={styles.field} aria-labelledby="step2-city-label">
+        <label id="step2-city-label" className={styles.fieldLabel} htmlFor="step2-city">
+          City or town
+        </label>
         <TextField
           fullWidth
           id="step2-city"
-          placeholder="e.g. Guwahati"
+          placeholder="e.g. Guwahati, Tezpur, Dimapur"
           value={data.cityOrTown || ""}
           onChange={(event) => onChange("cityOrTown", event.target.value)}
           error={Boolean(errors?.cityOrTown)}
-          helperText={errors?.cityOrTown || " "}
-          inputProps={{ maxLength: 50, autoComplete: "address-level2" }}
+          helperText=" "
+          aria-describedby={
+            errors?.cityOrTown ? "step2-city-error" : undefined
+          }
+          inputProps={{
+            maxLength: 50,
+            autoComplete: "address-level2",
+            autoCapitalize: "words",
+          }}
           InputProps={{
             startAdornment: (
-              <InputAdornment position="start">
-                <Icon icon="mdi:home-city-outline" />
+              <InputAdornment position="start" className={styles.startAdornment}>
+                <Icon
+                  icon="mdi:map-marker"
+                  className={styles.fieldIcon}
+                  aria-hidden="true"
+                />
               </InputAdornment>
             ),
           }}
         />
+        {errors?.cityOrTown && (
+          <p id="step2-city-error" className={styles.errorText} role="alert">
+            <Icon icon="mdi:alert-circle-outline" aria-hidden="true" />
+            <span>{errors.cityOrTown}</span>
+          </p>
+        )}
       </section>
     </div>
   );

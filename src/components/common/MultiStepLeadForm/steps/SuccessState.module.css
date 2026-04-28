@@ -1,71 +1,61 @@
 /* ============================================
    SuccessState styles
+   80px saffron check icon, headline, masked
+   mobile sub-line, and two follow-up CTAs.
    ============================================ */
 
 .wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  padding: 16px 8px;
+  padding: 8px 16px;
+  max-width: 520px;
+  margin: 0 auto;
 }
 
 .icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: var(--savings-green);
-  background: var(--savings-green-bg);
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 20px;
   border-radius: 50%;
-  padding: 14px;
-  margin-bottom: 12px;
-  line-height: 0;
+  background: rgba(217, 119, 6, 0.12);
+  color: var(--ic-secondary);
+}
+
+.icon svg {
+  font-size: 80px;
 }
 
 .title {
-  font-family: var(--ic-font-ui);
+  margin: 0 0 10px;
+  font-family: var(--ic-font-heading);
   font-weight: 700;
-  font-size: var(--fs-2xl);
-  color: var(--ink);
-  margin: 0 0 8px;
+  font-size: clamp(1.625rem, 1.4rem + 1vw, 2rem);
+  line-height: 1.2;
+  color: var(--ic-text-primary);
 }
 
-.body {
-  color: var(--ink-muted);
-  font-size: 0.95rem;
-  line-height: 1.6;
-  margin: 0 auto 20px;
+.subline {
+  margin: 0 0 28px;
+  font-family: var(--ic-font-body);
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--ic-text-secondary);
   max-width: 420px;
 }
 
-.steps {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  text-align: left;
-  margin: 0 auto 20px;
-  padding: 0;
-  list-style: none;
-  max-width: 420px;
-}
-
-.step {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 12px;
-  background: var(--surface-muted);
-  border-radius: 10px;
-  font-size: 0.9rem;
-  color: var(--ink);
-}
-
-.step svg {
-  color: var(--accent-gold);
-  font-size: 22px;
-  flex-shrink: 0;
+.subline strong {
+  color: var(--ic-primary);
+  font-weight: 700;
 }
 
 .ctaRow {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   flex-wrap: wrap;
   justify-content: center;
 }
@@ -74,41 +64,83 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 12px 18px;
+  padding: 12px 22px;
   border-radius: 12px;
+  font-family: var(--ic-font-ui);
   font-weight: 700;
   font-size: 0.9375rem;
+  line-height: 1;
   text-decoration: none;
+  cursor: pointer;
+  border: 0;
   transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    background 0.2s ease;
+    background 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
 }
 
 .cta svg {
-  font-size: 20px;
+  font-size: 18px;
+}
+
+.ctaText {
+  background: transparent;
+  color: var(--ic-primary);
+  border: 1.5px solid var(--ic-border);
+}
+
+.ctaText:hover {
+  background: rgba(30, 58, 138, 0.06);
+  border-color: var(--ic-primary);
+}
+
+.ctaText:focus-visible {
+  outline: 2px solid var(--ic-primary);
+  outline-offset: 2px;
 }
 
 .ctaPrimary {
-  background: #25d366;
-  color: #fff;
-  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.35);
+  background: var(--ic-cta);
+  color: var(--ic-bg-default);
+  box-shadow: 0 6px 18px rgba(225, 29, 72, 0.32);
 }
 
 .ctaPrimary:hover {
+  background: var(--ic-cta-dark);
+  box-shadow: 0 8px 22px rgba(225, 29, 72, 0.42);
   transform: translateY(-1px);
-  box-shadow: 0 8px 22px rgba(37, 211, 102, 0.45);
 }
 
-.ctaSecondary {
-  background: transparent;
-  color: var(--ink);
-  border: 1.5px solid var(--border-gray);
+.ctaPrimary:focus-visible {
+  outline: 2px solid var(--ic-cta);
+  outline-offset: 2px;
 }
 
-.ctaSecondary:hover {
-  border-color: var(--accent-gold);
-  background: rgba(255, 184, 0, 0.08);
+@media (max-width: 480px) {
+  .wrap {
+    padding: 8px 4px;
+  }
+
+  .icon {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 16px;
+  }
+
+  .icon svg {
+    font-size: 64px;
+  }
+
+  .ctaRow {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .cta {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -116,7 +148,7 @@
     transition: none;
   }
 
-  .cta:hover {
+  .ctaPrimary:hover {
     transform: none;
   }
 }
