@@ -1,201 +1,291 @@
 /* ============================================
    Step1ProgramStream styles
+   Large radio cards (88px) for programme + 2x2
+   pill grid for HS stream. "Why we ask" tooltips
+   sit inline next to each question label.
    ============================================ */
 
+.stepWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
 .question {
-  margin-bottom: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.question:last-child {
-  margin-bottom: 0;
+.questionHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
 }
 
-.question h4 {
+.questionLabel {
+  margin: 0;
   font-family: var(--ic-font-ui);
   font-weight: 700;
-  font-size: 1rem;
-  color: var(--form-heading, var(--primary-dark));
-  margin: 0 0 4px;
+  font-size: 0.9375rem;
+  color: var(--form-heading, var(--ic-text-primary));
   line-height: 1.3;
   letter-spacing: -0.005em;
 }
 
-.question p.hint {
-  font-size: 0.8125rem;
-  color: var(--form-hint, var(--text-gray));
-  margin: 0 0 12px;
-  line-height: 1.5;
+/* ===== Why we ask ===== */
+
+.helpWrap {
+  position: relative;
+  display: inline-flex;
 }
 
-.grid {
+.helpTrigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  font-family: var(--ic-font-ui);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ic-secondary);
+  cursor: pointer;
+  letter-spacing: 0;
+}
+
+.helpTrigger:hover,
+.helpTrigger[aria-expanded="true"] {
+  color: var(--ic-secondary-dark);
+}
+
+.helpTrigger:focus-visible {
+  outline: 2px solid var(--ic-secondary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.helpTrigger svg {
+  font-size: 14px;
+}
+
+.helpTooltip {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 5;
+  width: 240px;
+  max-width: 80vw;
+  padding: 10px 12px;
+  background: var(--ic-text-primary);
+  color: var(--ic-bg-default);
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.45;
+  box-shadow: var(--ic-shadow-lg);
+}
+
+/* ===== Programme cards ===== */
+
+.programGrid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
   gap: 10px;
 }
 
-.chip {
+.programCard {
   position: relative;
   display: flex;
-  flex-direction: row;
   align-items: center;
-  gap: 12px;
-  padding: 14px 16px;
-  border: 1.5px solid var(--border-gray);
+  gap: 14px;
+  width: 100%;
+  min-height: 88px;
+  padding: 16px 18px;
+  border: 1px solid var(--ic-border);
   border-radius: 12px;
-  background: var(--white);
+  background: var(--ic-bg-default);
+  color: var(--ic-text-primary);
   cursor: pointer;
-  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
-  font-weight: 600;
-  color: var(--primary-dark);
-  font-size: 0.9rem;
   text-align: left;
   font-family: inherit;
+  font-size: 0.9375rem;
   line-height: 1.3;
-  min-height: 60px;
+  transition:
+    border-color 0.18s ease,
+    background 0.18s ease,
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
 }
 
-.chip > span {
-  color: var(--primary-dark);
+.programCard:hover {
+  border-color: var(--ic-secondary);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+}
+
+.programCard:focus-visible {
+  outline: 2px solid var(--ic-secondary);
+  outline-offset: 2px;
+}
+
+.programCardSelected {
+  border: 2px solid var(--ic-secondary);
+  background: var(--ic-bg-cream);
+  padding: 15px 17px;
+  box-shadow: 0 6px 18px rgba(217, 119, 6, 0.18);
+}
+
+.programIcon {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: rgba(217, 119, 6, 0.12);
+  color: var(--ic-secondary);
+  transition:
+    background 0.18s ease,
+    color 0.18s ease;
+}
+
+.programIcon svg {
+  font-size: 24px;
+}
+
+.programCardSelected .programIcon {
+  background: var(--ic-secondary);
+  color: var(--ic-bg-default);
+}
+
+.programText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
   flex: 1;
   min-width: 0;
 }
 
-.chip:hover {
-  border-color: var(--accent-gold);
-  transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(10, 31, 61, 0.10);
-}
-
-.chip:focus-visible {
-  outline: 2px solid var(--accent-gold);
-  outline-offset: 2px;
-}
-
-.chip.selected {
-  border: 2px solid var(--accent-gold);
-  background: var(--ic-bg-cream);
-  box-shadow: 0 8px 22px rgba(255, 184, 0, 0.28);
-  padding: 13.5px 15.5px;
-}
-
-.chip.selected > span {
-  color: var(--primary-dark);
+.programLabel {
+  font-family: var(--ic-font-ui);
   font-weight: 700;
+  font-size: 0.9375rem;
+  color: var(--ic-text-primary);
+  letter-spacing: -0.005em;
 }
 
-.chipIcon {
-  font-size: 20px;
-  color: var(--accent-gold);
-  flex-shrink: 0;
-  width: 36px;
-  height: 36px;
-  padding: 7px;
-  border-radius: 10px;
-  background: rgba(255, 184, 0, 0.14);
-  box-sizing: border-box;
-  transition: background 0.18s ease, color 0.18s ease;
+.programTagline {
+  font-family: var(--ic-font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--ic-text-secondary);
+  line-height: 1.4;
 }
 
-.chip.selected .chipIcon {
-  background: var(--accent-gold);
-  color: var(--primary-dark);
-}
-
-.chipCheck {
+.programCheck {
   position: absolute;
-  top: 6px;
-  right: 6px;
+  top: 8px;
+  right: 8px;
   font-size: 18px;
-  color: var(--accent-gold);
+  color: var(--ic-secondary);
 }
 
-.pillRow {
+/* ===== Stream pills ===== */
+
+.streamGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
 }
 
-.pill {
-  position: relative;
+.streamPill {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 12px 14px;
-  border: 1.5px solid var(--border-gray);
-  border-left-width: 4px;
-  border-radius: 10px;
-  background: var(--white);
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 0.875rem;
-  color: var(--primary-dark);
-  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
-  font-family: inherit;
-  line-height: 1.3;
-  text-align: left;
+  justify-content: center;
+  width: 100%;
   min-height: 48px;
+  padding: 10px 16px;
+  border: 1px solid var(--ic-border);
+  border-radius: 12px;
+  background: var(--ic-bg-default);
+  color: var(--ic-text-primary);
+  cursor: pointer;
+  font-family: var(--ic-font-ui);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  line-height: 1.3;
+  transition:
+    border-color 0.18s ease,
+    background 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.18s ease;
 }
 
-.pill > span {
-  color: var(--primary-dark);
+.streamPill:hover {
+  border-color: var(--ic-secondary);
 }
 
-.pill:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(10, 31, 61, 0.10);
-}
-
-.pill:focus-visible {
-  outline: 2px solid var(--accent-gold);
+.streamPill:focus-visible {
+  outline: 2px solid var(--ic-secondary);
   outline-offset: 2px;
 }
 
-.pill.selected {
-  box-shadow: 0 6px 18px rgba(10, 31, 61, 0.14);
-  font-weight: 700;
-  border-color: var(--accent-gold);
-  border-left-width: 4px;
+.streamPillSelected {
+  border-color: var(--ic-secondary);
+  background: var(--ic-secondary);
+  color: var(--ic-bg-default);
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.32);
 }
 
-.pill.selected > span {
-  font-weight: 700;
+.streamPillSelected:hover {
+  background: var(--ic-secondary-dark);
+  border-color: var(--ic-secondary-dark);
 }
 
-.pillDot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
+/* ===== Errors ===== */
+
+.errorText {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 4px 0 0;
+  color: var(--ic-error);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.errorText svg {
+  font-size: 16px;
   flex-shrink: 0;
 }
 
-.errorText {
-  margin: 8px 0 0;
-  color: var(--error);
-  font-size: 0.8125rem;
-  font-weight: 500;
+/* ===== Responsive ===== */
+
+@media (min-width: 768px) {
+  .programGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* "Not sure yet" — span both columns on desktop drawer */
+  .programCard:nth-child(5) {
+    grid-column: span 2;
+    min-height: 72px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .chip,
-  .pill,
-  .chipIcon {
+  .programCard,
+  .streamPill,
+  .programIcon {
     transition: none;
   }
 
-  .chip:hover,
-  .pill:hover {
+  .programCard:hover {
     transform: none;
-  }
-}
-
-@media (min-width: 480px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 768px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
   }
 }

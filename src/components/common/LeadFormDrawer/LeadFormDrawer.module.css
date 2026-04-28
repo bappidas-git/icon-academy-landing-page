@@ -1,224 +1,206 @@
 /* ============================================
-   LeadFormDrawer Styles
-   Full-width side drawer from left
+   LeadFormDrawer styles
+   Right-edge slide-in. Saffron 4px left rule.
+   Header band → trust strip → scrollable body.
+   The form's sticky footer lives inside the body.
    ============================================ */
 
-/* Backdrop */
+/* ===== Backdrop ===== */
 .backdrop {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(6, 19, 48, 0.85);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   z-index: 9999;
   display: flex;
   align-items: stretch;
+  justify-content: flex-end;
 }
 
-/* Drawer */
+/* ===== Drawer ===== */
 .drawer {
   position: relative;
   width: 100%;
-  max-width: 520px;
+  max-width: 480px;
   height: 100%;
-  background: linear-gradient(180deg, var(--ic-primary-dark) 0%, var(--ic-primary) 60%, var(--ic-primary-dark) 100%);
-  box-shadow: 8px 0 40px rgba(0, 0, 0, 0.45);
-  overflow-y: auto;
-  overflow-x: hidden;
+  background: var(--ic-bg-default);
+  box-shadow: -16px 0 40px rgba(15, 23, 42, 0.22);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
-/* Close Button */
+.leftRule {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--ic-secondary);
+  z-index: 2;
+}
+
+/* ===== Header ===== */
+.header {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 20px 24px 16px 28px;
+  border-bottom: 1px solid var(--ic-border);
+  background: var(--ic-bg-default);
+}
+
+.headerText {
+  flex: 1;
+  min-width: 0;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  font-family: var(--ic-font-ui);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--ic-secondary);
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.title {
+  margin: 0 0 4px;
+  font-family: var(--ic-font-heading);
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  color: var(--ic-primary);
+  letter-spacing: -0.01em;
+}
+
+.subtitle {
+  margin: 0;
+  font-family: var(--ic-font-body);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--ic-text-secondary);
+}
+
 .closeButton {
-  position: absolute !important;
-  top: 16px;
-  right: 16px;
-  width: 40px;
-  height: 40px;
-  background: rgba(255, 255, 255, 0.1) !important;
-  color: #FFFFFF !important;
+  flex-shrink: 0;
+  width: 44px !important;
+  height: 44px !important;
+  margin-top: -2px !important;
+  color: var(--ic-primary) !important;
+  background: var(--ic-bg-soft) !important;
   border-radius: 50% !important;
-  z-index: 10;
-  transition: all 0.3s ease !important;
-  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease !important;
 }
 
 .closeButton:hover {
-  background: rgba(255, 184, 0, 0.2) !important;
-  border-color: rgba(255, 184, 0, 0.5) !important;
-  transform: rotate(90deg) scale(1.05);
+  background: rgba(225, 29, 72, 0.1) !important;
+  color: var(--ic-cta) !important;
+  transform: rotate(90deg);
 }
 
 .closeButton svg {
   font-size: 22px;
 }
 
-/* Drawer Content */
-.drawerContent {
-  padding: 28px 28px 32px;
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  position: relative;
-  z-index: 1;
-}
-
-/* Header */
-.header {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 12px;
-}
-
-.headerIcon {
-  width: 60px;
-  height: 60px;
-  margin: 0 auto 14px;
-  background: var(--accent-gold-gradient);
-  border-radius: 16px;
+/* ===== Trust strip ===== */
+.trustStrip {
   display: flex;
   align-items: center;
-  justify-content: center;
-  box-shadow: 0 10px 28px rgba(255, 184, 0, 0.35);
-  position: relative;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 24px 12px 28px;
+  background: var(--ic-bg-cream);
+  border-bottom: 1px solid rgba(217, 119, 6, 0.18);
 }
 
-.headerIcon::before {
-  content: '';
-  position: absolute;
-  inset: -4px;
-  border-radius: 20px;
-  background: linear-gradient(135deg, rgba(255, 184, 0, 0.35) 0%, transparent 100%);
-  z-index: -1;
+.trustItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--ic-font-ui);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ic-secondary-dark);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
 }
 
-.headerIcon svg {
-  font-size: 30px;
-  color: var(--ic-primary);
+.trustIcon {
+  font-size: 16px;
+  color: var(--ic-secondary);
+  flex-shrink: 0;
 }
 
-.title {
-  font-family: var(--ic-font-ui) !important;
-  font-weight: 800 !important;
-  font-size: clamp(1.375rem, 1.1rem + 1vw, 1.75rem) !important;
-  color: #FFFFFF !important;
-  margin-bottom: 6px !important;
-  line-height: 1.2 !important;
-  letter-spacing: -0.01em;
-  text-align: center !important;
+/* ===== Body (scroll container) ===== */
+.body {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
-.subtitle {
-  font-size: 0.9rem !important;
-  color: rgba(255, 255, 255, 0.78) !important;
-  line-height: 1.55 !important;
-  max-width: 360px;
-  margin: 0 auto !important;
-  text-align: center !important;
+/* ===== Scrollbar styling (children scroll, not the drawer itself) ===== */
+.body :global(.MuiInputBase-root) {
+  -webkit-tap-highlight-color: transparent;
 }
 
-.formHost {
-  position: relative;
-  z-index: 1;
-}
-
-/* Decorative Elements */
-.decorativeCircle1 {
-  position: absolute;
-  bottom: -120px;
-  left: -120px;
-  width: 320px;
-  height: 320px;
-  background: radial-gradient(circle, rgba(255, 184, 0, 0.12) 0%, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-.decorativeCircle2 {
-  position: absolute;
-  top: -60px;
-  right: -90px;
-  width: 240px;
-  height: 240px;
-  background: radial-gradient(circle, rgba(255, 184, 0, 0.08) 0%, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-/* Responsive Styles */
+/* ===== Responsive ===== */
 @media (max-width: 768px) {
   .drawer {
     max-width: 100%;
   }
 
-  .drawerContent {
-    padding: 24px 20px 28px;
-    gap: 16px;
-  }
-
   .header {
-    padding-top: 40px;
-  }
-
-  .headerIcon {
-    width: 56px;
-    height: 56px;
-    border-radius: 14px;
-    margin-bottom: 12px;
-  }
-
-  .headerIcon svg {
-    font-size: 28px;
+    padding: 18px 18px 14px 22px;
   }
 
   .title {
-    font-size: 1.375rem !important;
+    font-size: 1.3125rem;
   }
 
   .subtitle {
-    font-size: 0.85rem !important;
+    font-size: 0.8125rem;
+  }
+
+  .trustStrip {
+    padding: 8px 18px 10px 22px;
+  }
+
+  .trustItem span {
+    display: none;
   }
 }
 
 @media (max-width: 480px) {
-  .drawerContent {
-    padding: 20px 16px 24px;
-  }
-
   .header {
-    padding-top: 44px;
-  }
-
-  .headerIcon {
-    width: 52px;
-    height: 52px;
-    border-radius: 14px;
-    margin-bottom: 10px;
-  }
-
-  .headerIcon svg {
-    font-size: 26px;
+    padding: 16px 14px 12px 20px;
+    gap: 8px;
   }
 
   .title {
-    font-size: 1.25rem !important;
+    font-size: 1.1875rem;
   }
 
-  .subtitle {
-    font-size: 0.8125rem !important;
-    max-width: 280px;
+  .eyebrow {
+    font-size: 0.625rem;
+  }
+
+  .trustStrip {
+    padding: 8px 14px 10px 20px;
   }
 
   .closeButton {
-    width: 38px;
-    height: 38px;
-    top: 12px;
-    right: 12px;
+    width: 40px !important;
+    height: 40px !important;
   }
 
   .closeButton svg {
@@ -226,27 +208,9 @@
   }
 }
 
-/* Reduced Motion */
+/* ===== Reduced motion ===== */
 @media (prefers-reduced-motion: reduce) {
   .closeButton:hover {
     transform: none;
   }
-}
-
-/* Scrollbar Styling */
-.drawer::-webkit-scrollbar {
-  width: 6px;
-}
-
-.drawer::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.drawer::-webkit-scrollbar-thumb {
-  background: rgba(255, 184, 0, 0.35);
-  border-radius: 3px;
-}
-
-.drawer::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 184, 0, 0.55);
 }

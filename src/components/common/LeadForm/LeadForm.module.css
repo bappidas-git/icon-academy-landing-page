@@ -1,6 +1,8 @@
 /* ============================================
    LeadForm Styles
-   Reusable lead capture form with validation
+   Compact single-step inline form. Visually
+   matches the drawer multi-step form: saffron
+   focus rings, 12px radii, coral CTA on submit.
    ============================================ */
 
 /* Form Container */
@@ -11,89 +13,89 @@
 
 /* Variant Styles */
 .variantDefault {
-  background: var(--white);
-  padding: 32px;
-  border-radius: var(--radius-2xl);
-  box-shadow: var(--shadow-card);
+  background: var(--ic-bg-default);
+  padding: 28px;
+  border-radius: 20px;
+  box-shadow: var(--ic-shadow-md);
 }
 
 .variantDark {
-  background: var(--primary-dark);
-  padding: 32px;
-  border-radius: var(--radius-2xl);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(180deg, var(--ic-primary) 0%, var(--ic-primary-dark) 100%);
+  padding: 28px;
+  border-radius: 20px;
+  box-shadow:
+    0 30px 80px rgba(15, 23, 42, 0.4),
+    0 0 0 1px rgba(217, 119, 6, 0.18) inset;
+  color: var(--ic-bg-default);
 }
 
 .variantDark .formTitle {
-  color: var(--white) !important;
+  color: var(--ic-bg-default) !important;
 }
 
 .variantDark .formSubtitle {
-  color: #FFFFFFB3 !important;
+  color: rgba(255, 255, 255, 0.78) !important;
 }
 
 .variantDark .inputRoot {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
-}
-
-.variantDark .inputRoot:hover {
-  border-color: var(--accent-gold);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .variantDark .inputRoot input,
 .variantDark .inputRoot textarea {
-  color: var(--white);
+  color: var(--ic-bg-default);
 }
 
 .variantDark .inputRoot input::placeholder,
 .variantDark .inputRoot textarea::placeholder {
-  color: #FFFFFF80 !important;
+  color: rgba(255, 255, 255, 0.55) !important;
 }
 
 .variantDark .inputIcon {
-  color: #FFFFFF99 !important;
+  color: rgba(255, 255, 255, 0.7) !important;
 }
 
 .variantDark .countryCode {
-  color: #FFFFFFCC !important;
+  color: rgba(255, 255, 255, 0.85) !important;
 }
 
 .variantDark .prefixDivider {
-  color: #FFFFFF66 !important;
+  color: rgba(255, 255, 255, 0.4) !important;
 }
 
 .variantCompact {
-  padding: 24px;
-  background: var(--white);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-card);
+  padding: 22px;
+  background: var(--ic-bg-default);
+  border-radius: 18px;
+  border: 1px solid var(--ic-border);
+  box-shadow: var(--ic-shadow-sm);
 }
 
 .variantCard {
-  background: var(--white);
-  padding: 28px;
-  border-radius: var(--radius-2xl);
-  border: 1px solid var(--border-gray);
+  background: var(--ic-bg-default);
+  padding: 26px;
+  border-radius: 20px;
+  border: 1px solid var(--ic-border);
 }
 
 /* Form Header */
 .formHeader {
-  text-align: center;
-  margin-bottom: 28px;
+  text-align: left;
+  margin-bottom: 18px;
 }
 
 .formTitle {
-  font-family: var(--ic-font-ui) !important;
+  font-family: var(--ic-font-heading) !important;
   font-weight: 700 !important;
   font-size: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem) !important;
-  color: var(--primary-dark) !important;
-  margin-bottom: 8px !important;
+  color: var(--ic-primary) !important;
+  margin-bottom: 6px !important;
+  letter-spacing: -0.01em;
 }
 
 .formSubtitle {
   font-size: 0.875rem !important;
-  color: var(--text-gray) !important;
+  color: var(--ic-text-secondary) !important;
   line-height: 1.5 !important;
 }
 
@@ -101,7 +103,7 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 }
 
 /* Text Fields */
@@ -111,72 +113,96 @@
 
 .textField :global(.MuiOutlinedInput-root) {
   border-radius: 12px;
-  background: var(--white);
-  transition: all 0.2s ease;
+  background: var(--ic-bg-default);
+  font-family: var(--ic-font-body);
+  font-size: 0.9375rem;
+  color: var(--ic-text-primary);
+  transition: all 0.18s ease;
+  min-height: 48px;
 }
 
 .textField :global(.MuiOutlinedInput-notchedOutline) {
-  border-color: var(--border-gray);
-  transition: border-color 0.2s ease;
+  border-color: var(--ic-border);
+  border-width: 1px;
+  transition: border-color 0.18s ease;
 }
 
 .textField :global(.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline) {
-  border-color: var(--accent-gold);
+  border-color: var(--ic-secondary);
 }
 
 .textField :global(.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline) {
-  border-color: var(--accent-gold);
+  border-color: var(--ic-secondary);
   border-width: 2px;
+  box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.14);
 }
 
 .textField :global(.MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline) {
-  border-color: var(--error);
+  border-color: var(--ic-error);
 }
 
 .textField :global(.MuiInputBase-input) {
-  padding: 14px 16px;
-  font-size: 0.95rem;
-  color: var(--primary-dark);
+  padding: 12px 14px 12px 4px;
+  font-size: 0.9375rem;
+  color: var(--ic-text-primary);
+  font-weight: 500;
 }
 
 .textField :global(.MuiInputBase-input::placeholder) {
-  color: var(--text-gray);
+  color: var(--ic-text-muted);
   opacity: 1;
 }
 
 .textField :global(.MuiFormHelperText-root) {
   margin-left: 4px;
-  margin-top: 6px;
+  margin-top: 4px;
   font-size: 0.75rem;
+  font-family: var(--ic-font-body);
 }
 
 .textField :global(.MuiFormHelperText-root.Mui-error) {
-  color: var(--error);
+  color: var(--ic-error);
+  font-weight: 500;
+}
+
+.textField :global(.MuiInputLabel-root) {
+  font-family: var(--ic-font-ui);
+  font-weight: 600;
+  font-size: 0.8125rem;
+  color: var(--ic-text-primary);
+}
+
+.textField :global(.MuiInputLabel-root.Mui-focused) {
+  color: var(--ic-secondary);
+}
+
+.textField :global(.MuiInputLabel-root.Mui-error) {
+  color: var(--ic-error);
 }
 
 /* Input Root */
 .inputRoot {
   border-radius: 12px !important;
-  background: var(--white);
+  background: var(--ic-bg-default);
 }
 
 .inputFocused :global(.MuiOutlinedInput-notchedOutline) {
-  border-color: var(--accent-gold) !important;
+  border-color: var(--ic-secondary) !important;
 }
 
 .inputError :global(.MuiOutlinedInput-notchedOutline) {
-  border-color: var(--error) !important;
+  border-color: var(--ic-error) !important;
 }
 
 /* Input Icons */
 .inputIcon {
   font-size: 20px;
-  color: var(--text-gray);
-  transition: color 0.2s ease;
+  color: var(--ic-text-muted);
+  transition: color 0.18s ease;
 }
 
 .inputRoot:focus-within .inputIcon {
-  color: var(--accent-gold);
+  color: var(--ic-secondary);
 }
 
 /* Mobile Prefix */
@@ -186,60 +212,46 @@
 }
 
 .countryCode {
-  font-weight: 500 !important;
-  color: var(--text-dark-gray) !important;
-  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+  color: var(--ic-secondary-dark) !important;
+  font-size: 0.875rem !important;
 }
 
 .prefixDivider {
-  color: var(--border-gray);
+  color: var(--ic-border-strong);
   margin: 0 8px;
   font-weight: 300;
 }
 
-/* Message Field */
-.messageField :global(.MuiInputAdornment-root) {
-  align-self: flex-start;
-  margin-top: 14px;
-}
-
-.messageAdornment {
-  margin-top: 14px;
-  align-self: flex-start;
-}
-
-/* Submit Button Wrapper */
+/* Submit wrapper */
 .submitWrapper {
-  margin-top: 8px;
-}
-
-/* Privacy Note */
-.privacyNote {
-  display: block;
-  margin-top: 10px;
-  text-align: center;
-  font-size: 0.72rem !important;
-  line-height: 1.4 !important;
-  color: var(--text-gray) !important;
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
 }
 
 /* Submit Button */
 .submitButton {
-  padding: 14px 32px !important;
-  font-size: 1rem !important;
-  font-weight: 600 !important;
+  padding: 14px 28px !important;
+  font-family: var(--ic-font-ui) !important;
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
   border-radius: 12px !important;
   text-transform: none !important;
-  background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-light) 100%) !important;
-  color: var(--primary-dark) !important;
-  box-shadow: var(--shadow-button) !important;
-  transition: all 0.3s ease !important;
+  background: var(--ic-cta) !important;
+  color: var(--ic-bg-default) !important;
+  box-shadow: 0 6px 18px rgba(225, 29, 72, 0.32) !important;
+  transition: all 0.18s ease !important;
+  width: 100%;
+  min-height: 48px;
 }
 
 .submitButton:hover {
-  background: linear-gradient(135deg, var(--accent-gold-light) 0%, var(--accent-gold) 100%) !important;
-  box-shadow: var(--shadow-button-hover) !important;
-  transform: translateY(-2px);
+  background: var(--ic-cta-dark) !important;
+  box-shadow: 0 8px 22px rgba(225, 29, 72, 0.42) !important;
+  transform: translateY(-1px);
 }
 
 .submitButton:active {
@@ -247,10 +259,21 @@
 }
 
 .submitButton:disabled {
-  background: var(--medium-gray) !important;
+  background: var(--ic-border-strong) !important;
   box-shadow: none !important;
-  color: var(--text-gray) !important;
+  color: var(--ic-text-muted) !important;
   cursor: not-allowed;
+}
+
+/* Privacy Note */
+.privacyNote {
+  display: block;
+  text-align: center;
+  font-family: var(--ic-font-body) !important;
+  font-size: 0.6875rem !important;
+  line-height: 1.45 !important;
+  color: var(--ic-text-muted) !important;
+  letter-spacing: 0.01em;
 }
 
 /* Loading State */
@@ -262,34 +285,13 @@
 }
 
 .loadingState :global(.MuiCircularProgress-root) {
-  color: var(--primary-dark);
+  color: currentColor;
 }
 
 /* Status Alert */
 .statusAlert {
-  margin-top: 16px;
+  margin-top: 12px;
   border-radius: 12px !important;
-}
-
-/* SweetAlert Custom Styles */
-.swalPopup {
-  border-radius: 20px !important;
-  padding: 24px !important;
-}
-
-.swalTitle {
-  font-family: var(--ic-font-ui) !important;
-  color: var(--primary-dark) !important;
-}
-
-.swalContent {
-  color: var(--text-gray) !important;
-}
-
-.swalButton {
-  border-radius: 12px !important;
-  padding: 12px 32px !important;
-  font-weight: 600 !important;
 }
 
 /* Responsive Styles */
@@ -298,34 +300,24 @@
   .variantDark,
   .variantCompact,
   .variantCard {
-    padding: 24px;
-    border-radius: var(--radius-xl);
+    padding: 22px;
+    border-radius: 16px;
   }
 
   .formHeader {
-    margin-bottom: 20px;
-  }
-
-  .formTitle {
-    font-size: 1.25rem !important;
+    margin-bottom: 14px;
   }
 
   .form {
-    gap: 14px;
+    gap: 12px;
   }
 
   .textField :global(.MuiInputBase-input) {
-    padding: 12px 14px;
-    font-size: 16px; /* Prevent iOS zoom on focus - must be 16px or larger */
+    font-size: 16px; /* Prevent iOS zoom on focus */
   }
 
   .countryCode {
     font-size: 16px !important; /* Prevent iOS zoom on focus */
-  }
-
-  .submitButton {
-    padding: 12px 24px !important;
-    font-size: 0.95rem !important;
   }
 }
 
@@ -334,43 +326,35 @@
   .variantDark,
   .variantCompact,
   .variantCard {
-    padding: 20px;
+    padding: 18px;
   }
+}
 
-  .formHeader {
-    margin-bottom: 16px;
-  }
-
-  .form {
-    gap: 12px;
-  }
-
+/* Submit becomes auto-width on desktop, full width on mobile */
+@media (min-width: 768px) {
   .submitWrapper {
-    margin-top: 4px;
+    align-items: flex-start;
+  }
+
+  .submitButton {
+    width: auto;
+    min-width: 200px;
+  }
+
+  .privacyNote {
+    text-align: left;
   }
 }
 
 /* Focus-visible for accessibility */
 .textField :global(.MuiOutlinedInput-root.Mui-focusVisible) {
-  outline: 2px solid var(--accent-gold);
+  outline: 2px solid var(--ic-secondary);
   outline-offset: 2px;
 }
 
 .submitButton:focus-visible {
-  outline: 2px solid var(--accent-gold);
+  outline: 2px solid var(--ic-cta);
   outline-offset: 2px;
-}
-
-/* Animation for field entry */
-@keyframes slideInField {
-  from {
-    opacity: 0;
-    transform: translateX(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
 }
 
 /* Reduced Motion */
@@ -393,7 +377,7 @@
   }
 
   .inputIcon {
-    color: var(--primary-dark);
+    color: var(--ic-text-primary);
   }
 }
 
