@@ -57,6 +57,7 @@ const AdminLayout = lazy(() => import('./admin/components/AdminLayout'));
 
 // Lazy loaded sections for performance (Below the fold)
 const FAQSection = lazy(() => import('./components/sections/FAQSection/FAQSection'));
+const ContactSection = lazy(() => import('./components/sections/ContactSection/ContactSection'));
 const FinalCTASection = lazy(() => import('./components/sections/FinalCTASection/FinalCTASection'));
 
 // ===========================================
@@ -326,6 +327,7 @@ const useIdlePreload = () => {
     if ('requestIdleCallback' in window) {
       const sections = [
         () => import('./components/sections/FAQSection/FAQSection'),
+        () => import('./components/sections/ContactSection/ContactSection'),
         () => import('./components/sections/FinalCTASection/FinalCTASection'),
       ];
 
@@ -477,6 +479,14 @@ const HomePageContent = () => {
         <ErrorBoundary>
           <Suspense fallback={<SectionLoader height={500} variant="skeleton" />}>
             <FAQSection />
+          </Suspense>
+        </ErrorBoundary>
+
+        {/* Contact Section — campus address, phone/WhatsApp/email,
+            map, and inline lead form for "send us a message" */}
+        <ErrorBoundary>
+          <Suspense fallback={<SectionLoader height={500} variant="default" />}>
+            <ContactSection />
           </Suspense>
         </ErrorBoundary>
 
