@@ -297,14 +297,15 @@ const useLeadFormMachine = (initialContext = {}) => {
         });
 
         trackFormSubmission(source, {
-          serviceInterest: leadData.service_interest,
+          programInterest: leadData.service_interest,
+          program: leadData.program,
         });
 
         const metaEventId = generateEventId();
         trackMetaLead({
           event_id: metaEventId,
-          content_name: source,
-          content_category: "lead_generation",
+          content_name: leadData.program || source,
+          content_category: "admission_lead",
         });
         sendLeadEvent({
           name: data.name,
@@ -312,8 +313,9 @@ const useLeadFormMachine = (initialContext = {}) => {
           mobile: data.mobile,
           event_id: metaEventId,
           source,
+          program: leadData.program,
         }).catch((err) => {
-          console.error("[MetaCAPI] Lead event failed:", err);
+          console.error("[ICC Admission Lead][MetaCAPI] Lead event failed:", err);
         });
 
         trackGoogleAdsFormSubmission(source);

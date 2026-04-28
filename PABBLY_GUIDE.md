@@ -87,39 +87,50 @@ Create these headers in Row 1 of your sheet first:
 | A      | Name             | `{{name}}`             |
 | B      | Mobile           | `{{mobile}}`           |
 | C      | Email            | `{{email}}`            |
-| D      | Service Interest | `{{service_interest}}` |
-| E      | Message          | `{{message}}`          |
-| F      | Source           | `{{source}}`           |
-| G      | Lead ID          | `{{lead_id}}`          |
-| H      | Status           | `{{status}}`           |
-| I      | Submitted At     | `{{submitted_at}}`     |
-| J      | Page URL         | `{{page_url}}`         |
-| K      | UTM Source       | `{{utm_source}}`       |
-| L      | UTM Medium       | `{{utm_medium}}`       |
-| M      | UTM Campaign     | `{{utm_campaign}}`     |
-| N      | UTM Term         | `{{utm_term}}`         |
-| O      | UTM Content      | `{{utm_content}}`      |
-| P      | GCLID            | `{{gclid}}`            |
-| Q      | User Agent       | `{{user_agent}}`       |
+| D      | Programme        | `{{program}}`          |
+| E      | Stream (HS)      | `{{hs_stream}}`        |
+| F      | State            | `{{state}}`            |
+| G      | Passing Year     | `{{passing_year}}`     |
+| H      | City / Town      | `{{city_or_town}}`     |
+| I      | Service Interest | `{{service_interest}}` |
+| J      | Message          | `{{message}}`          |
+| K      | Source           | `{{source}}`           |
+| L      | Lead ID          | `{{lead_id}}`          |
+| M      | Status           | `{{status}}`           |
+| N      | Submitted At     | `{{submitted_at}}`     |
+| O      | Page URL         | `{{page_url}}`         |
+| P      | UTM Source       | `{{utm_source}}`       |
+| Q      | UTM Medium       | `{{utm_medium}}`       |
+| R      | UTM Campaign     | `{{utm_campaign}}`     |
+| S      | UTM Term         | `{{utm_term}}`         |
+| T      | UTM Content      | `{{utm_content}}`      |
+| U      | GCLID            | `{{gclid}}`            |
+| V      | User Agent       | `{{user_agent}}`       |
 
 ### Step 4 (Optional): Add Email Notification
 
 1. Add another action after Google Sheets.
 2. Choose **Email by Pabbly** (free, built-in) or **Gmail**.
-3. Subject: `New Consultation: {{name}} - {{service_interest}}`
+3. Subject: `New Admission Enquiry: {{name}} - {{program}}`
 4. Body:
    ```
-   New consultation request from {{source}}
+   New admission enquiry from {{source}}
 
    Name: {{name}}
    Mobile: {{mobile}}
    Email: {{email}}
-   Service Interest: {{service_interest}}
+   Programme: {{program}}
+   Stream (HS): {{hs_stream}}
+   State: {{state}}
+   Passing Year: {{passing_year}}
+   City / Town: {{city_or_town}}
    Message: {{message}}
 
    Submitted: {{submitted_at}}
    Page: {{page_url}}
    UTM Source: {{utm_source}} | Campaign: {{utm_campaign}}
+
+   — Icon Commerce College Admissions
    ```
 
 ### Step 5: Test It
@@ -281,16 +292,21 @@ Every form submission sends these fields:
 
 | Field | Example | Description |
 |-------|---------|-------------|
-| `name` | `Rahul Sharma` | Visitor's full name |
+| `name` | `Rahul Sharma` | Applicant's full name |
 | `mobile` | `9876543210` | 10-digit mobile |
 | `email` | `rahul@example.com` | Email (optional) |
-| `service_interest` | `general` | Selected service |
-| `message` | `Interested in FUE` | Optional message |
-| `source` | `hero-form` | Which form was used (see below) |
+| `program` | `BBA` | Programme of interest selected in step 1 |
+| `hs_stream` | `Commerce` | Higher-secondary stream (Commerce/Science/Arts) |
+| `state` | `West Bengal` | Applicant's state |
+| `passing_year` | `2025` | Year of HS passing |
+| `city_or_town` | `Kolkata` | Applicant's city / town |
+| `service_interest` | `BBA` | Mirrors `program`; preserved for backward compat with the boilerplate field name |
+| `message` | `Want hostel info` | Optional message |
+| `source` | `hero_primary` | Which form/CTA was used (see below) |
 | `lead_id` | `a1b2-c3d4-...` | Auto-generated unique ID |
 | `status` | `new` | Always "new" at capture |
 | `submitted_at` | `2026-04-12T10:30:00.000Z` | Submission timestamp |
-| `page_url` | `https://landing.yourdomain.com/?utm_source=google` | Full page URL |
+| `page_url` | `https://landing.iconcommercecollege.in/?utm_source=google` | Full page URL |
 | `user_agent` | `Mozilla/5.0 ...` | Browser info |
 | `utm_source` / `utm_medium` / `utm_campaign` / `utm_term` / `utm_content` | `google` / `cpc` / `spring_sale` / ... | Ad tracking parameters |
 | `gclid` | `EAIaIQobChMI...` | Google Ads click ID |
@@ -329,8 +345,10 @@ Every form submission sends these fields:
 
 | Mode | `USE_PABBLY` | `DUMMY_MODE` | Behavior |
 |------|--------------|--------------|----------|
-| Local testing | `false` | `true` | Leads saved only in your browser. No network requests. Great for development. |
+| Local testing (default in repo) | `false` | `true` | Leads saved only in your browser. No network requests. Great for development. |
 | Production | `true` | `false` | Leads sent to Pabbly + stored on server. Admin panel shows all leads. |
+
+> **Default:** `DUMMY_MODE = true` ships in the repo so admission enquiries stay on the developer's machine until the live webhook is wired up. For production you toggle both flags in `src/utils/webhookSubmit.js` (and rebuild) — the live deploy script can also override these at build time via env. See the console — every captured lead is logged with the `[ICC Admission Lead]` prefix so you can trace it in DevTools.
 
 To inspect test leads in the browser, open DevTools → Console and run:
 ```js

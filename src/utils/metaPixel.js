@@ -66,15 +66,16 @@ export const trackPageView = () => {
  * Track Lead event (browser-side, no PII)
  * @param {Object} leadData - Non-PII lead metadata
  * @param {string} leadData.event_id - Event ID for deduplication
- * @param {string} [leadData.content_name] - Form source identifier
- * @param {string} [leadData.content_category] - Lead category
+ * @param {string} [leadData.content_name] - Form source / programme identifier
+ * @param {string} [leadData.content_category] - Lead category (default: admission_lead)
  */
 export const trackLead = (leadData = {}) => {
   if (!isPixelReady()) return;
 
   const params = {
-    content_name: leadData.content_name || 'lead_form',
-    content_category: leadData.content_category || 'lead_generation',
+    content_name:
+      leadData.content_name || 'Icon Commerce College Admissions Landing',
+    content_category: leadData.content_category || 'admission_lead',
   };
 
   const options = {};
@@ -106,8 +107,9 @@ export const trackViewContent = (contentData = {}) => {
   if (!isPixelReady()) return;
 
   const params = {
-    content_name: contentData.content_name || '',
-    content_category: contentData.content_category || '',
+    content_name:
+      contentData.content_name || 'Icon Commerce College Admissions Landing',
+    content_category: contentData.content_category || 'admission_landing',
     content_type: contentData.content_type || 'product',
   };
 
