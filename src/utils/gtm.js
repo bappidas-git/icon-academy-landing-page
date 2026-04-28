@@ -66,19 +66,31 @@ export const trackPageView = (pagePath, pageTitle) => {
  * Track form submission (no PII)
  * @param {string} formId - Form identifier (e.g., 'hero-form', 'drawer-form')
  * @param {Object} formData - Non-PII form metadata
+ * @param {string} [formData.programInterest] - Programme of interest (e.g., 'BBA', 'BCom')
+ * @param {string} [formData.program] - Same as programInterest; surfaced separately on generate_lead
+ * @param {string} [formData.investmentInterest] - Legacy field name; still accepted for backward compat
  */
 export const trackFormSubmission = (formId, formData = {}) => {
+  // Rename: investmentInterest → programInterest. Emit BOTH keys so any GTM
+  // tag still listening on the legacy `investment_interest` variable keeps
+  // firing during the rollout window. Drop the legacy key in a future release.
+  const programInterest =
+    formData.programInterest || formData.investmentInterest || '';
+
   pushDataLayer('lead_form_submission', {
     formSource: formId,
-    investmentInterest: formData.investmentInterest || '',
+    program_interest: programInterest,
+    investment_interest: programInterest,
   });
 
-  // Also push the GA4 generate_lead event for conversion tracking
+  // Also push the GA4 generate_lead event for conversion tracking.
   pushDataLayer('generate_lead', {
     currency: 'INR',
     value: 0,
     lead_source: formId,
     method: 'form_submission',
+    lead_type: 'admission_enquiry',
+    program: formData.program || programInterest || '',
   });
 };
 

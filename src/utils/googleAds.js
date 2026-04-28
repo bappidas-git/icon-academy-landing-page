@@ -6,7 +6,13 @@
 
 const GOOGLE_ADS_ID = process.env.REACT_APP_GOOGLE_ADS_ID || '';
 const CONVERSION_LABEL = process.env.REACT_APP_GOOGLE_ADS_CONVERSION_LABEL || '';
-const DEFAULT_VALUE = parseFloat(process.env.REACT_APP_GOOGLE_ADS_CONVERSION_VALUE) || 0;
+// Default admission-lead value placeholder (₹500). Override via
+// REACT_APP_GOOGLE_ADS_CONVERSION_VALUE in .env to reflect your real
+// per-enquiry value for Smart Bidding signals.
+const DEFAULT_VALUE = parseInt(
+  process.env.REACT_APP_GOOGLE_ADS_CONVERSION_VALUE || '500',
+  10,
+);
 
 /**
  * Initialize Google Ads gtag.js tracking
@@ -84,7 +90,10 @@ export const trackPhoneConversion = (phoneNumber) => {
 };
 
 /**
- * Track a form submission as a Google Ads conversion
+ * Track a form submission as a Google Ads conversion.
+ * The transactionId is sourced from the submitted lead's `lead_id` upstream
+ * by the form machine; passing the form identifier here only tags the
+ * console-side log for attribution.
  * @param {string} [formId] - Form identifier for attribution
  */
 export const trackFormSubmission = (formId) => {

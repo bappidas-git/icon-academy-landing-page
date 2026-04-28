@@ -125,8 +125,13 @@ export const submitLeadToWebhook = async (leadData) => {
 
   // === DUMMY MODE (for testing) ===
   if (DUMMY_MODE || !USE_PABBLY) {
+    if (!USE_PABBLY && !DUMMY_MODE) {
+      console.warn(
+        "[ICC Admission Lead] Pabbly webhook URL not configured. Set REACT_APP_ADMIN_PABBLY_WEBHOOK_URL in .env.",
+      );
+    }
     console.log(
-      "[DUMMY MODE] Lead captured:",
+      "[ICC Admission Lead][DUMMY MODE] Lead captured:",
       JSON.stringify(enrichedData, null, 2),
     );
 
@@ -136,9 +141,11 @@ export const submitLeadToWebhook = async (leadData) => {
     // Store complete lead data in localStorage for LMS
     storeLeadForLMS(enrichedData, true);
 
-    console.log("[DUMMY MODE] Lead stored in localStorage for LMS.");
     console.log(
-      `To view all test leads, run in console: JSON.parse(localStorage.getItem("${TEST_LEADS_KEY}"))`,
+      "[ICC Admission Lead][DUMMY MODE] Lead stored in localStorage for LMS.",
+    );
+    console.log(
+      `[ICC Admission Lead] To view all test leads, run in console: JSON.parse(localStorage.getItem("${TEST_LEADS_KEY}"))`,
     );
 
     return { success: true, message: "Lead captured successfully (test mode)" };
@@ -163,7 +170,7 @@ export const submitLeadToWebhook = async (leadData) => {
       body: JSON.stringify({ lead: enrichedData }),
       keepalive: true,
     }).catch((err) => {
-      console.error("[LeadsAPI] create failed:", err);
+      console.error("[ICC Admission Lead][LeadsAPI] create failed:", err);
     });
   }
 
@@ -190,7 +197,7 @@ export const submitLeadToWebhook = async (leadData) => {
     // already in localStorage and has been sent to the server-side store,
     // so the admin panel will still see it — but the Pabbly hand-off
     // failed, so surface success to the user while logging for debug.
-    console.error("Webhook network error:", error);
+    console.error("[ICC Admission Lead] Webhook network error:", error);
     return { success: true, message: "Lead submitted successfully" };
   }
 };

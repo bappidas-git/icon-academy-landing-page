@@ -63,7 +63,8 @@ const getCookie = (name) => {
  * @param {string} leadData.email - Lead's email
  * @param {string} leadData.mobile - Lead's phone number
  * @param {string} [leadData.event_id] - Event ID for deduplication (auto-generated if not provided)
- * @param {string} [leadData.source] - Form source identifier
+ * @param {string} [leadData.source] - Form source identifier (e.g. hero_primary, drawer_apply_now)
+ * @param {string} [leadData.program] - Programme of interest (e.g. BBA, BCom). Used as content_name when present.
  * @returns {Promise<{success: boolean, message: string, event_id: string}>}
  */
 export const sendLeadEvent = async (leadData) => {
@@ -88,9 +89,10 @@ export const sendLeadEvent = async (leadData) => {
         fn: hashedName,
       },
       custom_data: {
-        content_name: leadData.source || 'lead_form',
-        content_category: 'lead_generation',
+        content_name: leadData.program || leadData.source || 'admission_lead',
+        content_category: 'admission_lead',
         lead_source: leadData.source || '',
+        lead_type: 'admission_enquiry',
       },
     };
 

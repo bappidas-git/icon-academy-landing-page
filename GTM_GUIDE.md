@@ -37,8 +37,8 @@ Every event the codebase pushes to `window.dataLayer`:
 | Event Name | When It Fires | Key Parameters | File & Line |
 |---|---|---|---|
 | `virtual_pageview` | Route change | `page_path`, `page_title` | `src/utils/gtm.js:59` |
-| `lead_form_submission` | Form submitted | `formSource`, `serviceInterest` | `src/utils/gtm.js:71` |
-| `generate_lead` | Form submitted (GA4 format) | `currency`, `value`, `lead_source`, `method` | `src/utils/gtm.js:77` |
+| `lead_form_submission` | Form submitted | `formSource`, `program_interest`, `investment_interest` (legacy) | `src/utils/gtm.js:71` |
+| `generate_lead` | Form submitted (GA4 format) | `currency`, `value`, `lead_source`, `method`, `lead_type` (`admission_enquiry`), `program` | `src/utils/gtm.js:77` |
 | `cta_click` | CTA button clicked | `cta_name`, `cta_location`, `cta_text` | `src/utils/gtm.js:92` |
 | `phone_click` | Phone number clicked | `phone_number`, `click_location` | `src/utils/gtm.js:105` |
 | `whatsapp_click` | WhatsApp link clicked | `click_location` | `src/utils/gtm.js:116` |
@@ -49,6 +49,8 @@ Every event the codebase pushes to `window.dataLayer`:
 | `page_visibility` | Tab focus/blur | `visibility_state` | `src/utils/gtm.js:171` |
 | `form_field_focus` | Form field focused | `form_id`, `field_name` | `src/utils/gtm.js:182` |
 | `enhanced_conversion_data` | Form submitted (hashed PII) | `email`, `phone_number`, `first_name`, `last_name` | `src/utils/enhancedConversions.js:112` |
+
+> **Rename note (one-release backward compat):** `lead_form_submission` previously emitted `investmentInterest`. It now emits `program_interest` AND a duplicate `investment_interest` so any existing GTM tag continues to fire while you migrate Data Layer Variables to the new key. The legacy key will be removed in a future release.
 
 **Auto-tracked by `useGTMTracking` hook** (`src/hooks/useGTMTracking.js`):
 - `virtual_pageview` — on route change (line 45)
@@ -79,6 +81,8 @@ Tracked sections: `home`, `about`, `services`, `highlights`, `features`, `locati
    | `value` | `{{dlv - value}}` |
    | `lead_source` | `{{dlv - lead_source}}` |
    | `method` | `{{dlv - method}}` |
+   | `lead_type` | `{{dlv - lead_type}}` (always `admission_enquiry`) |
+   | `program` | `{{dlv - program}}` (e.g. `BBA`, `BCom`) |
 5. Create **Data Layer Variables** in GTM for each parameter above (Variable Type: Data Layer Variable)
 6. Trigger: **Custom Event** where Event Name equals `generate_lead`
 
@@ -98,7 +102,9 @@ Create additional GA4 Event tags for: `cta_click`, `phone_click`, `whatsapp_clic
 ```env
 REACT_APP_GOOGLE_ADS_ID=AW-XXXXXXXXXX
 REACT_APP_GOOGLE_ADS_CONVERSION_LABEL=AbCdEfGhIjKlMn
-REACT_APP_GOOGLE_ADS_CONVERSION_VALUE=0
+# Per-enquiry value used by Smart Bidding. Defaults to ₹500 for an
+# admission lead if this env var is unset — override with your own number.
+REACT_APP_GOOGLE_ADS_CONVERSION_VALUE=500
 ```
 
 ### Method A: Via GTM (Recommended)
@@ -173,6 +179,15 @@ REACT_APP_META_PIXEL_ID=123456789012345
 | `trackContact()` | `Contact` | Phone/WhatsApp click | 128 |
 | `trackCustom()` | Custom event | Manual trigger | 146 |
 
+#### Default `Lead` event payload
+
+| Param | Default | Override via |
+|---|---|---|
+| `content_name` | Selected `program` from the form (e.g. `BBA`), else `"Icon Commerce College Admissions Landing"` | `trackLead({ content_name })` |
+| `content_category` | `"admission_lead"` | `trackLead({ content_category })` |
+
+`ViewContent` defaults to the same `content_name` and `content_category: "admission_landing"`.
+
 ### Alternative: Via GTM
 1. Create a **Custom HTML** tag in GTM
 2. Paste Meta Pixel base code (from Meta Events Manager)
@@ -209,6 +224,32 @@ Both browser pixel and CAPI send events with the same `event_id`:
 
 ### Supported Events
 `public/api/meta-capi.php` accepts: `Lead`, `Purchase`, `PageView`, `ViewContent`, `Contact`, `LeadConverted` (line 65)
+
+### Default `Lead` event body sent from the form
+
+```json
+{
+  "event_name": "Lead",
+  "event_id": "evt_…",
+  "event_source_url": "https://landing.iconcommercecollege.in/?utm_source=…",
+  "user_data": {
+    "em": "<sha256 of email>",
+    "ph": "<sha256 of mobile>",
+    "fn": "<sha256 of first name>",
+    "fbc": "<_fbc cookie>",
+    "fbp": "<_fbp cookie>",
+    "client_user_agent": "Mozilla/5.0 …"
+  },
+  "custom_data": {
+    "content_name": "BBA",
+    "content_category": "admission_lead",
+    "lead_source": "hero_primary",
+    "lead_type": "admission_enquiry"
+  }
+}
+```
+
+`content_name` falls back to the form `source` and finally `"admission_lead"` if the visitor hasn't picked a programme yet.
 
 ### Sending Conversions from Admin LMS
 When marking a lead as "Converted" in your admin panel, POST to `/api/meta-capi.php`:
