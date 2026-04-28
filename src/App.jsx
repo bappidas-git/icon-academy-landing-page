@@ -29,6 +29,7 @@ import FacilitiesSection from './components/sections/FacilitiesSection';
 import CampusLifeSection from './components/sections/CampusLifeSection';
 import AdmissionsSection from './components/sections/AdmissionsSection';
 import FeesSection from './components/sections/FeesSection';
+import ScholarshipsSection from './components/sections/ScholarshipsSection';
 import Footer from './components/common/Footer/Footer';
 import Modal from './components/common/Modal/Modal';
 import MobileDrawer from './components/common/MobileDrawer/MobileDrawer';
@@ -468,6 +469,9 @@ const HomePageContent = () => {
 
         {/* Fees Section - transparent fee schedule for the four UG programmes */}
         <FeesSection />
+
+        {/* Scholarships Section - Government scheme facilitation + Nodal Officer */}
+        <ScholarshipsSection />
 
         {/* Lazy loaded sections with error boundaries */}
         <ErrorBoundary>
