@@ -144,6 +144,73 @@ export const getNameErrorMessage = (name) => {
 };
 
 /**
+ * Programme options for the lead form
+ */
+export const PROGRAM_OPTIONS_LIST = [
+  'B.Com.',
+  'BBA',
+  'BCA',
+  'B.A.',
+  'Not sure yet',
+];
+
+/**
+ * HS stream options for the lead form
+ */
+export const HS_STREAM_OPTIONS_LIST = [
+  'Science',
+  'Commerce',
+  'Arts',
+  'Vocational',
+];
+
+/**
+ * Validate Programme selection
+ * @param {string} value - Programme value to validate
+ * @returns {boolean} - True if valid
+ */
+export const validateProgram = (value) => {
+  if (!value) return false;
+  return PROGRAM_OPTIONS_LIST.includes(value);
+};
+
+/**
+ * Validate HS Stream selection
+ * @param {string} value - HS stream value to validate
+ * @returns {boolean} - True if valid
+ */
+export const validateHsStream = (value) => {
+  if (!value) return false;
+  return HS_STREAM_OPTIONS_LIST.includes(value);
+};
+
+/**
+ * Get validation error message for programme
+ * @param {string} value - Programme value
+ * @returns {string} - Error message or empty string
+ */
+export const getProgramErrorMessage = (value) => {
+  if (!value) return 'Please select a programme';
+  if (!PROGRAM_OPTIONS_LIST.includes(value)) {
+    return 'Please select a valid programme';
+  }
+  return '';
+};
+
+/**
+ * Get validation error message for HS stream
+ * @param {string} value - HS stream value
+ * @returns {string} - Error message or empty string
+ */
+export const getHsStreamErrorMessage = (value) => {
+  if (!value) return 'Please select your HS stream';
+  if (!HS_STREAM_OPTIONS_LIST.includes(value)) {
+    return 'Please select a valid HS stream';
+  }
+  return '';
+};
+
+/**
  * Get validation error message for message
  * @param {string} message - Message content
  * @returns {string} - Error message or empty string
@@ -223,14 +290,20 @@ const validators = {
   INDIAN_MOBILE_REGEX,
   EMAIL_REGEX,
   NAME_REGEX,
+  PROGRAM_OPTIONS_LIST,
+  HS_STREAM_OPTIONS_LIST,
   validateIndianMobile,
   validateEmail,
   validateName,
   validateMessage,
+  validateProgram,
+  validateHsStream,
   getMobileErrorMessage,
   getEmailErrorMessage,
   getNameErrorMessage,
   getMessageErrorMessage,
+  getProgramErrorMessage,
+  getHsStreamErrorMessage,
   validateLeadForm,
   formatPhoneNumber,
   sanitizeInput,

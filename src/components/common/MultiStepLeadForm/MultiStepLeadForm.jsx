@@ -11,13 +11,13 @@ import { AnimatePresence } from "framer-motion";
 import { Icon } from "@iconify/react";
 import StepIndicator from "./StepIndicator";
 import StepShell from "./steps/StepShell";
-import Step1BillRegion from "./steps/Step1BillRegion";
-import Step2Property from "./steps/Step2Property";
+import Step1ProgramStream from "./steps/Step1ProgramStream";
+import Step2Background from "./steps/Step2Background";
 import Step3Contact from "./steps/Step3Contact";
 import useLeadFormMachine from "./useLeadFormMachine";
 import styles from "./MultiStepLeadForm.module.css";
 
-const STEP_LABELS = ["__TBD_ICON_CONTENT__", "__TBD_ICON_CONTENT__", "__TBD_ICON_CONTENT__"];
+const STEP_LABELS = ["Programme", "Background", "Contact"];
 
 const variantClass = (variant) => {
   switch (variant) {
@@ -33,9 +33,8 @@ const variantClass = (variant) => {
 const MultiStepLeadForm = ({
   source = "hero",
   solution = null,
-  calculatorSnapshot = null,
   variant = "default",
-  submitButtonText = "__TBD_ICON_CONTENT__",
+  submitButtonText = "Submit enquiry",
   onClose,
   onSuccess,
 }) => {
@@ -43,7 +42,6 @@ const MultiStepLeadForm = ({
   const { state, actions } = useLeadFormMachine({
     source,
     solution,
-    calculatorSnapshot,
   });
 
   const { step, isSubmitting, initialStepSkipped } = state;
@@ -71,15 +69,15 @@ const MultiStepLeadForm = ({
       return (
         <StepShell
           stepKey="step-1"
-          title="__TBD_ICON_CONTENT__"
-          subtitle="__TBD_ICON_CONTENT__"
-          legend="__TBD_ICON_CONTENT__"
+          title="What programme do you want to study?"
+          subtitle="Pick your preferred undergraduate programme — you can change your mind during counselling."
+          legend="Step 1 of 3"
           onPrimary={handlePrimary}
           showBack={false}
           primaryLabel="Continue"
           isSubmitting={isSubmitting}
         >
-          <Step1BillRegion
+          <Step1ProgramStream
             data={state.data}
             errors={state.errors}
             onChange={actions.setField}
@@ -93,16 +91,16 @@ const MultiStepLeadForm = ({
       return (
         <StepShell
           stepKey="step-2"
-          title="__TBD_ICON_CONTENT__"
-          subtitle="__TBD_ICON_CONTENT__"
-          legend="__TBD_ICON_CONTENT__"
+          title="Tell us a bit about you"
+          subtitle="Helps us share the right scholarship and counselling info."
+          legend="Step 2 of 3"
           onBack={canBack ? actions.back : undefined}
           showBack={canBack}
           onPrimary={handlePrimary}
           primaryLabel="Continue"
           isSubmitting={isSubmitting}
         >
-          <Step2Property
+          <Step2Background
             data={state.data}
             errors={state.errors}
             onChange={actions.setField}
@@ -115,9 +113,9 @@ const MultiStepLeadForm = ({
       return (
         <StepShell
           stepKey="step-3"
-          title="__TBD_ICON_CONTENT__"
-          subtitle="__TBD_ICON_CONTENT__"
-          legend="__TBD_ICON_CONTENT__"
+          title="Where should our admissions team call you?"
+          subtitle="We'll review your enquiry and call within 24 hours."
+          legend="Step 3 of 3"
           onBack={actions.back}
           onPrimary={handlePrimary}
           primaryLabel={submitButtonText}
@@ -146,7 +144,7 @@ const MultiStepLeadForm = ({
             aria-hidden="true"
             className={styles.prefillPillIcon}
           />
-          <span>__TBD_ICON_CONTENT__</span>
+          <span>Programme prefilled — verify and continue.</span>
         </div>
       )}
 
@@ -161,7 +159,7 @@ const MultiStepLeadForm = ({
       </div>
 
       <div className={styles.footerTrust}>
-        <span>__TBD_ICON_CONTENT__</span>
+        <span>🔒 100% confidential · 📞 Call within 24 hrs · ✅ Direct admissions support</span>
       </div>
     </div>
   );

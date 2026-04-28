@@ -15,11 +15,10 @@ import styles from './LeadFormDrawer.module.css';
 const LeadFormDrawer = ({
   isOpen,
   onClose,
-  title = '__TBD_ICON_CONTENT__',
-  subtitle = '__TBD_ICON_CONTENT__',
+  title = 'Apply for 2026 Admissions',
+  subtitle = 'Two minutes — and our team will call within 24 hours.',
   source = 'general',
   solution = null,
-  calculatorSnapshot = null,
   onSubmitSuccess,
 }) => {
   // Handle body scroll lock
@@ -145,9 +144,8 @@ const LeadFormDrawer = ({
               {/* Multi-Step Lead Form */}
               <div className={styles.formHost}>
                 <MultiStepLeadForm
-                  source={source || 'drawer'}
+                  source={source || 'general'}
                   solution={solution || null}
-                  calculatorSnapshot={calculatorSnapshot || null}
                   variant="drawer"
                   onClose={onClose}
                   onSuccess={onSubmitSuccess}
