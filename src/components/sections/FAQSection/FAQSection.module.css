@@ -1,84 +1,231 @@
+/* ============================================
+   FAQSection Styles — Icon Commerce College
+   White surface accordion with hairline
+   separators, rounded outer card, saffron
+   left rule + plus/minus indicator on toggle,
+   followed by a counsellor / WhatsApp deflection
+   bar.
+   ============================================ */
+
 .wrap {
   max-width: 820px;
-  margin: 40px auto 0;
+  margin: 2.5rem auto 0;
+  background: var(--ic-bg-default);
+  border: 1px solid var(--ic-border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--ic-shadow-sm);
+}
+
+.itemReveal {
+  display: block;
+}
+
+.itemReveal + .itemReveal .item {
+  border-top: 1px solid var(--ic-border);
 }
 
 .item {
-  border-bottom: 1px solid var(--border-gray);
+  background: var(--ic-bg-default) !important;
+  border-left: 4px solid transparent;
+  transition: border-left-color 240ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 240ms ease;
+}
+
+.item.itemOpen {
+  border-left-color: var(--ic-secondary);
+}
+
+.summary {
+  padding: 0 1.25rem 0 1.25rem !important;
+  min-height: 64px !important;
+}
+
+.summary:hover {
+  background-color: var(--ic-bg-cream);
+}
+
+.summary:global(.Mui-focusVisible) {
+  background-color: var(--ic-bg-cream);
+}
+
+.summary :global(.MuiAccordionSummary-content) {
+  margin: 1.125rem 0 !important;
+}
+
+.summary :global(.MuiAccordionSummary-expandIconWrapper) {
+  transform: none !important;
+  transition: none !important;
 }
 
 .question {
   font-family: var(--ic-font-ui);
   font-weight: 600;
-  font-size: var(--fs-md);
-  color: var(--ink);
-  padding: 20px 0;
+  font-size: 1rem;
+  line-height: 1.4;
+  color: var(--ic-text-primary);
+  letter-spacing: -0.005em;
+}
+
+.details {
+  padding: 0 1.25rem 1.25rem 1.25rem !important;
 }
 
 .answer {
-  font-size: var(--fs-base);
-  color: var(--ink-muted);
-  line-height: 1.7;
-  padding-bottom: 20px;
+  font-family: var(--ic-font-body);
+  font-weight: 400;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--ic-text-secondary);
+  margin: 0;
 }
 
-.plus {
-  color: var(--accent-gold);
-  font-size: 22px;
-  margin-right: 12px;
-  transition: transform 0.3s ease;
-  line-height: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+/* ===== Plus / minus indicator ===== */
+.indicator {
+  position: relative;
   width: 22px;
   height: 22px;
   flex-shrink: 0;
+  display: inline-block;
 }
 
-.plus.expanded {
-  transform: rotate(45deg);
+.indicator::before,
+.indicator::after {
+  content: '';
+  position: absolute;
+  background-color: var(--ic-secondary);
+  border-radius: 2px;
+  transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 240ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Horizontal bar */
+.indicator::before {
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  margin-top: -1px;
+}
+
+/* Vertical bar — collapses to "−" when open */
+.indicator::after {
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  margin-left: -1px;
+}
+
+.indicatorOpen::after {
+  transform: rotate(90deg);
+  opacity: 0;
+}
+
+/* ===== Bottom deflection bar ===== */
 .bottomHelp {
-  margin: 40px auto 0;
+  margin: 2.5rem auto 0;
   max-width: 820px;
-  padding: 20px 24px;
-  background: var(--surface-muted);
-  border-radius: 14px;
+  padding: 1.75rem 1.5rem;
+  background: var(--ic-bg-cream);
+  border: 1px solid rgba(217, 119, 6, 0.22);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.bottomHelpHeading {
+  font-family: var(--ic-font-heading);
+  font-weight: 700;
+  font-size: clamp(1.125rem, 1rem + 0.6vw, 1.375rem);
+  line-height: 1.25;
+  color: var(--ic-text-primary);
+  letter-spacing: -0.005em;
+  margin: 0;
+}
+
+.bottomHelpActions {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
-  justify-content: space-between;
+  gap: 0.75rem;
+  justify-content: center;
   align-items: center;
 }
 
-.bottomHelp .text {
-  font-size: 0.9375rem;
-  color: var(--ink);
-  font-weight: 500;
+.counsellorBtn {
+  min-height: 48px;
+  border-radius: 12px !important;
+  text-transform: none !important;
+  font-family: var(--ic-font-ui) !important;
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+  padding: 0.75rem 1.5rem !important;
+  min-width: 200px;
 }
 
-.bottomHelp .btn {
-  padding: 12px 20px;
-  background: var(--cta-primary);
-  color: var(--white);
-  border: none;
-  border-radius: 10px;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: var(--elev-cta);
-  font-family: inherit;
-  font-size: 0.9375rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+.whatsappBtn {
+  min-height: 48px;
+  border-radius: 12px !important;
+  text-transform: none !important;
+  font-family: var(--ic-font-ui) !important;
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+  padding: 0.75rem 1.5rem !important;
+  min-width: 200px;
+  border-color: var(--ic-primary) !important;
+  color: var(--ic-primary) !important;
 }
 
-.bottomHelp .btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 10px 28px rgba(255, 107, 53, 0.4);
+.whatsappBtn:hover {
+  background-color: rgba(30, 58, 138, 0.06) !important;
+  border-color: var(--ic-primary-dark) !important;
 }
 
-.bottomHelp .btn:focus-visible {
-  outline: 2px solid var(--accent-gold);
-  outline-offset: 3px;
+.whatsappIcon {
+  color: #25D366;
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 767px) {
+  .wrap {
+    margin-top: 2rem;
+    border-radius: 14px;
+  }
+
+  .summary {
+    padding: 0 1rem 0 1rem !important;
+    min-height: 60px !important;
+  }
+
+  .summary :global(.MuiAccordionSummary-content) {
+    margin: 1rem 0 !important;
+  }
+
+  .question {
+    font-size: 0.9375rem;
+  }
+
+  .details {
+    padding: 0 1rem 1rem 1rem !important;
+  }
+
+  .bottomHelp {
+    margin-top: 2rem;
+    padding: 1.5rem 1.25rem;
+  }
+
+  .bottomHelpActions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .counsellorBtn,
+  .whatsappBtn {
+    width: 100%;
+    min-width: 0;
+  }
 }
