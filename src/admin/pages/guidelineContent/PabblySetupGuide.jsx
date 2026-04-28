@@ -360,7 +360,7 @@ const PabblySetupGuide = ({ styles }) => {
             </tr>
             <tr>
               <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>drawer-form-apply-now</code></td>
-              <td className={styles.guideTableCell}>Slide-in drawer — Book Site Survey</td>
+              <td className={styles.guideTableCell}>Slide-in drawer — Apply Now</td>
             </tr>
             <tr>
               <td className={styles.guideTableCell}><code className={styles.guideInlineCode}>drawer-form-request-callback</code></td>

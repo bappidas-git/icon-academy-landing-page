@@ -479,6 +479,77 @@
   color: var(--admin-accent);
 }
 
+/* ---- Programme & HS Stream chips ---- */
+.programmeChip {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: #FFF8E1;
+  color: #3F2F8A;
+  align-self: flex-start;
+}
+
+.streamChip {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: transparent;
+  border: 1px solid var(--admin-accent);
+  color: var(--admin-accent);
+  align-self: flex-start;
+}
+
+.stateValue {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #3F2F8A;
+}
+
+.passingYearValue {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--admin-text-primary);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+/* ---- Two info-card pair (Contact + Application context) ---- */
+.infoCardPair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .infoCardPair {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+/* ---- Enriched message summary ---- */
+.enrichedMessage {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--admin-text-primary);
+  background: #F8FAFC;
+  border: 1px solid var(--admin-border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
 /* ---- Mobile Sticky Footer ---- */
 .mobileFooter {
   display: none;

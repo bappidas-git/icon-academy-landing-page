@@ -68,7 +68,7 @@ const STATUS_OPTIONS = [
   },
   {
     value: "procedure_scheduled",
-    label: "Site Survey Scheduled",
+    label: "Campus Visit Scheduled",
     color: "#0097A7",
     bg: "#E0F7FA",
   },
@@ -89,6 +89,21 @@ const DATE_RANGE_OPTIONS = [
   { value: "custom", label: "Custom Range" },
 ];
 
+const PROGRAM_OPTIONS = ["B.Com.", "BBA", "BCA", "B.A.", "Not sure yet"];
+const HS_STREAM_OPTIONS = ["Science", "Commerce", "Arts", "Vocational"];
+const NE_STATE_OPTIONS = [
+  "Assam",
+  "Arunachal Pradesh",
+  "Manipur",
+  "Meghalaya",
+  "Mizoram",
+  "Nagaland",
+  "Sikkim",
+  "Tripura",
+  "Other",
+];
+const PASSING_YEAR_OPTIONS = ["2026", "2025", "Earlier"];
+
 const getStatusConfig = (status) =>
   STATUS_OPTIONS.find((s) => s.value === status) || STATUS_OPTIONS[0];
 
@@ -102,20 +117,18 @@ const formatShortDate = (dateStr) => {
   });
 };
 
-// Columns config
+// Column order: Submitted At, Name, Mobile, Programme, HS Stream, State,
+// City / Town, Source, Status. Actions column is rendered separately.
 const COLUMNS = [
+  { id: "submitted_at", label: "Submitted At", sortable: true, width: 130 },
   { id: "name", label: "Name", sortable: true },
   { id: "mobile", label: "Mobile", sortable: true, width: 130 },
-  { id: "email", label: "Email", sortable: true },
-  {
-    id: "service_interest",
-    label: "Interest",
-    sortable: true,
-    hideTablet: true,
-  },
+  { id: "program", label: "Programme", sortable: true, width: 140 },
+  { id: "hs_stream", label: "HS Stream", sortable: true, width: 130, hideTablet: true },
+  { id: "state", label: "State", sortable: true, width: 140 },
+  { id: "city_or_town", label: "City / Town", sortable: true, width: 130, hideTablet: true },
   { id: "source", label: "Source", sortable: true, width: 140 },
-  { id: "status", label: "Status", sortable: true, width: 150 },
-  { id: "submitted_at", label: "Date", sortable: true, width: 100 },
+  { id: "status", label: "Status", sortable: true, width: 160 },
 ];
 
 const LeadManagement = () => {
@@ -129,6 +142,10 @@ const LeadManagement = () => {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [sourceFilter, setSourceFilter] = useState("all");
+  const [programFilter, setProgramFilter] = useState("all");
+  const [hsStreamFilter, setHsStreamFilter] = useState("all");
+  const [stateFilter, setStateFilter] = useState("all");
+  const [passingYearFilter, setPassingYearFilter] = useState("all");
   const [dateRange, setDateRange] = useState("all");
   const [customStart, setCustomStart] = useState("");
   const [customEnd, setCustomEnd] = useState("");
@@ -166,6 +183,10 @@ const LeadManagement = () => {
       search,
       status: statusFilter,
       source: sourceFilter,
+      program: programFilter,
+      hsStream: hsStreamFilter,
+      state: stateFilter,
+      passingYear: passingYearFilter,
       dateRange,
       startDate: customStart,
       endDate: customEnd,
@@ -176,7 +197,18 @@ const LeadManagement = () => {
     const s = getLeadStats();
     setStats(s);
     setAvailableSources(s.sources);
-  }, [search, statusFilter, sourceFilter, dateRange, customStart, customEnd]);
+  }, [
+    search,
+    statusFilter,
+    sourceFilter,
+    programFilter,
+    hsStreamFilter,
+    stateFilter,
+    passingYearFilter,
+    dateRange,
+    customStart,
+    customEnd,
+  ]);
 
   // Keep the latest loadData in a ref so event listeners below don't need
   // to re-bind every time filters change.
@@ -418,6 +450,10 @@ const LeadManagement = () => {
     setSearch("");
     setStatusFilter("all");
     setSourceFilter("all");
+    setProgramFilter("all");
+    setHsStreamFilter("all");
+    setStateFilter("all");
+    setPassingYearFilter("all");
     setDateRange("all");
     setCustomStart("");
     setCustomEnd("");
@@ -432,6 +468,10 @@ const LeadManagement = () => {
     search ||
     statusFilter !== "all" ||
     sourceFilter !== "all" ||
+    programFilter !== "all" ||
+    hsStreamFilter !== "all" ||
+    stateFilter !== "all" ||
+    passingYearFilter !== "all" ||
     dateRange !== "all";
 
   return (
@@ -713,6 +753,102 @@ const LeadManagement = () => {
             </Select>
           </FormControl>
           <FormControl size="small" sx={{ minWidth: 140 }}>
+            <InputLabel>Programme</InputLabel>
+            <Select
+              value={programFilter}
+              label="Programme"
+              onChange={(e) => {
+                setProgramFilter(e.target.value);
+                setPage(0);
+              }}
+              sx={{
+                borderRadius: "8px",
+                "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                  borderColor: "var(--admin-accent)",
+                },
+              }}
+            >
+              <MenuItem value="all">All Programmes</MenuItem>
+              {PROGRAM_OPTIONS.map((p) => (
+                <MenuItem key={p} value={p}>
+                  {p}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl size="small" sx={{ minWidth: 130 }}>
+            <InputLabel>HS Stream</InputLabel>
+            <Select
+              value={hsStreamFilter}
+              label="HS Stream"
+              onChange={(e) => {
+                setHsStreamFilter(e.target.value);
+                setPage(0);
+              }}
+              sx={{
+                borderRadius: "8px",
+                "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                  borderColor: "var(--admin-accent)",
+                },
+              }}
+            >
+              <MenuItem value="all">All Streams</MenuItem>
+              {HS_STREAM_OPTIONS.map((s) => (
+                <MenuItem key={s} value={s}>
+                  {s}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl size="small" sx={{ minWidth: 140 }}>
+            <InputLabel>State</InputLabel>
+            <Select
+              value={stateFilter}
+              label="State"
+              onChange={(e) => {
+                setStateFilter(e.target.value);
+                setPage(0);
+              }}
+              sx={{
+                borderRadius: "8px",
+                "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                  borderColor: "var(--admin-accent)",
+                },
+              }}
+            >
+              <MenuItem value="all">All States</MenuItem>
+              {NE_STATE_OPTIONS.map((s) => (
+                <MenuItem key={s} value={s}>
+                  {s}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl size="small" sx={{ minWidth: 130 }}>
+            <InputLabel>Passing Year</InputLabel>
+            <Select
+              value={passingYearFilter}
+              label="Passing Year"
+              onChange={(e) => {
+                setPassingYearFilter(e.target.value);
+                setPage(0);
+              }}
+              sx={{
+                borderRadius: "8px",
+                "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                  borderColor: "var(--admin-accent)",
+                },
+              }}
+            >
+              <MenuItem value="all">All Years</MenuItem>
+              {PASSING_YEAR_OPTIONS.map((y) => (
+                <MenuItem key={y} value={y}>
+                  {y}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl size="small" sx={{ minWidth: 140 }}>
             <InputLabel>Date Range</InputLabel>
             <Select
               value={dateRange}
@@ -793,6 +929,54 @@ const LeadManagement = () => {
                 label={`Source: ${sourceFilter}`}
                 size="small"
                 onDelete={() => setSourceFilter("all")}
+                sx={{
+                  bgcolor: "#EBF5FF",
+                  color: "var(--admin-accent)",
+                  "& .MuiChip-deleteIcon": { color: "var(--admin-accent)" },
+                }}
+              />
+            )}
+            {programFilter !== "all" && (
+              <Chip
+                label={`Programme: ${programFilter}`}
+                size="small"
+                onDelete={() => setProgramFilter("all")}
+                sx={{
+                  bgcolor: "#FFF8E1",
+                  color: "#3F2F8A",
+                  "& .MuiChip-deleteIcon": { color: "#3F2F8A" },
+                }}
+              />
+            )}
+            {hsStreamFilter !== "all" && (
+              <Chip
+                label={`HS Stream: ${hsStreamFilter}`}
+                size="small"
+                onDelete={() => setHsStreamFilter("all")}
+                sx={{
+                  bgcolor: "#EBF5FF",
+                  color: "var(--admin-accent)",
+                  "& .MuiChip-deleteIcon": { color: "var(--admin-accent)" },
+                }}
+              />
+            )}
+            {stateFilter !== "all" && (
+              <Chip
+                label={`State: ${stateFilter}`}
+                size="small"
+                onDelete={() => setStateFilter("all")}
+                sx={{
+                  bgcolor: "#EBF5FF",
+                  color: "var(--admin-accent)",
+                  "& .MuiChip-deleteIcon": { color: "var(--admin-accent)" },
+                }}
+              />
+            )}
+            {passingYearFilter !== "all" && (
+              <Chip
+                label={`Passing Year: ${passingYearFilter}`}
+                size="small"
+                onDelete={() => setPassingYearFilter("all")}
                 sx={{
                   bgcolor: "#EBF5FF",
                   color: "var(--admin-accent)",
@@ -897,11 +1081,13 @@ const LeadManagement = () => {
             <div className={styles.emptyIcon}>
               <Icon icon="mdi:account-group-outline" width={64} height={64} />
             </div>
-            <p className={styles.emptyText}>No leads found</p>
+            <p className={styles.emptyText}>
+              {hasActiveFilters ? "No leads found" : "No admission enquiries yet"}
+            </p>
             <p className={styles.emptySubtext}>
               {hasActiveFilters
                 ? "No results match your current filters. Try adjusting your search or filters."
-                : "New leads will appear here as they come in from your landing page forms."}
+                : "No admission enquiries yet — they will appear here as soon as students submit the form."}
             </p>
             {hasActiveFilters && (
               <Button
@@ -1034,6 +1220,17 @@ const LeadManagement = () => {
                           </TableCell>
                           <TableCell>
                             <Typography
+                              variant="caption"
+                              sx={{
+                                whiteSpace: "nowrap",
+                                color: "var(--admin-text-secondary)",
+                              }}
+                            >
+                              {formatShortDate(lead.submitted_at)}
+                            </Typography>
+                          </TableCell>
+                          <TableCell>
+                            <Typography
                               variant="body2"
                               sx={{
                                 fontWeight: 600,
@@ -1056,17 +1253,81 @@ const LeadManagement = () => {
                             </Typography>
                           </TableCell>
                           <TableCell>
-                            <Typography
-                              variant="body2"
-                              sx={{
-                                maxWidth: 200,
-                                overflow: "hidden",
-                                textOverflow: "ellipsis",
-                                whiteSpace: "nowrap",
-                              }}
-                            >
-                              {lead.email || "—"}
-                            </Typography>
+                            {(lead.program || lead.service_interest) ? (
+                              <Chip
+                                label={lead.program || lead.service_interest}
+                                size="small"
+                                sx={{
+                                  fontSize: "0.7rem",
+                                  fontWeight: 600,
+                                  bgcolor: "#FFF8E1",
+                                  color: "#3F2F8A",
+                                  maxWidth: 130,
+                                  "& .MuiChip-label": {
+                                    overflow: "hidden",
+                                    textOverflow: "ellipsis",
+                                  },
+                                }}
+                              />
+                            ) : (
+                              <Typography
+                                variant="body2"
+                                sx={{ color: "var(--admin-text-muted)" }}
+                              >
+                                —
+                              </Typography>
+                            )}
+                          </TableCell>
+                          {!isTablet && (
+                            <TableCell>
+                              {lead.hs_stream ? (
+                                <Chip
+                                  label={lead.hs_stream}
+                                  size="small"
+                                  variant="outlined"
+                                  sx={{
+                                    fontSize: "0.7rem",
+                                    borderColor: "var(--admin-accent)",
+                                    color: "var(--admin-accent)",
+                                  }}
+                                />
+                              ) : (
+                                <Typography
+                                  variant="body2"
+                                  sx={{ color: "var(--admin-text-muted)" }}
+                                >
+                                  —
+                                </Typography>
+                              )}
+                            </TableCell>
+                          )}
+                          <TableCell>
+                            {lead.state ? (
+                              <span
+                                style={{
+                                  display: "inline-flex",
+                                  alignItems: "center",
+                                  gap: 4,
+                                  color: "#3F2F8A",
+                                  fontSize: "0.8125rem",
+                                  fontWeight: 500,
+                                }}
+                              >
+                                <Icon
+                                  icon="mdi:map-marker"
+                                  width={14}
+                                  height={14}
+                                />
+                                {lead.state}
+                              </span>
+                            ) : (
+                              <Typography
+                                variant="body2"
+                                sx={{ color: "var(--admin-text-muted)" }}
+                              >
+                                —
+                              </Typography>
+                            )}
                           </TableCell>
                           {!isTablet && (
                             <TableCell>
@@ -1075,9 +1336,14 @@ const LeadManagement = () => {
                                 sx={{
                                   fontSize: "0.8125rem",
                                   color: "var(--admin-text-secondary)",
+                                  maxWidth: 130,
+                                  overflow: "hidden",
+                                  textOverflow: "ellipsis",
+                                  whiteSpace: "nowrap",
                                 }}
+                                title={lead.city_or_town || ""}
                               >
-                                {lead.service_interest || "—"}
+                                {lead.city_or_town || "—"}
                               </Typography>
                             </TableCell>
                           )}
@@ -1133,17 +1399,6 @@ const LeadManagement = () => {
                                 </MenuItem>
                               ))}
                             </Select>
-                          </TableCell>
-                          <TableCell>
-                            <Typography
-                              variant="caption"
-                              sx={{
-                                whiteSpace: "nowrap",
-                                color: "var(--admin-text-secondary)",
-                              }}
-                            >
-                              {formatShortDate(lead.submitted_at)}
-                            </Typography>
                           </TableCell>
                           <TableCell onClick={(e) => e.stopPropagation()}>
                             <Tooltip title="View Details">
@@ -1222,6 +1477,57 @@ const LeadManagement = () => {
                     >
                       {lead.mobile || "—"}
                     </div>
+                    {(lead.program ||
+                      lead.service_interest ||
+                      lead.hs_stream ||
+                      lead.state) && (
+                      <div
+                        className={styles.leadCardChips}
+                        style={{ paddingLeft: 32, gap: 6 }}
+                      >
+                        {(lead.program || lead.service_interest) && (
+                          <Chip
+                            label={lead.program || lead.service_interest}
+                            size="small"
+                            sx={{
+                              fontSize: "0.7rem",
+                              height: 22,
+                              fontWeight: 600,
+                              bgcolor: "#FFF8E1",
+                              color: "#3F2F8A",
+                            }}
+                          />
+                        )}
+                        {lead.hs_stream && (
+                          <Chip
+                            label={lead.hs_stream}
+                            size="small"
+                            variant="outlined"
+                            sx={{
+                              fontSize: "0.7rem",
+                              height: 22,
+                              borderColor: "var(--admin-accent)",
+                              color: "var(--admin-accent)",
+                            }}
+                          />
+                        )}
+                        {lead.state && (
+                          <span
+                            style={{
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: 2,
+                              color: "#3F2F8A",
+                              fontSize: "0.7rem",
+                              fontWeight: 500,
+                            }}
+                          >
+                            <Icon icon="mdi:map-marker" width={12} height={12} />
+                            {lead.state}
+                          </span>
+                        )}
+                      </div>
+                    )}
                     <div
                       className={styles.leadCardChips}
                       style={{ paddingLeft: 32 }}

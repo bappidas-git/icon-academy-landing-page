@@ -8,7 +8,7 @@
  * Export converted leads with gclid as a Google Ads offline conversion CSV.
  * Only includes leads with status "converted" that have a gclid.
  *
- * Google Ads offline conversion CSV format:
+ * Google Ads offline conversion CSV format (column structure unchanged):
  * - Google Click ID
  * - Conversion Name
  * - Conversion Time
@@ -17,14 +17,14 @@
  *
  * @param {Array} leads - Array of lead objects from localStorage
  * @param {Object} [options] - Export options
- * @param {string} [options.conversionName] - Name of the conversion action in Google Ads (default: 'Offline Lead Conversion')
+ * @param {string} [options.conversionName] - Name of the conversion action in Google Ads (default: 'ICC Admission Lead')
  * @param {number} [options.defaultValue] - Default conversion value (default: 0)
  * @param {string} [options.currency] - Currency code (default: 'INR')
  * @returns {{ exported: number, skipped: number }} Export result counts
  */
 export const exportGoogleAdsCSV = (leads, options = {}) => {
   const {
-    conversionName = 'Offline Lead Conversion',
+    conversionName = 'ICC Admission Lead',
     defaultValue = 0,
     currency = 'INR',
   } = options;
