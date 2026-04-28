@@ -16,8 +16,8 @@ import {
   trackFormFieldFocus,
 } from '../../../utils/gtm';
 
-const SCROLL_MILESTONES = [25, 50, 75, 100];
-const TIME_MILESTONES = [30, 60, 120, 300];
+const SCROLL_MILESTONES = [25, 50, 75, 90];
+const TIME_MILESTONES = [30, 60, 180, 300];
 
 const EngagementTracker = () => {
   const scrollMilestonesHit = useRef(new Set());

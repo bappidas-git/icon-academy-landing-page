@@ -121,7 +121,7 @@ a:hover {
 }
 
 a:focus-visible {
-  outline: 2px solid var(--ic-primary);
+  outline: 3px solid var(--ic-secondary);
   outline-offset: 2px;
   border-radius: var(--radius-sm);
 }
@@ -656,7 +656,7 @@ table {
 }
 
 .btn:focus-visible {
-  outline: 2px solid var(--ic-primary);
+  outline: 3px solid var(--ic-secondary);
   outline-offset: 2px;
 }
 
@@ -860,17 +860,19 @@ table {
 }
 
 /* ========== Focus States ========== */
+/* Saffron 3px ring with 2px offset; never set outline-style: none. Hides
+   only the default outline on non-keyboard focus (mouse / touch). */
 :focus {
   outline: none;
 }
 
 :focus-visible {
-  outline: 2px solid var(--ic-primary);
+  outline: 3px solid var(--ic-secondary);
   outline-offset: 2px;
 }
 
-:where(button, a, [role="button"], [role="radio"], [role="slider"], input, select, textarea):focus-visible {
-  outline: 2px solid var(--ic-primary);
+:where(button, a, [role="button"], [role="radio"], [role="slider"], input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 3px solid var(--ic-secondary);
   outline-offset: 2px;
   border-radius: 6px;
 }
@@ -888,18 +890,23 @@ table {
   border: 0;
 }
 
-.skip-link {
+.skip-link,
+.visually-hidden-focusable {
   position: absolute;
   top: -100%;
   left: 0;
   background: var(--ic-primary);
   color: var(--ic-text-on-dark);
-  padding: var(--space-3) var(--space-4);
+  padding: 12px 16px;
+  font-weight: var(--fw-semibold);
   z-index: var(--z-max);
   transition: top var(--transition-fast);
 }
 
-.skip-link:focus {
+.skip-link:focus,
+.skip-link:focus-visible,
+.visually-hidden-focusable:focus,
+.visually-hidden-focusable:focus-visible {
   top: 0;
 }
 
@@ -959,7 +966,10 @@ table {
   }
 }
 
-/* ========== Reduced Motion ========== */
+/* ========== Reduced Motion ==========
+   Disables Framer Motion (which honours prefers-reduced-motion via the
+   media query, since CSS transition-duration is what powers the
+   underlying animations) and CSS keyframes globally. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -967,6 +977,10 @@ table {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  html {
     scroll-behavior: auto !important;
   }
 }

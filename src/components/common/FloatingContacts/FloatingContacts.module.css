@@ -1,7 +1,8 @@
 .stack {
   position: fixed;
-  right: 22px;
-  bottom: 92px;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -15,30 +16,85 @@
 }
 
 .btn {
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
+  position: relative;
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--ic-shadow-md);
   cursor: pointer;
-  color: var(--white);
+  color: var(--ic-text-on-dark);
   border: none;
   text-decoration: none;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btn:hover {
-  transform: scale(1.08);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+  transform: translateX(-4px);
+  box-shadow: var(--ic-shadow-lg);
+}
+
+.btn:focus-visible {
+  outline: 3px solid var(--ic-secondary);
+  outline-offset: 2px;
+}
+
+.btn svg,
+.btn [class^='iconify'] {
+  font-size: 24px;
+}
+
+.btn.phone {
+  background: var(--ic-secondary);
 }
 
 .btn.wa {
   background: #25D366;
 }
 
-.btn svg,
-.btn [class^='iconify'] {
-  font-size: 24px;
+.btn.email {
+  background: var(--ic-primary);
+}
+
+/* Left-pointing tooltip on hover/focus */
+.btn::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  right: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 6px 10px;
+  background: var(--ic-text-primary);
+  color: var(--ic-text-on-dark);
+  font-family: var(--ic-font-ui);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border-radius: var(--radius-md);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease;
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  right: calc(100% + 6px);
+  top: 50%;
+  transform: translateY(-50%);
+  border: 6px solid transparent;
+  border-left-color: var(--ic-text-primary);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease;
+}
+
+.btn:hover::before,
+.btn:hover::after,
+.btn:focus-visible::before,
+.btn:focus-visible::after {
+  opacity: 1;
 }

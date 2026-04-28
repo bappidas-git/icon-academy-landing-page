@@ -139,6 +139,12 @@ export const DRAWER_TITLES = {
     subtitle: 'You are 2 minutes from your future.',
   },
 
+  // Sticky mobile bar (bottom-docked Apply Now)
+  sticky_mobile_apply: {
+    title: 'Apply for 2026 Admissions',
+    subtitle: 'Two minutes — and our team will call within 24 hours.',
+  },
+
   // Default fallback
   general: {
     title: 'Apply for 2026 Admissions',
