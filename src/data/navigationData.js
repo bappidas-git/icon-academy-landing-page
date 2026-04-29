@@ -8,9 +8,9 @@
 export const NAV_LINKS = [
   { id: 'about', label: 'About', href: '#about' },
   { id: 'programs', label: 'Programmes', href: '#programs' },
-  { id: 'why', label: 'Why Icon', href: '#why-icon' },
   { id: 'admissions', label: 'Admissions', href: '#admissions' },
   { id: 'fees', label: 'Fees', href: '#fees' },
+  { id: 'why', label: 'Why Icon', href: '#why-icon' },
   { id: 'contact', label: 'Contact', href: '#contact' },
 ];
 

@@ -327,9 +327,9 @@ BackToTopButton.displayName = 'BackToTopButton';
 const SECTION_PRELOADS = [
   () => import('./components/sections/AboutSection'),
   () => import('./components/sections/ProgramsSection'),
-  () => import('./components/sections/WhyIconSection'),
   () => import('./components/sections/AdmissionsSection'),
   () => import('./components/sections/FeesSection'),
+  () => import('./components/sections/WhyIconSection'),
   () => import('./components/sections/FAQSection/FAQSection'),
   () => import('./components/sections/FinalCTASection/FinalCTASection'),
 ];
@@ -467,13 +467,6 @@ const HomePageContent = () => {
           </Suspense>
         </ErrorBoundary>
 
-        {/* Why Icon Section - twelve USPs + soft re-engagement CTA */}
-        <ErrorBoundary>
-          <Suspense fallback={<SectionLoader height={400} variant="default" />}>
-            <WhyIconSection />
-          </Suspense>
-        </ErrorBoundary>
-
         {/* Results Section - stat strip, achievement badges, notable alumni */}
         <ErrorBoundary>
           <Suspense fallback={<SectionLoader height={300} variant="minimal" />}>
@@ -520,6 +513,13 @@ const HomePageContent = () => {
         <ErrorBoundary>
           <Suspense fallback={<SectionLoader height={400} variant="default" />}>
             <ScholarshipsSection />
+          </Suspense>
+        </ErrorBoundary>
+
+        {/* Why Icon Section - twelve USPs + soft re-engagement CTA */}
+        <ErrorBoundary>
+          <Suspense fallback={<SectionLoader height={400} variant="default" />}>
+            <WhyIconSection />
           </Suspense>
         </ErrorBoundary>
 
