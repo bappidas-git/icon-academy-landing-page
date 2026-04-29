@@ -134,6 +134,10 @@
   display: block;
 }
 
+.logoWhite {
+  filter: brightness(0) invert(1);
+}
+
 .tagline {
   margin: 0 0 16px;
   font-family: var(--ic-font-body);
@@ -309,19 +313,40 @@
 }
 
 .legalLink {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font: inherit;
   color: rgba(255, 255, 255, 0.72);
   text-decoration: none;
+  cursor: pointer;
   transition: color var(--transition-fast);
 }
 
 .legalLink:hover {
   color: var(--ic-secondary-light);
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 .credit {
   white-space: nowrap;
   color: rgba(255, 255, 255, 0.6);
   font-style: italic;
+}
+
+.creditLink {
+  color: var(--ic-secondary-light);
+  font-style: normal;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.creditLink:hover {
+  color: var(--ic-secondary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 /* ===== Back-to-top floating button ===== */
