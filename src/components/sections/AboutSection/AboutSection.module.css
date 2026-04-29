@@ -127,22 +127,39 @@
   object-fit: cover;
 }
 
-.legacyBadge {
+.legacyBadgeRow {
   position: absolute;
-  left: 24px;
+  left: 50%;
   bottom: 24px;
+  transform: translateX(-50%);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 14px;
+  width: max-content;
+  max-width: calc(100% - 32px);
+}
+
+.legacyBadge {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 2px;
-  padding: 14px 18px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-radius: 16px;
+  gap: 4px;
+  padding: 14px 20px;
+  min-width: 160px;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.7);
   border-left: 4px solid var(--ic-secondary);
-  box-shadow: var(--ic-shadow-md);
-  max-width: 220px;
+  border-radius: 16px;
+  box-shadow:
+    0 8px 24px rgba(10, 31, 61, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
 .legacyBadgeYear {
@@ -249,19 +266,27 @@
   min-width: 220px;
 }
 
-.secondaryCta {
-  text-transform: none !important;
-  font-family: var(--ic-font-ui) !important;
-  font-weight: 600 !important;
-  font-size: 0.9375rem !important;
-  color: var(--ic-primary) !important;
-  padding: 0.5rem 0.75rem !important;
-}
-
 /* ===== Tablet (768–1023) ===== */
 @media (max-width: 1023px) {
   .pillarList {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .legacyBadgeRow {
+    gap: 10px;
+  }
+
+  .legacyBadge {
+    padding: 12px 16px;
+    min-width: 130px;
+  }
+
+  .legacyBadgeYear {
+    font-size: 1.5rem;
+  }
+
+  .legacyBadgeLabel {
+    font-size: 0.75rem;
   }
 }
 
@@ -292,19 +317,25 @@
     aspect-ratio: 4 / 3;
   }
 
+  .legacyBadgeRow {
+    bottom: 14px;
+    gap: 8px;
+    max-width: calc(100% - 20px);
+  }
+
   .legacyBadge {
-    left: 16px;
-    bottom: 16px;
-    padding: 12px 14px;
-    max-width: 180px;
+    padding: 10px 12px;
+    min-width: 0;
+    flex: 1 1 0;
   }
 
   .legacyBadgeYear {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
   }
 
   .legacyBadgeLabel {
-    font-size: 0.6875rem;
+    font-size: 0.625rem;
+    letter-spacing: 0.02em;
   }
 
   .pillarList {
@@ -324,9 +355,5 @@
   .primaryCta {
     width: 100%;
     min-width: 0;
-  }
-
-  .secondaryCta {
-    align-self: center;
   }
 }

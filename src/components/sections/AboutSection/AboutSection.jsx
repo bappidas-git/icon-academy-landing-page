@@ -44,6 +44,12 @@ const PILLARS = [
 
 const BUILDING_IMG = 'https://placehold.co/1280x640?text=Icon+Commerce+College+Campus';
 
+const LEGACY_BADGES = [
+  { value: '20+', label: 'Years of Academic Legacy' },
+  { value: '2,500+', label: 'Students Trained' },
+  { value: '4', label: 'NEP-Aligned UG Programmes' },
+];
+
 const AboutSection = () => {
   const { openLeadDrawer } = useModal();
   const reduced = useReducedMotion();
@@ -120,12 +126,14 @@ const AboutSection = () => {
               loading="lazy"
               decoding="async"
             />
-            <div className={styles.legacyBadge} aria-hidden="true">
-              <span className={styles.legacyBadgeYear}>20+</span>
-              <span className={styles.legacyBadgeLabel}>
-                Years of Academic Legacy
-              </span>
-            </div>
+            <ul className={styles.legacyBadgeRow} role="list">
+              {LEGACY_BADGES.map((badge) => (
+                <li key={badge.label} className={styles.legacyBadge}>
+                  <span className={styles.legacyBadgeYear}>{badge.value}</span>
+                  <span className={styles.legacyBadgeLabel}>{badge.label}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </motion.div>
 
@@ -169,14 +177,6 @@ const AboutSection = () => {
               onClick={() => openLeadDrawer({ source: 'about_apply' })}
             >
               Apply for 2026 Admissions
-            </Button>
-            <Button
-              variant="text"
-              size="large"
-              href="#programs"
-              className={styles.secondaryCta}
-            >
-              Explore Programmes →
             </Button>
           </div>
         </Reveal>

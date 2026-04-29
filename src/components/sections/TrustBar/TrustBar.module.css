@@ -1,88 +1,25 @@
 /* ============================================
    TrustBar Styles — Icon Commerce College
-   Slim credibility strip below the hero.
+   Slim, single-row auto-scrolling credibility
+   strip below the hero. Minimal, modern, and
+   responsive on every breakpoint.
    ============================================ */
 
 .section {
   background: var(--ic-bg-soft);
   border-top: 1px solid var(--ic-border);
   border-bottom: 1px solid var(--ic-border);
-  padding: 32px 0;
+  padding: 18px 0;
 }
 
 .inner {
   max-width: var(--container-xl);
   margin: 0 auto;
   padding-inline: var(--section-px);
-  display: grid;
-  grid-template-columns: 40% 35% 25%;
-  align-items: center;
-  gap: 24px;
-}
-
-/* ===== Column A — Affiliation badges ===== */
-.badgesCol {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.badgeCard {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px;
-  background: var(--ic-bg-default);
-  border: 1px solid var(--ic-border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--ic-shadow-sm);
-}
-
-.badgeImg {
-  width: 64px;
-  height: 64px;
-  border-radius: var(--radius-full);
-  object-fit: cover;
-  flex-shrink: 0;
-  background: var(--ic-bg-soft);
-}
-
-.badgeText {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: center;
-  column-gap: 8px;
-  row-gap: 2px;
-  line-height: 1.3;
-}
-
-.badgeIcon {
-  grid-row: 1 / span 2;
-  font-size: 20px;
-  color: var(--ic-primary);
-}
-
-.badgeLabel {
-  font-family: var(--ic-font-body);
-  font-size: 0.75rem;
-  color: var(--ic-text-secondary);
-  font-weight: var(--fw-medium);
-}
-
-.badgeAccent {
-  font-family: var(--ic-font-ui);
-  font-size: 0.9375rem;
-  color: var(--ic-text-primary);
-  font-weight: var(--fw-bold);
-}
-
-/* ===== Column B — Marquee ===== */
-.marqueeCol {
   position: relative;
-  width: 100%;
-  min-width: 0;
 }
 
+/* ===== Marquee viewport ===== */
 .marqueeViewport {
   position: relative;
   overflow: hidden;
@@ -90,15 +27,15 @@
   -webkit-mask-image: linear-gradient(
     to right,
     transparent 0,
-    #000 40px,
-    #000 calc(100% - 40px),
+    #000 56px,
+    #000 calc(100% - 56px),
     transparent 100%
   );
   mask-image: linear-gradient(
     to right,
     transparent 0,
-    #000 40px,
-    #000 calc(100% - 40px),
+    #000 56px,
+    #000 calc(100% - 56px),
     transparent 100%
   );
 }
@@ -128,8 +65,8 @@
   gap: 8px;
   height: 36px;
   padding: 0 14px;
-  background: var(--ic-bg-cream);
-  border: 1px solid var(--ic-secondary);
+  background: var(--ic-bg-default);
+  border: 1px solid var(--ic-border);
   border-radius: var(--radius-full);
   color: var(--ic-text-primary);
   font-family: var(--ic-font-ui);
@@ -137,6 +74,14 @@
   font-weight: var(--fw-semibold);
   white-space: nowrap;
   flex-shrink: 0;
+  box-shadow: var(--ic-shadow-sm);
+  transition: border-color 200ms ease, background 200ms ease;
+}
+
+.marqueeItem:hover,
+.marqueeItem:focus-visible {
+  border-color: var(--ic-secondary);
+  background: var(--ic-bg-cream);
 }
 
 .marqueeItem:focus-visible {
@@ -145,13 +90,14 @@
 }
 
 .marqueeIcon {
-  font-size: 18px;
-  color: var(--ic-primary);
+  font-size: 16px;
+  color: var(--ic-secondary);
   flex-shrink: 0;
 }
 
 .marqueeText {
   line-height: 1;
+  letter-spacing: 0.01em;
 }
 
 /* Visually hidden but readable to assistive tech */
@@ -168,83 +114,38 @@
   border: 0;
 }
 
-/* ===== Column C — Estd. anchor ===== */
-.anchorCol {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 4px;
-  text-align: right;
-}
-
-.anchorEyebrow {
-  font-family: var(--ic-font-ui);
-  font-size: 12px;
-  font-weight: var(--fw-bold);
-  text-transform: uppercase;
-  letter-spacing: var(--ls-wider);
-  color: var(--ic-secondary);
-}
-
-.anchorCaption {
-  font-family: var(--ic-font-ui);
-  font-size: 17px;
-  font-weight: var(--fw-semibold);
-  color: var(--ic-text-primary);
-  line-height: var(--lh-snug);
-}
-
-/* ===== Tablet (768–1024) — 2 stacked rows ===== */
-@media (max-width: 1023px) and (min-width: 768px) {
-  .inner {
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-      'badges anchor'
-      'marquee marquee';
-    row-gap: 20px;
-  }
-
-  .badgesCol {
-    grid-area: badges;
-  }
-
-  .anchorCol {
-    grid-area: anchor;
-  }
-
-  .marqueeCol {
-    grid-area: marquee;
-  }
-}
-
-/* ===== Mobile (<768) — single stacked row ===== */
+/* ===== Mobile (<768) ===== */
 @media (max-width: 767px) {
   .section {
-    padding: 24px 0;
+    padding: 14px 0;
   }
 
-  .inner {
-    grid-template-columns: 1fr;
-    gap: 18px;
+  .marqueeItem {
+    height: 32px;
+    padding: 0 12px;
+    font-size: 0.75rem;
+    gap: 6px;
   }
 
-  .badgesCol {
-    gap: 8px;
+  .marqueeIcon {
+    font-size: 14px;
   }
 
-  .badgeCard {
-    padding: 12px;
-    gap: 10px;
-  }
-
-  .badgeImg {
-    width: 56px;
-    height: 56px;
-  }
-
-  .anchorCol {
-    align-items: flex-start;
-    text-align: left;
+  .marqueeViewport {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 24px,
+      #000 calc(100% - 24px),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 24px,
+      #000 calc(100% - 24px),
+      transparent 100%
+    );
   }
 }
 
