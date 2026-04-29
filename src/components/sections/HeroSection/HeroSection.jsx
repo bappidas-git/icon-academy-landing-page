@@ -27,7 +27,7 @@ const BENEFIT_CHIPS = [
 ];
 
 const HERO_STATS = [
-  { value: "2,500+", label: "Students Trained" },
+  { value: "98%", label: "Pass Rate" },
   { value: "4", label: "UG Programmes" },
   { value: "20+", label: "Years of Excellence" },
 ];
