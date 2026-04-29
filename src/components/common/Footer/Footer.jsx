@@ -20,7 +20,7 @@ import LegalModal from '../LegalModal';
 import styles from './Footer.module.css';
 
 const LOGO_URL =
-  'https://res.cloudinary.com/dn9gyaiik/image/upload/v1777447286/icon-logo_ssglnp.png';
+  'https://res.cloudinary.com/dn9gyaiik/image/upload/v1777456540/icon-logo-white_cgp9nr.png';
 const SAMARTH_URL = 'https://assamadmission.samarth.ac.in/';
 const BACK_TO_TOP_THRESHOLD = 600;
 
@@ -161,7 +161,7 @@ const Footer = () => {
             <img
               src={LOGO_URL}
               alt={`${name} logo`}
-              className={`${styles.logo} ${styles.logoWhite}`}
+              className={styles.logo}
               width={200}
               height={60}
               loading="lazy"
