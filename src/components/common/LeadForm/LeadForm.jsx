@@ -19,12 +19,10 @@ import {
 } from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Icon } from '@iconify/react';
-import { showAlert, showError, showInfo } from '../../../utils/swalHelper';
+import { showAlert, showError } from '../../../utils/swalHelper';
+import { submitEnquiry } from '../../../utils/enquirySubmit';
 import Button from '../Button/Button';
 import {
-  validateIndianMobile,
-  validateEmail,
-  validateName,
   getMobileErrorMessage,
   getEmailErrorMessage,
   getNameErrorMessage,
@@ -207,92 +205,45 @@ const LeadForm = ({
     setSubmitStatus(null);
 
     try {
-      // Submit to PHP backend
-      const apiUrl = process.env.REACT_APP_API_BASE_URL || '';
-      const endpoint = `${apiUrl}/api/save-lead.php`;
-
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          mobile: formData.mobile,
-          service_interest: formData.service_interest || '',
-          message: formData.message || '',
-          source,
-        }),
+      const result = await submitEnquiry({
+        name: formData.name.trim(),
+        mobile: formData.mobile.trim(),
+        email: formData.email.trim(),
+        service_interest: formData.service_interest || '',
+        message: formData.message || '',
+        source,
       });
 
-      // Check if response has content before parsing JSON
-      const responseText = await response.text();
-      let data = {};
-
-      if (responseText) {
-        try {
-          data = JSON.parse(responseText);
-        } catch (parseError) {
-          console.error('JSON parse error:', parseError);
-          throw new Error('Invalid server response');
-        }
+      if (!result.success) {
+        throw new Error(result.message || 'Something went wrong');
       }
 
-      // Handle duplicate lead (409 Conflict)
-      if (response.status === 409 || data.data?.duplicate) {
-        await showInfo(
-          'Already submitted',
-          "We've already received your details — our admissions team will call you within 24 hours."
-        );
-        return;
-      }
-
-      // Handle validation errors
-      if (response.status === 422 && data.data?.errors) {
-        setErrors(data.data.errors);
-        throw new Error('Validation failed');
-      }
-
-      // Handle other errors
-      if (!response.ok || !data.success) {
-        throw new Error(data.message || 'Something went wrong');
-      }
-
-      // Success handling
       setSubmitStatus('success');
       setFormData(initialFormState);
       setTouched({});
 
-      // Show success message with SweetAlert2
       await showAlert({
         icon: 'success',
-        title: 'Thanks!',
-        text: 'Our admissions team will call you within 24 hours.',
+        title: 'Message sent!',
+        text: "Thanks for reaching out — our team will get back to you within 24 hours.",
         confirmButtonColor: '#1E3A8A',
-        confirmButtonText: 'Great!',
-        timer: 3000,
+        confirmButtonText: 'Got it',
+        timer: 3500,
         timerProgressBar: true,
       });
 
-      // Callback for parent component
       if (onSubmitSuccess) {
         onSubmitSuccess(formData);
       }
     } catch (error) {
-      console.error('Form submission error:', error);
+      console.error('Enquiry submission error:', error);
       setSubmitStatus('error');
 
-      // Show error message with SweetAlert2 (skip if validation error)
-      if (error.message !== 'Validation failed') {
-        await showError(
-          'Oops!',
-          error.message || 'Something went wrong. Please try again.'
-        );
-      }
+      await showError(
+        'Oops!',
+        error.message || 'Something went wrong. Please try again.'
+      );
 
-      // Callback for parent component
       if (onSubmitError) {
         onSubmitError(error);
       }
