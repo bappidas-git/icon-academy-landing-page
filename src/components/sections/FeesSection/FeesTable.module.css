@@ -1,6 +1,6 @@
 /* ============================================
    FeesTable Styles — Icon Commerce College
-   Indigo sticky header, cream zebra rows, tabular
+   Indigo header, cream zebra rows, tabular
    numeric cells. Stacked cards on mobile so we
    never force horizontal scroll. Disclaimers in
    muted caption italics.
@@ -29,9 +29,6 @@
 }
 
 .thead {
-  position: sticky;
-  top: var(--header-height, 80px);
-  z-index: 1;
   background: var(--ic-primary);
 }
 

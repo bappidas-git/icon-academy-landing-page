@@ -1,13 +1,13 @@
 /* ============================================
    FeesTable — Icon Commerce College
    Renders the four-row fee schedule as a semantic
-   <table> on desktop (sticky indigo header, cream
-   zebra stripes, tabular numerics) and as stacked
-   cards with visible labels on mobile (no
-   horizontal scroll). Each row has a coral Apply
-   button that opens the lead drawer with a
-   programme-specific source. Disclaimers render
-   below as a numbered list in caption type.
+   <table> on desktop (indigo header, cream zebra
+   stripes, tabular numerics) and as stacked cards
+   with visible labels on mobile (no horizontal
+   scroll). Each row has a coral Apply button that
+   opens the lead drawer with a programme-specific
+   source. Disclaimers render below as a numbered
+   list in caption type.
    ============================================ */
 
 import React from 'react';
