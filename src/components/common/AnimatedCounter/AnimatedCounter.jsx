@@ -34,11 +34,12 @@ const AnimatedCounter = ({
   // Check if value is a special format like "24/7" that shouldn't be animated
   const isSpecialFormat = /^\d+\/\d+$/.test(valueString.trim());
 
-  // Parse value (handle strings like "100+" or "4000+")
+  // Parse value (handle strings like "100+", "4000+", or "2,500+")
   const parseValue = useCallback((val) => {
     if (typeof val === 'number') return val;
-    const numMatch = String(val).match(/^[\d.]+/);
-    return numMatch ? parseFloat(numMatch[0]) : 0;
+    const numMatch = String(val).match(/^[\d.,]+/);
+    if (!numMatch) return 0;
+    return parseFloat(numMatch[0].replace(/,/g, '')) || 0;
   }, []);
 
   const numericValue = parseValue(value);

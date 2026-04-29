@@ -92,22 +92,6 @@
   }
 }
 
-/* ===== Compare row ===== */
-.compareRow {
-  display: flex;
-  justify-content: center;
-  margin-top: 2.5rem;
-}
-
-.compareLink {
-  text-transform: none !important;
-  font-family: var(--ic-font-ui) !important;
-  font-weight: 600 !important;
-  font-size: 0.9375rem !important;
-  color: var(--ic-primary) !important;
-  padding: 0.5rem 0.75rem !important;
-}
-
 /* ===== Mobile (<768) ===== */
 @media (max-width: 767px) {
   .section {

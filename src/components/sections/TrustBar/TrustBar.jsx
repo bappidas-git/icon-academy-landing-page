@@ -1,12 +1,10 @@
 /* ============================================
    TrustBar — Icon Commerce College
-   Slim credibility strip directly below the hero.
-   Three columns on desktop:
-     A) Affiliation badges (Gauhati Uni, NEP, Samarth)
-     B) Auto-scrolling marquee of stats / mini-facts
-     C) "Estd. 2004" anchor caption
-   Collapses to stacked rows on tablet / mobile.
-   Marquee pauses on hover and respects
+   Slim, single-row auto-scrolling credibility
+   strip directly below the hero. Consolidates
+   affiliation badges + trust facts into one
+   minimal, continuously-scrolling marquee that
+   pauses on hover and respects
    `prefers-reduced-motion`.
    ============================================ */
 
@@ -18,8 +16,8 @@ import useMediaQuery from '../../../hooks/useMediaQuery';
 import { TRUST_BADGES, MARQUEE_ITEMS } from '../../../data/trustBarData';
 import styles from './TrustBar.module.css';
 
-const MARQUEE_DURATION_DESKTOP = 30;
-const MARQUEE_DURATION_MOBILE = 24;
+const MARQUEE_DURATION_DESKTOP = 40;
+const MARQUEE_DURATION_MOBILE = 28;
 
 const TrustBar = () => {
   const reduced = useReducedMotion();
@@ -29,6 +27,20 @@ const TrustBar = () => {
   const [isPaused, setIsPaused] = useState(false);
 
   const duration = isMobile ? MARQUEE_DURATION_MOBILE : MARQUEE_DURATION_DESKTOP;
+
+  // Combine badges + facts into a single unified pill list
+  const trackItems = [
+    ...TRUST_BADGES.map((b) => ({
+      id: `badge-${b.id}`,
+      icon: b.icon,
+      text: `${b.label} ${b.accent}`,
+    })),
+    ...MARQUEE_ITEMS.map((m) => ({
+      id: `fact-${m.id}`,
+      icon: m.icon,
+      text: m.text,
+    })),
+  ];
 
   useEffect(() => {
     if (reduced) {
@@ -50,7 +62,7 @@ const TrustBar = () => {
     });
   }, [reduced, isPaused, duration, controls]);
 
-  const marqueeItems = reduced ? MARQUEE_ITEMS.slice(0, 3) : [...MARQUEE_ITEMS, ...MARQUEE_ITEMS];
+  const renderItems = reduced ? trackItems : [...trackItems, ...trackItems];
 
   return (
     <section
@@ -59,94 +71,46 @@ const TrustBar = () => {
       aria-label="Trust and credibility"
       className={styles.section}
     >
-      <div className={styles.inner}>
-        {/* === Column A — Affiliation badges === */}
-        <div className={styles.badgesCol}>
-          {TRUST_BADGES.map((badge, index) => (
-            <motion.div
-              key={badge.id}
-              className={styles.badgeCard}
-              initial={reduced ? false : { opacity: 0, y: 4 }}
-              whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{
-                duration: 0.4,
-                ease: 'easeOut',
-                delay: reduced ? 0 : index * 0.08,
-              }}
-            >
-              <img
-                src={badge.img}
-                alt=""
-                className={styles.badgeImg}
-                width="64"
-                height="64"
-                loading="lazy"
-                decoding="async"
-                aria-hidden="true"
-              />
-              <div className={styles.badgeText}>
+      <div
+        className={styles.inner}
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+        onFocus={() => setIsPaused(true)}
+        onBlur={() => setIsPaused(false)}
+      >
+        <div
+          className={`${styles.marqueeViewport} ${reduced ? styles.marqueeViewportStatic : ''}`}
+          aria-hidden="true"
+        >
+          <motion.div
+            ref={trackRef}
+            className={`${styles.marqueeTrack} ${reduced ? styles.marqueeTrackStatic : ''}`}
+            animate={controls}
+          >
+            {renderItems.map((item, index) => (
+              <span
+                key={`${item.id}-${index}`}
+                className={styles.marqueeItem}
+                tabIndex={0}
+                aria-label={item.text}
+              >
                 <Icon
-                  icon={badge.icon}
-                  className={styles.badgeIcon}
+                  icon={item.icon}
+                  className={styles.marqueeIcon}
                   aria-hidden="true"
                 />
-                <span className={styles.badgeLabel}>{badge.label}</span>
-                <span className={styles.badgeAccent}>{badge.accent}</span>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* === Column B — Marquee === */}
-        <div
-          className={styles.marqueeCol}
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-          onFocus={() => setIsPaused(true)}
-          onBlur={() => setIsPaused(false)}
-        >
-          <div
-            className={`${styles.marqueeViewport} ${reduced ? styles.marqueeViewportStatic : ''}`}
-            aria-hidden="true"
-          >
-            <motion.div
-              ref={trackRef}
-              className={`${styles.marqueeTrack} ${reduced ? styles.marqueeTrackStatic : ''}`}
-              animate={controls}
-            >
-              {marqueeItems.map((item, index) => (
-                <span
-                  key={`${item.id}-${index}`}
-                  className={styles.marqueeItem}
-                  tabIndex={0}
-                  aria-label={item.text}
-                >
-                  <Icon
-                    icon={item.icon}
-                    className={styles.marqueeIcon}
-                    aria-hidden="true"
-                  />
-                  <span className={styles.marqueeText}>{item.text}</span>
-                </span>
-              ))}
-            </motion.div>
-          </div>
-          {/* Visually-hidden semantic alternative for assistive tech */}
-          <ul role="list" className={styles.srOnlyList}>
-            {MARQUEE_ITEMS.map((item) => (
-              <li key={item.id}>{item.text}</li>
+                <span className={styles.marqueeText}>{item.text}</span>
+              </span>
             ))}
-          </ul>
+          </motion.div>
         </div>
 
-        {/* === Column C — Estd. anchor === */}
-        <div className={styles.anchorCol}>
-          <span className={styles.anchorEyebrow}>Estd. 2004</span>
-          <span className={styles.anchorCaption}>
-            20+ Years of Academic Legacy
-          </span>
-        </div>
+        {/* Visually-hidden semantic alternative for assistive tech */}
+        <ul role="list" className={styles.srOnlyList}>
+          {trackItems.map((item) => (
+            <li key={item.id}>{item.text}</li>
+          ))}
+        </ul>
       </div>
     </section>
   );

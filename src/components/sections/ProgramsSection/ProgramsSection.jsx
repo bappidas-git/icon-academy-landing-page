@@ -7,18 +7,13 @@
    ============================================ */
 
 import React from 'react';
-import { Container, Typography, Button } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import Reveal from '../../common/Reveal/Reveal';
 import { PROGRAMS } from '../../../data/programsData';
 import ProgramCard from './ProgramCard';
 import styles from './ProgramsSection.module.css';
 
 const ProgramsSection = () => {
-  const handleCompareClick = () => {
-    // Comparison-table modal is a future iteration (prompt 21+).
-    console.info('Comparison table TBD');
-  };
-
   return (
     <section
       id="programs"
@@ -60,17 +55,6 @@ const ProgramsSection = () => {
             </li>
           ))}
         </ul>
-
-        <div className={styles.compareRow}>
-          <Button
-            variant="text"
-            size="medium"
-            className={styles.compareLink}
-            onClick={handleCompareClick}
-          >
-            Compare programmes side-by-side →
-          </Button>
-        </div>
       </Container>
     </section>
   );
