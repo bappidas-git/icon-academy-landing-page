@@ -1,0 +1,150 @@
+/* ============================================
+   LegalModal Styles — Icon Commerce College
+   Full-viewport popup for Privacy Policy and
+   Terms of Use copy.
+   ============================================ */
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal-backdrop, 1300);
+  background: rgba(10, 31, 61, 0.78);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  padding: 0;
+}
+
+.panel {
+  position: relative;
+  z-index: var(--z-modal, 1400);
+  width: 100%;
+  max-width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  background: var(--white, #ffffff);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.header {
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border-gray, #e5e7eb);
+  background: var(--white, #ffffff);
+}
+
+.headerText {
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--ic-font-ui, 'Inter', sans-serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--ic-primary-dark, #0a1f3d);
+  line-height: 1.25;
+}
+
+.meta {
+  margin: 4px 0 0;
+  font-family: var(--ic-font-body, 'Inter', sans-serif);
+  font-size: 0.8125rem;
+  color: var(--text-gray, #6b7280);
+}
+
+.closeButton {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  color: var(--text-gray, #6b7280);
+}
+
+.closeButton:hover {
+  color: var(--ic-primary-dark, #0a1f3d);
+  background: var(--light-gray, #f3f4f6);
+}
+
+.body {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.bodyInner {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 32px 24px 56px;
+}
+
+.intro {
+  margin: 0 0 24px;
+  font-family: var(--ic-font-body, 'Inter', sans-serif);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--text-gray, #4b5563);
+}
+
+.section {
+  margin: 0 0 22px;
+}
+
+.sectionHeading {
+  margin: 0 0 8px;
+  font-family: var(--ic-font-ui, 'Inter', sans-serif);
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--ic-primary-dark, #0a1f3d);
+  line-height: 1.35;
+}
+
+.sectionBody {
+  margin: 0;
+  font-family: var(--ic-font-body, 'Inter', sans-serif);
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--text-gray, #4b5563);
+}
+
+@media (min-width: 768px) {
+  .header {
+    padding: 24px 32px;
+  }
+
+  .title {
+    font-size: 1.75rem;
+  }
+
+  .bodyInner {
+    padding: 40px 32px 64px;
+  }
+
+  .intro {
+    font-size: 1.0625rem;
+  }
+
+  .sectionHeading {
+    font-size: 1.125rem;
+  }
+
+  .sectionBody {
+    font-size: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop,
+  .panel {
+    transition: none;
+    animation: none;
+  }
+}

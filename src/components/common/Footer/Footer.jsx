@@ -16,6 +16,7 @@ import { Icon } from '@iconify/react';
 import { useModal } from '../../../context/ModalContext';
 import { useScrolledPast } from '../../../hooks/useScrollPosition';
 import { COLLEGE_LOCATION } from '../../../data/locationData';
+import LegalModal from '../LegalModal';
 import styles from './Footer.module.css';
 
 const LOGO_URL =
@@ -55,6 +56,7 @@ const Footer = () => {
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
   const isScrolledPastHero = useScrolledPast(BACK_TO_TOP_THRESHOLD);
   const [openColumn, setOpenColumn] = useState(null);
+  const [legalModal, setLegalModal] = useState(null);
 
   const { name, addressLine1, addressLine2, phone, email, socials } =
     COLLEGE_LOCATION;
@@ -72,6 +74,13 @@ const Footer = () => {
   const handleColumnToggle = (key) => () => {
     setOpenColumn((current) => (current === key ? null : key));
   };
+
+  const openLegal = (type) => (event) => {
+    event.preventDefault();
+    setLegalModal(type);
+  };
+
+  const closeLegal = () => setLegalModal(null);
 
   const handleBackToTop = () => {
     const heroEl = document.getElementById('hero');
@@ -152,7 +161,7 @@ const Footer = () => {
             <img
               src={LOGO_URL}
               alt={`${name} logo`}
-              className={styles.logo}
+              className={`${styles.logo} ${styles.logoWhite}`}
               width={200}
               height={60}
               loading="lazy"
@@ -316,17 +325,32 @@ const Footer = () => {
             className={styles.legalLinks}
             aria-label="Footer legal navigation"
           >
-            <a href="#" className={styles.legalLink}>
+            <button
+              type="button"
+              className={styles.legalLink}
+              onClick={openLegal('privacy')}
+            >
               Privacy Policy
-            </a>
-            <a href="#" className={styles.legalLink}>
+            </button>
+            <button
+              type="button"
+              className={styles.legalLink}
+              onClick={openLegal('terms')}
+            >
               Terms of Use
-            </a>
-            <a href="/sitemap.xml" className={styles.legalLink}>
-              Sitemap
-            </a>
+            </button>
           </nav>
-          <span className={styles.credit}>Designed &amp; built with care.</span>
+          <span className={styles.credit}>
+            Designed &amp; Developed by{' '}
+            <a
+              href="https://assamdigital.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.creditLink}
+            >
+              Assam Digital
+            </a>
+          </span>
         </div>
       </div>
 
@@ -341,6 +365,13 @@ const Footer = () => {
       >
         <Icon icon="mdi:arrow-up" width={22} height={22} aria-hidden="true" />
       </button>
+
+      {/* ===== Legal popup (Privacy Policy / Terms of Use) ===== */}
+      <LegalModal
+        isOpen={legalModal !== null}
+        onClose={closeLegal}
+        type={legalModal}
+      />
     </footer>
   );
 };
