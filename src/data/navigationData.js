@@ -9,7 +9,6 @@ export const NAV_LINKS = [
   { id: 'about', label: 'About', href: '#about' },
   { id: 'programs', label: 'Programmes', href: '#programs' },
   { id: 'why', label: 'Why Icon', href: '#why-icon' },
-  { id: 'faculty', label: 'Faculty', href: '#faculty' },
   { id: 'admissions', label: 'Admissions', href: '#admissions' },
   { id: 'fees', label: 'Fees', href: '#fees' },
   { id: 'contact', label: 'Contact', href: '#contact' },
@@ -26,6 +25,6 @@ export const BRAND = {
   shortName: 'ICC',
   eyebrow: 'Estd. 2004 · Affiliated to Gauhati University',
   tagline: 'Where Knowledge Meets Character',
-  logoWide: 'https://placehold.co/200x60?text=Icon+Commerce+College',
-  logoCompact: 'https://placehold.co/60x60?text=ICC',
+  logoWide: 'https://res.cloudinary.com/dn9gyaiik/image/upload/v1777447286/icon-logo_ssglnp.png',
+  logoCompact: 'https://res.cloudinary.com/dn9gyaiik/image/upload/v1777447286/icon-logo_ssglnp.png',
 };

@@ -20,7 +20,6 @@ import AnimatedCounter from '../../common/AnimatedCounter/AnimatedCounter';
 import {
   STAT_HIGHLIGHTS,
   ACHIEVEMENT_BADGES,
-  NOTABLE_ALUMNI,
 } from '../../../data/resultsData';
 import styles from './ResultsSection.module.css';
 
@@ -107,55 +106,6 @@ const ResultsSection = () => {
             </li>
           ))}
         </ul>
-
-        {/* ===== Notable alumni ===== */}
-        <div className={styles.alumniBlock}>
-          <Reveal variant="slide-up" delay={0}>
-            <h3 className={styles.subheading}>Notable Alumni</h3>
-          </Reveal>
-
-          <ul
-            className={styles.alumniGrid}
-            role="list"
-            aria-label="Notable alumni of Icon Commerce College"
-          >
-            {NOTABLE_ALUMNI.map((alum, index) => (
-              <li key={alum.id} className={styles.alumniItem}>
-                <Reveal variant="slide-up" delay={index * 40}>
-                  <article
-                    className={styles.alumniCard}
-                    aria-labelledby={`alumni-${alum.id}-name`}
-                  >
-                    <div className={styles.alumniImageWrap}>
-                      <img
-                        src={alum.img}
-                        alt={`${alum.name} — ${alum.role}, ${alum.org}`}
-                        className={styles.alumniImage}
-                        width="200"
-                        height="200"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    </div>
-                    <div className={styles.alumniBody}>
-                      <h4
-                        id={`alumni-${alum.id}-name`}
-                        className={styles.alumniName}
-                      >
-                        {alum.name}
-                      </h4>
-                      <p className={styles.alumniRole}>{alum.role}</p>
-                      <p className={styles.alumniOrg}>{alum.org}</p>
-                      <span className={styles.alumniStreamChip}>
-                        {alum.stream}
-                      </span>
-                    </div>
-                  </article>
-                </Reveal>
-              </li>
-            ))}
-          </ul>
-        </div>
 
         {/* ===== Apply CTA bar ===== */}
         <Reveal variant="slide-up" delay={0}>
