@@ -19,7 +19,7 @@ import { COLLEGE_LOCATION } from '../../../data/locationData';
 import styles from './Footer.module.css';
 
 const LOGO_URL =
-  'https://placehold.co/200x60?text=Icon+Commerce+College+inverted';
+  'https://res.cloudinary.com/dn9gyaiik/image/upload/v1777447286/icon-logo_ssglnp.png';
 const SAMARTH_URL = 'https://assamadmission.samarth.ac.in/';
 const BACK_TO_TOP_THRESHOLD = 600;
 
@@ -36,7 +36,6 @@ const PROGRAMME_LINKS = [
 const QUICK_LINKS = [
   { label: 'About', href: '#about' },
   { label: 'Why Icon', href: '#why-icon' },
-  { label: 'Faculty', href: '#faculty' },
   { label: 'Campus Life', href: '#campus-life' },
   { label: 'Testimonials', href: '#testimonials' },
   { label: 'FAQ', href: '#faq' },

@@ -85,6 +85,20 @@ const Step2Background = ({ data, errors, onChange }) => {
             }
             inputProps={{ "aria-label": "Your home state" }}
             classes={{ icon: styles.selectChevron }}
+            MenuProps={{
+              sx: { zIndex: 10010 },
+              PaperProps: {
+                sx: {
+                  maxHeight: 320,
+                  borderRadius: "12px",
+                  marginTop: "4px",
+                  boxShadow:
+                    "0 12px 32px rgba(15, 23, 42, 0.18), 0 2px 6px rgba(15, 23, 42, 0.08)",
+                },
+              },
+              anchorOrigin: { vertical: "bottom", horizontal: "left" },
+              transformOrigin: { vertical: "top", horizontal: "left" },
+            }}
           >
             {STATE_OPTIONS.map((option) => (
               <MenuItem key={option} value={option}>

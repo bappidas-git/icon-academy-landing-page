@@ -49,7 +49,6 @@ const AdminLayout = lazy(() => import('./admin/components/AdminLayout'));
 const AboutSection = lazy(() => import('./components/sections/AboutSection'));
 const ProgramsSection = lazy(() => import('./components/sections/ProgramsSection'));
 const WhyIconSection = lazy(() => import('./components/sections/WhyIconSection'));
-const FacultySection = lazy(() => import('./components/sections/FacultySection'));
 const ResultsSection = lazy(() => import('./components/sections/ResultsSection'));
 const FacilitiesSection = lazy(() => import('./components/sections/FacilitiesSection'));
 const CampusLifeSection = lazy(() => import('./components/sections/CampusLifeSection'));
@@ -329,7 +328,6 @@ const SECTION_PRELOADS = [
   () => import('./components/sections/AboutSection'),
   () => import('./components/sections/ProgramsSection'),
   () => import('./components/sections/WhyIconSection'),
-  () => import('./components/sections/FacultySection'),
   () => import('./components/sections/AdmissionsSection'),
   () => import('./components/sections/FeesSection'),
   () => import('./components/sections/FAQSection/FAQSection'),
@@ -473,13 +471,6 @@ const HomePageContent = () => {
         <ErrorBoundary>
           <Suspense fallback={<SectionLoader height={400} variant="default" />}>
             <WhyIconSection />
-          </Suspense>
-        </ErrorBoundary>
-
-        {/* Faculty Section - leadership rail, filterable faculty grid, guest strip */}
-        <ErrorBoundary>
-          <Suspense fallback={<SectionLoader height={500} variant="skeleton" />}>
-            <FacultySection />
           </Suspense>
         </ErrorBoundary>
 
