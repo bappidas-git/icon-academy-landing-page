@@ -203,6 +203,35 @@
   flex-shrink: 0;
 }
 
+/* Drawer variant: always stack indicator above the nav row so the
+   third-step label (and its focus halo) can never overlap the Back
+   button. */
+.wrapperDrawer .footerRow {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+}
+
+.wrapperDrawer .footerIndicator {
+  max-width: none;
+  order: 1;
+}
+
+.wrapperDrawer .footerNav {
+  display: flex;
+  order: 2;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.wrapperDrawer .primaryButton {
+  flex: 1 1 auto;
+}
+
+.wrapperDrawer .backButton {
+  flex: 0 0 auto;
+}
+
 .backButton {
   display: inline-flex;
   align-items: center;
