@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { TextField, Checkbox, CircularProgress } from '@mui/material';
 import { useAdminAuth } from '../context/AdminAuthContext';
+import { BRAND } from '../../data/navigationData';
 import styles from './AdminLogin.module.css';
 
 const AdminLogin = () => {
@@ -41,8 +42,8 @@ const AdminLogin = () => {
         <div className={styles.loginHeader}>
           <div className={styles.loginLogo}>
             <img
-              src="/svgs/logo.svg"
-              alt="Logo"
+              src={BRAND.logoWide}
+              alt={`${BRAND.name} logo`}
             />
           </div>
           <h1 className={styles.loginTitle}>Admin</h1>

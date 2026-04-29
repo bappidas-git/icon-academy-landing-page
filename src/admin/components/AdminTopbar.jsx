@@ -6,11 +6,13 @@ import React, { useState, useRef, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import { useAdminAuth } from '../context/AdminAuthContext';
+import { BRAND } from '../../data/navigationData';
 import styles from './AdminTopbar.module.css';
 
 const navItems = [
   { label: 'Dashboard', path: '/admin/dashboard', icon: 'mdi:view-dashboard' },
   { label: 'Leads', path: '/admin/lms', icon: 'mdi:account-group' },
+  { label: 'General Enquiry', path: '/admin/enquiries', icon: 'mdi:message-text' },
   { label: 'Guidelines', path: '/admin/guideline', icon: 'mdi:book-open-page-variant' },
 ];
 
@@ -58,8 +60,8 @@ const AdminTopbar = () => {
     <header className={styles.topbar}>
       <div className={styles.topbarLeft}>
         <img
-          src="/svgs/logo.svg"
-          alt="Logo"
+          src={BRAND.logoWide}
+          alt={`${BRAND.name} logo`}
           className={styles.logo}
         />
         <span className={styles.divider} />
@@ -111,8 +113,8 @@ const AdminTopbar = () => {
             {/* Logo at top */}
             <div className={styles.mobileMenuHeader}>
               <img
-                src="/svgs/logo.svg"
-                alt="Logo"
+                src={BRAND.logoWide}
+                alt={`${BRAND.name} logo`}
                 className={styles.mobileMenuLogo}
               />
             </div>
